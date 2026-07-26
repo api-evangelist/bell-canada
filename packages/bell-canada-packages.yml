@@ -1,0 +1,43 @@
+generated: '2026-07-25'
+method: searched
+result: none
+packages: []
+summary: >-
+  Bell Canada publishes no first-party client library in any language. The developer portal offers
+  only inline curl / Python / PHP / Java request examples on each API reference page; there is no
+  SDK page, no download link and no source repository. No Packages or SDKs pointer is wired for this
+  provider because no package exists — recording the negative so re-runs do not re-search blindly.
+registries_searched:
+- registry: npm
+  query: bell canada tmf / bellcanada
+  result: no first-party package
+- registry: PyPI
+  query: bell-canada
+  result: 404 on https://pypi.org/simple/bell-canada/
+- registry: Maven Central
+  result: no first-party artifact
+- registry: NuGet
+  result: no first-party package
+- registry: pkg.go.dev
+  result: no first-party module
+- registry: RubyGems
+  result: no first-party gem
+- registry: Packagist
+  result: no first-party package
+- registry: crates.io
+  result: no first-party crate
+source_repositories:
+- url: https://github.com/bellcanada
+  status: 200
+  verified_organization: true
+  public_repos: 0
+  note: >-
+    The GitHub organization is real and GitHub-verified ("Canada's largest communications company",
+    created 2022-06-27, blog https://bell.ca) but publishes zero public repositories, so there is no
+    open-source SDK, no .proto and no reference client to harvest.
+docs_evidence:
+  source: https://developer.bell.ca/faq/apis
+  quote: >-
+    "You may use these details to connect to our APIs and submit requests using the technology of
+    your choice (see our API documentation for more detail on how to connect to each API)." Bell
+    explicitly leaves the client to the integrator.

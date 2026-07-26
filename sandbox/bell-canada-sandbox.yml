@@ -1,0 +1,63 @@
+generated: '2026-07-25'
+method: searched
+source: https://developer.bell.ca/faq/apis + https://developer.bell.ca/register + https://developer.bell.ca/troubleticket
+summary: >-
+  Bell runs a real sandbox for its enterprise APIs, but it is gated: access is granted by submitting
+  a business registration form that a Bell administrator reviews manually, after which the endpoint
+  and credentials arrive by email. There is no self-serve key, no in-browser console, no published
+  test data set and no published sandbox base URL. The one sandbox convention Bell does publish is
+  the x-external-system header.
+access:
+  self_serve: false
+  registration_url: https://developer.bell.ca/register
+  registration_text: >-
+    "Register to access Enterprise APIs. Complete the form below to register for access to Bell
+    Enterprise APIs ... The above information will be used to send you registration information to
+    allow you to access the Bell Sandbox APIs."
+  approval: manual, by a Bell administrator
+  credential_delivery: email (user ID, API endpoint and credentials)
+  cost: >-
+    "There is no cost associated with accessing and using the APIs in the sandbox environment. The
+    cost associated to the APIs in production will depend on the individual contract."
+environments:
+- name: sandbox
+  base_url: null
+  published: false
+  cost: free
+- name: production
+  base_url: null
+  published: false
+  cost: per contract
+  onboarding: >-
+    "Granting access to production environment may or may not require going through an API
+    onboarding project and will require contractual discussions."
+coverage_note: >-
+  "Some APIs only have Sandbox access. Some other APIs only have Production access. The rest will
+  have access to both environments. Please visit the API details pages of each API for more
+  information." Bell does not state which of the four APIs falls in which bucket.
+test_data:
+  fixtures_published: false
+  shape: >-
+    "The data in Sandbox environment is fake but will follow the same structure as the data in the
+    production environment."
+  warning: "Please ensure you do not submit private data via the Sandbox API."
+  note: >-
+    No magic identifiers, no seeded test accounts, no test ticket IDs and no trigger tooling are
+    published. The example responses on the reference pages are machine-generated placeholder
+    payloads (lorem-style strings and synthetic 16-digit ids), documented as shape examples rather
+    than as callable sandbox fixtures.
+sandbox_headers:
+- header: x-external-system
+  required_in: sandbox
+  value_rule: pass any unique value >= 8 chars
+  description: Caller/system identifier used only in sandbox mode.
+  source: https://developer.bell.ca/troubleticket
+- header: SECURITY_CREDENTIALS
+  required_in: sandbox and production
+  value_rule: issued by Bell after registration approval; published only as a literal placeholder
+  source: https://developer.bell.ca/troubleticket
+console:
+  interactive_try_it: false
+  note: The reference pages render static curl / Python / PHP / Java examples; there is no "try it" execution surface.
+test_clocks: false
+simulation_triggers: false

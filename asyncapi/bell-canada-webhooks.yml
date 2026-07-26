@@ -1,0 +1,180 @@
+generated: '2026-07-25'
+method: derived
+source: openapi/*.json listener + hub operations, corroborated by the four API reference pages
+spec_type: none
+asyncapi_published: false
+note: >-
+  Bell publishes no AsyncAPI document. It does ship a real, fully specified event surface: the TM
+  Forum hub/listener publish-subscribe pattern, implemented identically in all four APIs. A client
+  registers a callback with POST /hub (EventSubscription: id, callback, query) and Bell POSTs each
+  event to that listener endpoint. Every event type has its own listener contract and its own
+  request schema in the Swagger document, which is why this catalogue is derived rather than
+  guessed. This artifact is the webhook catalogue; it is wired as type Webhooks, not AsyncAPI.
+subscription:
+  register:
+    operation: POST /hub
+    operationId: registerListener
+    body: EventSubscription
+    fields:
+    - name: id
+      required: true
+      description: Id of the listener
+    - name: callback
+      required: true
+      description: The callback being registered.
+    - name: query
+      required: false
+      description: additional data to be passed (event filtering)
+    responses: [201, 400, 401, 403, 404, 405, 409, 500]
+  unregister:
+    operation: DELETE /hub/{id}
+    operationId: unregisterListener
+    responses: [204, 400, 401, 403, 404, 405, 500]
+  retrieve:
+    operation: GET /hub/{id}
+    documented_on: https://developer.bell.ca/changemanagement
+    in_spec: false
+  delivery: >-
+    Bell POSTs the event payload to the registered callback. The listener contract is specified in
+    the same Swagger document as POST /listener/{eventName}, one route per event type.
+  filtering: supported via the EventSubscription.query field (TM Forum event filtering)
+  transport: HTTPS POST
+  security: >-
+    Bell publishes no signing scheme, no shared secret, no replay window and no retry policy for
+    callback delivery.
+events:
+- api: Trouble Ticket
+  spec: openapi/bell-canada-trouble-ticket-api-openapi.json
+  humanURL: https://developer.bell.ca/troubleticket
+  count: 6
+  catalog:
+  - event: troubleTicketCreateEvent
+    listener: POST /listener/troubleTicketCreateEvent
+    operationId: listenToTroubleTicketCreateEvent
+  - event: troubleTicketAttributeValueChangeEvent
+    listener: POST /listener/troubleTicketAttributeValueChangeEvent
+    operationId: listenToTroubleTicketAttributeValueChangeEvent
+  - event: troubleTicketStatusChangeEvent
+    listener: POST /listener/troubleTicketStatusChangeEvent
+    operationId: listenToTroubleTicketStatusChangeEvent
+  - event: troubleTicketDeleteEvent
+    listener: POST /listener/troubleTicketDeleteEvent
+    operationId: listenToTroubleTicketDeleteEvent
+  - event: troubleTicketResolvedEvent
+    listener: POST /listener/troubleTicketResolvedEvent
+    operationId: listenToTroubleTicketResolvedEvent
+  - event: troubleTicketInformationRequiredEvent
+    listener: POST /listener/troubleTicketInformationRequiredEvent
+    operationId: listenToTroubleTicketInformationRequiredEvent
+- api: Service Order
+  spec: openapi/bell-canada-service-order-api-openapi.json
+  humanURL: https://developer.bell.ca/serviceorder
+  count: 11
+  catalog:
+  - event: serviceOrderCreateEvent
+    listener: POST /listener/serviceOrderCreateEvent
+    operationId: listenToServiceOrderCreateEvent
+  - event: serviceOrderAttributeValueChangeEvent
+    listener: POST /listener/serviceOrderAttributeValueChangeEvent
+    operationId: listenToServiceOrderAttributeValueChangeEvent
+  - event: serviceOrderStateChangeEvent
+    listener: POST /listener/serviceOrderStateChangeEvent
+    operationId: listenToServiceOrderStateChangeEvent
+  - event: serviceOrderDeleteEvent
+    listener: POST /listener/serviceOrderDeleteEvent
+    operationId: listenToServiceOrderDeleteEvent
+  - event: serviceOrderInformationRequiredEvent
+    listener: POST /listener/serviceOrderInformationRequiredEvent
+    operationId: listenToServiceOrderInformationRequiredEvent
+  - event: serviceOrderMilestoneEvent
+    listener: POST /listener/serviceOrderMilestoneEvent
+    operationId: listenToServiceOrderMilestoneEvent
+  - event: serviceOrderJeopardyEvent
+    listener: POST /listener/serviceOrderJeopardyEvent
+    operationId: listenToServiceOrderJeopardyEvent
+  - event: serviceOrderFailureEvent
+    listener: POST /listener/serviceOrderFailureEvent
+    operationId: listenToServiceOrderFailureEvent
+  - event: cancelServiceOrderCreateEvent
+    listener: POST /listener/cancelServiceOrderCreateEvent
+    operationId: listenToCancelServiceOrderCreateEvent
+  - event: cancelServiceOrderStateChangeEvent
+    listener: POST /listener/cancelServiceOrderStateChangeEvent
+    operationId: listenToCancelServiceOrderStateChangeEvent
+  - event: cancelServiceOrderInformationRequiredEvent
+    listener: POST /listener/cancelServiceOrderInformationRequiredEvent
+    operationId: listenToCancelServiceOrderInformationRequiredEvent
+- api: Resource Inventory Management
+  spec: openapi/bell-canada-resource-inventory-api-openapi.json
+  humanURL: https://developer.bell.ca/resourceinventory
+  count: 8
+  catalog:
+  - event: resourceCreateEvent
+    listener: POST /listener/resourceCreateEvent
+    operationId: listenToResourceCreateEvent
+  - event: resourceAttributeValueChangeEvent
+    listener: POST /listener/resourceAttributeValueChangeEvent
+    operationId: listenToResourceAttributeValueChangeEvent
+  - event: resourceStateChangeEvent
+    listener: POST /listener/resourceStateChangeEvent
+    operationId: listenToResourceStateChangeEvent
+  - event: resourceDeleteEvent
+    listener: POST /listener/resourceDeleteEvent
+    operationId: listenToResourceDeleteEvent
+  - event: physicalResourceCreateEvent
+    listener: POST /listener/physicalResourceCreateEvent
+    operationId: listenToPhysicalResourceCreateEvent
+  - event: physicalResourceAttributeValueChangeEvent
+    listener: POST /listener/physicalResourceAttributeValueChangeEvent
+    operationId: listenToPhysicalResourceAttributeValueChangeEvent
+  - event: physicalResourceStateChangeEvent
+    listener: POST /listener/physicalResourceStateChangeEvent
+    operationId: listenToPhysicalResourceStateChangeEvent
+  - event: physicalResourceDeleteEvent
+    listener: POST /listener/physicalResourceDeleteEvent
+    operationId: listenToPhysicalResourceDeleteEvent
+- api: Change Management
+  spec: openapi/bell-canada-change-management-api-openapi.json
+  humanURL: https://developer.bell.ca/changemanagement
+  count: 6
+  catalog:
+  - event: changeRequestCreateEvent
+    listener: POST /listener/changeRequestCreateEvent
+    operationId: listenToChangeRequestCreateEvent
+  - event: changeRequestStatusChangeEvent
+    listener: POST /listener/changeRequestStatusChangeEvent
+    operationId: listenToChangeRequestStatusChangeEvent
+  - event: changeRequestDeleteEvent
+    listener: POST /listener/changeRequestDeleteEvent
+    operationId: listenToChangeRequestDeleteEvent
+  - event: changeRequestAttributeValueChangeEvent
+    listener: POST /listener/changeRequestAttributeValueChangeEvent
+    operationId: listenToChangeRequestAttributeValueChangeEvent
+  - event: changeRequestApprovalRequiredEvent
+    listener: POST /listener/changeRequestApprovalRequiredEvent
+    operationId: listenToChangeRequestApprovalRequiredEvent
+  - event: changeRequestFailureEvent
+    listener: POST /listener/changeRequestFailureEvent
+    operationId: listenToChangeRequestFailureEvent
+coverage:
+  apis_with_events: 4
+  total_event_types: 31
+  event_payload_fields:
+  - eventId
+  - eventTime
+  - eventType
+  - correlationId
+  - domain
+  - title
+  - description
+  - priority
+  - timeOcurred
+  - event
+  note: >-
+    Every event payload is a TM Forum notification envelope carrying a correlationId, and wraps the
+    changed resource in its `event` member.
+gaps:
+- No AsyncAPI document.
+- No callback signature / shared secret / replay-protection scheme published.
+- No retry or dead-letter policy published.
+- No public event-catalogue page — the catalogue above is derived from the Swagger listener routes.

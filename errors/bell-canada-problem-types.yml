@@ -1,0 +1,88 @@
+generated: '2026-07-25'
+method: derived
+source: openapi/*.json 4xx/5xx responses
+format: tmforum-error
+rfc9457: false
+media_type: application/json;charset=utf-8
+envelope:
+  schema: Error (allOf Entity + code/reason/message/status/referenceError)
+  required:
+  - field: code
+    type: string
+    description: Application relevant detail, defined in the API or a common list.
+  - field: reason
+    type: string
+    description: Explanation of the reason for the error which can be shown to a client user.
+  optional:
+  - field: message
+    type: string
+    description: More details and corrective actions related to the error which can be shown to a client user.
+  - field: status
+    type: string
+    description: HTTP Error code extension
+  - field: referenceError
+    type: string (uri)
+    description: URI of documentation describing the error.
+  - field: '@type'
+    type: string
+    description: TM Forum Entity discriminator
+  - field: '@baseType'
+    type: string
+  - field: '@schemaLocation'
+    type: string (uri)
+  note: >-
+    Bell inherits the TM Forum Error schema unchanged across all four APIs. It is a TMF envelope,
+    not an RFC 9457 application/problem+json document — there is no type URI, no title and no
+    instance member. The application-level `code` values are described as "defined in the API or a
+    common list" but Bell publishes no such list, so the concrete code vocabulary is not public.
+problems:
+- status: 400
+  title: Bad Request
+  schema: Error
+  operations: 68
+  applies_to: every operation in all four APIs
+- status: 401
+  title: Unauthorized
+  schema: Error
+  operations: 68
+  applies_to: every operation in all four APIs
+  remediation: >-
+    Supply the credential header issued by Bell after registration approval (see
+    authentication/bell-canada-authentication.yml). Credentials are not self-serve.
+- status: 403
+  title: Forbidden
+  schema: Error
+  operations: 68
+  applies_to: every operation in all four APIs
+- status: 404
+  title: Not Found
+  schema: Error
+  operations: 54
+  applies_to: item-scoped operations (retrieve/patch/delete by id, hub/{id}, listener routes)
+- status: 405
+  title: Method Not Allowed
+  schema: Error
+  operations: 68
+  note: Spelled "Method Not allowed" in some specs and "Method not allowed" in others — inconsistent casing across the four documents.
+- status: 409
+  title: Conflict
+  schema: Error
+  operations: 67
+- status: 422
+  title: Unprocessable Entity
+  schema: Error
+  operations: 14
+  applies_to: create (POST) and patch (PATCH) operations on the resource collections
+- status: 500
+  title: Internal Server Error
+  schema: Error
+  operations: 68
+coverage:
+  specs: 4
+  operations_with_error_responses: 68
+  distinct_status_codes: 8
+  documented_error_code_registry: false
+gaps:
+- No published registry of the application-level `code` values the TMF Error envelope carries.
+- No RFC 9457 problem+json media type.
+- No 429 / rate-limit error is declared in any spec, consistent with the absence of a published rate-limit policy.

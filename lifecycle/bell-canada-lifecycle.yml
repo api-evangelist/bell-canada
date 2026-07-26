@@ -1,0 +1,109 @@
+generated: '2026-07-25'
+method: searched
+source: >-
+  https://developer.bell.ca/troubleticket, /serviceorder, /resourceinventory, /changemanagement
+  (each publishes Released on / Last updated / TMF version / Bell version) + openapi/*.json
+versioning:
+  scheme: uri-path
+  current: v4
+  dual_versioning: true
+  note: >-
+    Each API reference page publishes two versions — the TM Forum specification version implemented
+    and Bell's own release version — plus a released-on and a last-updated date. That is the whole
+    of Bell's published version history; there is no dated changelog, no release-notes feed and no
+    migration guide.
+  docs: https://developer.bell.ca/servicemanagement
+apis:
+- name: Trouble Ticket
+  humanURL: https://developer.bell.ca/troubleticket
+  standard: TMF621 v4.1.1
+  vendor_version: v2.5
+  released: '2021-03-19'
+  last_updated: '2023-07-22'
+  spec: openapi/bell-canada-trouble-ticket-api-openapi.json
+- name: Service Order
+  humanURL: https://developer.bell.ca/serviceorder
+  standard: TMF641 v4.6
+  vendor_version: v1.4
+  released: '2020-03-23'
+  last_updated: '2023-06-03'
+  spec: openapi/bell-canada-service-order-api-openapi.json
+- name: Resource Inventory Management
+  humanURL: https://developer.bell.ca/resourceinventory
+  standard: TMF639 v4.1
+  vendor_version: v1.6
+  released: '2021-03-19'
+  last_updated: '2023-06-03'
+  spec: openapi/bell-canada-resource-inventory-api-openapi.json
+- name: Change Management
+  humanURL: https://developer.bell.ca/changemanagement
+  standard: TMF655 v4.2
+  vendor_version: v1.1
+  released: '2021-12-03'
+  last_updated: '2023-06-03'
+  spec: openapi/bell-canada-change-management-api-openapi.json
+deprecation:
+  policy_url: null
+  policy_published: false
+  sunset_header: false
+  deprecation_header: false
+  deprecated_operations: []
+  note: >-
+    No operation in any of the four Swagger documents carries `deprecated: true`, and Bell publishes
+    no deprecation or sunset policy, no RFC 8594 Sunset/Deprecation header support and no end-of-life
+    schedule. No Deprecation pointer is wired.
+not_yet_available:
+  note: >-
+    The inverse of deprecation — operations that are specified but not yet live. The Service Order
+    reference page annotates two of its own documented functions with "Currently not available; will
+    be implemented in the near future." Both exist in the Swagger document, so the spec over-states
+    the callable surface.
+  operations:
+  - operation: GetServiceOrder
+    operationId: retrieveServiceOrder
+    spec: openapi/bell-canada-service-order-api-openapi.json
+    status: not available
+    source: https://developer.bell.ca/serviceorder
+  - operation: GetServiceOrderList
+    operationId: listServiceOrder
+    spec: openapi/bell-canada-service-order-api-openapi.json
+    status: not available
+    source: https://developer.bell.ca/serviceorder
+docs_vs_spec_divergence:
+  note: >-
+    The reference pages document two operations that appear in no Swagger document — GET
+    /monitor/{monitorId} (the TMF TransactionMonitor read used to poll a long-running operation) and
+    GET /hub/{id} (retrieve a registered listener). Conversely the Swagger documents carry the full
+    TM Forum surface including DELETE and the listener callback contracts, which the reference pages
+    do not enumerate.
+  docs_only:
+  - GET /monitor/{monitorId}
+  - GET /hub/{id}
+  spec_only_examples:
+  - DELETE /troubleTicket/{id}
+  - DELETE /serviceOrder/{id}
+  - DELETE /changeRequest/{id}
+  - PATCH /logicalResource/executeJSONPatch
+status_page:
+  url: null
+  published: false
+  note: >-
+    Bell publishes no API status page. status.bell.ca does not resolve. The consumer-facing service
+    status pages under www.bell.ca cover residential outages, not the enterprise API platform. No
+    StatusPage pointer is wired.
+sla:
+  url: null
+  published: false
+  uptime_target: null
+  note: >-
+    No SLA or uptime commitment is published for the API platform. Production access "may or may not
+    require going through an API onboarding project and will require contractual discussions"
+    (https://developer.bell.ca/faq/apis), so any availability commitment lives in the partner contract.
+changelog:
+  url: null
+  published: false
+  note: No dated changelog or release-notes page exists; the per-API released/last-updated dates above are the only published version history.
+support:
+  contact: https://developer.bell.ca/contact
+  faq: https://developer.bell.ca/faq/apis
+  note: A topic-tagged contact form (5G / IoT / MEC / APIs / Other), plus the API FAQ. No forum, no ticketing portal, no public issue tracker.

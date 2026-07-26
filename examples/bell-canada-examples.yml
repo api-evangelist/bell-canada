@@ -1,0 +1,122 @@
+generated: '2026-07-25'
+method: searched
+source: https://developer.bell.ca/troubleticket, /serviceorder, /resourceinventory, /changemanagement
+summary: >-
+  Bell publishes a worked example request AND an example response for every operation it documents,
+  in four languages, rendered as tabs on each API reference page. The examples are not in the Swagger
+  documents — none of the four specs carries an `examples` or `x-example` member — so this is a real
+  docs-only example surface that the machine-readable contract does not expose.
+languages:
+- curl
+- Python (http.client)
+- PHP (curl)
+- Java
+request_template:
+  note: >-
+    Every example redacts the two things a caller actually needs — the URL is an empty string and the
+    credential is a bare header placeholder.
+  curl: |
+    curl --request GET \
+    --url '' \
+    --header 'accept: application/json' \
+    --header 'SECURITY_CREDENTIALS' \
+    --header 'x-external-system' \ (for use in sandbox mode only, pass any unique value >= 8 chars)
+  python: |
+    import http.client
+    conn = http.client.HTTPSConnection("")
+    headers = {
+        'SECURITY_CREDENTIALS',
+        'accept': "application/json",
+        'x-external-system' \ (for use in sandbox mode only, pass any unique value >= 8 chars)
+    }
+    conn.request("GET", "", headers=headers)
+    res = conn.getresponse()
+    data = res.read()
+    print(data.decode("utf-8"))
+documented_operations:
+- api: Trouble Ticket
+  humanURL: https://developer.bell.ca/troubleticket
+  examples_for:
+  - GET /troubleTicket
+  - POST /troubleTicket
+  - GET /troubleTicket/{id}
+  - PATCH /troubleTicket/{id}
+  - POST /hub
+  - GET /monitor/{monitorid}
+- api: Service Order
+  humanURL: https://developer.bell.ca/serviceorder
+  examples_for:
+  - GET /serviceOrder
+  - POST /serviceOrder
+  - GET /serviceOrder/{id}
+  - PATCH /serviceOrder/{id}
+  - POST /hub
+  - GET /monitor/{monitorId}
+- api: Resource Inventory Management
+  humanURL: https://developer.bell.ca/resourceinventory
+  examples_for:
+  - GET /Resource
+  - GET /Resource/{id}
+- api: Change Management
+  humanURL: https://developer.bell.ca/changemanagement
+  examples_for:
+  - GET /changeRequest
+  - POST /changeRequest
+  - GET /changeRequest/{id}
+  - PATCH /changeRequest/{id}
+  - POST /hub
+  - GET /hub/{id}
+response_example:
+  api: Trouble Ticket
+  operation: GET /troubleTicket
+  source: https://developer.bell.ca/troubleticket
+  note: >-
+    Reproduced verbatim, truncated. Bell generates the values with a placeholder-text generator, so
+    the strings are nonsense but the SHAPE is authoritative — this is the TMF621 TroubleTicket
+    envelope Bell actually returns, including the @type / @baseType / @schemaLocation triple on every
+    nested object.
+  body: |
+    [
+      {
+        "id": "7227640110907392",
+        "description": "Zason hituhvaw efe suloc kucaw kugi gihumi wiggis uw po huwut ro ra pumjaino fegumpab dez wu.",
+        "externalId": "4306705892507648",
+        "ticketType": "rosm",
+        "creationDate": "2003-05-08T07:40:05.189Z",
+        "priority": "High",
+        "status": "Resolved",
+        "@type": "zamm",
+        "@baseType": "TroubleTicket",
+        "@schemaLocation": "vadzenv",
+        "relatedEntity": [
+          {
+            "id": "3913475155820544",
+            "@baseType": "RelatedEntityRef",
+            "href": "ziha",
+            "name": "Maggie Hudson",
+            "role": "jouv",
+            "sourceSystemId": "CustomerA"
+          }
+        ],
+        "note": [
+          { "id": "7413698601680896", "text": "kiuf", "noteType": "log", "@baseType": "Note" }
+        ],
+        "relatedParty": [
+          {
+            "href": "bebap",
+            "role": "uwofuzdi",
+            "name": "Sophia Elliott",
+            "emailAddress": "ethan.hunt@customera.com",
+            "@baseType": "RelatedPartyRef"
+          }
+        ],
+        "attachment": [
+          { "name": "Jean French", "content": "ubevuge", "@baseType": "Attachment" }
+        ]
+      }
+    ]
+gaps:
+- No example values in the Swagger documents themselves (no `examples`, no `x-example`, no `default`).
+- The example request URL is empty in every language tab — the base URL is never shown.
+- The credential header is a placeholder, so no example is runnable as published.
+- The Resource Inventory page documents only two of the API's 21 operations with examples.

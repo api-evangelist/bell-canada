@@ -1,0 +1,71 @@
+generated: '2026-07-25'
+method: searched
+source: openapi/*.json (no securityDefinitions) + https://developer.bell.ca/faq/apis
+docs: https://developer.bell.ca/faq/apis
+summary:
+  types:
+  - apiKey
+  api_key_in:
+  - header
+  oauth2_flows: []
+  spec_declared: false
+  issuance: out-of-band
+  self_serve: false
+  note: >-
+    None of the four harvested Swagger 2.0 documents declares a securityDefinitions block or a
+    security requirement, so the credential model is documented only in prose on the developer
+    portal. Bell issues API keys manually after a business registration is reviewed and approved
+    by a Bell administrator; the user ID, the API endpoint and the credentials arrive by email.
+    There is no self-serve key issuance, no OAuth 2.0, no OpenID Connect discovery document and
+    no published authorization or token URL.
+schemes:
+- name: SECURITY_CREDENTIALS
+  type: apiKey
+  in: header
+  parameter: SECURITY_CREDENTIALS
+  declared_in_spec: false
+  source: https://developer.bell.ca/troubleticket
+  evidence: >-
+    Every documented curl / Python / PHP / Java example on the four API reference pages redacts the
+    credential as a literal header placeholder --header 'SECURITY_CREDENTIALS'. The real header
+    name and value are supplied to an approved partner by email; Bell does not publish them.
+  status: placeholder-published
+- name: x-external-system
+  type: apiKey
+  in: header
+  parameter: x-external-system
+  declared_in_spec: false
+  source: https://developer.bell.ca/troubleticket
+  evidence: >-
+    Documented on every example request as "for use in sandbox mode only, pass any unique value
+    >= 8 chars". A sandbox caller-identity header, not a secret.
+  scope: sandbox-only
+issuance:
+  process: >-
+    Register on https://developer.bell.ca/register with business details. "After registration,
+    requests will be assessed and validated by a Bell administrator. The Bell administrator will
+    get in touch with the requestor and send a user ID, API end point and other details via email
+    after verification. Using these credentials and API end point, the API can now be accessed."
+  source: https://developer.bell.ca/faq/apis
+  self_serve: false
+  approval: manual
+  credential_delivery: email
+transport_security:
+  tls_minimum: TLSv1.2
+  cipher_note: 256 bit SHA2 encryption
+  source: https://developer.bell.ca/faq/apis
+  evidence: >-
+    "Security is maintained at all layers of the integration. Bell supports TLSv1.2, 256 bit SHA2
+    encryption and SSL with proactive monitoring of inbound and outbound traffic. Please ensure you
+    do not submit private data via the Sandbox API."
+not_supported:
+  oauth2: true
+  openid_connect: true
+  ciba: true
+  mutual_tls: unknown
+  scopes: true
+  note: >-
+    No /.well-known/openid-configuration or /.well-known/oauth-authorization-server is served on
+    any Bell host probed (developer.bell.ca returns the Next.js HTML catch-all with a 200 status;
+    www.bell.ca returns 404; api.bell.ca returns a JSON gateway 404). Because there is no OAuth
+    surface there is no scope catalogue, so scopes/ is intentionally absent for this provider.

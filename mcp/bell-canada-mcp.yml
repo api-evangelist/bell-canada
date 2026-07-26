@@ -1,0 +1,135 @@
+generated: '2026-07-25'
+method: derived
+status: candidate
+source: openapi/*.json
+search_result: >-
+  No official or third-party MCP server for Bell Canada was found. There is no MCP reference on
+  developer.bell.ca, nothing in the verified github.com/bellcanada organization (0 public repos),
+  nothing on npm under @modelcontextprotocol or a Bell scope, and nothing in the public MCP
+  registries. The tool list below is DERIVED from the four published Swagger documents as a
+  candidate design, not a server Bell operates.
+server:
+  name: bell-canada
+  published: false
+  url: null
+  transport: null
+  note: >-
+    A real server is not currently buildable end-to-end by a third party: the Swagger documents
+    declare host "serverRoot" and Bell emails the endpoint and credentials to approved partners
+    only, so an MCP implementation would have to take the base URL and the SECURITY_CREDENTIALS
+    header value as configuration.
+auth_requirements:
+  credential: SECURITY_CREDENTIALS header (issued out of band)
+  sandbox_header: x-external-system (any unique value >= 8 chars)
+  see: authentication/bell-canada-authentication.yml
+tools:
+- name: list_trouble_tickets
+  description: List or find trouble tickets raised against Bell services, with TMF filtering, paging and field selection.
+  source_operation: openapi/bell-canada-trouble-ticket-api-openapi.json#listTroubleTicket
+  action: read
+- name: create_trouble_ticket
+  description: Raise a new trouble ticket against a Bell service, specifying nature, severity and related entities.
+  source_operation: openapi/bell-canada-trouble-ticket-api-openapi.json#createTroubleTicket
+  action: write
+- name: get_trouble_ticket
+  description: Retrieve a single trouble ticket by its Bell ticket id.
+  source_operation: openapi/bell-canada-trouble-ticket-api-openapi.json#retrieveTroubleTicket
+  action: read
+- name: update_trouble_ticket
+  description: Partially update an existing trouble ticket — send only the changed fields.
+  source_operation: openapi/bell-canada-trouble-ticket-api-openapi.json#patchTroubleTicket
+  action: write
+- name: delete_trouble_ticket
+  description: Delete a trouble ticket.
+  source_operation: openapi/bell-canada-trouble-ticket-api-openapi.json#deleteTroubleTicket
+  action: write
+- name: list_service_orders
+  description: List or find service orders placed with Bell.
+  source_operation: openapi/bell-canada-service-order-api-openapi.json#listServiceOrder
+  action: read
+  note: Bell's reference page marks GetServiceOrderList "Currently not available; will be implemented in the near future."
+- name: create_service_order
+  description: Place a service order with Bell for provisioning or change of a service.
+  source_operation: openapi/bell-canada-service-order-api-openapi.json#createServiceOrder
+  action: write
+- name: get_service_order
+  description: Retrieve a service order by its Bell SR id.
+  source_operation: openapi/bell-canada-service-order-api-openapi.json#retrieveServiceOrder
+  action: read
+  note: Bell's reference page marks GetServiceOrder "Currently not available; will be implemented in the near future."
+- name: update_service_order
+  description: Partially update an existing service order (for example, add a worklog entry).
+  source_operation: openapi/bell-canada-service-order-api-openapi.json#patchServiceOrder
+  action: write
+- name: cancel_service_order
+  description: Request cancellation of an in-flight service order.
+  source_operation: openapi/bell-canada-service-order-api-openapi.json#createCancelServiceOrder
+  action: write
+- name: list_cancel_service_orders
+  description: List cancellation requests raised against service orders.
+  source_operation: openapi/bell-canada-service-order-api-openapi.json#listCancelServiceOrder
+  action: read
+- name: get_cancel_service_order
+  description: Retrieve a single service-order cancellation request.
+  source_operation: openapi/bell-canada-service-order-api-openapi.json#retrieveCancelServiceOrder
+  action: read
+- name: list_resources
+  description: List or find generic resources in the Bell resource inventory.
+  source_operation: openapi/bell-canada-resource-inventory-api-openapi.json#listResource
+  action: read
+- name: get_resource
+  description: Retrieve a single inventory resource by id.
+  source_operation: openapi/bell-canada-resource-inventory-api-openapi.json#retrieveResource
+  action: read
+- name: list_logical_resources
+  description: List or find logical resources (identifiers, addresses, circuits) in the Bell inventory.
+  source_operation: openapi/bell-canada-resource-inventory-api-openapi.json#listLogicalResource
+  action: read
+- name: get_logical_resource
+  description: Retrieve a single logical resource by id.
+  source_operation: openapi/bell-canada-resource-inventory-api-openapi.json#retrieveLogicalResource
+  action: read
+- name: list_physical_resources
+  description: List or find physical resources (equipment, serial numbers, power state) in the Bell inventory.
+  source_operation: openapi/bell-canada-resource-inventory-api-openapi.json#listPhysicalResource
+  action: read
+- name: get_physical_resource
+  description: Retrieve a single physical resource by id.
+  source_operation: openapi/bell-canada-resource-inventory-api-openapi.json#retrievePhysicalResource
+  action: read
+- name: list_change_requests
+  description: List or find change requests raised against Bell services.
+  source_operation: openapi/bell-canada-change-management-api-openapi.json#listChangeRequest
+  action: read
+- name: create_change_request
+  description: Raise a change request against a Bell service, with planned window, risk and impact.
+  source_operation: openapi/bell-canada-change-management-api-openapi.json#createChangeRequest
+  action: write
+- name: get_change_request
+  description: Retrieve a single change request by id.
+  source_operation: openapi/bell-canada-change-management-api-openapi.json#retrieveChangeRequest
+  action: read
+- name: update_change_request
+  description: Partially update an existing change request.
+  source_operation: openapi/bell-canada-change-management-api-openapi.json#patchChangeRequest
+  action: write
+- name: register_event_listener
+  description: Register a callback URL to receive Bell notifications for one of the four API domains.
+  source_operation: openapi/bell-canada-trouble-ticket-api-openapi.json#registerListener
+  action: write
+  note: The same hub contract exists in all four specs; a server would expose it once per domain.
+- name: unregister_event_listener
+  description: Remove a previously registered notification listener.
+  source_operation: openapi/bell-canada-trouble-ticket-api-openapi.json#unregisterListener
+  action: write
+excluded:
+  reason: >-
+    The 31 POST /listener/{event} routes are the CLIENT side of the notification contract — they
+    describe the endpoint the caller must implement, not something an agent calls. They are excluded
+    from the candidate tool set and catalogued in asyncapi/bell-canada-webhooks.yml instead.
+  count: 31
+coverage:
+  rest_operations_total: 74
+  callable_operations: 43
+  candidate_tools: 24
+  listener_contracts_excluded: 31

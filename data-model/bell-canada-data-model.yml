@@ -1,0 +1,260 @@
+generated: '2026-07-25'
+method: derived
+source: openapi/*.json definitions and $ref graph
+summary: >-
+  Four TM Forum resource domains, each rooted on a single top-level entity that extends the shared
+  TM Forum Entity base schema (@type / @baseType / @schemaLocation) and composes the standard TMF
+  reference value objects — RelatedParty, Note, Characteristic, AttachmentRefOrValue,
+  ExternalReference. The domains are joined by real cross-domain references: a ChangeRequest points
+  at Trouble Tickets (TroubleTicketRef) and Service Problems (ServiceProblemRef), a
+  CancelServiceOrder belongs to a ServiceOrder, and LogicalResource / PhysicalResource are both
+  specialisations of Resource.
+base_entity:
+  name: Entity
+  discriminator: '@type'
+  fields:
+  - '@type'
+  - '@baseType'
+  - '@schemaLocation'
+  note: Every top-level resource and the Error envelope extend this schema.
+entities:
+- name: TroubleTicket
+  domain: Service Assurance
+  spec: openapi/bell-canada-trouble-ticket-api-openapi.json
+  standard: TMF621
+  collection: /troubleTicket
+  operations: [listTroubleTicket, createTroubleTicket, retrieveTroubleTicket, patchTroubleTicket, deleteTroubleTicket]
+  key_fields: [id, href, name, description, externalId, ticketType, severity, priority, creationDate, lastUpdate, statusChangeDate, statusChangeReason, expectedResolutionDate, requestedResolutionDate, resolutionDate]
+  state_type: TroubleTicketStatusType
+  state_field: status
+  relationships:
+  - to: RelatedParty
+    kind: has_many
+    via: relatedParty
+  - to: RelatedEntity
+    kind: has_many
+    via: relatedEntity
+  - to: Note
+    kind: has_many
+    via: note
+  - to: AttachmentRefOrValue
+    kind: has_many
+    via: attachment
+  - to: ChannelRef
+    kind: has_one
+    via: channel
+  - to: StatusChange
+    kind: has_many
+    via: statusChange
+  - to: TroubleTicketRelationship
+    kind: has_many
+    via: troubleTicketRelationship
+- name: ServiceOrder
+  domain: Provisioning
+  spec: openapi/bell-canada-service-order-api-openapi.json
+  standard: TMF641
+  collection: /serviceOrder
+  operations: [listServiceOrder, createServiceOrder, retrieveServiceOrder, patchServiceOrder, deleteServiceOrder]
+  key_fields: [id, href, externalId, category, description, priority, orderDate, startDate, completionDate, expectedCompletionDate, requestedStartDate, requestedCompletionDate, cancellationDate, cancellationReason, notificationContact]
+  state_type: ServiceOrderStateType
+  state_field: state
+  relationships:
+  - to: ServiceOrderItem
+    kind: has_many
+    via: serviceOrderItem
+  - to: RelatedParty
+    kind: has_many
+    via: relatedParty
+  - to: Note
+    kind: has_many
+    via: note
+  - to: ServiceOrderRelationship
+    kind: has_many
+    via: orderRelationship
+  - to: ServiceOrderMilestone
+    kind: has_many
+    via: milestone
+  - to: ServiceOrderJeopardyAlert
+    kind: has_many
+    via: jeopardyAlert
+  - to: ServiceOrderErrorMessage
+    kind: has_many
+    via: errorMessage
+  - to: ExternalReference
+    kind: has_many
+    via: externalReference
+- name: CancelServiceOrder
+  domain: Provisioning
+  spec: openapi/bell-canada-service-order-api-openapi.json
+  standard: TMF641
+  collection: /cancelServiceOrder
+  operations: [listCancelServiceOrder, createCancelServiceOrder, retrieveCancelServiceOrder]
+  key_fields: [id, href, cancellationReason, completionMessage, effectiveCancellationDate, requestedCancellationDate]
+  state_type: TaskStateType
+  state_field: state
+  relationships:
+  - to: ServiceOrder
+    kind: belongs_to
+    via: serviceOrder
+    ref_schema: ServiceOrderRef
+  - to: ErrorMessage
+    kind: has_one
+    via: errorMessage
+- name: Resource
+  domain: Inventory
+  spec: openapi/bell-canada-resource-inventory-api-openapi.json
+  standard: TMF639
+  collection: /resource
+  operations: [listResource, createResource, retrieveResource, patchResource, deleteResource]
+  key_fields: [id, href, name, description, category, resourceVersion, startOperatingDate, endOperatingDate]
+  state_types: [ResourceStatusType, ResourceAdministrativeStateType, ResourceOperationalStateType, ResourceUsageStateType]
+  state_fields: [resourceStatus, administrativeState, operationalState, usageState]
+  relationships:
+  - to: ResourceSpecificationRef
+    kind: has_one
+    via: resourceSpecification
+  - to: ResourceRelationship
+    kind: has_many
+    via: resourceRelationship
+  - to: RelatedParty
+    kind: has_many
+    via: relatedParty
+  - to: Characteristic
+    kind: has_many
+    via: resourceCharacteristic
+  - to: AttachmentRefOrValue
+    kind: has_many
+    via: attachment
+  - to: Note
+    kind: has_many
+    via: note
+  - to: RelatedPlaceRefOrValue
+    kind: has_one
+    via: place
+- name: LogicalResource
+  domain: Inventory
+  spec: openapi/bell-canada-resource-inventory-api-openapi.json
+  collection: /logicalResource
+  operations: [listLogicalResource, createLogicalResource, retrieveLogicalResource, updateLogicalResource, patchLogicalResource, deleteLogicalResource, executePatchResource]
+  own_fields: [value, '@referredType']
+  relationships:
+  - to: Resource
+    kind: extends
+    via: allOf
+- name: PhysicalResource
+  domain: Inventory
+  spec: openapi/bell-canada-resource-inventory-api-openapi.json
+  collection: /physicalResource
+  operations: [listPhysicalResource, createPhysicalResource, retrievePhysicalResource, patchPhysicalResource, deletePhysicalResource]
+  own_fields: [serialNumber, versionNumber, manufactureDate, powerState, '@referredType']
+  relationships:
+  - to: Resource
+    kind: extends
+    via: allOf
+- name: ChangeRequest
+  domain: Change Management
+  spec: openapi/bell-canada-change-management-api-openapi.json
+  standard: TMF655
+  collection: /changeRequest
+  operations: [listChangeRequest, createChangeRequest, retrieveChangeRequest, patchChangeRequest, deleteChangeRequest]
+  key_fields: [id, href, description, channel, requestType, requestDate, scheduledDate, plannedStartTime, plannedEndTime, actualStartTime, actualEndTime, completionDate, lastUpdateDate, priority, impact, risk, riskValue, riskMitigationPlan, statusChangeDate, statusChangeReason]
+  state_type: ChangeRequestStatusType
+  state_field: status
+  relationships:
+  - to: TroubleTicketRef
+    kind: has_many
+    via: troubleTicket
+    cross_domain: true
+    note: Links a change request back to the Trouble Ticket API domain.
+  - to: ServiceProblemRef
+    kind: has_many
+    via: problemTicket
+    cross_domain: true
+  - to: ImpactEntity
+    kind: has_many
+    via: impactEntity
+  - to: Resolution
+    kind: has_one
+    via: resolution
+  - to: WorkLog
+    kind: has_many
+    via: workLog
+  - to: SLARef
+    kind: has_many
+    via: sla
+  - to: EntitySpecificationRef
+    kind: has_one
+    via: specification
+  - to: RelatedParty
+    kind: has_many
+    via: relatedParty
+  - to: RelatedEntity
+    kind: has_many
+    via: targetEntity
+  - to: ChangeRequestRelationship
+    kind: has_many
+    via: changeRelationship
+  - to: Characteristic
+    kind: has_many
+    via: changeRequestCharacteristic
+  - to: Money
+    kind: has_one
+    via: budget
+  - to: RelatedPlaceRefOrValue
+    kind: has_one
+    via: location
+  - to: ExternalReference
+    kind: has_many
+    via: externalReference
+  - to: Note
+    kind: has_many
+    via: note
+  - to: AttachmentRefOrValue
+    kind: has_many
+    via: attachment
+- name: EventSubscription
+  domain: Notifications
+  spec: all four
+  collection: /hub
+  operations: [registerListener, unregisterListener]
+  key_fields: [id, callback, query]
+  note: Shared and identical in all four APIs. See asyncapi/bell-canada-webhooks.yml.
+- name: Error
+  domain: Cross-cutting
+  spec: all four
+  key_fields: [code, reason, message, status, referenceError]
+  note: See errors/bell-canada-problem-types.yml.
+shared_value_objects:
+- RelatedParty
+- Note
+- Characteristic
+- AttachmentRefOrValue
+- ExternalReference
+- RelatedPlaceRefOrValue
+- RelatedEntity
+- Money
+cross_domain_links:
+- from: ChangeRequest
+  to: TroubleTicket
+  via: troubleTicket (TroubleTicketRef)
+- from: ChangeRequest
+  to: ServiceProblem
+  via: problemTicket (ServiceProblemRef)
+  note: ServiceProblem (TMF656) is referenced but Bell publishes no Service Problem API — a dangling reference to an unpublished domain.
+- from: CancelServiceOrder
+  to: ServiceOrder
+  via: serviceOrder (ServiceOrderRef)
+- from: LogicalResource
+  to: Resource
+  via: allOf (specialisation)
+- from: PhysicalResource
+  to: Resource
+  via: allOf (specialisation)
+id_conventions:
+  prefixes: none
+  format: opaque string; the published examples use synthetic 16-digit numeric ids
+  href: every entity carries an href self-link (TMF convention), unresolvable without a published base URL
+counts:
+  specs: 4
+  schema_definitions: 386
+  top_level_resources: 8

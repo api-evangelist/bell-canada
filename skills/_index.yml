@@ -1,0 +1,31 @@
+generated: '2026-07-25'
+method: generated
+source: >-
+  openapi/*.json (every operationId verified verbatim against the harvested Swagger documents) +
+  https://developer.bell.ca reference pages, conventions/, errors/ and lifecycle/
+note: >-
+  Bell publishes no AGENTS.md and no skill files of its own; these are API Evangelist packaged
+  operating instructions, one per published API. Every step is grounded in a real operationId from
+  the harvested Swagger. Each skill leads with the same hard constraint: this is a partner-gated API
+  with no published base URL and no idempotency key.
+skills:
+- file: bell-canada-raise-and-track-trouble-ticket.md
+  name: Raise and track a Bell trouble ticket
+  api: openapi/bell-canada-trouble-ticket-api-openapi.json
+  standard: TMF621 v4.1.1
+  operations: [createTroubleTicket, retrieveTroubleTicket, listTroubleTicket, patchTroubleTicket, registerListener, unregisterListener]
+- file: bell-canada-place-and-cancel-service-order.md
+  name: Place, amend and cancel a Bell service order
+  api: openapi/bell-canada-service-order-api-openapi.json
+  standard: TMF641 v4.6
+  operations: [createServiceOrder, patchServiceOrder, retrieveServiceOrder, listServiceOrder, createCancelServiceOrder, retrieveCancelServiceOrder, listCancelServiceOrder, registerListener, unregisterListener]
+- file: bell-canada-query-resource-inventory.md
+  name: Query and maintain the Bell resource inventory
+  api: openapi/bell-canada-resource-inventory-api-openapi.json
+  standard: TMF639 v4.1
+  operations: [listResource, retrieveResource, listLogicalResource, retrieveLogicalResource, listPhysicalResource, retrievePhysicalResource, patchResource, executePatchResource, registerListener, unregisterListener]
+- file: bell-canada-raise-change-request.md
+  name: Raise a change request against a Bell service
+  api: openapi/bell-canada-change-management-api-openapi.json
+  standard: TMF655 v4.2
+  operations: [createChangeRequest, retrieveChangeRequest, listChangeRequest, patchChangeRequest, registerListener, unregisterListener]

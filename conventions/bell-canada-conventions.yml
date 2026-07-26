@@ -1,0 +1,156 @@
+generated: '2026-07-25'
+method: searched
+source: >-
+  https://developer.bell.ca/faq/apis + https://developer.bell.ca/troubleticket +
+  openapi/*.json (Swagger 2.0, TM Forum Open API v4)
+summary: >-
+  Bell's four published APIs are straight TM Forum Open API v4 implementations, so the cross-cutting
+  semantics are the TM Forum patterns rather than a house style: URI-path versioning, TMF query
+  parameters for filtering/paging/field selection, JSON Merge Patch and JSON Patch for partial
+  update, the hub/listener publish-subscribe pattern for notifications, and the TransactionMonitor
+  pattern for long-running asynchronous operations. There is no idempotency key contract anywhere
+  in the specs or the docs.
+authentication:
+  style: apiKey header, issued out of band
+  header: SECURITY_CREDENTIALS (placeholder published in every example)
+  sandbox_header: x-external-system (sandbox only, any unique value >= 8 chars)
+  see: authentication/bell-canada-authentication.yml
+base_url:
+  published: false
+  spec_host: serverRoot
+  note: >-
+    Every Swagger document declares host "serverRoot". The FAQ states the API endpoint is emailed to
+    an approved partner, so no production base URL is public. api.bell.ca resolves to a live Bell
+    API gateway but publishes no routes for these APIs.
+  base_paths:
+  - /tmf-api/troubleTicket/v4/
+  - /tmf-api/serviceOrdering/v4
+  - /tmf-api/ChangeManagement/v4/
+  - /resourceInventoryManagement/v4/
+versioning:
+  scheme: uri-path
+  api_version: v4
+  standard_versions:
+    trouble_ticket: TMF621 v4.1.1
+    service_order: TMF641 v4.6
+    resource_inventory: TMF639 v4.1
+    change_management: TMF655 v4.2
+  vendor_versions:
+    trouble_ticket: Bell v2.5
+    service_order: Bell v1.4
+    resource_inventory: Bell v1.6
+    change_management: Bell v1.1
+  note: >-
+    Bell publishes both the TM Forum specification version it implements and its own Bell version
+    for each API on the API reference page. See lifecycle/bell-canada-lifecycle.yml.
+content_types:
+  request: application/json;charset=utf-8
+  response: application/json;charset=utf-8
+  patch: application/merge-patch+json (TMF partial update) and JSON Patch on the executeJSONPatch route
+pagination:
+  style: offset-limit
+  request_params:
+  - name: offset
+    description: Requested index for start of resources to be provided in response
+  - name: limit
+    description: Requested number of resources to be provided in response
+  response_headers:
+  - name: X-Result-Count
+    description: Actual number of items returned in the response body
+  - name: X-Total-Count
+    description: Total number of items matching criteria
+  source: openapi/*.json list operations
+sorting:
+  param: sort
+  description: To have the output sorted by fields; supports one or many fields, ascending and descending
+field_selection:
+  sparse_fieldsets:
+    param: fields
+    description: Comma-separated properties to be provided in response
+  expansion:
+    param: expand
+    description: Lists the sub-entities to expand along with the depth value; empty means expand all at depth level N
+    depth_param: depth
+    depth_description: Depth level where objects are dereferenced and inserted as values into the response
+filtering:
+  style: TM Forum attribute filtering on list operations via query parameters
+partial_update:
+  methods:
+  - method: PATCH /{resource}/{id}
+    semantics: TMF partial update — send only the fields being changed, never the whole payload
+    source: https://developer.bell.ca/troubleticket
+  - method: PATCH /logicalResource/executeJSONPatch
+    operationId: executePatchResource
+    semantics: JSON Patch (RFC 6902) document application, Resource Inventory API only
+async_operations:
+  pattern: TMF TransactionMonitor
+  description: >-
+    "In some use cases the modification of an attribute or a creation of a record may result in the
+    execution of a long running transaction. TransactionMonitor resource is returned so that the
+    execution of the operation can be monitored via the GET operation."
+  documented_operation: GET /monitor/{monitorId}
+  in_spec: false
+  note: >-
+    The monitor route is documented on the Trouble Ticket and Service Order reference pages but is
+    NOT present in any harvested Swagger document — a real docs-vs-spec divergence.
+  accepted_status: 202 Accepted is declared on every create operation
+  source: https://developer.bell.ca/faq/apis
+notifications:
+  pattern: TM Forum hub / listener publish-subscribe
+  register: POST /hub with an EventSubscription {id, callback, query}
+  unregister: DELETE /hub/{id}
+  retrieve: GET /hub/{id} (documented on the Change Management page; not in the Swagger)
+  delivery: Bell POSTs the event to the registered callback listener endpoint
+  mode: >-
+    "We support both Push and Pull mode communication. However, we favor the Push mode through our
+    notification model."
+  see: asyncapi/bell-canada-webhooks.yml
+idempotency:
+  supported: false
+  header: null
+  evidence: >-
+    No Idempotency-Key parameter, header or extension appears in any of the four Swagger documents,
+    and the developer portal documents none. The only correlation field in the corpus is
+    correlationId, which is an event payload attribute on notification messages, not a request
+    de-duplication key. The API reference pages instead claim "The API offer guaranteed message
+    delivery" for create and patch, which is a Bell-side delivery assurance, not a client-side
+    retry-safety contract. No Idempotency pointer is wired for this provider.
+error_envelope:
+  format: TM Forum Error (not RFC 9457 problem+json)
+  media_type: application/json;charset=utf-8
+  required:
+  - code
+  - reason
+  optional:
+  - message
+  - status
+  - referenceError
+  - '@type'
+  - '@baseType'
+  - '@schemaLocation'
+  see: errors/bell-canada-problem-types.yml
+polymorphism:
+  discriminator: '@type'
+  base_type_field: '@baseType'
+  schema_location_field: '@schemaLocation'
+  note: TM Forum Entity base schema — every resource carries the @type/@baseType/@schemaLocation triple.
+rate_limiting:
+  documented: false
+  headers: []
+  note: No rate-limit headers, quotas or throttling policy are published; production volumes are set by contract.
+request_tracing:
+  request_id_header: null
+  documented: false
+environments:
+  sandbox: true
+  production: true
+  note: >-
+    "Some APIs only have Sandbox access. Some other APIs only have Production access. The rest will
+    have access to both environments." See sandbox/bell-canada-sandbox.yml.
+cross_references:
+  authentication: authentication/bell-canada-authentication.yml
+  errors: errors/bell-canada-problem-types.yml
+  lifecycle: lifecycle/bell-canada-lifecycle.yml
+  sandbox: sandbox/bell-canada-sandbox.yml
+  webhooks: asyncapi/bell-canada-webhooks.yml
+  conformance: conformance/bell-canada-conformance.yml

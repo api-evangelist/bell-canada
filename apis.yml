@@ -63,6 +63,10 @@ apis:
     url: openapi/bell-canada-trouble-ticket-api-openapi.json
   - type: Specification
     url: https://developer.bell.ca/uploads/BELL_Canada_API_Specification_Trouble_Ticket_v2_5_af537009fa.pdf
+  - type: Overlay
+    url: overlays/bell-canada-trouble-ticket-api-overlay.yaml
+  - type: AgentSkill
+    url: skills/bell-canada-raise-and-track-trouble-ticket.md
 - aid: bell-canada:bell-canada-service-order-api
   name: Bell Canada Service Order API
   description: >-
@@ -86,6 +90,10 @@ apis:
     url: openapi/bell-canada-service-order-api-openapi.json
   - type: Specification
     url: https://developer.bell.ca/uploads/BELL_Canada_API_Specification_Service_Order_v1_4_1_1bdd4073d5.pdf
+  - type: Overlay
+    url: overlays/bell-canada-service-order-api-overlay.yaml
+  - type: AgentSkill
+    url: skills/bell-canada-place-and-cancel-service-order.md
 - aid: bell-canada:bell-canada-resource-inventory-api
   name: Bell Canada Resource Inventory Management API
   description: >-
@@ -109,6 +117,10 @@ apis:
     url: openapi/bell-canada-resource-inventory-api-openapi.json
   - type: Specification
     url: https://developer.bell.ca/uploads/BELL_Canada_API_Specification_Resource_Inventory_v1_6_1_855c08df43.pdf
+  - type: Overlay
+    url: overlays/bell-canada-resource-inventory-api-overlay.yaml
+  - type: AgentSkill
+    url: skills/bell-canada-query-resource-inventory.md
 - aid: bell-canada:bell-canada-change-management-api
   name: Bell Canada Change Management API
   description: >-
@@ -132,7 +144,45 @@ apis:
     url: openapi/bell-canada-change-management-api-openapi.json
   - type: Specification
     url: https://developer.bell.ca/uploads/BELL_Canada_API_Specification_Change_Management_v1_1_1_b54db5b465.pdf
+  - type: Overlay
+    url: overlays/bell-canada-change-management-api-overlay.yaml
+  - type: AgentSkill
+    url: skills/bell-canada-raise-change-request.md
 common:
+- type: AgenticAccess
+  url: agentic-access/bell-canada-agentic-access.yml
+- type: DomainSecurity
+  url: security/bell-canada-domain-security.yml
+- type: Authentication
+  url: authentication/bell-canada-authentication.yml
+- type: Conventions
+  url: conventions/bell-canada-conventions.yml
+- type: ErrorCatalog
+  url: errors/bell-canada-problem-types.yml
+- type: Lifecycle
+  url: lifecycle/bell-canada-lifecycle.yml
+- type: Sandbox
+  url: sandbox/bell-canada-sandbox.yml
+- type: Conformance
+  url: conformance/bell-canada-conformance.yml
+- type: Webhooks
+  url: asyncapi/bell-canada-webhooks.yml
+- type: DataModel
+  url: data-model/bell-canada-data-model.yml
+- type: Examples
+  url: examples/bell-canada-examples.yml
+- type: MCPServer
+  url: mcp/bell-canada-mcp.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: LLMsTxt
+  url: llms/bell-canada-llms.txt
+- type: GettingStarted
+  url: https://developer.bell.ca/faq/apis
+- type: Support
+  url: https://developer.bell.ca/contact
+- type: GitHubOrganization
+  url: https://github.com/bellcanada
 - type: Website
   url: https://www.bell.ca
 - type: DeveloperPortal

@@ -1,0 +1,104 @@
+generated: '2026-07-25'
+method: searched
+source: live probes 2026-07-25
+result: none
+summary: >-
+  No /.well-known/ discovery document is served on any Bell host. developer.bell.ca is a Next.js
+  application whose catch-all route returns the HTML 404 shell with an HTTP 200 status for every
+  unknown path, so a naive status check produces false positives — each body was inspected and is
+  the same ~26 KB HTML document, not a discovery document. www.bell.ca and www.bce.ca return real
+  404s. api.bell.ca is a live Bell API gateway that answers every path with a JSON envelope
+  {"@type":"errorResponse", ... "message":"API not found for requested URI"} and HTTP 404. No
+  security.txt, no OpenID Connect discovery, no OAuth authorization server metadata, no RFC 9727
+  api-catalog and no ai-plugin.json exist. No pointer is wired for this artifact because nothing
+  was found; the file records the negative result so re-runs do not re-probe blindly.
+hosts:
+- host: https://developer.bell.ca
+  note: Next.js catch-all returns HTML shell with status 200 for unknown paths — treat 200 as a miss unless the body parses.
+  documents:
+  - path: /.well-known/security.txt
+    status: 200
+    found: false
+    body: HTML 404 shell (26400 bytes)
+  - path: /.well-known/openid-configuration
+    status: 200
+    found: false
+    body: HTML 404 shell (26416 bytes)
+  - path: /.well-known/oauth-authorization-server
+    status: 200
+    found: false
+    body: HTML 404 shell (26428 bytes)
+  - path: /.well-known/api-catalog
+    status: 200
+    found: false
+    body: HTML 404 shell (26398 bytes)
+  - path: /.well-known/ai-plugin.json
+    status: 200
+    found: false
+    body: HTML 404 shell (26404 bytes)
+  - path: /llms.txt
+    status: 200
+    found: false
+    body: HTML 404 shell (26270 bytes)
+  - path: /robots.txt
+    status: 200
+    found: false
+    body: HTML 404 shell (26272 bytes)
+  - path: /sitemap.xml
+    status: 200
+    found: false
+    body: HTML 404 shell (26273 bytes)
+- host: https://www.bell.ca
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+    found: false
+  - path: /.well-known/openid-configuration
+    status: 404
+    found: false
+  - path: /.well-known/api-catalog
+    status: 404
+    found: false
+  - path: /robots.txt
+    status: 200
+    found: true
+    note: Real robots.txt (3425 bytes) — crawler policy only, not an API discovery document.
+- host: https://www.bce.ca
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+    found: false
+- host: https://api.bell.ca
+  note: >-
+    Live Bell API gateway. Every path returns a JSON error envelope and HTTP 404 — evidence that a
+    production gateway exists on this host, but no route is publicly provisioned and no base URL
+    for the four TM Forum APIs is published anywhere. The Swagger documents declare host
+    "serverRoot", a placeholder; the real endpoint is emailed to an approved partner.
+  documents:
+  - path: /
+    status: 404
+    found: false
+  - path: /.well-known/security.txt
+    status: 404
+    found: false
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+    found: false
+  - path: /.well-known/openid-configuration
+    status: 404
+    found: false
+  - path: /.well-known/api-catalog
+    status: 404
+    found: false
+  - path: /openapi.json
+    status: 404
+    found: false
+  - path: /swagger.json
+    status: 404
+    found: false
+  - path: /api-docs
+    status: 404
+    found: false
+  - path: /docs
+    status: 404
+    found: false

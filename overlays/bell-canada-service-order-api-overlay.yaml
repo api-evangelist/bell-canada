@@ -1,0 +1,61 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for Bell Canada Service Order API
+  version: 1.0.0
+extends: openapi/bell-canada-service-order-api-openapi.json
+x-generated: '2026-07-25'
+x-method: generated
+x-source: >-
+  https://developer.bell.ca + openapi/*.json. This overlay records API Evangelist enhancements only.
+  The harvested Swagger 2.0 document is never mutated.
+actions:
+- target: $.info
+  update:
+    x-apievangelist-provider: bell-canada
+    x-apievangelist-human-url: https://developer.bell.ca/serviceorder
+    x-apievangelist-standard: TM Forum TMF641 v4.6
+    x-apievangelist-vendor-version: 'v1.4'
+    x-apievangelist-released: '2020-03-23'
+    x-apievangelist-last-updated: '2023-06-03'
+    x-apievangelist-access: partner-gated
+    x-apievangelist-artifacts:
+      authentication: authentication/bell-canada-authentication.yml
+      conventions: conventions/bell-canada-conventions.yml
+      errors: errors/bell-canada-problem-types.yml
+      lifecycle: lifecycle/bell-canada-lifecycle.yml
+      sandbox: sandbox/bell-canada-sandbox.yml
+      webhooks: asyncapi/bell-canada-webhooks.yml
+      data_model: data-model/bell-canada-data-model.yml
+      conformance: conformance/bell-canada-conformance.yml
+      examples: examples/bell-canada-examples.yml
+      skills: skills/_index.yml
+- target: $.host
+  description: >-
+    The published document declares host "serverRoot", a placeholder. Bell emails the real endpoint
+    to a partner after the registration form is approved, so no production host can be substituted
+    here without fabricating one. Recorded, not replaced.
+  update: {}
+- target: $
+  update:
+    x-apievangelist-base-path: '/tmf-api/serviceOrdering/v4'
+    x-apievangelist-host-published: false
+    x-apievangelist-security-note: >-
+      No securityDefinitions block exists in the published document. The credential is an API key
+      supplied in a header the docs redact as the literal placeholder SECURITY_CREDENTIALS, plus
+      x-external-system in sandbox. See authentication/bell-canada-authentication.yml.
+    x-apievangelist-idempotency: none
+    x-apievangelist-rate-limits: not-published
+- target: $.paths..*[?(@.operationId == 'retrieveServiceOrder')]
+  description: Availability annotation harvested from the Bell reference page.
+  update:
+    x-apievangelist-availability: not-available
+    x-apievangelist-availability-note: >-
+      Bell documents GetServiceOrder as "Currently not available; will be implemented in the near future."
+    x-apievangelist-availability-source: https://developer.bell.ca/serviceorder
+- target: $.paths..*[?(@.operationId == 'listServiceOrder')]
+  description: Availability annotation harvested from the Bell reference page.
+  update:
+    x-apievangelist-availability: not-available
+    x-apievangelist-availability-note: >-
+      Bell documents GetServiceOrderList as "Currently not available; will be implemented in the near future."
+    x-apievangelist-availability-source: https://developer.bell.ca/serviceorder

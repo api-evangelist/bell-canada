@@ -1,0 +1,123 @@
+generated: '2026-07-25'
+method: derived
+source: openapi/*.json + https://developer.bell.ca/faq/apis + the four API reference pages
+summary: >-
+  Bell's published API surface conforms to the TM Forum Open API v4 family and to nothing else. Its
+  own FAQ states the position: "Bell suite of APIs is REST based and technology agnostic. Some APIs
+  are based on the TMForum OpenAPI reference model, thus implementing industry strength design
+  patterns." There is no OAuth 2.0, no OpenID Connect, no CAMARA, no RFC 9457 and no published
+  security certification programme.
+standards:
+- id: tmforum-open-api
+  name: TM Forum Open API
+  conforms: true
+  evidence: >-
+    All four APIs are direct TM Forum implementations; the Swagger documents carry TM Forum titles,
+    descriptions and the Entity/@type base schema verbatim, and each reference page declares the TMF
+    specification version implemented.
+  certified: unconfirmed
+  certification_note: >-
+    TM Forum's certifications-awarded registry returned HTTP 403 to anonymous fetches on the review
+    date, so an awarded conformance certificate could not be independently verified. Alignment is
+    documented by Bell; certification is not confirmed.
+- id: tmf621-trouble-ticket
+  name: TMF621 Trouble Ticket Management API
+  version: 4.1.1
+  conforms: true
+  evidence: openapi/bell-canada-trouble-ticket-api-openapi.json — title "Trouble Ticket", version 4.1.1, basePath /tmf-api/troubleTicket/v4/
+- id: tmf641-service-ordering
+  name: TMF641 Service Ordering Management API
+  version: '4.6'
+  conforms: true
+  evidence: openapi/bell-canada-service-order-api-openapi.json — title "API ServiceOrdering", version 4.6.0, basePath /tmf-api/serviceOrdering/v4
+- id: tmf639-resource-inventory
+  name: TMF639 Resource Inventory Management API
+  version: '4.1'
+  conforms: true
+  evidence: openapi/bell-canada-resource-inventory-api-openapi.json — title "Resource Inventory Management", version 4.1.0
+- id: tmf655-change-management
+  name: TMF655 Change Management API
+  version: '4.2'
+  conforms: true
+  evidence: openapi/bell-canada-change-management-api-openapi.json — title "API ChangeManagement", version 4.2.0
+- id: tmf-notification-pattern
+  name: TM Forum hub / listener publish-subscribe notification pattern
+  conforms: true
+  evidence: POST /hub, DELETE /hub/{id} and one POST /listener/{event} contract per event type in all four specs; 26 event types total.
+- id: tmf-transaction-monitor
+  name: TM Forum asynchronous operation (TransactionMonitor) pattern
+  conforms: partial
+  evidence: >-
+    Documented in the FAQ and as GET /monitor/{monitorId} on the reference pages, and every create
+    operation declares 202 Accepted — but the monitor route is absent from every Swagger document.
+- id: swagger-2.0
+  name: OpenAPI (Swagger) 2.0
+  conforms: true
+  evidence: >-
+    All four harvested documents declare a swagger member with the value "2.0" and parse with a
+    paths object. No OpenAPI 3.x is published.
+- id: rfc6902-json-patch
+  name: JSON Patch
+  conforms: partial
+  evidence: PATCH /logicalResource/executeJSONPatch (operationId executePatchResource) in the Resource Inventory API only.
+- id: rest
+  name: REST resource semantics
+  conforms: true
+  evidence: >-
+    FAQ documents the verb contract explicitly — GET retrieves, POST creates, PATCH partially
+    updates, DELETE removes.
+- id: rfc9457-problem-details
+  name: RFC 9457 Problem Details for HTTP APIs
+  conforms: false
+  evidence: Errors use the TM Forum Error schema on application/json, not application/problem+json. See errors/bell-canada-problem-types.yml.
+- id: oauth2
+  name: OAuth 2.0
+  conforms: false
+  evidence: No securityDefinitions in any spec; credentials are API keys issued by email after manual approval.
+- id: oidc
+  name: OpenID Connect
+  conforms: false
+  evidence: No /.well-known/openid-configuration served on any Bell host.
+- id: camara
+  name: CAMARA network APIs
+  conforms: false
+  evidence: >-
+    Bell publishes no first-party CAMARA API, no CAMARA OpenAPI and no Open Gateway portal.
+    opengateway.bell.ca does not resolve. Bell network signals (Number Verification, SIM Swap) reach
+    developers only through EnStream LP — the Bell/Rogers/TELUS identity joint venture — and its
+    27 February 2025 distribution partnership with Aduna.
+- id: gsma-open-gateway
+  name: GSMA Open Gateway
+  conforms: false
+  evidence: No Open Gateway portal, no Open Gateway API and no Open Gateway claim on bell.ca or developer.bell.ca.
+- id: 3gpp-nef
+  name: 3GPP NEF / SCEF network exposure
+  conforms: false
+  evidence: No network-exposure, network-slicing or MEC API is published despite 5G/MEC marketing on the portal.
+- id: asyncapi
+  name: AsyncAPI
+  conforms: false
+  evidence: An event surface exists (26 TMF notification events) but no AsyncAPI document is published. See asyncapi/bell-canada-webhooks.yml.
+- id: graphql
+  name: GraphQL
+  conforms: false
+  evidence: No /graphql endpoint on any probed host; developer.bell.ca/graphql returns the Next.js HTML catch-all.
+- id: grpc
+  name: gRPC / Protobuf
+  conforms: false
+  evidence: No .proto published on the portal, on buf.build or in the verified github.com/bellcanada organization (0 public repos).
+transport_security:
+  tls_minimum: TLSv1.2
+  claim: >-
+    "Bell supports TLSv1.2, 256 bit SHA2 encryption and SSL with proactive monitoring of inbound and
+    outbound traffic."
+  source: https://developer.bell.ca/faq/apis
+  probed: security/bell-canada-domain-security.yml
+compliance_program:
+  published: false
+  certifications: []
+  trust_center: null
+  note: >-
+    No trust centre, SOC 2, ISO 27001, PCI DSS or comparable certification is published for the API
+    platform. probe-security-programs.py found no trust centre and no vulnerability-disclosure
+    programme on any Bell host. No Compliance pointer is wired.
