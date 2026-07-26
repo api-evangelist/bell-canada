@@ -1,0 +1,376 @@
+aid: bell-canada
+name: Bell Canada
+review:
+  question: >-
+    Does Bell Canada operate a real, self-serve public developer portal, does it publish downloadable API
+    specifications, and what is its CAMARA / GSMA Open Gateway posture as a Canadian mobile network operator?
+  answer: partial
+  date: '2026-07-25'
+  reviewer: API Evangelist
+  homeMarket: Canada
+  tier: mno-carrier
+findings:
+  summary: |
+    Bell Canada runs a real, live developer portal at https://developer.bell.ca (HTTP 200, confirmed
+    2026-07-25). It is better than a pure marketing landing page and worse than a self-serve developer
+    platform. The documentation is genuinely public — four API reference pages with operation tables,
+    curl/Python examples, downloadable Swagger 2.0 JSON and downloadable PDF specifications, all
+    reachable anonymously with no login wall. But there is no self-serve signup, no API key issuance,
+    no console, no published base URL and no published credential scheme. Access is obtained by
+    submitting a business registration form ("Register to access Enterprise APIs ... to allow you to
+    access the Bell Sandbox APIs") that is manually processed by Bell. The portal is therefore
+    classified as PARTNER-GATED: open documentation, closed access.
+
+    The entire published API surface is BSS/OSS B2B service management aligned to TM Forum Open APIs.
+    There is no consumer-facing API, no messaging or voice API, no IoT connectivity management API
+    (the IoT products — Bell Control Centre, powered by Cisco, and Bell Management Centre — are sold
+    as platforms with a "Contact us to get started" call to action, not as documented APIs), and no
+    5G/MEC API despite the portal's 5G and multi-access edge computing marketing.
+
+    Bell publishes NO first-party CAMARA network APIs. opengateway.bell.ca, developers.opengateway.bell.ca,
+    developers.bell.ca and docs.bell.ca do not resolve. Bell's network APIs reach developers only
+    through an aggregator: EnStream LP — the telco identity and fraud-signal joint venture owned by
+    Bell Mobility, Rogers Communications and TELUS Communications — announced a partnership with
+    Aduna (the Ericsson-and-carrier joint venture) on 27 February 2025 to bring Canadian Number
+    Verification and SIM Swap network signals into Aduna's CAMARA-aligned global distribution platform.
+    That is a real, named, dated commercial channel, not merely a press release with nothing behind it —
+    but the callable surface belongs to EnStream/Aduna, not to Bell. Bell itself exposes no CAMARA
+    endpoint, no CAMARA OpenAPI, no sandbox and no developer documentation for network APIs.
+  developerPortal:
+    url: https://developer.bell.ca
+    httpStatus: 200
+    confirmed: true
+    real: partial
+    classification: >-
+      Real portal with public documentation and downloadable specs, but partner-gated access — a
+      registration form with manual approval, not self-serve signup.
+    gated: true
+    evidence:
+    - Home page headline "Build for 5G Innovation" with Learn / Explore / Develop tiles.
+    - /overview states "we offer to customers a self-serve API interface for managing products and services"
+      while the only route to credentials is the /register form.
+    - /register page text - "Register to access Enterprise APIs. Complete the form below to register for
+      access to Bell Enterprise APIs ... The above information will be used to send you registration
+      information to allow you to access the Bell Sandbox APIs."
+  probes:
+  - url: https://developer.bell.ca
+    status: 200
+    note: Live Next.js developer portal.
+  - url: https://developers.bell.ca
+    status: 000
+    note: Does not resolve.
+  - url: https://docs.bell.ca
+    status: 000
+    note: Does not resolve.
+  - url: https://api.bell.ca
+    status: 404
+    note: Host resolves, returns 404.
+  - url: https://opengateway.bell.ca
+    status: 000
+    note: Does not resolve. No Bell Open Gateway portal exists.
+  - url: https://developers.opengateway.bell.ca
+    status: 000
+    note: Does not resolve (Telefónica-style pattern probed and absent).
+  - url: https://www.bell.ca/opengateway
+    status: 404
+  - url: https://www.bell.ca/developer
+    status: 404
+  - url: https://www.bell.ca/developers
+    status: 404
+  - url: https://www.bell.ca/api
+    status: 404
+  - url: https://www.bell.ca/Business/api
+    status: 404
+  - url: https://apis.bell.ca
+    status: 404
+  - url: https://developer.bell.ca/openapi.json
+    status: 200
+    note: FALSE POSITIVE — the Next.js catch-all returns the HTML 404 page with a 200 status. Not a spec.
+  - url: https://developer.bell.ca/swagger.json
+    status: 200
+    note: FALSE POSITIVE — HTML catch-all, not a spec.
+  - url: https://developer.bell.ca/graphql
+    status: 200
+    note: FALSE POSITIVE — HTML catch-all. No GraphQL surface.
+  - url: https://developer.bell.ca/api-docs
+    status: 404
+  - url: https://www.bell.ca/.well-known/openid-configuration
+    status: 404
+  - url: https://www.bell.ca/.well-known/security.txt
+    status: 404
+  - url: https://api.bell.ca/.well-known/oauth-authorization-server
+    status: 404
+  specsHarvested:
+    count: 4
+    format: Swagger 2.0 (OpenAPI 2.0), JSON
+    note: >-
+      All four downloaded anonymously and confirmed to parse as Swagger 2.0 with a paths object.
+      Every one declares host "serverRoot" — a placeholder, so no real hostname is published.
+    specs:
+    - file: openapi/bell-canada-trouble-ticket-api-openapi.json
+      sourceURL: https://developer.bell.ca/uploads/trouble_ticket_api_v4_1_1_compound_swagger_950417978c.json
+      httpStatus: 200
+      fetched: '2026-07-25'
+      bytes: 130615
+      title: Trouble Ticket
+      version: 4.1.1
+      swagger: '2.0'
+      host: serverRoot
+      basePath: /tmf-api/troubleTicket/v4/
+      schemes: [https]
+      pathCount: 10
+      standard: TM Forum TMF621 v4.1.1
+      bellVersion: v2.5
+      released: Mar-19-2021
+      lastUpdated: Jul-22-2023
+    - file: openapi/bell-canada-service-order-api-openapi.json
+      sourceURL: https://developer.bell.ca/uploads/service_order_swagger_v4_6_a3c597cdf5.json
+      httpStatus: 200
+      fetched: '2026-07-25'
+      bytes: 173623
+      title: API ServiceOrdering
+      version: 4.6.0
+      swagger: '2.0'
+      host: serverRoot
+      basePath: /tmf-api/serviceOrdering/v4
+      schemes: [https]
+      pathCount: 17
+      standard: TM Forum TMF641 v4.6
+      bellVersion: v1.4
+      released: Mar-23-2020
+      lastUpdated: Jun-03-2023
+    - file: openapi/bell-canada-resource-inventory-api-openapi.json
+      sourceURL: https://developer.bell.ca/uploads/resource_inventory_swagger_v4_1_f53e8e03f0.json
+      httpStatus: 200
+      fetched: '2026-07-25'
+      bytes: 147382
+      title: Resource Inventory Management
+      version: 4.1.0
+      swagger: '2.0'
+      host: serverRoot
+      basePath: /resourceInventoryManagement/v4/
+      schemes: [https]
+      pathCount: 17
+      standard: TM Forum TMF639 v4.1
+      bellVersion: v1.6
+      released: Mar-19-2021
+      lastUpdated: Jun-03-2023
+    - file: openapi/bell-canada-change-management-api-openapi.json
+      sourceURL: https://developer.bell.ca/uploads/change_swagger_v4_2_535ee53b6d.json
+      httpStatus: 200
+      fetched: '2026-07-25'
+      bytes: 124342
+      title: API ChangeManagement
+      version: 4.2.0
+      swagger: '2.0'
+      host: serverRoot
+      basePath: /tmf-api/ChangeManagement/v4/
+      schemes: [https]
+      pathCount: 10
+      standard: TM Forum TMF655 v4.2
+      bellVersion: v1.1
+      released: Dec-03-2021
+      lastUpdated: Jun-03-2023
+  camara:
+    posture: >-
+      No first-party CAMARA implementation; Bell's network APIs reach developers only through EnStream
+      (the Bell/Rogers/TELUS identity JV) and its Aduna CAMARA-aligned distribution partnership.
+    firstPartyCamaraApis: false
+    camaraApisWithEvidence:
+    - Number Verification
+    - SIM Swap
+    camaraEvidence: >-
+      Aduna and EnStream announced a strategic partnership on 27 February 2025 to bring Canadian
+      telecom network APIs — explicitly Number Verification ("a real-time check that verifies the
+      mobile phone number associated with the user's device") and SIM Swap Protection ("a way to
+      detect and manage SIM swap events for a mobile number") — from Bell, Rogers and TELUS into
+      Aduna's standardized, CAMARA-aligned global API layer. EnStream LP is the joint venture of
+      Bell Mobility, Rogers Communications and TELUS Communications. The signals originate on Bell's
+      network; the API, the documentation and the developer relationship belong to EnStream and Aduna.
+    camaraEvidenceSources:
+    - https://www.prnewswire.com/news-releases/aduna-and-enstream-partner-to-unlock-canadas-telecom-network-apis-for-global-innovation-302387733.html
+    - https://www.ericsson.com/en/press-releases/2025/2/aduna-and-enstream-partner-to-unlock-canadas-telecom-network-apis-for-global-innovation
+    - https://btw.media/en/aduna-adds-canadian-telecom-apis-via-enstream-partnership
+    - https://enstream.com/
+    bellOwnedCamaraEndpoint: false
+    bellOwnedCamaraSpec: false
+    bellOwnedCamaraSandbox: false
+    ciba: >-
+      Not observed. CAMARA specifies OIDC and CIBA (Client-Initiated Backchannel Authentication) for
+      network-based authorization, but no CIBA, OIDC or OAuth reference appears anywhere on
+      developer.bell.ca, and Bell serves no discovery document.
+  openGateway:
+    member: unconfirmed
+    note: >-
+      GSMA's operator support pages returned HTTP 403 to anonymous fetches on the review date, so
+      no primary confirmation of Bell Canada on the current GSMA Open Gateway supporter list was
+      obtained. Bell operates no Open Gateway portal, publishes no Open Gateway API and makes no
+      Open Gateway claim on bell.ca or developer.bell.ca. A 2012 GSMA OneAPI Gateway launch with
+      Bell Mobility, Rogers and TELUS is a different, much older programme and must not be read as
+      Open Gateway participation.
+  tmForum:
+    aligned: true
+    apis:
+    - TMF621 Trouble Ticket v4.1.1
+    - TMF639 Resource Inventory Management v4.1
+    - TMF641 Service Ordering Management v4.6
+    - TMF655 Change Management v4.2
+    certified: unconfirmed
+    note: >-
+      Bell's own API pages declare the TM Forum specification and version each API implements, and the
+      harvested Swagger documents carry TM Forum titles and descriptions verbatim. TM Forum's
+      certifications-awarded registry returned HTTP 403 to anonymous fetches on the review date, so an
+      awarded conformance certificate could not be independently verified. Alignment is documented;
+      certification is not confirmed.
+  threeGpp:
+    nef: false
+    scef: false
+    networkSlicing: false
+    mecApi: false
+    note: >-
+      The portal markets 5G and MEC (multi-access edge computing) with AWS and Google Cloud logos on
+      the products page, but publishes no MEC, network-slicing, NEF or SCEF API and no edge discovery
+      endpoint.
+  authModel:
+    scheme: undisclosed
+    evidence: >-
+      No securityDefinitions or security block appears in any of the four harvested Swagger documents.
+      Every documented curl example redacts the credential as a literal header placeholder
+      --header 'SECURITY_CREDENTIALS', alongside --header 'x-external-system' described as
+      "for use in sandbox mode only, pass any unique value >= 8 chars". Real credentials are issued
+      out of band after the registration form is approved.
+    apiKey: unknown
+    oauth2: false
+    mtls: unknown
+    ciba: false
+    openidConfiguration: not served
+  webhooks:
+    present: true
+    style: TM Forum hub/listener callback registration (not AsyncAPI)
+    note: >-
+      Every one of the four APIs implements the TM Forum notification pattern — POST /hub to register
+      a listener callback URL, DELETE /hub/{id} to remove it, and a /listener/{event} POST contract per
+      event type. No AsyncAPI document is published.
+    eventCatalog:
+      troubleTicket:
+      - troubleTicketCreateEvent
+      - troubleTicketAttributeValueChangeEvent
+      - troubleTicketStatusChangeEvent
+      - troubleTicketDeleteEvent
+      - troubleTicketResolvedEvent
+      - troubleTicketInformationRequiredEvent
+      serviceOrder:
+      - serviceOrderCreateEvent
+      - serviceOrderAttributeValueChangeEvent
+      - serviceOrderStateChangeEvent
+      - serviceOrderDeleteEvent
+      - serviceOrderInformationRequiredEvent
+      - serviceOrderMilestoneEvent
+      - serviceOrderJeopardyEvent
+      - serviceOrderFailureEvent
+      - cancelServiceOrderCreateEvent
+      - cancelServiceOrderStateChangeEvent
+      - cancelServiceOrderInformationRequiredEvent
+      resourceInventory:
+      - resourceCreateEvent
+      - resourceAttributeValueChangeEvent
+      - resourceStateChangeEvent
+      - resourceDeleteEvent
+      - physicalResourceCreateEvent
+      - physicalResourceAttributeValueChangeEvent
+      - physicalResourceStateChangeEvent
+      - physicalResourceDeleteEvent
+      changeManagement:
+      - changeRequestCreateEvent
+      - changeRequestStatusChangeEvent
+      - changeRequestDeleteEvent
+      - changeRequestAttributeValueChangeEvent
+      - changeRequestApprovalRequiredEvent
+      - changeRequestFailureEvent
+  sdks:
+    firstParty: false
+    npm: none found
+    pypi: none found
+    maven: none found
+    nuget: none found
+    note: >-
+      No Bell-published SDK found on npm. The portal offers only inline curl and Python request
+      examples on each API reference page.
+  postman:
+    officialWorkspace: false
+    note: >-
+      A public Postman workspace named "Bell Media" exists under the publisher "Postman Atlas", a
+      third-party/auto-generated catalog account, not Bell. Its description asserts Notification and
+      Device endpoints that do not appear anywhere on developer.bell.ca, so it was NOT treated as
+      evidence and nothing from it was recorded.
+  graphql:
+    present: false
+  grpc:
+    present: false
+  channelToDevelopers: >-
+    Two channels, neither self-serve. For enterprise and wholesale B2B integration, Bell's own
+    partner-gated TM Forum service management APIs at developer.bell.ca. For network/identity
+    capabilities, no Bell channel at all — developers buy Bell's Number Verification and SIM Swap
+    signals from EnStream or from Aduna. This is the central sector finding for Bell: the carrier
+    owns the network, an aggregator owns the developer.
+  transports:
+  - protocol: REST
+    scheme: https
+    documented: true
+    note: All four published APIs are HTTPS REST. Base host is redacted as "serverRoot" in every spec.
+  - protocol: Webhook
+    scheme: https
+    documented: true
+    note: TM Forum hub/listener callbacks registered by the client via POST /hub.
+  - protocol: GraphQL
+    documented: false
+  - protocol: gRPC
+    documented: false
+  - protocol: WebSocket
+    documented: false
+  - protocol: AsyncAPI
+    documented: false
+sources:
+- url: https://developer.bell.ca
+  type: DeveloperPortal
+  status: 200
+  note: Bell Developer Portal home — 5G, MEC and IoT positioning with an APIs navigation menu.
+- url: https://developer.bell.ca/overview
+  type: Documentation
+  status: 200
+  note: API overview page; declares Bell's API management posture and links to the Service Management suite.
+- url: https://developer.bell.ca/servicemanagement
+  type: APIReference
+  status: 200
+  note: Lists the four Service Management APIs — Trouble Ticket, Service Order, Resource Inventory, Change Management.
+- url: https://developer.bell.ca/troubleticket
+  type: APIReference
+  status: 200
+  note: TMF621 v4.1.1, Bell v2.5. Swagger + PDF spec attachments.
+- url: https://developer.bell.ca/serviceorder
+  type: APIReference
+  status: 200
+  note: TMF641 v4.6, Bell v1.4. Notes GetServiceOrder and GetServiceOrderList as "Currently not available".
+- url: https://developer.bell.ca/resourceinventory
+  type: APIReference
+  status: 200
+  note: TMF639 v4.1, Bell v1.6.
+- url: https://developer.bell.ca/changemanagement
+  type: APIReference
+  status: 200
+  note: TMF655 v4.2, Bell v1.1.
+- url: https://developer.bell.ca/register
+  type: SignUp
+  status: 200
+  note: The access wall — a business registration form granting Bell Sandbox API access after manual review.
+- url: https://developer.bell.ca/product
+  type: Products
+  status: 200
+  note: IoT products (SIM Card, Bell Control Centre powered by Cisco, Bell Management Centre) sold via "Contact us", no APIs.
+- url: https://www.prnewswire.com/news-releases/aduna-and-enstream-partner-to-unlock-canadas-telecom-network-apis-for-global-innovation-302387733.html
+  type: PressRelease
+  note: Aduna + EnStream partnership, 27 February 2025 — Number Verification and SIM Swap from Bell, Rogers and TELUS.
+- url: https://enstream.com/
+  type: Company
+  status: 200
+  note: EnStream LP, the Bell Mobility / Rogers / TELUS identity and fraud-signal joint venture.

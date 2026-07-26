@@ -1,0 +1,3756 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Trouble Ticket",
+    "description": "**TMF API Reference : TMF - 621 Trouble Ticket**\n\n**Release : 19.0 - June 2019**\n\nThe Trouble Ticket API provides a standardized client interface to Trouble Ticket Management Systems for creating, tracking and managing trouble tickets as a result of an issue or problem identified by a customer or another system. \nExamples of Trouble Ticket API originators (clients) include CRM applications, network management or fault management systems, or other Trouble Ticket management systems (e.g. B2B).\n\nThe API supports the ability to send requests to create a new trouble ticket specifying the nature and severity of the trouble or issue as well as all necessary related information. The API also includes mechanisms to search for and update existing trouble tickets. Notifications are defined to provide information when a trouble ticket has been updated, including status changes. A basic set of states of a trouble ticket has been specified (as an example) to handle trouble ticket lifecycle management.\nTrouble Ticketing API manages trouble ticket resource:\n\n  -\tA trouble ticket represents a record, or an issue raised by requestor that need to be solved, used for reporting and managing the resolution of problems, incidents or request -\tMain trouble ticket attributes are its description, severity, type, related dates (creation, expected resolution, resolution), state and related information (change reason and change date), related parties (originator, owner, reviser, etc.), related entities (product, product order, customer bill) and notes Trouble Ticket API performs the following operations on trouble ticket -\tRetrieval of a trouble ticket or a collection of trouble ticket depending on filter criteria -\tPartial update of a trouble ticket -\tCreation of a trouble ticket -\tNotification of events on trouble ticket: o\tTrouble ticket state change o\tTrouble ticket change o\tTrouble ticket resoled o\tTrouble ticket created o\tTrouble ticket Information required\n\n\n\nCopyright \u00A9 TM Forum 2019. All Rights Reserved\n\n\n",
+    "version": "4.1.1"
+  },
+  "host": "serverRoot",
+  "basePath": "/tmf-api/troubleTicket/v4/",
+  "schemes": [
+    "https"
+  ],
+  "consumes": [
+    "application/json;charset=utf-8"
+  ],
+  "produces": [
+    "application/json;charset=utf-8"
+  ],
+  "tags": [
+    {
+      "name": "troubleTicket"
+    },
+    {
+      "name": "notification listeners (client side)"
+    },
+    {
+      "name": "events subscription"
+    }
+  ],
+  "paths": {
+    "/troubleTicket": {
+      "get": {
+        "operationId": "listTroubleTicket",
+        "summary": "List or find TroubleTicket objects",
+        "description": "This operation list or find TroubleTicket entities",
+        "tags": [
+          "troubleTicket"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "fields",
+            "required": false,
+            "type": "string",
+            "description": "Comma-separated properties to be provided in response"
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "required": false,
+            "type": "integer",
+            "description": "Requested index for start of resources to be provided in response"
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "type": "integer",
+            "description": "Requested number of resources to be provided in response"
+          },
+          {
+            "in": "query",
+            "name": "sort",
+            "required": false,
+            "type": "string",
+            "description": "To have the output sorted by fields. Can support one or many fields, as well as ascending and descending sort order"
+          },
+          {
+            "in": "query",
+            "name": "expand",
+            "required": false,
+            "type": "string",
+            "description": "Lists the sub-entities to expand along with the depth value. Empty means expand all at depth level N"
+          },
+          {
+            "in": "query",
+            "name": "depth",
+            "required": false,
+            "type": "string",
+            "description": "Depth level where objects are dereferenced and inserted as values into the response"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "headers": {
+              "X-Result-Count": {
+                "type": "integer",
+                "description": "Actual number of items returned in the response body"
+              },
+              "X-Total-Count": {
+                "type": "integer",
+                "description": "Total number of items matching criteria"
+              }
+            },
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/TroubleTicket"
+              },
+              "type": "array"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "405": {
+            "description": "Method Not allowed",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "createTroubleTicket",
+        "summary": "Creates a TroubleTicket",
+        "description": "This operation creates a TroubleTicket entity.",
+        "tags": [
+          "troubleTicket"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "troubleTicket",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/TroubleTicket_Create"
+            },
+            "description": "The TroubleTicket to be created"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created",
+            "schema": {
+              "$ref": "#/definitions/TroubleTicket"
+            }
+          },
+          "202": {
+            "description": "Accepted"
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "405": {
+            "description": "Method Not allowed",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/troubleTicket/{id}": {
+      "get": {
+        "operationId": "retrieveTroubleTicket",
+        "summary": "Retrieves a TroubleTicket by ID",
+        "description": "This operation retrieves a TroubleTicket entity. Attribute selection is enabled for all first level attributes.",
+        "tags": [
+          "troubleTicket"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "string",
+            "description": "Identifier of the TroubleTicket"
+          },
+          {
+            "in": "query",
+            "name": "fields",
+            "required": false,
+            "type": "string",
+            "description": "Comma-separated properties to be provided in response"
+          },
+          {
+            "in": "query",
+            "name": "expand",
+            "required": false,
+            "type": "string",
+            "description": "Lists the sub-entities to expand along with the depth value. Empty means expand all at depth level N"
+          },
+          {
+            "in": "query",
+            "name": "depth",
+            "required": false,
+            "type": "string",
+            "description": "Depth level where objects are dereferenced and inserted as values into the response"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/TroubleTicket"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "405": {
+            "description": "Method Not allowed",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "patch": {
+        "operationId": "patchTroubleTicket",
+        "summary": "Updates partially a TroubleTicket",
+        "description": "This operation updates partially a TroubleTicket entity.",
+        "tags": [
+          "troubleTicket"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "string",
+            "description": "Identifier of the TroubleTicket"
+          },
+          {
+            "in": "body",
+            "name": "troubleTicket",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/TroubleTicket_Update"
+            },
+            "description": "The TroubleTicket to be updated"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Updated",
+            "schema": {
+              "$ref": "#/definitions/TroubleTicket"
+            }
+          },
+          "204": {
+            "description": "No Content"
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "405": {
+            "description": "Method Not allowed",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "delete": {
+        "operationId": "deleteTroubleTicket",
+        "summary": "Deletes a TroubleTicket",
+        "description": "This operation deletes a TroubleTicket entity.",
+        "tags": [
+          "troubleTicket"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "string",
+            "description": "Identifier of the TroubleTicket"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Deleted"
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "405": {
+            "description": "Method Not allowed",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/hub": {
+      "post": {
+        "operationId": "registerListener",
+        "summary": "Register a listener",
+        "description": "Sets the communication endpoint address the service instance must use to deliver information about its health state, execution state, failures and metrics.",
+        "tags": [
+          "events subscription"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "data",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/EventSubscriptionInput"
+            },
+            "description": "Data containing the callback endpoint to deliver the information"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Subscribed",
+            "schema": {
+              "$ref": "#/definitions/EventSubscription"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "405": {
+            "description": "Method Not allowed",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/hub/{id}": {
+      "delete": {
+        "operationId": "unregisterListener",
+        "summary": "Unregister a listener",
+        "description": "Resets the communication endpoint address the service instance must use to deliver information about its health state, execution state, failures and metrics.",
+        "tags": [
+          "events subscription"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "string",
+            "description": "The id of the registered listener"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Deleted"
+          },
+          "400": {
+            "description": "Bad request",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "405": {
+            "description": "Method not allowed",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/listener/troubleTicketCreateEvent": {
+      "post": {
+        "operationId": "listenToTroubleTicketCreateEvent",
+        "summary": "Client listener for entity TroubleTicketCreateEvent",
+        "description": "Example of a client listener for receiving the notification TroubleTicketCreateEvent",
+        "tags": [
+          "notification listeners (client side)"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "data",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/TroubleTicketCreateEvent"
+            },
+            "description": "The event data"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Notified",
+            "schema": {
+              "$ref": "#/definitions/EventSubscription"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "405": {
+            "description": "Method Not allowed",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/listener/troubleTicketAttributeValueChangeEvent": {
+      "post": {
+        "operationId": "listenToTroubleTicketAttributeValueChangeEvent",
+        "summary": "Client listener for entity TroubleTicketAttributeValueChangeEvent",
+        "description": "Example of a client listener for receiving the notification TroubleTicketAttributeValueChangeEvent",
+        "tags": [
+          "notification listeners (client side)"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "data",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/TroubleTicketAttributeValueChangeEvent"
+            },
+            "description": "The event data"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Notified",
+            "schema": {
+              "$ref": "#/definitions/EventSubscription"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "405": {
+            "description": "Method Not allowed",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/listener/troubleTicketStatusChangeEvent": {
+      "post": {
+        "operationId": "listenToTroubleTicketStatusChangeEvent",
+        "summary": "Client listener for entity TroubleTicketStatusChangeEvent",
+        "description": "Example of a client listener for receiving the notification TroubleTicketStatusChangeEvent",
+        "tags": [
+          "notification listeners (client side)"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "data",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/TroubleTicketStatusChangeEvent"
+            },
+            "description": "The event data"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Notified",
+            "schema": {
+              "$ref": "#/definitions/EventSubscription"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "405": {
+            "description": "Method Not allowed",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/listener/troubleTicketDeleteEvent": {
+      "post": {
+        "operationId": "listenToTroubleTicketDeleteEvent",
+        "summary": "Client listener for entity TroubleTicketDeleteEvent",
+        "description": "Example of a client listener for receiving the notification TroubleTicketDeleteEvent",
+        "tags": [
+          "notification listeners (client side)"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "data",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/TroubleTicketDeleteEvent"
+            },
+            "description": "The event data"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Notified",
+            "schema": {
+              "$ref": "#/definitions/EventSubscription"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "405": {
+            "description": "Method Not allowed",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/listener/troubleTicketResolvedEvent": {
+      "post": {
+        "operationId": "listenToTroubleTicketResolvedEvent",
+        "summary": "Client listener for entity TroubleTicketResolvedEvent",
+        "description": "Example of a client listener for receiving the notification TroubleTicketResolvedEvent",
+        "tags": [
+          "notification listeners (client side)"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "data",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/TroubleTicketResolvedEvent"
+            },
+            "description": "The event data"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Notified",
+            "schema": {
+              "$ref": "#/definitions/EventSubscription"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "405": {
+            "description": "Method Not allowed",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/listener/troubleTicketInformationRequiredEvent": {
+      "post": {
+        "operationId": "listenToTroubleTicketInformationRequiredEvent",
+        "summary": "Client listener for entity TroubleTicketInformationRequiredEvent",
+        "description": "Example of a client listener for receiving the notification TroubleTicketInformationRequiredEvent",
+        "tags": [
+          "notification listeners (client side)"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "data",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/TroubleTicketInformationRequiredEvent"
+            },
+            "description": "The event data"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Notified",
+            "schema": {
+              "$ref": "#/definitions/EventSubscription"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "405": {
+            "description": "Method Not allowed",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Attachment": {
+      "description": "Complements the description of an element (for instance a product) through video, pictures...",
+      "allOf": [
+        {
+          "$ref": "#/definitions/Entity"
+        },
+        {
+          "properties": {
+            "id": {
+              "type": "string",
+              "description": "Unique identifier for this particular attachment"
+            },
+            "href": {
+              "type": "string",
+              "description": "URI for this Attachment"
+            },
+            "attachmentType": {
+              "type": "string",
+              "description": "Attachment type such as video, picture"
+            },
+            "content": {
+              "type": "string",
+              "description": "The actual contents of the attachment object, if embedded, encoded as base64"
+            },
+            "description": {
+              "type": "string",
+              "description": "A narrative text describing the content of the attachment"
+            },
+            "mimeType": {
+              "type": "string",
+              "description": "Attachment mime type such as extension file for video, picture and document"
+            },
+            "name": {
+              "type": "string",
+              "description": "The name of the attachment"
+            },
+            "url": {
+              "type": "string",
+              "description": "Uniform Resource Locator, is a web page address (a subset of URI)"
+            },
+            "size": {
+              "$ref": "#/definitions/Quantity",
+              "description": "The size of the attachment."
+            },
+            "validFor": {
+              "$ref": "#/definitions/TimePeriod",
+              "description": "The period of time for which the attachment is valid"
+            }
+          }
+        }
+      ]
+    },
+    "AttachmentRef": {
+      "description": "Attachment reference. An attachment complements the description of an element (for instance a product) through video, pictures",
+      "allOf": [
+        {
+          "$ref": "#/definitions/EntityRef"
+        },
+        {
+          "properties": {
+            "description": {
+              "type": "string",
+              "description": "A narrative text describing the content of the attachment"
+            },
+            "url": {
+              "type": "string",
+              "description": "Link to the attachment media/content"
+            }
+          }
+        }
+      ]
+    },
+    "AttachmentRefOrValue": {
+      "description": "An attachment by value or by reference. For AttachmentRefOrValue, the attribute type,schemaLocation and referredType are related to the contained entity and not to AttchmentRefOrValue itself",
+      "allOf": [
+        {
+          "$ref": "#/definitions/Entity"
+        },
+        {
+          "properties": {
+            "ref": {
+              "$ref": "#/definitions/AttachmentRef",
+              "description": "A reference to the Attachment."
+            },
+            "value": {
+              "$ref": "#/definitions/Attachment",
+              "description": "The Attachment (as a value)."
+            }
+          }
+        }
+      ]
+    },
+    "ChannelRef": {
+      "description": "The channel to which the resource reference to. e.g. channel for selling product offerings, channel for opening a trouble ticket etc..",
+      "allOf": [
+        {
+          "$ref": "#/definitions/EntityRef"
+        }
+      ]
+    },
+    "EntityRef": {
+      "description": "Base entityRef schema for use in TMForum Open-APIs",
+      "allOf": [
+        {
+          "$ref": "#/definitions/Entity"
+        },
+        {
+          "properties": {
+            "id": {
+              "type": "string",
+              "description": "Unique identifier of a related entity."
+            },
+            "href": {
+              "type": "string",
+              "description": "Reference of the related entity."
+            },
+            "name": {
+              "type": "string",
+              "description": "Name of the related entity."
+            },
+            "@referredType": {
+              "type": "string",
+              "description": "The actual type of the target instance when needed for disambiguation."
+            }
+          }
+        }
+      ]
+    },
+    "Note": {
+      "description": "Extra information about a given entity",
+      "allOf": [
+        {
+          "$ref": "#/definitions/Entity"
+        },
+        {
+          "properties": {
+            "id": {
+              "type": "string",
+              "description": "Identifier of the note within its containing entity (may or may not be globally unique, depending on provider implementation)"
+            },
+            "author": {
+              "type": "string",
+              "description": "Author of the note"
+            },
+            "date": {
+              "type": "string",
+              "format": "date-time",
+              "description": "Date of the note"
+            },
+            "text": {
+              "type": "string",
+              "description": "Text of the note"
+            }
+          }
+        }
+      ]
+    },
+    "Quantity": {
+      "type": "object",
+      "description": "An amount in a given unit",
+      "properties": {
+        "amount": {
+          "type": "number",
+          "format": "float",
+          "description": "Numeric value in a given unit",
+          "default": 1.0
+        },
+        "units": {
+          "type": "string",
+          "description": "Unit"
+        }
+      }
+    },
+    "RelatedEntity": {
+      "description": "A reference to an entity, where the type of the entity is not known in advance.",
+      "allOf": [
+        {
+          "$ref": "#/definitions/Entity"
+        },
+        {
+          "required": [
+            "id",
+            "role",
+            "@referredType"
+          ],
+          "properties": {
+            "id": {
+              "type": "string",
+              "description": "Unique identifier of a related entity."
+            },
+            "href": {
+              "type": "string",
+              "description": "Reference of the related entity."
+            },
+            "name": {
+              "type": "string",
+              "description": "Name of the related entity."
+            },
+            "role": {
+              "type": "string",
+              "description": "The role of an entity."
+            },
+            "@referredType": {
+              "type": "string",
+              "description": "The actual type of the target instance when needed for disambiguation."
+            }
+          }
+        }
+      ]
+    },
+    "RelatedParty": {
+      "description": "Related Entity reference. A related party defines party or party role linked to a specific entity.",
+      "allOf": [
+        {
+          "$ref": "#/definitions/Entity"
+        },
+        {
+          "required": [
+            "id",
+            "@referredType"
+          ],
+          "properties": {
+            "id": {
+              "type": "string",
+              "description": "Unique identifier of a related entity."
+            },
+            "href": {
+              "type": "string",
+              "description": "Reference of the related entity."
+            },
+            "name": {
+              "type": "string",
+              "description": "Name of the related entity."
+            },
+            "role": {
+              "type": "string",
+              "description": "Role played by the related party"
+            },
+            "@referredType": {
+              "type": "string",
+              "description": "The actual type of the target instance when needed for disambiguation."
+            }
+          }
+        }
+      ]
+    },
+    "StatusChange": {
+      "description": "Holds the status notification reasons and associated date the status changed, populated by the server",
+      "allOf": [
+        {
+          "$ref": "#/definitions/Entity"
+        },
+        {
+          "properties": {
+            "changeDate": {
+              "type": "string",
+              "format": "date-time",
+              "description": "The date and time the status changed."
+            },
+            "changeReason": {
+              "type": "string",
+              "description": "The reason why the status changed."
+            },
+            "status": {
+              "type": "string",
+              "description": "The status of the trouble ticket"
+            }
+          }
+        }
+      ]
+    },
+    "TimePeriod": {
+      "type": "object",
+      "description": "A period of time, either as a deadline (endDateTime only) a startDateTime only, or both",
+      "properties": {
+        "endDateTime": {
+          "type": "string",
+          "format": "date-time",
+          "description": "End of the time period, using IETC-RFC-3339 format"
+        },
+        "startDateTime": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Start of the time period, using IETC-RFC-3339 format. If you define a start, you must also define an end"
+        }
+      }
+    },
+    "TroubleTicket": {
+      "description": "A trouble ticket is a record of an issue that is created, tracked, and managed by a trouble ticket management system",
+      "allOf": [
+        {
+          "$ref": "#/definitions/Entity"
+        },
+        {
+          "properties": {
+            "id": {
+              "type": "string",
+              "description": "Unique identifier of the trouble ticket"
+            },
+            "href": {
+              "type": "string",
+              "description": "Hyperlink, a reference to the trouble ticket entity"
+            },
+            "creationDate": {
+              "type": "string",
+              "format": "date-time",
+              "description": "The date on which the trouble ticket was created"
+            },
+            "description": {
+              "type": "string",
+              "description": "Description of the trouble or issue"
+            },
+            "expectedResolutionDate": {
+              "type": "string",
+              "format": "date-time",
+              "description": "The expected resolution date determined by the trouble ticket system"
+            },
+            "externalId": {
+              "type": "string",
+              "description": "Additional identifier coming from an external system"
+            },
+            "lastUpdate": {
+              "type": "string",
+              "format": "date-time",
+              "description": "The date and time that the trouble ticked was last updated"
+            },
+            "name": {
+              "type": "string",
+              "description": "Name of the trouble ticket, typically a short description provided by the user that create the ticket"
+            },
+            "priority": {
+              "type": "string",
+              "description": "The priority of the trouble ticket and how quickly the issue should be resolved. Example: Critical, High, Medium, Low. The value is set by the ticket management system considering the severity, ticket type etc..."
+            },
+            "requestedResolutionDate": {
+              "type": "string",
+              "format": "date-time",
+              "description": "The resolution date requested by the user"
+            },
+            "resolutionDate": {
+              "type": "string",
+              "format": "date-time",
+              "description": "The date and time the trouble ticket was resolved"
+            },
+            "severity": {
+              "type": "string",
+              "description": "The severity of the issue. Indicate the implication of the issue on the expected functionality e.g. of a system, application, service etc.. \nSeverity values can be for example : Critical, Major, Minor"
+            },
+            "statusChangeDate": {
+              "type": "string",
+              "format": "date-time",
+              "description": "The date and time the status changed."
+            },
+            "statusChangeReason": {
+              "type": "string",
+              "description": "The reason for changing the status"
+            },
+            "ticketType": {
+              "type": "string",
+              "description": "represent a business type of the trouble ticket e.g. incident, complain, request"
+            },
+            "attachment": {
+              "description": "File(s) attached to the trouble ticket. e.g. pictur of broken device, scaning of a bill or charge",
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/AttachmentRefOrValue"
+              }
+            },
+            "channel": {
+              "$ref": "#/definitions/ChannelRef",
+              "description": "The channel that origin the trouble ticket"
+            },
+            "note": {
+              "description": "The note(s) that are associated to the ticket.",
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Note"
+              }
+            },
+            "relatedEntity": {
+              "description": "An entity that is related to the ticket such as a bill, a product, etc. The entity against which the ticket is associated.",
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/RelatedEntity"
+              }
+            },
+            "relatedParty": {
+              "description": "The related party(ies) that are associated to the ticket.",
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/RelatedParty"
+              }
+            },
+            "status": {
+              "$ref": "#/definitions/TroubleTicketStatusType",
+              "description": "The current status of the trouble ticket"
+            },
+            "statusChange": {
+              "description": "The status change history that are associated to the ticket.Populated by the server",
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/StatusChange"
+              }
+            },
+            "troubleTicketRelationship": {
+              "description": "A list of trouble ticket relationships (TroubleTicketRelationship [*]). Represents a relationship between trouble tickets",
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/TroubleTicketRelationship"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "TroubleTicket_Create": {
+      "description": "A trouble ticket is a record of an issue that is created, tracked, and managed by a trouble ticket management system\nSkipped properties: id,href",
+      "allOf": [
+        {
+          "$ref": "#/definitions/Entity"
+        },
+        {
+          "required": [
+            "description",
+            "severity",
+            "ticketType"
+          ],
+          "properties": {
+            "creationDate": {
+              "type": "string",
+              "format": "date-time",
+              "description": "The date on which the trouble ticket was created"
+            },
+            "description": {
+              "type": "string",
+              "description": "Description of the trouble or issue"
+            },
+            "expectedResolutionDate": {
+              "type": "string",
+              "format": "date-time",
+              "description": "The expected resolution date determined by the trouble ticket system"
+            },
+            "externalId": {
+              "type": "string",
+              "description": "Additional identifier coming from an external system"
+            },
+            "lastUpdate": {
+              "type": "string",
+              "format": "date-time",
+              "description": "The date and time that the trouble ticked was last updated"
+            },
+            "name": {
+              "type": "string",
+              "description": "Name of the trouble ticket, typically a short description provided by the user that create the ticket"
+            },
+            "priority": {
+              "type": "string",
+              "description": "The priority of the trouble ticket and how quickly the issue should be resolved. Example: Critical, High, Medium, Low. The value is set by the ticket management system considering the severity, ticket type etc..."
+            },
+            "requestedResolutionDate": {
+              "type": "string",
+              "format": "date-time",
+              "description": "The resolution date requested by the user"
+            },
+            "resolutionDate": {
+              "type": "string",
+              "format": "date-time",
+              "description": "The date and time the trouble ticket was resolved"
+            },
+            "severity": {
+              "type": "string",
+              "description": "The severity of the issue. Indicate the implication of the issue on the expected functionality e.g. of a system, application, service etc.. \nSeverity values can be for example : Critical, Major, Minor"
+            },
+            "statusChangeDate": {
+              "type": "string",
+              "format": "date-time",
+              "description": "The date and time the status changed."
+            },
+            "statusChangeReason": {
+              "type": "string",
+              "description": "The reason for changing the status"
+            },
+            "ticketType": {
+              "type": "string",
+              "description": "represent a business type of the trouble ticket e.g. incident, complain, request"
+            },
+            "attachment": {
+              "description": "File(s) attached to the trouble ticket. e.g. pictur of broken device, scaning of a bill or charge",
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/AttachmentRefOrValue"
+              }
+            },
+            "channel": {
+              "$ref": "#/definitions/ChannelRef",
+              "description": "The channel that origin the trouble ticket"
+            },
+            "note": {
+              "description": "The note(s) that are associated to the ticket.",
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Note"
+              }
+            },
+            "relatedEntity": {
+              "description": "An entity that is related to the ticket such as a bill, a product, etc. The entity against which the ticket is associated.",
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/RelatedEntity"
+              }
+            },
+            "relatedParty": {
+              "description": "The related party(ies) that are associated to the ticket.",
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/RelatedParty"
+              }
+            },
+            "status": {
+              "$ref": "#/definitions/TroubleTicketStatusType",
+              "description": "The current status of the trouble ticket"
+            },
+            "statusChange": {
+              "description": "The status change history that are associated to the ticket.Populated by the server",
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/StatusChange"
+              }
+            },
+            "troubleTicketRelationship": {
+              "description": "A list of trouble ticket relationships (TroubleTicketRelationship [*]). Represents a relationship between trouble tickets",
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/TroubleTicketRelationship"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "TroubleTicket_Update": {
+      "description": "A trouble ticket is a record of an issue that is created, tracked, and managed by a trouble ticket management system\nSkipped properties: id,href,creationDate,lastUpdate,statusChange,statusChangeDate",
+      "allOf": [
+        {
+          "$ref": "#/definitions/Entity"
+        },
+        {
+          "properties": {
+            "description": {
+              "type": "string",
+              "description": "Description of the trouble or issue"
+            },
+            "expectedResolutionDate": {
+              "type": "string",
+              "format": "date-time",
+              "description": "The expected resolution date determined by the trouble ticket system"
+            },
+            "externalId": {
+              "type": "string",
+              "description": "Additional identifier coming from an external system"
+            },
+            "name": {
+              "type": "string",
+              "description": "Name of the trouble ticket, typically a short description provided by the user that create the ticket"
+            },
+            "priority": {
+              "type": "string",
+              "description": "The priority of the trouble ticket and how quickly the issue should be resolved. Example: Critical, High, Medium, Low. The value is set by the ticket management system considering the severity, ticket type etc..."
+            },
+            "requestedResolutionDate": {
+              "type": "string",
+              "format": "date-time",
+              "description": "The resolution date requested by the user"
+            },
+            "resolutionDate": {
+              "type": "string",
+              "format": "date-time",
+              "description": "The date and time the trouble ticket was resolved"
+            },
+            "severity": {
+              "type": "string",
+              "description": "The severity of the issue. Indicate the implication of the issue on the expected functionality e.g. of a system, application, service etc.. \nSeverity values can be for example : Critical, Major, Minor"
+            },
+            "statusChangeReason": {
+              "type": "string",
+              "description": "The reason for changing the status"
+            },
+            "ticketType": {
+              "type": "string",
+              "description": "represent a business type of the trouble ticket e.g. incident, complain, request"
+            },
+            "attachment": {
+              "description": "File(s) attached to the trouble ticket. e.g. pictur of broken device, scaning of a bill or charge",
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/AttachmentRefOrValue"
+              }
+            },
+            "channel": {
+              "$ref": "#/definitions/ChannelRef",
+              "description": "The channel that origin the trouble ticket"
+            },
+            "note": {
+              "description": "The note(s) that are associated to the ticket.",
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Note"
+              }
+            },
+            "relatedEntity": {
+              "description": "An entity that is related to the ticket such as a bill, a product, etc. The entity against which the ticket is associated.",
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/RelatedEntity"
+              }
+            },
+            "relatedParty": {
+              "description": "The related party(ies) that are associated to the ticket.",
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/RelatedParty"
+              }
+            },
+            "status": {
+              "$ref": "#/definitions/TroubleTicketStatusType",
+              "description": "The current status of the trouble ticket"
+            },
+            "troubleTicketRelationship": {
+              "description": "A list of trouble ticket relationships (TroubleTicketRelationship [*]). Represents a relationship between trouble tickets",
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/TroubleTicketRelationship"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "TroubleTicketRelationship": {
+      "description": "Represents a relationship between trouble Trouble Tickets",
+      "allOf": [
+        {
+          "$ref": "#/definitions/Entity"
+        },
+        {
+          "properties": {
+            "id": {
+              "type": "string",
+              "description": "Unique identifier of the Trouble Ticket"
+            },
+            "href": {
+              "type": "string",
+              "description": "Reference of the Trouble Ticket"
+            },
+            "name": {
+              "type": "string",
+              "description": "Name of the Trouble Ticket"
+            },
+            "relationshipType": {
+              "type": "string",
+              "description": "Type of the  Trouble Ticket relationship can be isChiled, dependent etc..."
+            }
+          }
+        }
+      ]
+    },
+    "TroubleTicketStatusType": {
+      "type": "string",
+      "description": "Possible values for the status of the trouble ticket",
+      "enum": [
+        "submitted",
+        "acknowledged",
+        "rejected",
+        "pending",
+        "held",
+        "inProgress",
+        "cancelled",
+        "closed",
+        "resolved"
+      ]
+    },
+    "EventSubscription": {
+      "type": "object",
+      "description": "Sets the communication endpoint address the service instance must use to deliver notification information",
+      "required": [
+        "id",
+        "callback"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Id of the listener"
+        },
+        "callback": {
+          "type": "string",
+          "description": "The callback being registered."
+        },
+        "query": {
+          "type": "string",
+          "description": "additional data to be passed"
+        }
+      }
+    },
+    "EventSubscriptionInput": {
+      "type": "object",
+      "description": "Sets the communication endpoint address the service instance must use to deliver notification information",
+      "required": [
+        "callback"
+      ],
+      "properties": {
+        "callback": {
+          "type": "string",
+          "description": "The callback being registered."
+        },
+        "query": {
+          "type": "string",
+          "description": "additional data to be passed"
+        }
+      }
+    },
+    "TroubleTicketCreateEvent": {
+      "description": "The notification data structure",
+      "allOf": [
+        {
+          "$ref": "#/definitions/Event"
+        },
+        {
+          "properties": {
+            "event": {
+              "$ref": "#/definitions/TroubleTicketCreateEventPayload",
+              "description": "The event payload linked to the involved resource object"
+            }
+          }
+        }
+      ]
+    },
+    "TroubleTicketCreateEventPayload": {
+      "type": "object",
+      "description": "The event data structure",
+      "properties": {
+        "troubleTicket": {
+          "$ref": "#/definitions/TroubleTicket",
+          "description": "The involved resource data for the event"
+        }
+      }
+    },
+    "TroubleTicketAttributeValueChangeEvent": {
+      "description": "The notification data structure",
+      "allOf": [
+        {
+          "$ref": "#/definitions/Event"
+        },
+        {
+          "properties": {
+            "fieldPath": {
+              "type": "string",
+              "description": "The path identifying the object field concerned by this notification."
+            },
+            "event": {
+              "$ref": "#/definitions/TroubleTicketAttributeValueChangeEventPayload",
+              "description": "The event payload linked to the involved resource object"
+            }
+          }
+        }
+      ]
+    },
+    "TroubleTicketAttributeValueChangeEventPayload": {
+      "type": "object",
+      "description": "The event data structure",
+      "properties": {
+        "troubleTicket": {
+          "$ref": "#/definitions/TroubleTicket",
+          "description": "The involved resource data for the event"
+        }
+      }
+    },
+    "TroubleTicketStatusChangeEvent": {
+      "description": "The notification data structure",
+      "allOf": [
+        {
+          "$ref": "#/definitions/Event"
+        },
+        {
+          "properties": {
+            "event": {
+              "$ref": "#/definitions/TroubleTicketStatusChangeEventPayload",
+              "description": "The event payload linked to the involved resource object"
+            }
+          }
+        }
+      ]
+    },
+    "TroubleTicketStatusChangeEventPayload": {
+      "type": "object",
+      "description": "The event data structure",
+      "properties": {
+        "troubleTicket": {
+          "$ref": "#/definitions/TroubleTicket",
+          "description": "The involved resource data for the event"
+        }
+      }
+    },
+    "TroubleTicketDeleteEvent": {
+      "description": "The notification data structure",
+      "allOf": [
+        {
+          "$ref": "#/definitions/Event"
+        },
+        {
+          "properties": {
+            "event": {
+              "$ref": "#/definitions/TroubleTicketDeleteEventPayload",
+              "description": "The event payload linked to the involved resource object"
+            }
+          }
+        }
+      ]
+    },
+    "TroubleTicketDeleteEventPayload": {
+      "type": "object",
+      "description": "The event data structure",
+      "properties": {
+        "troubleTicket": {
+          "$ref": "#/definitions/TroubleTicket",
+          "description": "The involved resource data for the event"
+        }
+      }
+    },
+    "TroubleTicketResolvedEvent": {
+      "description": "The notification data structure",
+      "allOf": [
+        {
+          "$ref": "#/definitions/Event"
+        },
+        {
+          "properties": {
+            "event": {
+              "$ref": "#/definitions/TroubleTicketResolvedEventPayload",
+              "description": "The event payload linked to the involved resource object"
+            }
+          }
+        }
+      ]
+    },
+    "TroubleTicketResolvedEventPayload": {
+      "type": "object",
+      "description": "The event data structure",
+      "properties": {
+        "troubleTicket": {
+          "$ref": "#/definitions/TroubleTicket",
+          "description": "The involved resource data for the event"
+        }
+      }
+    },
+    "TroubleTicketInformationRequiredEvent": {
+      "description": "The notification data structure",
+      "allOf": [
+        {
+          "$ref": "#/definitions/Event"
+        },
+        {
+          "properties": {
+            "fieldPath": {
+              "type": "string",
+              "description": "The path identifying the object field concerned by this notification."
+            },
+            "event": {
+              "$ref": "#/definitions/TroubleTicketInformationRequiredEventPayload",
+              "description": "The event payload linked to the involved resource object"
+            }
+          }
+        }
+      ]
+    },
+    "TroubleTicketInformationRequiredEventPayload": {
+      "type": "object",
+      "description": "The event data structure",
+      "properties": {
+        "troubleTicket": {
+          "$ref": "#/definitions/TroubleTicket",
+          "description": "The involved resource data for the event"
+        }
+      }
+    },
+    "Error": {
+      "description": "Used when an API throws an Error, typically with a HTTP error response-code (3xx, 4xx, 5xx)",
+      "allOf": [
+        {
+          "$ref": "#/definitions/Entity"
+        },
+        {
+          "required": [
+            "code",
+            "reason"
+          ],
+          "properties": {
+            "code": {
+              "type": "string",
+              "description": "Application relevant detail, defined in the API or a common list."
+            },
+            "reason": {
+              "type": "string",
+              "description": "Explanation of the reason for the error which can be shown to a client user."
+            },
+            "message": {
+              "type": "string",
+              "description": "More details and corrective actions related to the error which can be shown to a client user."
+            },
+            "status": {
+              "type": "string",
+              "description": "HTTP Error code extension"
+            },
+            "referenceError": {
+              "type": "string",
+              "format": "uri",
+              "description": "URI of documentation describing the error."
+            }
+          }
+        }
+      ]
+    },
+    "BellErrorRepresentation": {
+      "description": "Bell specialized version of the TMF Error. Used to store the native error representation",
+      "allOf": [
+        {
+          "$ref": "#/definitions/Error"
+        },
+        {
+          "properties": {
+            "causedBy": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "object"
+              }
+            },
+            "timestamp": {
+              "type": "string",
+              "format": "date-time",
+              "description": "Timestamp when the error is catched, as viewed by the issuer of the error, in ISO 8601 format"
+            }
+          }
+        }
+      ]
+    },
+    "BellTroubleTicket": {
+      "description": "Bell version of the TMF TroubleTicket",
+      "allOf": [
+        {
+          "$ref": "#/definitions/TroubleTicket"
+        },
+        {
+          "properties": {
+            "nativeStatus": {
+              "type": "string",
+              "description": "Status of the Ticket in the external system. These values are generally different from the TMF values, mappings are applied"
+            },
+            "isMaster": {
+              "type": "boolean",
+              "description": "Indication that this trouble ticket is a master ticket, the cause of others. All operations on a master ticket may impact its children (e.g. Closing the ticket)"
+            },
+            "customerTicketId": {
+              "type": "string",
+              "description": "A reference number for the ticket understandable by the customer. This customer may supply this number"
+            },
+            "affectedDate": {
+              "type": "string",
+              "format": "date-time",
+              "description": "The moment at which the customer was affected"
+            },
+            "nextNotificationDate": {
+              "type": "string",
+              "format": "date-time",
+              "description": "The moment when a new notification must be sent to the customer about the resolution of the ticket"
+            },
+            "contactDate": {
+              "type": "string",
+              "format": "date-time",
+              "description": "The date and time when the customer was contacted about this Trouble Ticket."
+            },
+            "sourceSystemId": {
+              "type": "string",
+              "description": "Id of the external system where the ticket is defined. Not to confuse with the number of a trouble ticket in that system (externalId)"
+            },
+            "category": {
+              "type": "string",
+              "description": "The category of the affected resource for this trouble ticket e.g. Maximo.serviceGroup"
+            },
+            "subCategory": {
+              "type": "string",
+              "description": "The category of the affected resource for this trouble ticket e.g. Maximo.serviceGroup"
+            },
+            "originatingSourceSystemId": {
+              "type": "string",
+              "description": "Originating source system responsible for the ticket creation e.g. OC, Smarts"
+            },
+            "alternateExternalId": {
+              "type": "string",
+              "description": "The number of this Trouble Ticket in another system, like Tim numbers for Maximo incident"
+            },
+            "alternateSourceSystemId": {
+              "type": "string",
+              "description": "Id of the other system where the ticket alternateExternalId comes from."
+            },
+            "characteristic": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Characteristic"
+              }
+            },
+            "activity": {
+              "description": "Tasks that needs to be done in the context of the ticket.",
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/BellActivityRefOrValue"
+              }
+            },
+            "urgency": {
+              "type": "string",
+              "description": "How quickly the resolution of the ticket is required"
+            },
+            "place": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/RelatedPlaceRefOrValue"
+              }
+            },
+            "tag": {
+              "description": "A label used to give information about a ticket, typically used to filter tickets, e.g. ServiceOrdering (identifing tickets that relates to a ServiceOrder)",
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "resolution": {
+              "$ref": "#/definitions/BellTroubleTicketResolutionInfo",
+              "description": "Information about the solution applied to resolve the ticket"
+            },
+            "initialExpectedResolutionDate": {
+              "type": "string",
+              "format": "date-time",
+              "description": "The initial expected resolution date determined by the trouble ticket system"
+            },
+            "communicationMessage": {
+              "description": "Communication messages associated to the Trouble Ticket, e.g emails sent to the customer",
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/CommunicationMessageRefOrValue"
+              }
+            },
+            "isCustomerVisible": {
+              "type": "boolean",
+              "description": "If true, the Ticket is visible by the customer.",
+              "default": true
+            }
+          }
+        }
+      ]
+    },
+    "BellTroubleTicket_Create": {
+      "description": "Bell version of the TMF TroubleTicket",
+      "allOf": [
+        {
+          "$ref": "#/definitions/TroubleTicket_Create"
+        },
+        {
+          "properties": {
+            "nativeStatus": {
+              "type": "string",
+              "description": "Status of the Ticket in the external system. These values are generally different from the TMF values, mappings are applied"
+            },
+            "isMaster": {
+              "type": "boolean",
+              "description": "Indication that this trouble ticket is a master ticket, the cause of others. All operations on a master ticket may impact its children (e.g. Closing the ticket)"
+            },
+            "customerTicketId": {
+              "type": "string",
+              "description": "A reference number for the ticket understandable by the customer. This customer may supply this number"
+            },
+            "affectedDate": {
+              "type": "string",
+              "format": "date-time",
+              "description": "The moment at which the customer was affected"
+            },
+            "nextNotificationDate": {
+              "type": "string",
+              "format": "date-time",
+              "description": "The moment when a new notification must be sent to the customer about the resolution of the ticket"
+            },
+            "contactDate": {
+              "type": "string",
+              "format": "date-time",
+              "description": "The date and time when the customer was contacted about this Trouble Ticket."
+            },
+            "sourceSystemId": {
+              "type": "string",
+              "description": "Id of the external system where the ticket is defined. Not to confuse with the number of a trouble ticket in that system (externalId)"
+            },
+            "category": {
+              "type": "string",
+              "description": "The category of the affected resource for this trouble ticket e.g. Maximo.serviceGroup"
+            },
+            "subCategory": {
+              "type": "string",
+              "description": "The category of the affected resource for this trouble ticket e.g. Maximo.serviceGroup"
+            },
+            "originatingSourceSystemId": {
+              "type": "string",
+              "description": "Originating source system responsible for the ticket creation e.g. OC, Smarts"
+            },
+            "alternateExternalId": {
+              "type": "string",
+              "description": "The number of this Trouble Ticket in another system, like Tim numbers for Maximo incident"
+            },
+            "alternateSourceSystemId": {
+              "type": "string",
+              "description": "Id of the other system where the ticket alternateExternalId comes from."
+            },
+            "characteristic": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Characteristic"
+              }
+            },
+            "activity": {
+              "description": "Tasks that needs to be done in the context of the ticket.",
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/BellActivityRefOrValue"
+              }
+            },
+            "urgency": {
+              "type": "string",
+              "description": "How quickly the resolution of the ticket is required"
+            },
+            "place": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/RelatedPlaceRefOrValue"
+              }
+            },
+            "tag": {
+              "description": "A label used to give information about a ticket, typically used to filter tickets, e.g. ServiceOrdering (identifing tickets that relates to a ServiceOrder)",
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "resolution": {
+              "$ref": "#/definitions/BellTroubleTicketResolutionInfo",
+              "description": "Information about the solution applied to resolve the ticket"
+            },
+            "isCustomerVisible": {
+              "type": "boolean",
+              "description": "If true, the Ticket is visible by the customer.",
+              "default": true
+            }
+          }
+        }
+      ]
+    },
+    "BellTroubleTicket_Update": {
+      "description": "Bell version of the TMF TroubleTicket",
+      "allOf": [
+        {
+          "$ref": "#/definitions/TroubleTicket_Update"
+        },
+        {
+          "properties": {
+            "nativeStatus": {
+              "type": "string",
+              "description": "Status of the Ticket in the external system. These values are generally different from the TMF values, mappings are applied"
+            },
+            "isMaster": {
+              "type": "boolean",
+              "description": "Indication that this trouble ticket is a master ticket, the cause of others. All operations on a master ticket may impact its children (e.g. Closing the ticket)"
+            },
+            "customerTicketId": {
+              "type": "string",
+              "description": "A reference number for the ticket understandable by the customer. This customer may supply this number"
+            },
+            "affectedDate": {
+              "type": "string",
+              "format": "date-time",
+              "description": "The moment at which the customer was affected"
+            },
+            "nextNotificationDate": {
+              "type": "string",
+              "format": "date-time",
+              "description": "The moment when a new notification must be sent to the customer about the resolution of the ticket"
+            },
+            "contactDate": {
+              "type": "string",
+              "format": "date-time",
+              "description": "The date and time when the customer was contacted about this Trouble Ticket."
+            },
+            "category": {
+              "type": "string",
+              "description": "The category of the affected resource for this trouble ticket e.g. Maximo.serviceGroup"
+            },
+            "subCategory": {
+              "type": "string",
+              "description": "The category of the affected resource for this trouble ticket e.g. Maximo.serviceGroup"
+            },
+            "originatingSourceSystemId": {
+              "type": "string",
+              "description": "Originating source system responsible for the ticket creation e.g. OC, Smarts"
+            },
+            "alternateExternalId": {
+              "type": "string",
+              "description": "The number of this Trouble Ticket in another system, like Tim numbers for Maximo incident"
+            },
+            "alternateSourceSystemId": {
+              "type": "string",
+              "description": "Id of the other system where the ticket alternateExternalId comes from."
+            },
+            "characteristic": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Characteristic"
+              }
+            },
+            "activity": {
+              "description": "Tasks that needs to be done in the context of the ticket.",
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/BellActivityRefOrValue"
+              }
+            },
+            "urgency": {
+              "type": "string",
+              "description": "How quickly the resolution of the ticket is required"
+            },
+            "place": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/RelatedPlaceRefOrValue"
+              }
+            },
+            "tag": {
+              "description": "A label used to give information about a ticket, typically used to filter tickets, e.g. ServiceOrdering (identifing tickets that relates to a ServiceOrder)",
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "resolution": {
+              "$ref": "#/definitions/BellTroubleTicketResolutionInfo",
+              "description": "Information about the solution applied to resolve the ticket"
+            },
+            "communicationMessage": {
+              "description": "Communication messages associated to the Trouble Ticket, e.g emails sent to the customer",
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/CommunicationMessageRefOrValue"
+              }
+            },
+            "isCustomerVisible": {
+              "type": "boolean",
+              "description": "If true, the Ticket is visible by the customer."
+            }
+          }
+        }
+      ]
+    },
+    "BellTroubleTicketUrgency": {
+      "type": "string",
+      "description": "Urgency allowed for TMF Trouble Tickets",
+      "enum": [
+        "Low",
+        "Medium",
+        "High"
+      ]
+    },
+    "BellTroubleTicketRelationship": {
+      "description": "",
+      "allOf": [
+        {
+          "$ref": "#/definitions/TroubleTicketRelationship"
+        },
+        {
+          "properties": {
+            "externalId": {
+              "type": "string",
+              "description": "Identifier in the source system (for the ticket)"
+            },
+            "sourceSystemId": {
+              "type": "string",
+              "description": "Source system identifier (for the ticket)"
+            }
+          }
+        }
+      ]
+    },
+    "BellTroubleTicketRelationshipWithValue": {
+      "description": "",
+      "allOf": [
+        {
+          "$ref": "#/definitions/BellTroubleTicketRelationship"
+        },
+        {
+          "properties": {
+            "value": {
+              "$ref": "#/definitions/TroubleTicket",
+              "description": "Actual ticket (value of RefOrValue)"
+            }
+          }
+        }
+      ]
+    },
+    "BellTroubleTicketResolutionInfo": {
+      "description": "The purpose of this entity is to bound together and summarize useful information about the corrective actions taken to solve the ticket.",
+      "allOf": [
+        {
+          "$ref": "#/definitions/Entity"
+        },
+        {
+          "properties": {
+            "code": {
+              "type": "string",
+              "description": "Resolution code. Most ticketing system uses those codes to classify tickets, produce reports and perform analysis for further corrective actions taken care of by other processes like Problem."
+            },
+            "text": {
+              "type": "string",
+              "description": "Supplemental explanatory text that could be sent to the customer to give more details about the code applied as solution to the reported ticket."
+            }
+          }
+        }
+      ]
+    },
+    "BellActivityRefOrValue": {
+      "description": "The purpose of this entity is to bound together and summarize useful information about the corrective actions taken to solve the ticket.",
+      "allOf": [
+        {
+          "$ref": "#/definitions/Entity"
+        },
+        {
+          "properties": {
+            "ref": {
+              "$ref": "#/definitions/BellActivityRef"
+            },
+            "value": {
+              "$ref": "#/definitions/BellActivity"
+            }
+          }
+        }
+      ]
+    },
+    "BellActivityRef": {
+      "description": "The purpose of this entity is to bound together and summarize useful information about the corrective actions taken to solve the ticket.",
+      "allOf": [
+        {
+          "$ref": "#/definitions/EntityRef"
+        },
+        {
+          "properties": {
+            "externalId": {
+              "type": "string",
+              "description": "Additional identifier coming from an external system"
+            },
+            "sourceSystemId": {
+              "type": "string",
+              "description": "Id of the external system where the activity is defined. Not to confuse with the number of an activity in that system (externalId)"
+            }
+          }
+        }
+      ]
+    },
+    "BellActivity": {
+      "description": "The purpose of this entity is to bound together and summarize useful information about the corrective actions taken to solve the ticket.",
+      "allOf": [
+        {
+          "$ref": "#/definitions/Entity"
+        },
+        {
+          "properties": {
+            "id": {
+              "type": "string",
+              "description": "Identifier of the Task"
+            },
+            "name": {
+              "type": "string",
+              "description": "The name of the task."
+            },
+            "description": {
+              "type": "string",
+              "description": "The description of the task."
+            },
+            "externalId": {
+              "type": "string",
+              "description": "Additional identifier coming from an external system"
+            },
+            "sourceSystemId": {
+              "type": "string",
+              "description": "Id of the external system where the activity is defined. Not to confuse with the number of an activity in that system (externalId)"
+            }
+          }
+        }
+      ]
+    },
+    "BellNote": {
+      "description": "Bell specialized version of the TMF Note. Used to store comments on different entities",
+      "allOf": [
+        {
+          "$ref": "#/definitions/Note"
+        },
+        {
+          "properties": {
+            "noteType": {
+              "type": "string",
+              "description": "A code that can be applied to a note to classify it, some kind of label"
+            },
+            "clientviewable": {
+              "type": "boolean",
+              "description": "If the note can be viewed by customers"
+            },
+            "isnew": {
+              "type": "boolean",
+              "description": "Indicates the note is new, meaning that it hasn't been seen by any technical staff member"
+            },
+            "summary": {
+              "type": "string",
+              "description": "A short description for the note"
+            },
+            "relatedEntity": {
+              "description": "An entity that is related to the note such as a ticket, service order. Used typically when the note is returned outside of it's containing entity.",
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/RelatedEntity"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "BellRelatedPartyWithValue": {
+      "description": "Related Entity reference embedding the party itself (value of the refOrValue pattern)",
+      "allOf": [
+        {
+          "$ref": "#/definitions/RelatedParty"
+        },
+        {
+          "properties": {
+            "value": {
+              "$ref": "#/definitions/Party"
+            }
+          }
+        }
+      ]
+    },
+    "Party": {
+      "description": "Generic Party structure used to define commonalities between sub concepts of Individual and Organization.",
+      "allOf": [
+        {
+          "$ref": "#/definitions/Entity"
+        },
+        {
+          "properties": {
+            "id": {
+              "type": "string",
+              "description": "Unique identifier of the organization"
+            },
+            "href": {
+              "type": "string",
+              "description": "Hyperlink to access the organization"
+            },
+            "contactMedium": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/ContactMedium"
+              }
+            },
+            "externalReference": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/ExternalReference"
+              }
+            },
+            "partyCharacteristic": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Characteristic"
+              }
+            },
+            "relatedParty": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/RelatedParty"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "Individual": {
+      "description": "Individual represents a single human being (a man, woman or child). The individual can be a customer, an employee or any other person that the organization needs to store information about.",
+      "allOf": [
+        {
+          "$ref": "#/definitions/Party"
+        },
+        {
+          "properties": {
+            "familyName": {
+              "type": "string",
+              "description": "Contains the non-chosen or inherited name. Also known as last name in the Western context"
+            },
+            "formattedName": {
+              "type": "string",
+              "description": "A fully formatted name in one string with all of its pieces in their proper place and all of the necessary punctuation. Useful for specific contexts (Chinese, Japanese, Korean,\u2026)"
+            },
+            "fullName": {
+              "type": "string",
+              "description": "Full name flatten (first, middle, and last names)"
+            },
+            "gender": {
+              "type": "string",
+              "description": "Gender"
+            },
+            "givenName": {
+              "type": "string",
+              "description": "First name of the individual"
+            },
+            "middleName": {
+              "type": "string",
+              "description": "Middles name or initial"
+            },
+            "title": {
+              "type": "string",
+              "description": "Useful for titles (aristocratic, social,...) Pr, Dr, Sir, ..."
+            },
+            "languageAbility": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/LanguageAbility"
+              }
+            },
+            "skill": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Skill"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "BellIndividual": {
+      "description": "A Bell extension to an Individual",
+      "allOf": [
+        {
+          "$ref": "#/definitions/Individual"
+        },
+        {
+          "properties": {
+            "externalId": {
+              "type": "string",
+              "description": "Additional identifier coming from an external system"
+            },
+            "sourceSystemId": {
+              "type": "string",
+              "description": "Id of the external system where the individual is defined. Not to confuse with the number of an individual in that system (externalId)"
+            }
+          }
+        }
+      ]
+    },
+    "Organization": {
+      "description": "Organization represents a group of people identified by shared interests or purpose. Examples include business, department and enterprise. Because of the complex nature of many businesses, both organizations and organization units are represented by the same data.",
+      "allOf": [
+        {
+          "$ref": "#/definitions/Party"
+        },
+        {
+          "properties": {
+            "isHeadOffice": {
+              "type": "boolean",
+              "description": "If value is true, the organization is the head office"
+            },
+            "isLegalEntity": {
+              "type": "boolean",
+              "description": "If value is true, the organization is a legal entity known by a national referential."
+            },
+            "name": {
+              "type": "string",
+              "description": "Organization name (department name for example)"
+            },
+            "nameType": {
+              "type": "string",
+              "description": "Type of the name : Co, Inc, Ltd,\u2026"
+            },
+            "organizationType": {
+              "type": "string",
+              "description": "Type of Organization (company, department...)"
+            }
+          }
+        }
+      ]
+    },
+    "BellOrganization": {
+      "description": "A Bell extension to an Organization",
+      "allOf": [
+        {
+          "$ref": "#/definitions/Organization"
+        },
+        {
+          "properties": {
+            "externalId": {
+              "type": "string",
+              "description": "Additional identifier coming from an external system"
+            },
+            "sourceSystemId": {
+              "type": "string",
+              "description": "Id of the external system where the organization is defined. Not to confuse with the number of a organization in that system (externalId)"
+            },
+            "marketSegment": {
+              "description": "Market segment of the Organization (Bell perspective)",
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "ContactMedium": {
+      "description": "Indicates the contact medium that could be used to contact the party.",
+      "allOf": [
+        {
+          "$ref": "#/definitions/Entity"
+        },
+        {
+          "properties": {
+            "mediumType": {
+              "type": "string",
+              "description": "Type of the contact medium, such as: email address, telephone number, postal address"
+            },
+            "preferred": {
+              "type": "boolean",
+              "description": "If true, indicates that is the preferred contact medium"
+            },
+            "characteristic": {
+              "$ref": "#/definitions/MediumCharacteristic",
+              "description": "Any additional characteristic(s) of this contact medium"
+            },
+            "validFor": {
+              "$ref": "#/definitions/TimePeriod",
+              "description": "The time period that the contact medium is valid for"
+            }
+          }
+        }
+      ]
+    },
+    "ExternalReference": {
+      "description": "External reference of the individual or reference in other system",
+      "allOf": [
+        {
+          "$ref": "#/definitions/Entity"
+        },
+        {
+          "properties": {
+            "externalReferenceType": {
+              "type": "string",
+              "description": "Type of the external reference"
+            },
+            "name": {
+              "type": "string",
+              "description": "External reference name"
+            }
+          }
+        }
+      ]
+    },
+    "LanguageAbility": {
+      "description": "Ability of an individual to understand or converse in a language.",
+      "allOf": [
+        {
+          "$ref": "#/definitions/Entity"
+        },
+        {
+          "properties": {
+            "isFavouriteLanguage": {
+              "type": "boolean",
+              "description": "A \u201Ctrue\u201D value specifies whether the language is considered by the individual as his favourite one"
+            },
+            "languageCode": {
+              "type": "string",
+              "description": "Language code (RFC 5646)"
+            },
+            "languageName": {
+              "type": "string",
+              "description": "Language name"
+            },
+            "listeningProficiency": {
+              "type": "string",
+              "description": "Listening proficiency evaluated for this language"
+            },
+            "readingProficiency": {
+              "type": "string",
+              "description": "Reading proficiency evaluated for this language"
+            },
+            "speakingProficiency": {
+              "type": "string",
+              "description": "Speaking proficiency evaluated for this language"
+            },
+            "writingProficiency": {
+              "type": "string",
+              "description": "Writing proficiency evaluated for this language"
+            },
+            "validFor": {
+              "$ref": "#/definitions/TimePeriod"
+            }
+          }
+        }
+      ]
+    },
+    "MediumCharacteristic": {
+      "description": "Describes the contact medium characteristics that could be used to contact a party (an individual or an organization)",
+      "allOf": [
+        {
+          "$ref": "#/definitions/Entity"
+        },
+        {
+          "properties": {
+            "city": {
+              "type": "string",
+              "description": "The city"
+            },
+            "contactType": {
+              "type": "string",
+              "description": "The type of contact, for example: phone number such as mobile, fixed home, fixed office. postal address such as shipping instalation\u2026"
+            },
+            "country": {
+              "type": "string",
+              "description": "The country"
+            },
+            "emailAddress": {
+              "type": "string",
+              "description": "Full email address in standard format"
+            },
+            "faxNumber": {
+              "type": "string",
+              "description": "The fax number of the contact"
+            },
+            "phoneNumber": {
+              "type": "string",
+              "description": "The primary phone number of the contact"
+            },
+            "postCode": {
+              "type": "string",
+              "description": "Postcode"
+            },
+            "socialNetworkId": {
+              "type": "string",
+              "description": "Identifier as a member of a social network"
+            },
+            "stateOrProvince": {
+              "type": "string",
+              "description": "State or province"
+            },
+            "street1": {
+              "type": "string",
+              "description": "Describes the street"
+            },
+            "street2": {
+              "type": "string",
+              "description": "Complementary street description"
+            }
+          }
+        }
+      ]
+    },
+    "Skill": {
+      "description": "Skills evaluated for an individual with a level and possibly with a limited validity when an obsolescence is defined (Ex: the first-aid certificate first level is limited to one year and an update training is required each year to keep the level).",
+      "allOf": [
+        {
+          "$ref": "#/definitions/Entity"
+        },
+        {
+          "properties": {
+            "comment": {
+              "type": "string",
+              "description": "A free text comment linked to the evaluation done"
+            },
+            "evaluatedLevel": {
+              "type": "string",
+              "description": "Level of expertise in a skill evaluated for an individual"
+            },
+            "skillCode": {
+              "type": "string",
+              "description": "Code of the skill"
+            },
+            "skillName": {
+              "type": "string",
+              "description": "Name of the skill such as Java language,\u2026"
+            },
+            "validFor": {
+              "$ref": "#/definitions/TimePeriod"
+            }
+          }
+        }
+      ]
+    },
+    "RelatedPlaceRefOrValue": {
+      "description": "Related Entity reference. A related place defines a place described by reference or by value linked to a specific entity. The polymorphic attributes @type, @schemaLocation & @referredType are related to the place entity and not the RelatedPlaceRefOrValue class itself",
+      "allOf": [
+        {
+          "$ref": "#/definitions/Entity"
+        },
+        {
+          "properties": {
+            "role": {
+              "type": "string"
+            },
+            "ref": {
+              "$ref": "#/definitions/PlaceRef",
+              "description": "A reference to the Place."
+            },
+            "value": {
+              "$ref": "#/definitions/Place",
+              "description": "The Place (as a value)."
+            }
+          }
+        }
+      ]
+    },
+    "GeographicAddress": {
+      "description": "Structured textual way of describing how to find a Property in an urban area (country properties are often defined differently).\nNote : Address corresponds to SID UrbanPropertyAddress",
+      "allOf": [
+        {
+          "$ref": "#/definitions/Place"
+        },
+        {
+          "properties": {
+            "city": {
+              "type": "string",
+              "description": "City that the address is in"
+            },
+            "country": {
+              "type": "string",
+              "description": "Country that the address is in"
+            },
+            "locality": {
+              "type": "string",
+              "description": "An area of defined or undefined boundaries within a local authority or other legislatively defined area, usually rural or semi rural in nature. [ANZLIC-STREET], or a suburb, a bounded locality within a city, town or shire principally of urban character [ANZLICSTREET]"
+            },
+            "postcode": {
+              "type": "string",
+              "description": "descriptor for a postal delivery area, used to speed and simplify the delivery of mail (also know as zipcode)"
+            },
+            "stateOrProvince": {
+              "type": "string",
+              "description": "the State or Province that the address is in"
+            },
+            "streetName": {
+              "type": "string",
+              "description": "Name of the street or other street type"
+            },
+            "streetNr": {
+              "type": "string",
+              "description": "Number identifying a specific property on a public street. It may be combined with streetNrLast for ranged addresses"
+            },
+            "streetNrLast": {
+              "type": "string",
+              "description": "Last number in a range of street numbers allocated to a property"
+            },
+            "streetNrLastSuffix": {
+              "type": "string",
+              "description": "Last street number suffix for a ranged address"
+            },
+            "streetNrSuffix": {
+              "type": "string",
+              "description": "the first street number suffix"
+            },
+            "streetSuffix": {
+              "type": "string",
+              "description": "A modifier denoting a relative direction"
+            },
+            "streetType": {
+              "type": "string",
+              "description": "alley, avenue, boulevard, brae, crescent, drive, highway, lane, terrace, parade, place, tarn, way, wharf "
+            },
+            "geographicLocation": {
+              "$ref": "#/definitions/GeographicLocationRefOrValue"
+            },
+            "geographicSubAddress": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/GeographicSubAddress"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "GeographicLocationRefOrValue": {
+      "description": "A GeographicLocation is a pure-virtual super-class to the GeoJSON-aligned geometries of Point (addresses and locations), MultiPoint, LineString (streets, highways and boundaries), MultiLineString and Polygon (countries, provinces, tracts of land). Use the @type attribute to specify which of these is being specified by the geometry attribute.",
+      "allOf": [
+        {
+          "$ref": "#/definitions/Entity"
+        },
+        {
+          "properties": {
+            "ref": {
+              "$ref": "#/definitions/GeographicLocationRef",
+              "description": "A reference to the GeographicLocation."
+            },
+            "value": {
+              "$ref": "#/definitions/GeographicLocation",
+              "description": "The GeographicLocation (as a value)."
+            }
+          }
+        }
+      ]
+    },
+    "GeographicLocationRef": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/EntityRef"
+        }
+      ]
+    },
+    "GeographicLocation": {
+      "description": "A GeographicLocation is a pure-virtual super-class to the GeoJSON-aligned geometries of Point (addresses and locations), MultiPoint, LineString (streets, highways and boundaries), MultiLineString and Polygon (countries, provinces, tracts of land). Use the @type attribute to specify which of these is being specified by the geometry attribute.",
+      "allOf": [
+        {
+          "$ref": "#/definitions/Entity"
+        },
+        {
+          "properties": {
+            "id": {
+              "type": "string",
+              "description": "Unique identifier of the geographic location"
+            },
+            "href": {
+              "type": "string",
+              "description": "An URI used to access to the geographic location resource"
+            },
+            "bbox": {
+              "description": "A bounding box array that contains the geometry. The axes order follows the axes order of the geometry",
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "GeographicSubAddress": {
+      "description": "Representation of a GeographicSubAddress \nIt is used for addressing within a property in an urban area (country properties are often defined differently). It may refer to a building, a building cluster, or a floor of a multistory building.",
+      "allOf": [
+        {
+          "$ref": "#/definitions/Entity"
+        },
+        {
+          "properties": {
+            "id": {
+              "type": "string",
+              "description": "Unique Identifier of the subAddress"
+            },
+            "href": {
+              "type": "string",
+              "description": "Link to the subAddress"
+            },
+            "buildingName": {
+              "type": "string",
+              "description": "allows for buildings that have well-known names"
+            },
+            "levelNumber": {
+              "type": "string",
+              "description": "used where a level type may be repeated e.g. BASEMENT 1, BASEMENT 2"
+            },
+            "levelType": {
+              "type": "string",
+              "description": "describes level types within a building"
+            },
+            "name": {
+              "type": "string",
+              "description": "Name of the subAddress to identify it with a meaningful identification"
+            },
+            "privateStreetName": {
+              "type": "string",
+              "description": "private streets internal to a property (e.g. a university) may have internal names that are not recorded by the land title office."
+            },
+            "privateStreetNumber": {
+              "type": "string",
+              "description": "private streets numbers internal to a private street"
+            },
+            "subAddressType": {
+              "type": "string",
+              "description": "Type of subAddress : it can be a subunit or a private street"
+            },
+            "subUnitNumber": {
+              "type": "string",
+              "description": "the discriminator used for the subunit\noften just a simple number e.g. FLAT 5, may also be a range"
+            },
+            "subUnitType": {
+              "type": "string",
+              "description": "the type of subunit\ne.g.BERTH, FLAT, PIER, SUITE, SHOP, TOWER, UNIT, WHARF"
+            }
+          }
+        }
+      ]
+    },
+    "Place": {
+      "description": "Place reference. Place defines the places where the products are sold or delivered.",
+      "allOf": [
+        {
+          "$ref": "#/definitions/Entity"
+        },
+        {
+          "properties": {
+            "id": {
+              "type": "string",
+              "description": "Unique identifier of the place"
+            },
+            "href": {
+              "type": "string",
+              "description": "Unique reference of the place"
+            },
+            "name": {
+              "type": "string",
+              "description": "A user-friendly name for the place, such as [Paris Store], [London Store], [Main Home]"
+            }
+          }
+        }
+      ]
+    },
+    "BellGeographicAddress": {
+      "description": "A custom Geographic Address to add addressLines.",
+      "allOf": [
+        {
+          "$ref": "#/definitions/GeographicAddress"
+        },
+        {
+          "properties": {
+            "addressLine": {
+              "type": "string",
+              "description": "Free form address line containing multiple fields of the address. This field could be use if the address is not well divided into the other fields"
+            },
+            "addressLine2": {
+              "type": "string",
+              "description": "Second free form address line containing multiple fields of the address. This field could be use if the address is not well divided into the other fields"
+            },
+            "validated": {
+              "type": "boolean",
+              "description": "Indicator that the address has been validated",
+              "default": false
+            }
+          }
+        }
+      ]
+    },
+    "BellOnSiteSubAddress": {
+      "description": "A custom SubAddress. Note: type, externalId, sourceSystemId are deprecated.",
+      "allOf": [
+        {
+          "$ref": "#/definitions/GeographicSubAddress"
+        },
+        {
+          "properties": {
+            "description": {
+              "type": "string",
+              "description": "A textual description of the subAddress"
+            },
+            "tag": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "GeographicSite": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/Place"
+        },
+        {
+          "properties": {
+            "code": {
+              "type": "string",
+              "description": "A code that may be used for some addressing schemes eg: [ANSI T1.253-1999]"
+            },
+            "description": {
+              "type": "string",
+              "description": "Text describing additional information regarding the site"
+            },
+            "status": {
+              "type": "string",
+              "description": "The condition of the GeographicSite, such as planned, underConstruction, cancelled, active, inactive, former"
+            },
+            "calendar": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/CalendarPeriod"
+              }
+            },
+            "place": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/PlaceRefOrValue"
+              }
+            },
+            "relatedParty": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/RelatedParty"
+              }
+            },
+            "siteRelationship": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/GeographicSiteRelationship"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "GeographicSiteRelationship": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/Entity"
+        },
+        {
+          "required": [
+            "id",
+            "relationshipType"
+          ],
+          "properties": {
+            "id": {
+              "type": "string",
+              "description": "Unique identifier of the related site entity within the server"
+            },
+            "href": {
+              "type": "string",
+              "description": "Reference of the related geographic site"
+            },
+            "relationshipType": {
+              "type": "string",
+              "description": "Type of relationship"
+            },
+            "role": {
+              "type": "string",
+              "description": "Role of the related site in the relationship"
+            },
+            "validFor": {
+              "$ref": "#/definitions/TimePeriod",
+              "description": "Validity for the relationship"
+            }
+          }
+        }
+      ]
+    },
+    "PlaceRef": {
+      "description": "Place reference. PlaceRef defines the placeRefs where the products are sold or delivered.",
+      "allOf": [
+        {
+          "$ref": "#/definitions/EntityRef"
+        }
+      ]
+    },
+    "PlaceRefOrValue": {
+      "description": "A  place described by reference or by value linked to a specific entity. The polymorphic attributes @type, @schemaLocation & @referredType are related to the place entity and not the PlaceRefOrValue class itself",
+      "allOf": [
+        {
+          "$ref": "#/definitions/Entity"
+        },
+        {
+          "properties": {
+            "ref": {
+              "$ref": "#/definitions/PlaceRef",
+              "description": "A reference to the Place."
+            },
+            "value": {
+              "$ref": "#/definitions/Place",
+              "description": "The Place (as a value)."
+            }
+          }
+        }
+      ]
+    },
+    "CalendarPeriod": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/Entity"
+        },
+        {
+          "properties": {
+            "day": {
+              "type": "string",
+              "description": "Day where the calendar status applies (e.g.: monday, mon-to-fri, weekdays, weekend, all week, ...)"
+            },
+            "status": {
+              "type": "string",
+              "description": "Indication of the availability of the site (e.g.: open)"
+            },
+            "timeZone": {
+              "type": "string",
+              "description": "Indication of the timezone applicable to the calendar information (e.g.: Paris, GMT+1)"
+            },
+            "hourPeriod": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/HourPeriod"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "HourPeriod": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/Entity"
+        },
+        {
+          "properties": {
+            "endHour": {
+              "type": "string",
+              "description": "The time when the status ends applying"
+            },
+            "startHour": {
+              "type": "string",
+              "description": "The time when the status starts applying"
+            }
+          }
+        }
+      ]
+    },
+    "BellGeographicSite": {
+      "description": "A custom Geographic Site.",
+      "allOf": [
+        {
+          "$ref": "#/definitions/GeographicSite"
+        },
+        {
+          "properties": {
+            "externalId": {
+              "type": "string",
+              "description": "Additional identifier coming from an external system"
+            },
+            "sourceSystemId": {
+              "type": "string",
+              "description": "Id of the external system. Not to confuse with the id of the resource in that system (externalId)"
+            },
+            "tag": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "onSiteSubAddress": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/GeographicSubAddress"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "Characteristic": {
+      "description": "Describes a given characteristic of an object or entity through a name/value pair.",
+      "allOf": [
+        {
+          "$ref": "#/definitions/Entity"
+        },
+        {
+          "properties": {
+            "id": {
+              "type": "string",
+              "description": "Unique identifier of the characteristic"
+            },
+            "name": {
+              "type": "string",
+              "description": "Name of the characteristic"
+            },
+            "valueType": {
+              "type": "string",
+              "description": "Data type of the value of the characteristic"
+            }
+          }
+        }
+      ]
+    },
+    "StringCharacteristic": {
+      "description": "Standard TMF string characteristic. Describes a given characteristic of an object or entity through a name/value pair.",
+      "allOf": [
+        {
+          "$ref": "#/definitions/Characteristic"
+        },
+        {
+          "properties": {
+            "value": {
+              "type": "string"
+            }
+          }
+        }
+      ]
+    },
+    "BooleanCharacteristic": {
+      "description": "Standard TMF boolean characteristic. Describes a given characteristic of an object or entity through a name/value pair.",
+      "allOf": [
+        {
+          "$ref": "#/definitions/Characteristic"
+        },
+        {
+          "properties": {
+            "value": {
+              "type": "boolean"
+            }
+          }
+        }
+      ]
+    },
+    "FloatCharacteristic": {
+      "description": "Standard TMF float characteristic. Describes a given characteristic of an object or entity through a name/value pair.",
+      "allOf": [
+        {
+          "$ref": "#/definitions/Characteristic"
+        },
+        {
+          "properties": {
+            "value": {
+              "type": "number",
+              "format": "float"
+            }
+          }
+        }
+      ]
+    },
+    "IntegerCharacteristic": {
+      "description": "Standard TMF integer characteristic. Describes a given characteristic of an object or entity through a name/value pair.",
+      "allOf": [
+        {
+          "$ref": "#/definitions/Characteristic"
+        },
+        {
+          "properties": {
+            "value": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        }
+      ]
+    },
+    "DateTimeCharacteristic": {
+      "description": "Standard TMF datetime characteristic. Describes a given characteristic of an object or entity through a name/value pair.",
+      "allOf": [
+        {
+          "$ref": "#/definitions/Characteristic"
+        },
+        {
+          "properties": {
+            "value": {
+              "type": "string",
+              "format": "date-time"
+            }
+          }
+        }
+      ]
+    },
+    "ObjectCharacteristic": {
+      "description": "Standard TMF object characteristic. Describes a given characteristic of an object or entity through a name/value pair.",
+      "allOf": [
+        {
+          "$ref": "#/definitions/Characteristic"
+        },
+        {
+          "properties": {
+            "value": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "object"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "ObjectArrayCharacteristic": {
+      "description": "Standard TMF objectarray characteristic. Describes a given characteristic of an object or entity through a name/value pair.",
+      "allOf": [
+        {
+          "$ref": "#/definitions/Characteristic"
+        },
+        {
+          "properties": {
+            "value": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "Entity": {
+      "discriminator": "@type",
+      "description": "Base entity schema for use in TMForum Open-APIs",
+      "properties": {
+        "@type": {
+          "type": "string",
+          "description": "When sub-classing, this defines the sub-class entity name"
+        },
+        "@baseType": {
+          "type": "string",
+          "description": "When sub-classing, this defines the super-class"
+        },
+        "@schemaLocation": {
+          "type": "string",
+          "format": "uri",
+          "description": "A URI to a JSON-Schema file that defines additional attributes and relationships"
+        }
+      }
+    },
+    "Event": {
+      "description": "Event with common fields. This is an abstract base definition for all events that are produced by TMF APIs. It must be used as a template for specific events. These specific event definitions must also define an event field, typed with the specific payload for that event",
+      "allOf": [
+        {
+          "$ref": "#/definitions/Entity"
+        },
+        {
+          "properties": {
+            "eventId": {
+              "type": "string",
+              "description": "The identifier of the notification."
+            },
+            "eventTime": {
+              "type": "string",
+              "format": "date-time",
+              "description": "Time of the event occurrence."
+            },
+            "eventType": {
+              "type": "string",
+              "description": "The type of the notification."
+            },
+            "correlationId": {
+              "type": "string",
+              "description": "The correlation id for this event."
+            },
+            "domain": {
+              "type": "string",
+              "description": "The domain of the event."
+            },
+            "title": {
+              "type": "string",
+              "description": "The title of the event."
+            },
+            "description": {
+              "type": "string",
+              "description": "An explanatory of the event."
+            },
+            "priority": {
+              "type": "string",
+              "description": "A priority."
+            },
+            "timeOccurred": {
+              "type": "string",
+              "format": "date-time",
+              "description": "The time the event occurred."
+            },
+            "source": {
+              "$ref": "#/definitions/EntityRef",
+              "description": "Source Entity described by EntityRef"
+            },
+            "reportingSystem": {
+              "$ref": "#/definitions/EntityRef",
+              "description": "Reporting System described by EntityRef"
+            },
+            "relatedParty": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/RelatedParty"
+              }
+            },
+            "analyticCharacteristic": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Characteristic"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "CommunicationMessage": {
+      "description": "Communication message means a notification approach in the format of a message which can be dispatched (sent) to the certain user by the system with the content which can be felt and understood by the recipient. The user can be either a final customer or a customer service agent. The message can reach the customer in different interaction channels, including: email, short message, mobile app notification (push).",
+      "allOf": [
+        {
+          "$ref": "#/definitions/Entity"
+        },
+        {
+          "properties": {
+            "id": {
+              "type": "string",
+              "description": "Unique identifier of Communication Message"
+            },
+            "href": {
+              "type": "string",
+              "description": "Hypertext Reference of the Communication Message"
+            },
+            "content": {
+              "type": "string",
+              "description": "The content of the communication message"
+            },
+            "description": {
+              "type": "string",
+              "description": "Description for the whole object"
+            },
+            "logFlag": {
+              "type": "boolean"
+            },
+            "messageType": {
+              "type": "string",
+              "description": "The type of message, such as: SMS, Email, Mobile app push notification"
+            },
+            "priority": {
+              "type": "string",
+              "description": "The priority of the communication message.\nSmall number means higher priority."
+            },
+            "scheduledSendTime": {
+              "type": "string",
+              "format": "date-time",
+              "description": "The scheduled time for sending the communication message"
+            },
+            "sendTime": {
+              "type": "string",
+              "format": "date-time",
+              "description": "The time of sending communication message"
+            },
+            "sendTimeComplete": {
+              "type": "string",
+              "format": "date-time",
+              "description": "The time of completion of sending communication message"
+            },
+            "subject": {
+              "type": "string",
+              "description": "The title of the message, necessary for the email and mobile app push"
+            },
+            "tryTimes": {
+              "type": "integer",
+              "description": "How many times do you want to retry the delivery of this message?"
+            },
+            "attachment": {
+              "description": "Any attachment associated with this message",
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/AttachmentRefOrValue"
+              }
+            },
+            "characteristic": {
+              "description": "Any additional characteristic(s) of this message",
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Characteristic"
+              }
+            },
+            "receiver": {
+              "description": "The receiver(s) of this message",
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Receiver"
+              }
+            },
+            "sender": {
+              "$ref": "#/definitions/Sender",
+              "description": "The sender of this message"
+            },
+            "state": {
+              "$ref": "#/definitions/CommunicationMessageStateType",
+              "description": "Status of communication message"
+            }
+          }
+        }
+      ]
+    },
+    "CommunicationMessageStateType": {
+      "type": "string",
+      "description": "Communication message state type",
+      "enum": [
+        "initial",
+        "inProgress",
+        "completed",
+        "cancelled",
+        "failed"
+      ]
+    },
+    "BellCommunicationMessage": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/CommunicationMessage"
+        },
+        {
+          "properties": {
+            "sourceSystemId": {
+              "type": "string",
+              "description": "Id of the external system where the billing account is defined. Not to confuse with the id of a customer in that system (externalId)"
+            },
+            "externalId": {
+              "type": "string",
+              "description": "Additional identifier coming from an external system"
+            },
+            "templateId": {
+              "type": "string",
+              "description": "The id of the template used for the communication."
+            },
+            "languageCode": {
+              "type": "string",
+              "description": "Language code (RFC 5646) for the Communication Message."
+            }
+          }
+        }
+      ]
+    },
+    "Receiver": {
+      "description": "Receivers of the communication message.",
+      "allOf": [
+        {
+          "$ref": "#/definitions/Entity"
+        },
+        {
+          "properties": {
+            "id": {
+              "type": "string",
+              "description": "ID of the receiver"
+            },
+            "appUserId": {
+              "type": "string",
+              "description": "ID of the mobile app user"
+            },
+            "email": {
+              "type": "string",
+              "description": "Receiver address of email, if the communication type is email"
+            },
+            "ip": {
+              "type": "string",
+              "description": "IP address of the receiver"
+            },
+            "name": {
+              "type": "string",
+              "description": "Name of the receiver"
+            },
+            "phoneNumber": {
+              "type": "string",
+              "description": "Phone number of the receiver, if the communication type is SMS."
+            },
+            "party": {
+              "$ref": "#/definitions/RelatedParty"
+            }
+          }
+        }
+      ]
+    },
+    "BellReceiver": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/Receiver"
+        },
+        {
+          "properties": {
+            "emailReceiverType": {
+              "type": "string",
+              "description": "Used to identify the type of receiver for an email. Possible values are to, cc and bcc"
+            }
+          }
+        }
+      ]
+    },
+    "Sender": {
+      "description": "Sender of the communication message.",
+      "allOf": [
+        {
+          "$ref": "#/definitions/Entity"
+        },
+        {
+          "properties": {
+            "id": {
+              "type": "string",
+              "description": "ID of the sender"
+            },
+            "email": {
+              "type": "string",
+              "description": "Sender address of email, if the communication type is email"
+            },
+            "name": {
+              "type": "string",
+              "description": "Name of the sender"
+            },
+            "phoneNumber": {
+              "type": "string",
+              "description": "Phone number of the sender, if the communication type is SMS."
+            },
+            "party": {
+              "$ref": "#/definitions/RelatedParty"
+            }
+          }
+        }
+      ]
+    },
+    "CommunicationMessageRefOrValue": {
+      "discriminator": "@type",
+      "description": "A communication message by value or by reference.",
+      "properties": {
+        "ref": {
+          "$ref": "#/definitions/CommunicationMessageRef",
+          "description": "A reference to the CommunicationMessage."
+        },
+        "value": {
+          "$ref": "#/definitions/CommunicationMessage",
+          "description": "The CommunicationMessage (as a value)."
+        },
+        "@baseType": {
+          "type": "string",
+          "description": "When sub-classing, this defines the super-class"
+        },
+        "@schemaLocation": {
+          "type": "string",
+          "description": "A URI to a JSON-Schema file that defines additional attributes and relationships"
+        },
+        "@type": {
+          "type": "string",
+          "description": "When sub-classing, this defines the sub-class entity name"
+        }
+      }
+    },
+    "CommunicationMessageRef": {
+      "description": "CommunicationMessage reference. Communication message means a notification approach in the format of a message which can be dispatched (sent) to the certain user by the system with the content which can be felt and understood by the recipient. The user can be either a final customer or a customer service agent. The message can reach the customer in different interaction channels, including: email, short message, mobile app notification (push).",
+      "allOf": [
+        {
+          "$ref": "#/definitions/EntityRef"
+        }
+      ]
+    }
+  }
+}

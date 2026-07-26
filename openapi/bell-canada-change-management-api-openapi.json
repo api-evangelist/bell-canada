@@ -1,0 +1,3809 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "API ChangeManagement",
+    "description": "## TMF API Reference : TMF 655 The Change Management API provides the standard integration capabilities between external applications and Change Management Application",
+    "version": "4.2.0"
+  },
+  "host": "serverRoot",
+  "basePath": "/tmf-api/ChangeManagement/v4/",
+  "schemes": [
+    "https"
+  ],
+  "consumes": [
+    "application/json;charset=utf-8"
+  ],
+  "produces": [
+    "application/json;charset=utf-8"
+  ],
+  "tags": [
+    {
+      "name": "changeRequest"
+    },
+    {
+      "name": "notification listeners (client side)"
+    },
+    {
+      "name": "events subscription"
+    }
+  ],
+  "paths": {
+    "/changeRequest": {
+      "get": {
+        "operationId": "listChangeRequest",
+        "summary": "List or find ChangeRequest objects",
+        "description": "This operation list or find ChangeRequest entities",
+        "tags": [
+          "changeRequest"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "fields",
+            "required": false,
+            "type": "string",
+            "description": "Comma-separated properties to be provided in response"
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "required": false,
+            "type": "integer",
+            "description": "Requested index for start of resources to be provided in response"
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "type": "integer",
+            "description": "Requested number of resources to be provided in response"
+          },
+          {
+            "in": "query",
+            "name": "sort",
+            "required": false,
+            "type": "string",
+            "description": "To have the output sorted by fields. Can support one or many fields, as well as ascending and descending sort order"
+          },
+          {
+            "in": "query",
+            "name": "expand",
+            "required": false,
+            "type": "string",
+            "description": "Lists the sub-entities to expand along with the depth value. Empty means expand all at depth level N"
+          },
+          {
+            "in": "query",
+            "name": "depth",
+            "required": false,
+            "type": "string",
+            "description": "Depth level where objects are dereferenced and inserted as values into the response"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "headers": {
+              "X-Result-Count": {
+                "type": "integer",
+                "description": "Actual number of items returned in the response body"
+              },
+              "X-Total-Count": {
+                "type": "integer",
+                "description": "Total number of items matching criteria"
+              }
+            },
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/ChangeRequest"
+              },
+              "type": "array"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "405": {
+            "description": "Method Not allowed",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "createChangeRequest",
+        "summary": "Creates a ChangeRequest",
+        "description": "This operation creates a ChangeRequest entity.",
+        "tags": [
+          "changeRequest"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "changeRequest",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ChangeRequest_Create"
+            },
+            "description": "The ChangeRequest to be created"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created",
+            "schema": {
+              "$ref": "#/definitions/ChangeRequest"
+            }
+          },
+          "202": {
+            "description": "Accepted"
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "405": {
+            "description": "Method Not allowed",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/changeRequest/{id}": {
+      "get": {
+        "operationId": "retrieveChangeRequest",
+        "summary": "Retrieves a ChangeRequest by ID",
+        "description": "This operation retrieves a ChangeRequest entity. Attribute selection is enabled for all first level attributes.",
+        "tags": [
+          "changeRequest"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "string",
+            "description": "Identifier of the ChangeRequest"
+          },
+          {
+            "in": "query",
+            "name": "fields",
+            "required": false,
+            "type": "string",
+            "description": "Comma-separated properties to be provided in response"
+          },
+          {
+            "in": "query",
+            "name": "expand",
+            "required": false,
+            "type": "string",
+            "description": "Lists the sub-entities to expand along with the depth value. Empty means expand all at depth level N"
+          },
+          {
+            "in": "query",
+            "name": "depth",
+            "required": false,
+            "type": "string",
+            "description": "Depth level where objects are dereferenced and inserted as values into the response"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/ChangeRequest"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "405": {
+            "description": "Method Not allowed",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "patch": {
+        "operationId": "patchChangeRequest",
+        "summary": "Updates partially a ChangeRequest",
+        "description": "This operation updates partially a ChangeRequest entity.",
+        "tags": [
+          "changeRequest"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "string",
+            "description": "Identifier of the ChangeRequest"
+          },
+          {
+            "in": "body",
+            "name": "changeRequest",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ChangeRequest_Update"
+            },
+            "description": "The ChangeRequest to be updated"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Updated",
+            "schema": {
+              "$ref": "#/definitions/ChangeRequest"
+            }
+          },
+          "204": {
+            "description": "No Content"
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "405": {
+            "description": "Method Not allowed",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "delete": {
+        "operationId": "deleteChangeRequest",
+        "summary": "Deletes a ChangeRequest",
+        "description": "This operation deletes a ChangeRequest entity.",
+        "tags": [
+          "changeRequest"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "string",
+            "description": "Identifier of the ChangeRequest"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Deleted"
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "405": {
+            "description": "Method Not allowed",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/hub": {
+      "post": {
+        "operationId": "registerListener",
+        "summary": "Register a listener",
+        "description": "Sets the communication endpoint address the service instance must use to deliver information about its health state, execution state, failures and metrics.",
+        "tags": [
+          "events subscription"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "data",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/EventSubscriptionInput"
+            },
+            "description": "Data containing the callback endpoint to deliver the information"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Subscribed",
+            "schema": {
+              "$ref": "#/definitions/EventSubscription"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "405": {
+            "description": "Method Not allowed",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/hub/{id}": {
+      "delete": {
+        "operationId": "unregisterListener",
+        "summary": "Unregister a listener",
+        "description": "Resets the communication endpoint address the service instance must use to deliver information about its health state, execution state, failures and metrics.",
+        "tags": [
+          "events subscription"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "string",
+            "description": "The id of the registered listener"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Deleted"
+          },
+          "400": {
+            "description": "Bad request",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "405": {
+            "description": "Method not allowed",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/listener/changeRequestCreateEvent": {
+      "post": {
+        "operationId": "listenToChangeRequestCreateEvent",
+        "summary": "Client listener for entity ChangeRequestCreateEvent",
+        "description": "Example of a client listener for receiving the notification ChangeRequestCreateEvent",
+        "tags": [
+          "notification listeners (client side)"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "data",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ChangeRequestCreateEvent"
+            },
+            "description": "The event data"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Notified",
+            "schema": {
+              "$ref": "#/definitions/EventSubscription"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "405": {
+            "description": "Method Not allowed",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/listener/changeRequestStatusChangeEvent": {
+      "post": {
+        "operationId": "listenToChangeRequestStatusChangeEvent",
+        "summary": "Client listener for entity ChangeRequestStatusChangeEvent",
+        "description": "Example of a client listener for receiving the notification ChangeRequestStatusChangeEvent",
+        "tags": [
+          "notification listeners (client side)"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "data",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ChangeRequestStatusChangeEvent"
+            },
+            "description": "The event data"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Notified",
+            "schema": {
+              "$ref": "#/definitions/EventSubscription"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "405": {
+            "description": "Method Not allowed",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/listener/changeRequestDeleteEvent": {
+      "post": {
+        "operationId": "listenToChangeRequestDeleteEvent",
+        "summary": "Client listener for entity ChangeRequestDeleteEvent",
+        "description": "Example of a client listener for receiving the notification ChangeRequestDeleteEvent",
+        "tags": [
+          "notification listeners (client side)"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "data",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ChangeRequestDeleteEvent"
+            },
+            "description": "The event data"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Notified",
+            "schema": {
+              "$ref": "#/definitions/EventSubscription"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "405": {
+            "description": "Method Not allowed",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/listener/changeRequestAttributeValueChangeEvent": {
+      "post": {
+        "operationId": "listenToChangeRequestAttributeValueChangeEvent",
+        "summary": "Client listener for entity ChangeRequestAttributeValueChangeEvent",
+        "description": "Example of a client listener for receiving the notification ChangeRequestAttributeValueChangeEvent",
+        "tags": [
+          "notification listeners (client side)"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "data",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ChangeRequestAttributeValueChangeEvent"
+            },
+            "description": "The event data"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Notified",
+            "schema": {
+              "$ref": "#/definitions/EventSubscription"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "405": {
+            "description": "Method Not allowed",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/listener/changeRequestApprovalRequiredEvent": {
+      "post": {
+        "operationId": "listenToChangeRequestApprovalRequiredEvent",
+        "summary": "Client listener for entity ChangeRequestApprovalRequiredEvent",
+        "description": "Example of a client listener for receiving the notification ChangeRequestApprovalRequiredEvent",
+        "tags": [
+          "notification listeners (client side)"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "data",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ChangeRequestApprovalRequiredEvent"
+            },
+            "description": "The event data"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Notified",
+            "schema": {
+              "$ref": "#/definitions/EventSubscription"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "405": {
+            "description": "Method Not allowed",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/listener/changeRequestFailureEvent": {
+      "post": {
+        "operationId": "listenToChangeRequestFailureEvent",
+        "summary": "Client listener for entity ChangeRequestFailureEvent",
+        "description": "Example of a client listener for receiving the notification ChangeRequestFailureEvent",
+        "tags": [
+          "notification listeners (client side)"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "data",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/BellChangeRequestFailureEvent"
+            },
+            "description": "The event data"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Notified",
+            "schema": {
+              "$ref": "#/definitions/EventSubscription"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "405": {
+            "description": "Method Not allowed",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Addressable": {
+      "type": "object",
+      "description": "Base schema for adressable entities",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "unique identifier"
+        },
+        "href": {
+          "type": "string",
+          "format": "uri",
+          "description": "Hyperlink reference"
+        }
+      }
+    },
+    "Attachment": {
+      "description": "Complements the description of an element (for instance a product) through video, pictures...",
+      "allOf": [
+        {
+          "$ref": "#/definitions/Entity"
+        },
+        {
+          "properties": {
+            "id": {
+              "type": "string",
+              "description": "Unique identifier for this particular attachment"
+            },
+            "href": {
+              "type": "string",
+              "format": "uri",
+              "description": "URI for this Attachment"
+            },
+            "attachmentType": {
+              "type": "string",
+              "description": "Attachment type such as video, picture"
+            },
+            "content": {
+              "type": "string",
+              "format": "base64",
+              "description": "The actual contents of the attachment object, if embedded, encoded as base64"
+            },
+            "description": {
+              "type": "string",
+              "description": "A narrative text describing the content of the attachment"
+            },
+            "mimeType": {
+              "type": "string",
+              "description": "Attachment mime type such as extension file for video, picture and document"
+            },
+            "name": {
+              "type": "string",
+              "description": "The name of the attachment"
+            },
+            "url": {
+              "type": "string",
+              "format": "uri",
+              "description": "Uniform Resource Locator, is a web page address (a subset of URI)"
+            },
+            "size": {
+              "$ref": "#/definitions/Quantity",
+              "description": "The size of the attachment."
+            },
+            "validFor": {
+              "$ref": "#/definitions/TimePeriod",
+              "description": "The period of time for which the attachment is valid"
+            }
+          }
+        }
+      ]
+    },
+    "AttachmentRef": {
+      "description": "Attachment reference. An attachment complements the description of an element (for instance a product) through video, pictures",
+      "allOf": [
+        {
+          "$ref": "#/definitions/EntityRef"
+        },
+        {
+          "properties": {
+            "description": {
+              "type": "string",
+              "description": "A narrative text describing the content of the attachment"
+            },
+            "url": {
+              "type": "string",
+              "format": "uri",
+              "description": "Link to the attachment media/content"
+            }
+          }
+        }
+      ]
+    },
+    "AttachmentRefOrValue": {
+      "description": "An attachment by value or by reference. An attachment complements the description of an element, for example through a document, a video, a picture.",
+      "properties": {
+        "ref": {
+          "$ref": "#/definitions/AttachmentRef",
+          "description": "A reference to the Attachment."
+        },
+        "value": {
+          "$ref": "#/definitions/Attachment",
+          "description": "The Attachment (as a value)."
+        },
+        "@baseType": {
+          "type": "string",
+          "description": "When sub-classing, this defines the super-class"
+        },
+        "@schemaLocation": {
+          "type": "string",
+          "description": "A URI to a JSON-Schema file that defines additional attributes and relationships"
+        },
+        "@type": {
+          "type": "string",
+          "description": "When sub-classing, this defines the sub-class entity name"
+        }
+      }
+    },
+    "ChangeRequest": {
+      "description": "Change Request is a type of request which can be used for the management and control of Change Management process \n -within a service provider organisation or \n -between a customer and a service provider or \n -between a service provider and a partner and vice versa.",
+      "allOf": [
+        {
+          "$ref": "#/definitions/Entity"
+        },
+        {
+          "required": [
+            "targetEntity"
+          ],
+          "properties": {
+            "id": {
+              "type": "string",
+              "description": "Identifier of a Change Request. It is created on repository side (a Change Management system)"
+            },
+            "href": {
+              "type": "string",
+              "format": "uri",
+              "description": "Hyperlink to access a change request"
+            },
+            "actualEndTime": {
+              "type": "string",
+              "format": "date-time",
+              "description": "Date and time when the change implementation actually finished"
+            },
+            "actualStartTime": {
+              "type": "string",
+              "format": "date-time",
+              "description": "Date and time when the change implementation actually started"
+            },
+            "channel": {
+              "type": "string",
+              "description": "A channel represents the way the Change Request was created"
+            },
+            "completionDate": {
+              "type": "string",
+              "format": "date-time",
+              "description": "Date and time when the change request is confirmed to be completed"
+            },
+            "description": {
+              "type": "string",
+              "description": "Description of the change request"
+            },
+            "impact": {
+              "type": "string",
+              "description": "Indicates the impact of this change"
+            },
+            "lastUpdateDate": {
+              "type": "string",
+              "format": "date-time",
+              "description": "Date and time when the change request was updated"
+            },
+            "plannedEndTime": {
+              "type": "string",
+              "format": "date-time",
+              "description": "Date and time when the change implementation is planned to be finished"
+            },
+            "plannedStartTime": {
+              "type": "string",
+              "format": "date-time",
+              "description": "Date and time when the change implementation is planned to be started"
+            },
+            "priority": {
+              "type": "string",
+              "description": "Used by consumers to prioritize a change request in Change Management system"
+            },
+            "requestDate": {
+              "type": "string",
+              "format": "date-time",
+              "description": "Date and time when the change request is raised"
+            },
+            "requestType": {
+              "type": "string",
+              "description": "Indicates the type of the change request"
+            },
+            "risk": {
+              "type": "string",
+              "description": "The risk to implement this change request"
+            },
+            "riskMitigationPlan": {
+              "type": "string",
+              "description": "The risk mitigation plan"
+            },
+            "riskValue": {
+              "type": "string",
+              "description": "The additional cost if the risk will happen"
+            },
+            "scheduledDate": {
+              "type": "string",
+              "format": "date-time",
+              "description": "Date and time that the schedule is made"
+            },
+            "statusChangeDate": {
+              "type": "string",
+              "format": "date-time",
+              "description": "Date and time when the change request status was changed"
+            },
+            "statusChangeReason": {
+              "type": "string",
+              "description": "Reason of the status change"
+            },
+            "attachment": {
+              "description": "The attachments of the communication message (when it is email type)",
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/AttachmentRefOrValue"
+              }
+            },
+            "budget": {
+              "$ref": "#/definitions/Money"
+            },
+            "changeRelationship": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/ChangeRequestRelationship"
+              }
+            },
+            "changeRequestCharacteristic": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Characteristic"
+              }
+            },
+            "externalReference": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/ExternalReference"
+              }
+            },
+            "impactEntity": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/ImpactEntity"
+              }
+            },
+            "location": {
+              "$ref": "#/definitions/RelatedPlaceRefOrValue",
+              "description": "A list of places (Place [*]). Used to define a place useful for the service (for example a geographical place whre the service is installed)"
+            },
+            "note": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Note"
+              }
+            },
+            "problemTicket": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/ServiceProblemRef"
+              }
+            },
+            "relatedParty": {
+              "description": "The parties involved in the change request",
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/RelatedParty"
+              }
+            },
+            "resolution": {
+              "$ref": "#/definitions/Resolution"
+            },
+            "sla": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/SLARef"
+              }
+            },
+            "specification": {
+              "$ref": "#/definitions/EntitySpecificationRef"
+            },
+            "status": {
+              "$ref": "#/definitions/ChangeRequestStatusType"
+            },
+            "targetEntity": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/RelatedEntity"
+              },
+              "minItems": 1
+            },
+            "troubleTicket": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/TroubleTicketRef"
+              }
+            },
+            "workLog": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/WorkLog"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "ChangeRequest_Create": {
+      "description": "Change Request is a type of request which can be used for the management and control of Change Management process \n -within a service provider organisation or \n -between a customer and a service provider or \n -between a service provider and a partner and vice versa.\nSkipped properties: id,href,lastUpdateTime,statusChangeDate,statusChangeReason,status,actualEndTime,actualStartTime,completionDate,lastUpdateDate",
+      "allOf": [
+        {
+          "$ref": "#/definitions/Entity"
+        },
+        {
+          "required": [
+            "plannedEndTime",
+            "plannedStartTime",
+            "priority",
+            "requestType",
+            "specification",
+            "targetEntity"
+          ],
+          "properties": {
+            "channel": {
+              "type": "string",
+              "description": "A channel represents the way the Change Request was created"
+            },
+            "description": {
+              "type": "string",
+              "description": "Description of the change request"
+            },
+            "impact": {
+              "type": "string",
+              "description": "Indicates the impact of this change"
+            },
+            "plannedEndTime": {
+              "type": "string",
+              "format": "date-time",
+              "description": "Date and time when the change implementation is planned to be finished"
+            },
+            "plannedStartTime": {
+              "type": "string",
+              "format": "date-time",
+              "description": "Date and time when the change implementation is planned to be started"
+            },
+            "priority": {
+              "type": "string",
+              "description": "Used by consumers to prioritize a change request in Change Management system"
+            },
+            "requestDate": {
+              "type": "string",
+              "format": "date-time",
+              "description": "Date and time when the change request is raised"
+            },
+            "requestType": {
+              "type": "string",
+              "description": "Indicates the type of the change request"
+            },
+            "risk": {
+              "type": "string",
+              "description": "The risk to implement this change request"
+            },
+            "riskMitigationPlan": {
+              "type": "string",
+              "description": "The risk mitigation plan"
+            },
+            "riskValue": {
+              "type": "string",
+              "description": "The additional cost if the risk will happen"
+            },
+            "scheduledDate": {
+              "type": "string",
+              "format": "date-time",
+              "description": "Date and time that the schedule is made"
+            },
+            "attachment": {
+              "description": "The attachments of the communication message (when it is email type)",
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/AttachmentRefOrValue"
+              }
+            },
+            "budget": {
+              "$ref": "#/definitions/Money"
+            },
+            "changeRelationship": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/ChangeRequestRelationship"
+              }
+            },
+            "changeRequestCharacteristic": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Characteristic"
+              }
+            },
+            "externalReference": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/ExternalReference"
+              }
+            },
+            "impactEntity": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/ImpactEntity"
+              }
+            },
+            "location": {
+              "$ref": "#/definitions/RelatedPlaceRefOrValue",
+              "description": "A list of places (Place [*]). Used to define a place useful for the service (for example a geographical place whre the service is installed)"
+            },
+            "note": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Note"
+              }
+            },
+            "problemTicket": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/ServiceProblemRef"
+              }
+            },
+            "relatedParty": {
+              "description": "The parties involved in the change request",
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/RelatedParty"
+              }
+            },
+            "resolution": {
+              "$ref": "#/definitions/Resolution"
+            },
+            "sla": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/SLARef"
+              }
+            },
+            "specification": {
+              "$ref": "#/definitions/EntitySpecificationRef"
+            },
+            "targetEntity": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/RelatedEntity"
+              },
+              "minItems": 1
+            },
+            "troubleTicket": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/TroubleTicketRef"
+              }
+            },
+            "workLog": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/WorkLog"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "ChangeRequest_Update": {
+      "description": "Change Request is a type of request which can be used for the management and control of Change Management process \n -within a service provider organisation or \n -between a customer and a service provider or \n -between a service provider and a partner and vice versa.\nSkipped properties: id,href,@baseType,@schemaLocation,@type",
+      "allOf": [
+        {
+          "$ref": "#/definitions/Entity"
+        },
+        {
+          "required": [
+            "targetEntity"
+          ],
+          "properties": {
+            "actualEndTime": {
+              "type": "string",
+              "format": "date-time",
+              "description": "Date and time when the change implementation actually finished"
+            },
+            "actualStartTime": {
+              "type": "string",
+              "format": "date-time",
+              "description": "Date and time when the change implementation actually started"
+            },
+            "channel": {
+              "type": "string",
+              "description": "A channel represents the way the Change Request was created"
+            },
+            "completionDate": {
+              "type": "string",
+              "format": "date-time",
+              "description": "Date and time when the change request is confirmed to be completed"
+            },
+            "description": {
+              "type": "string",
+              "description": "Description of the change request"
+            },
+            "impact": {
+              "type": "string",
+              "description": "Indicates the impact of this change"
+            },
+            "lastUpdateDate": {
+              "type": "string",
+              "format": "date-time",
+              "description": "Date and time when the change request was updated"
+            },
+            "plannedEndTime": {
+              "type": "string",
+              "format": "date-time",
+              "description": "Date and time when the change implementation is planned to be finished"
+            },
+            "plannedStartTime": {
+              "type": "string",
+              "format": "date-time",
+              "description": "Date and time when the change implementation is planned to be started"
+            },
+            "priority": {
+              "type": "string",
+              "description": "Used by consumers to prioritize a change request in Change Management system"
+            },
+            "requestDate": {
+              "type": "string",
+              "format": "date-time",
+              "description": "Date and time when the change request is raised"
+            },
+            "requestType": {
+              "type": "string",
+              "description": "Indicates the type of the change request"
+            },
+            "risk": {
+              "type": "string",
+              "description": "The risk to implement this change request"
+            },
+            "riskMitigationPlan": {
+              "type": "string",
+              "description": "The risk mitigation plan"
+            },
+            "riskValue": {
+              "type": "string",
+              "description": "The additional cost if the risk will happen"
+            },
+            "scheduledDate": {
+              "type": "string",
+              "format": "date-time",
+              "description": "Date and time that the schedule is made"
+            },
+            "statusChangeDate": {
+              "type": "string",
+              "format": "date-time",
+              "description": "Date and time when the change request status was changed"
+            },
+            "statusChangeReason": {
+              "type": "string",
+              "description": "Reason of the status change"
+            },
+            "attachment": {
+              "description": "The attachments of the communication message (when it is email type)",
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/AttachmentRefOrValue"
+              }
+            },
+            "budget": {
+              "$ref": "#/definitions/Money"
+            },
+            "changeRelationship": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/ChangeRequestRelationship"
+              }
+            },
+            "changeRequestCharacteristic": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Characteristic"
+              }
+            },
+            "externalReference": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/ExternalReference"
+              }
+            },
+            "impactEntity": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/ImpactEntity"
+              }
+            },
+            "location": {
+              "$ref": "#/definitions/RelatedPlaceRefOrValue",
+              "description": "A list of places (Place [*]). Used to define a place useful for the service (for example a geographical place whre the service is installed)"
+            },
+            "note": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Note"
+              }
+            },
+            "problemTicket": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/ServiceProblemRef"
+              }
+            },
+            "relatedParty": {
+              "description": "The parties involved in the change request",
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/RelatedParty"
+              }
+            },
+            "resolution": {
+              "$ref": "#/definitions/Resolution"
+            },
+            "sla": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/SLARef"
+              }
+            },
+            "specification": {
+              "$ref": "#/definitions/EntitySpecificationRef"
+            },
+            "status": {
+              "$ref": "#/definitions/ChangeRequestStatusType"
+            },
+            "targetEntity": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/RelatedEntity"
+              },
+              "minItems": 1
+            },
+            "troubleTicket": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/TroubleTicketRef"
+              }
+            },
+            "workLog": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/WorkLog"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "ChangeRequestRef": {
+      "description": "Reference to a Change Request",
+      "allOf": [
+        {
+          "$ref": "#/definitions/EntityRef"
+        }
+      ]
+    },
+    "ChangeRequestRefOrValue": {
+      "description": "A Service to be created defined by value or existing defined by reference. The polymorphic attributes @type, @schemaLocation & @referredType are related to the Service entity and not the RelatedServiceRefOrValue class itself",
+      "properties": {
+        "ref": {
+          "$ref": "#/definitions/ChangeRequestRef",
+          "description": "A reference to the ChangeRequest."
+        },
+        "value": {
+          "$ref": "#/definitions/ChangeRequest",
+          "description": "The ChangeRequest (as a value)."
+        },
+        "@baseType": {
+          "type": "string",
+          "description": "When sub-classing, this defines the super-class"
+        },
+        "@schemaLocation": {
+          "type": "string",
+          "description": "A URI to a JSON-Schema file that defines additional attributes and relationships"
+        },
+        "@type": {
+          "type": "string",
+          "description": "When sub-classing, this defines the sub-class entity name"
+        }
+      }
+    },
+    "ChangeRequestRelationship": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/Entity"
+        },
+        {
+          "required": [
+            "relationshipType"
+          ],
+          "properties": {
+            "id": {
+              "type": "string",
+              "description": "unique identifier"
+            },
+            "href": {
+              "type": "string",
+              "format": "uri",
+              "description": "Hyperlink reference"
+            },
+            "relationshipType": {
+              "type": "string"
+            },
+            "changeRequest": {
+              "$ref": "#/definitions/ChangeRequestRefOrValue"
+            },
+            "changeRequestRelationshipCharacteristic": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Characteristic"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "ChangeRequestStatusType": {
+      "type": "string",
+      "description": "Possible values for the state of the change request",
+      "enum": [
+        "acknowledged",
+        "requestForAuthorization",
+        "waitForApproval",
+        "approved",
+        "scheduled",
+        "postImplementationReview",
+        "fallbackExecution",
+        "cancelled",
+        "rejected",
+        "inProgress",
+        "failed",
+        "completed"
+      ]
+    },
+    "Characteristic": {
+      "discriminator": "@type",
+      "type": "object",
+      "description": "Describes a given characteristic of an object or entity through a name/value pair.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier of the characteristic"
+        },
+        "name": {
+          "type": "string",
+          "description": "Name of the characteristic"
+        },
+        "valueType": {
+          "type": "string",
+          "description": "Data type of the value of the characteristic"
+        },
+        "characteristicRelationship": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/CharacteristicRelationship"
+          }
+        },
+        "@schemaLocation": {
+          "type": "string",
+          "format": "uri",
+          "description": "A URI to a JSON-Schema file that defines additional attributes and relationships"
+        },
+        "@baseType": {
+          "type": "string",
+          "description": "When sub-classing, this defines the super-class"
+        },
+        "@type": {
+          "type": "string",
+          "description": "When sub-classing, this defines the sub-class Extensible name"
+        }
+      }
+    },
+    "CharacteristicRelationship": {
+      "discriminator": "@type",
+      "type": "object",
+      "description": "Another Characteristic that is related to the current Characteristic;",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier of the characteristic"
+        },
+        "relationshipType": {
+          "type": "string",
+          "description": "The type of relationship"
+        },
+        "@schemaLocation": {
+          "type": "string",
+          "format": "uri",
+          "description": "A URI to a JSON-Schema file that defines additional attributes and relationships"
+        },
+        "@baseType": {
+          "type": "string",
+          "description": "When sub-classing, this defines the super-class"
+        },
+        "@type": {
+          "type": "string",
+          "description": "When sub-classing, this defines the sub-class Extensible name"
+        }
+      }
+    },
+    "Entity": {
+      "discriminator": "@type",
+      "description": "Base entity schema for use in TMForum Open-APIs",
+      "properties": {
+        "@type": {
+          "type": "string",
+          "description": "When sub-classing, this defines the sub-class entity name"
+        },
+        "@baseType": {
+          "type": "string",
+          "description": "When sub-classing, this defines the super-class"
+        },
+        "@schemaLocation": {
+          "type": "string",
+          "format": "uri",
+          "description": "A URI to a JSON-Schema file that defines additional attributes and relationships"
+        }
+      }
+    },
+    "EntityRef": {
+      "description": "Base entityRef schema for use in TMForum Open-APIs",
+      "allOf": [
+        {
+          "$ref": "#/definitions/Entity"
+        },
+        {
+          "properties": {
+            "id": {
+              "type": "string",
+              "description": "Unique identifier of a related entity."
+            },
+            "href": {
+              "type": "string",
+              "description": "Reference of the related entity."
+            },
+            "name": {
+              "type": "string",
+              "description": "Name of the related entity."
+            },
+            "@referredType": {
+              "type": "string",
+              "description": "The actual type of the target instance when needed for disambiguation."
+            }
+          }
+        }
+      ]
+    },
+    "EntitySpecificationRef": {
+      "description": "reference to an EntitySpecification object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/EntityRef"
+        },
+        {
+          "properties": {
+            "version": {
+              "type": "string",
+              "description": "EntitySpecification version"
+            }
+          }
+        }
+      ]
+    },
+    "Extensible": {
+      "description": "Base Extensible schema for use in TMForum Open-APIs",
+      "allOf": [
+        {
+          "$ref": "#/definitions/Entity"
+        }
+      ]
+    },
+    "ExternalReference": {
+      "description": "External reference of the individual or reference in other system",
+      "allOf": [
+        {
+          "$ref": "#/definitions/Entity"
+        },
+        {
+          "properties": {
+            "externalReferenceType": {
+              "type": "string",
+              "description": "Type of the external reference"
+            },
+            "name": {
+              "type": "string",
+              "description": "External reference name"
+            }
+          }
+        }
+      ]
+    },
+    "ImpactEntity": {
+      "description": "A reference to an imapcted entity",
+      "allOf": [
+        {
+          "$ref": "#/definitions/Entity"
+        },
+        {
+          "required": [
+            "id",
+            "role",
+            "@referredType"
+          ],
+          "properties": {
+            "id": {
+              "type": "string",
+              "description": "unique identifier"
+            },
+            "href": {
+              "type": "string",
+              "format": "uri",
+              "description": "Hyperlink reference"
+            },
+            "action": {
+              "type": "string",
+              "description": "The action on an entity."
+            },
+            "name": {
+              "type": "string",
+              "description": "Name of the related entity."
+            },
+            "role": {
+              "type": "string",
+              "description": "The role of an entity."
+            },
+            "@referredType": {
+              "type": "string",
+              "description": "The actual type of the target instance when needed for disambiguation."
+            }
+          }
+        }
+      ]
+    },
+    "Money": {
+      "type": "object",
+      "description": "A base / value business entity used to represent money",
+      "properties": {
+        "unit": {
+          "type": "string",
+          "description": "Currency (ISO4217 norm uses 3 letters to define the currency)"
+        },
+        "value": {
+          "type": "number",
+          "format": "float",
+          "description": "A signed floating point number, the meaning of the sign is according to the context of the API that uses this Data type"
+        }
+      }
+    },
+    "Note": {
+      "description": "Extra information about a given entity",
+      "allOf": [
+        {
+          "$ref": "#/definitions/Entity"
+        },
+        {
+          "properties": {
+            "id": {
+              "type": "string",
+              "description": "Identifier of the note within its containing entity"
+            },
+            "author": {
+              "type": "string",
+              "description": "Author of the note"
+            },
+            "date": {
+              "type": "string",
+              "format": "date-time",
+              "description": "Date of the note"
+            },
+            "text": {
+              "type": "string",
+              "description": "Text of the note"
+            }
+          }
+        }
+      ]
+    },
+    "Place": {
+      "description": "Place reference. Place defines the places where the products are sold or delivered.",
+      "allOf": [
+        {
+          "$ref": "#/definitions/Entity"
+        },
+        {
+          "properties": {
+            "id": {
+              "type": "string",
+              "description": "Unique identifier of the place"
+            },
+            "href": {
+              "type": "string",
+              "description": "Unique reference of the place"
+            },
+            "name": {
+              "type": "string",
+              "description": "A user-friendly name for the place, such as [Paris Store], [London Store], [Main Home]"
+            }
+          }
+        }
+      ]
+    },
+    "PlaceRef": {
+      "description": "Place reference. PlaceRef defines the placeRefs where the products are sold or delivered.",
+      "allOf": [
+        {
+          "$ref": "#/definitions/EntityRef"
+        }
+      ]
+    },
+    "Quantity": {
+      "type": "object",
+      "description": "An amount in a given unit",
+      "properties": {
+        "amount": {
+          "type": "number",
+          "format": "float",
+          "description": "Numeric value in a given unit",
+          "default": 1.0
+        },
+        "units": {
+          "type": "string",
+          "description": "Unit"
+        }
+      }
+    },
+    "Record": {
+      "description": "A record in a worklog.",
+      "allOf": [
+        {
+          "$ref": "#/definitions/Entity"
+        },
+        {
+          "properties": {
+            "id": {
+              "type": "string",
+              "description": "unique identifier"
+            },
+            "href": {
+              "type": "string",
+              "format": "uri",
+              "description": "Hyperlink reference"
+            },
+            "dateTime": {
+              "type": "string",
+              "format": "date-time",
+              "description": "The date time that a record is generated."
+            },
+            "description": {
+              "type": "string",
+              "description": "The detail description in a record."
+            },
+            "supportPerson": {
+              "type": "string",
+              "description": "The person who logged that record."
+            }
+          }
+        }
+      ]
+    },
+    "RelatedEntity": {
+      "description": "A reference to an entity, where the type of the entity is not known in advance.",
+      "allOf": [
+        {
+          "$ref": "#/definitions/Entity"
+        },
+        {
+          "required": [
+            "id",
+            "role",
+            "@referredType"
+          ],
+          "properties": {
+            "id": {
+              "type": "string",
+              "description": "unique identifier"
+            },
+            "href": {
+              "type": "string",
+              "format": "uri",
+              "description": "Hyperlink reference"
+            },
+            "name": {
+              "type": "string",
+              "description": "Name of the related entity."
+            },
+            "role": {
+              "type": "string",
+              "description": "The role of an entity."
+            },
+            "@referredType": {
+              "type": "string",
+              "description": "The actual type of the target instance when needed for disambiguation."
+            }
+          }
+        }
+      ]
+    },
+    "RelatedParty": {
+      "description": "Related Entity reference. A related party defines party or party role linked to a specific entity.",
+      "allOf": [
+        {
+          "$ref": "#/definitions/Entity"
+        },
+        {
+          "required": [
+            "id",
+            "@referredType"
+          ],
+          "properties": {
+            "id": {
+              "type": "string",
+              "description": "unique identifier"
+            },
+            "href": {
+              "type": "string",
+              "format": "uri",
+              "description": "Hyperlink reference"
+            },
+            "name": {
+              "type": "string",
+              "description": "Name of the related entity."
+            },
+            "role": {
+              "type": "string",
+              "description": "Role played by the related party"
+            },
+            "@referredType": {
+              "type": "string",
+              "description": "The actual type of the target instance when needed for disambiguation."
+            }
+          }
+        }
+      ]
+    },
+    "RelatedPlaceRefOrValue": {
+      "description": "Related Entity reference. A related place defines a place described by reference or by value linked to a specific entity. The polymorphic attributes @type, @schemaLocation & @referredType are related to the place entity and not the RelatedPlaceRefOrValue class itself",
+      "properties": {
+        "role": {
+          "type": "string"
+        },
+        "ref": {
+          "$ref": "#/definitions/PlaceRef",
+          "description": "A reference to the Place."
+        },
+        "value": {
+          "$ref": "#/definitions/Place",
+          "description": "The Place (as a value)."
+        },
+        "@baseType": {
+          "type": "string",
+          "description": "When sub-classing, this defines the super-class"
+        },
+        "@schemaLocation": {
+          "type": "string",
+          "description": "A URI to a JSON-Schema file that defines additional attributes and relationships"
+        },
+        "@type": {
+          "type": "string",
+          "description": "When sub-classing, this defines the sub-class entity name"
+        }
+      }
+    },
+    "Resolution": {
+      "description": "The way one or more change request has been implementation through a direct remedy or task",
+      "allOf": [
+        {
+          "$ref": "#/definitions/Entity"
+        },
+        {
+          "properties": {
+            "id": {
+              "type": "string",
+              "description": "unique identifier"
+            },
+            "href": {
+              "type": "string",
+              "format": "uri",
+              "description": "Hyperlink reference"
+            },
+            "code": {
+              "type": "string",
+              "description": "The resolutions code, it can be configured as a multiple level hierarchy"
+            },
+            "description": {
+              "type": "string",
+              "description": "The description of the resolution"
+            },
+            "name": {
+              "type": "string",
+              "description": "The name of the resolution"
+            },
+            "task": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Task"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "SLARef": {
+      "description": "ServiceLevelAgreement reference: A service level agreement (SLA) is a type of agreement that represents a formal negotiated agreement between two parties designed to create a common understanding about products, services, priorities, responsibilities, and so forth. The SLA is a set of appropriate procedures and targets formally or informally agreed between parties in order to achieve and maintain specified Quality of Service.",
+      "allOf": [
+        {
+          "$ref": "#/definitions/EntityRef"
+        }
+      ]
+    },
+    "ServiceProblemRef": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/EntityRef"
+        }
+      ]
+    },
+    "Task": {
+      "description": "A step or task along in the process of implementation a Change Request.",
+      "allOf": [
+        {
+          "$ref": "#/definitions/Entity"
+        },
+        {
+          "properties": {
+            "id": {
+              "type": "string",
+              "description": "unique identifier"
+            },
+            "href": {
+              "type": "string",
+              "format": "uri",
+              "description": "Hyperlink reference"
+            },
+            "description": {
+              "type": "string",
+              "description": "The description of the task."
+            },
+            "name": {
+              "type": "string",
+              "description": "The name of the task."
+            },
+            "state": {
+              "type": "string",
+              "description": "The state of the task."
+            }
+          }
+        }
+      ]
+    },
+    "TimePeriod": {
+      "type": "object",
+      "description": "A period of time, either as a deadline (endDateTime only) a startDateTime only, or both",
+      "properties": {
+        "endDateTime": {
+          "type": "string",
+          "format": "date-time",
+          "description": "End of the time period, using IETC-RFC-3339 format"
+        },
+        "startDateTime": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Start of the time period, using IETC-RFC-3339 format"
+        }
+      }
+    },
+    "TroubleTicketRef": {
+      "description": "TroubleTicket reference, for when a Trouble Ticket is used by other entities",
+      "allOf": [
+        {
+          "$ref": "#/definitions/EntityRef"
+        }
+      ]
+    },
+    "WorkLog": {
+      "description": "A record of the work performed on the change request during the investigation and resolution process.",
+      "allOf": [
+        {
+          "$ref": "#/definitions/Entity"
+        },
+        {
+          "properties": {
+            "id": {
+              "type": "string",
+              "description": "unique identifier"
+            },
+            "href": {
+              "type": "string",
+              "format": "uri",
+              "description": "Hyperlink reference"
+            },
+            "createDateTime": {
+              "type": "string",
+              "format": "date-time",
+              "description": "Date and time of worklog generated."
+            },
+            "description": {
+              "type": "string",
+              "description": "The description of the worklog."
+            },
+            "lastUpdateDateTime": {
+              "type": "string",
+              "description": "Date and time when the worklog updated."
+            },
+            "record": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Record"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "EventSubscription": {
+      "type": "object",
+      "description": "Sets the communication endpoint address the service instance must use to deliver notification information",
+      "required": [
+        "id",
+        "callback"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Id of the listener"
+        },
+        "callback": {
+          "type": "string",
+          "description": "The callback being registered."
+        },
+        "query": {
+          "type": "string",
+          "description": "additional data to be passed"
+        }
+      }
+    },
+    "EventSubscriptionInput": {
+      "type": "object",
+      "description": "Sets the communication endpoint address the service instance must use to deliver notification information",
+      "required": [
+        "callback"
+      ],
+      "properties": {
+        "callback": {
+          "type": "string",
+          "description": "The callback being registered."
+        },
+        "query": {
+          "type": "string",
+          "description": "additional data to be passed"
+        }
+      }
+    },
+    "ChangeRequestCreateEvent": {
+      "description": "The notification data structure",
+      "allOf": [
+        {
+          "$ref": "#/definitions/Event"
+        },
+        {
+          "properties": {
+            "event": {
+              "$ref": "#/definitions/ChangeRequestCreateEventPayload",
+              "description": "The event payload linked to the involved resource object"
+            }
+          }
+        }
+      ]
+    },
+    "ChangeRequestCreateEventPayload": {
+      "type": "object",
+      "description": "The event data structure",
+      "properties": {
+        "changeRequest": {
+          "$ref": "#/definitions/ChangeRequest",
+          "description": "The involved resource data for the event"
+        }
+      }
+    },
+    "ChangeRequestStatusChangeEvent": {
+      "description": "The notification data structure",
+      "allOf": [
+        {
+          "$ref": "#/definitions/Event"
+        },
+        {
+          "properties": {
+            "event": {
+              "$ref": "#/definitions/ChangeRequestStatusChangeEventPayload",
+              "description": "The event payload linked to the involved resource object"
+            }
+          }
+        }
+      ]
+    },
+    "ChangeRequestStatusChangeEventPayload": {
+      "type": "object",
+      "description": "The event data structure",
+      "properties": {
+        "changeRequest": {
+          "$ref": "#/definitions/ChangeRequest",
+          "description": "The involved resource data for the event"
+        }
+      }
+    },
+    "ChangeRequestDeleteEvent": {
+      "description": "The notification data structure",
+      "allOf": [
+        {
+          "$ref": "#/definitions/Event"
+        },
+        {
+          "properties": {
+            "event": {
+              "$ref": "#/definitions/ChangeRequestDeleteEventPayload",
+              "description": "The event payload linked to the involved resource object"
+            }
+          }
+        }
+      ]
+    },
+    "ChangeRequestDeleteEventPayload": {
+      "type": "object",
+      "description": "The event data structure",
+      "properties": {
+        "changeRequest": {
+          "$ref": "#/definitions/ChangeRequest",
+          "description": "The involved resource data for the event"
+        }
+      }
+    },
+    "ChangeRequestAttributeValueChangeEvent": {
+      "description": "The notification data structure",
+      "allOf": [
+        {
+          "$ref": "#/definitions/Event"
+        },
+        {
+          "properties": {
+            "fieldPath": {
+              "type": "string",
+              "description": "The path identifying the object field concerned by this notification."
+            },
+            "event": {
+              "$ref": "#/definitions/ChangeRequestAttributeValueChangeEventPayload",
+              "description": "The event payload linked to the involved resource object"
+            }
+          }
+        }
+      ]
+    },
+    "ChangeRequestAttributeValueChangeEventPayload": {
+      "type": "object",
+      "description": "The event data structure",
+      "properties": {
+        "changeRequest": {
+          "$ref": "#/definitions/ChangeRequest",
+          "description": "The involved resource data for the event"
+        }
+      }
+    },
+    "ChangeRequestApprovalRequiredEvent": {
+      "description": "The notification data structure",
+      "allOf": [
+        {
+          "$ref": "#/definitions/Event"
+        },
+        {
+          "properties": {
+            "event": {
+              "$ref": "#/definitions/ChangeRequestApprovalRequiredEventPayload",
+              "description": "The event payload linked to the involved resource object"
+            }
+          }
+        }
+      ]
+    },
+    "ChangeRequestApprovalRequiredEventPayload": {
+      "type": "object",
+      "description": "The event data structure",
+      "properties": {
+        "changeRequest": {
+          "$ref": "#/definitions/ChangeRequest",
+          "description": "The involved resource data for the event"
+        }
+      }
+    },
+    "BellChangeRequestFailureEvent": {
+      "description": "The notification data structure",
+      "allOf": [
+        {
+          "$ref": "#/definitions/Event"
+        },
+        {
+          "properties": {
+            "event": {
+              "$ref": "#/definitions/BellChangeRequestFailureEventPayload",
+              "description": "The event payload linked to the involved resource object"
+            }
+          }
+        }
+      ]
+    },
+    "BellChangeRequestFailureEventPayload": {
+      "type": "object",
+      "description": "The event data structure",
+      "properties": {
+        "failure": {
+          "$ref": "#/definitions/BellErrorRepresentation",
+          "description": "The error associated to the failure event"
+        },
+        "httpCode": {
+          "type": "string",
+          "description": "http return code at the API level."
+        }
+      }
+    },
+    "Error": {
+      "description": "Used when an API throws an Error, typically with a HTTP error response-code (3xx, 4xx, 5xx)",
+      "allOf": [
+        {
+          "$ref": "#/definitions/Entity"
+        },
+        {
+          "required": [
+            "code",
+            "reason"
+          ],
+          "properties": {
+            "code": {
+              "type": "string",
+              "description": "Application relevant detail, defined in the API or a common list."
+            },
+            "reason": {
+              "type": "string",
+              "description": "Explanation of the reason for the error which can be shown to a client user."
+            },
+            "message": {
+              "type": "string",
+              "description": "More details and corrective actions related to the error which can be shown to a client user."
+            },
+            "status": {
+              "type": "string",
+              "description": "HTTP Error code extension"
+            },
+            "referenceError": {
+              "type": "string",
+              "format": "uri",
+              "description": "URI of documentation describing the error."
+            }
+          }
+        }
+      ]
+    },
+    "BellChangeRequest": {
+      "description": "Bell extension of the TMF ChangeRequest",
+      "allOf": [
+        {
+          "$ref": "#/definitions/ChangeRequest"
+        },
+        {
+          "properties": {
+            "sourceSystemId": {
+              "type": "string",
+              "description": "Id of the external system where the ChangeRequest is defined."
+            },
+            "externalId": {
+              "type": "string",
+              "description": "Additional identifier coming from an external system"
+            },
+            "category": {
+              "description": "The category of change request",
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/CategoryRef"
+              }
+            },
+            "urgency": {
+              "type": "string",
+              "description": "Id of the external system where the Urgency is defined."
+            },
+            "nativeStatus": {
+              "type": "string",
+              "description": "Status of the Change Request in the external system. These values are generally different from the TMF values, mappings are applied"
+            }
+          }
+        }
+      ]
+    },
+    "BellChangeRequest_Create": {
+      "description": "Bell extension of the TMF ChangeRequest_Create",
+      "allOf": [
+        {
+          "$ref": "#/definitions/ChangeRequest_Create"
+        },
+        {
+          "properties": {
+            "sourceSystemId": {
+              "type": "string",
+              "description": "Id of the external system where the ChangeRequest is defined."
+            },
+            "urgency": {
+              "type": "string",
+              "description": "Id of the external system where the Urgency is defined."
+            },
+            "actualStartTime": {
+              "type": "string",
+              "format": "date-time",
+              "description": "Date and time when the change implementation is planned to be started"
+            },
+            "actualEndTime": {
+              "type": "string",
+              "format": "date-time",
+              "description": "Date and time when the change implementation is planned to be started"
+            },
+            "category": {
+              "description": "The category of change request",
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/CategoryRef"
+              }
+            },
+            "nativeStatus": {
+              "type": "string",
+              "description": "Status of the Change Request in the external system. These values are generally different from the TMF values, mappings are applied"
+            }
+          }
+        }
+      ]
+    },
+    "BellChangeRequest_Update": {
+      "description": "Bell extension of the TMF ChangeRequest_Update",
+      "allOf": [
+        {
+          "$ref": "#/definitions/ChangeRequest_Update"
+        },
+        {
+          "properties": {
+            "category": {
+              "description": "The category of change request",
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/CategoryRef"
+              }
+            },
+            "urgency": {
+              "type": "string",
+              "description": "Id of the external system where the Urgency is defined."
+            },
+            "nativeStatus": {
+              "type": "string",
+              "description": "Status of the Change Request in the external system. These values are generally different from the TMF values, mappings are applied"
+            }
+          }
+        }
+      ]
+    },
+    "CategoryRef": {
+      "description": "The category for grouping recommendations",
+      "allOf": [
+        {
+          "$ref": "#/definitions/EntityRef"
+        }
+      ]
+    },
+    "BellRelatedPartyOrRole": {
+      "description": "Extension of RelatedParty",
+      "allOf": [
+        {
+          "$ref": "#/definitions/RelatedParty"
+        },
+        {
+          "properties": {
+            "value": {
+              "$ref": "#/definitions/BellPartyOrRole"
+            }
+          }
+        }
+      ]
+    },
+    "BellPartyOrRole": {
+      "discriminator": "@type",
+      "type": "object",
+      "description": "Abstract class to receive BellCustomerVO or BellIndividualVO or BellOrganizationVO",
+      "properties": {
+        "@type": {
+          "type": "string",
+          "description": "When sub-classing, this defines the sub-class entity name"
+        },
+        "@baseType": {
+          "type": "string",
+          "description": "When sub-classing, this defines the super-class"
+        },
+        "@schemaLocation": {
+          "type": "string",
+          "format": "uri",
+          "description": "A URI to a JSON-Schema file that defines additional attributes and relationships"
+        },
+        "id": {
+          "type": "string",
+          "description": "Unique identifier of the individual"
+        },
+        "href": {
+          "type": "string",
+          "description": "Hyperlink to access the individual"
+        }
+      }
+    },
+    "BellCustomerVO": {
+      "description": "Customer Specialization of BellPartyOrRole",
+      "allOf": [
+        {
+          "$ref": "#/definitions/BellPartyOrRole"
+        },
+        {
+          "properties": {
+            "name": {
+              "type": "string",
+              "description": "A word, term, or phrase by which the Customer is known and distinguished from other Customers."
+            },
+            "status": {
+              "type": "string",
+              "description": "Used to track the lifecycle status of the customer."
+            },
+            "statusReason": {
+              "type": "string",
+              "description": "A string providing an explanation on the value of the status lifecycle. For instance if the status is Rejected, statusReason will provide the reason for rejection."
+            },
+            "validFor": {
+              "$ref": "#/definitions/TimePeriod",
+              "description": "The time period that the Customer is valid for."
+            },
+            "contactMedium": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/ContactMedium"
+              }
+            },
+            "characteristic": {
+              "description": "Describes the characteristic of a customer.",
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Characteristic"
+              }
+            },
+            "engagedParty": {
+              "$ref": "#/definitions/RelatedParty",
+              "description": "The party - an organization or an individual - that is engaged as a customer."
+            },
+            "relatedParty": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/RelatedParty"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "BellIndividualVO": {
+      "description": "An Individual VO",
+      "allOf": [
+        {
+          "$ref": "#/definitions/BellPartyOrRole"
+        },
+        {
+          "properties": {
+            "contactMedium": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/ContactMedium"
+              }
+            },
+            "externalReference": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/ExternalReference"
+              }
+            },
+            "partyCharacteristic": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Characteristic"
+              }
+            },
+            "familyName": {
+              "type": "string",
+              "description": "Contains the non-chosen or inherited name. Also known as last name in the Western context"
+            },
+            "fullName": {
+              "type": "string",
+              "description": "Full name flatten (first, middle, and last names)"
+            },
+            "givenName": {
+              "type": "string",
+              "description": "First name of the individual"
+            },
+            "languageAbility": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/LanguageAbility"
+              }
+            },
+            "externalId": {
+              "type": "string",
+              "description": "Additional identifier coming from an external system"
+            },
+            "sourceSystemId": {
+              "type": "string",
+              "description": "Id of the external system where the individual is defined. Not to confuse with the number of an individual in that system (externalId)"
+            },
+            "relatedParty": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/RelatedParty"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "BellOrganizationVO": {
+      "description": "An Organization VO",
+      "allOf": [
+        {
+          "$ref": "#/definitions/BellPartyOrRole"
+        },
+        {
+          "properties": {
+            "contactMedium": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/ContactMedium"
+              }
+            },
+            "externalReference": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/ExternalReference"
+              }
+            },
+            "partyCharacteristic": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Characteristic"
+              }
+            },
+            "isHeadOffice": {
+              "type": "boolean",
+              "description": "If value is true, the organization is the head office"
+            },
+            "name": {
+              "type": "string",
+              "description": "Organization name (department name for example)"
+            },
+            "nameType": {
+              "type": "string",
+              "description": "Type of the name : Co, Inc, Ltd,\u2026"
+            },
+            "organizationType": {
+              "type": "string",
+              "description": "Type of Organization (company, department...)"
+            },
+            "externalId": {
+              "type": "string",
+              "description": "Additional identifier coming from an external system"
+            },
+            "sourceSystemId": {
+              "type": "string",
+              "description": "Id of the external system where the individual is defined. Not to confuse with the number of an individual in that system (externalId)"
+            },
+            "relatedParty": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/RelatedParty"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "LanguageAbility": {
+      "description": "Ability of an individual to understand or converse in a language.",
+      "allOf": [
+        {
+          "$ref": "#/definitions/Entity"
+        },
+        {
+          "properties": {
+            "isFavouriteLanguage": {
+              "type": "boolean",
+              "description": "A \u201Ctrue\u201D value specifies whether the language is considered by the individual as his favourite one"
+            },
+            "languageCode": {
+              "type": "string",
+              "description": "Language code (RFC 5646)"
+            },
+            "languageName": {
+              "type": "string",
+              "description": "Language name"
+            }
+          }
+        }
+      ]
+    },
+    "BellContactMedium": {
+      "description": "Bell extension to a ContactMedium",
+      "allOf": [
+        {
+          "$ref": "#/definitions/ContactMedium"
+        },
+        {
+          "properties": {
+            "physicalAddress": {
+              "$ref": "#/definitions/GeographicAddress"
+            }
+          }
+        }
+      ]
+    },
+    "ContactMedium": {
+      "description": "Indicates the contact medium that could be used to contact the party.",
+      "allOf": [
+        {
+          "$ref": "#/definitions/Entity"
+        },
+        {
+          "properties": {
+            "mediumType": {
+              "type": "string",
+              "description": "Type of the contact medium, such as: email address, telephone number, postal address"
+            },
+            "preferred": {
+              "type": "boolean",
+              "description": "If true, indicates that is the preferred contact medium"
+            },
+            "characteristic": {
+              "$ref": "#/definitions/MediumCharacteristic",
+              "description": "Any additional characteristic(s) of this contact medium"
+            },
+            "validFor": {
+              "$ref": "#/definitions/TimePeriod",
+              "description": "The time period that the contact medium is valid for"
+            }
+          }
+        }
+      ]
+    },
+    "MediumCharacteristic": {
+      "description": "Describes the contact medium characteristics that could be used to contact a party (an individual or an organization)",
+      "allOf": [
+        {
+          "$ref": "#/definitions/Entity"
+        },
+        {
+          "properties": {
+            "city": {
+              "type": "string",
+              "description": "The city"
+            },
+            "contactType": {
+              "type": "string",
+              "description": "The type of contact, for example: phone number such as mobile, fixed home, fixed office. postal address such as shipping instalation\u2026"
+            },
+            "country": {
+              "type": "string",
+              "description": "The country"
+            },
+            "emailAddress": {
+              "type": "string",
+              "description": "Full email address in standard format"
+            },
+            "faxNumber": {
+              "type": "string",
+              "description": "The fax number of the contact"
+            },
+            "phoneNumber": {
+              "type": "string",
+              "description": "The primary phone number of the contact"
+            },
+            "postCode": {
+              "type": "string",
+              "description": "Postcode"
+            },
+            "socialNetworkId": {
+              "type": "string",
+              "description": "Identifier as a member of a social network"
+            },
+            "stateOrProvince": {
+              "type": "string",
+              "description": "State or province"
+            },
+            "street1": {
+              "type": "string",
+              "description": "Describes the street"
+            },
+            "street2": {
+              "type": "string",
+              "description": "Complementary street description"
+            }
+          }
+        }
+      ]
+    },
+    "GeographicAddress": {
+      "description": "Structured textual way of describing how to find a Property in an urban area (country properties are often defined differently).\nNote : Address corresponds to SID UrbanPropertyAddress",
+      "allOf": [
+        {
+          "$ref": "#/definitions/Place"
+        },
+        {
+          "properties": {
+            "city": {
+              "type": "string",
+              "description": "City that the address is in"
+            },
+            "country": {
+              "type": "string",
+              "description": "Country that the address is in"
+            },
+            "locality": {
+              "type": "string",
+              "description": "An area of defined or undefined boundaries within a local authority or other legislatively defined area, usually rural or semi rural in nature. [ANZLIC-STREET], or a suburb, a bounded locality within a city, town or shire principally of urban character [ANZLICSTREET]"
+            },
+            "postcode": {
+              "type": "string",
+              "description": "descriptor for a postal delivery area, used to speed and simplify the delivery of mail (also know as zipcode)"
+            },
+            "stateOrProvince": {
+              "type": "string",
+              "description": "the State or Province that the address is in"
+            },
+            "streetName": {
+              "type": "string",
+              "description": "Name of the street or other street type"
+            },
+            "streetNr": {
+              "type": "string",
+              "description": "Number identifying a specific property on a public street. It may be combined with streetNrLast for ranged addresses"
+            },
+            "streetNrLast": {
+              "type": "string",
+              "description": "Last number in a range of street numbers allocated to a property"
+            },
+            "streetNrLastSuffix": {
+              "type": "string",
+              "description": "Last street number suffix for a ranged address"
+            },
+            "streetNrSuffix": {
+              "type": "string",
+              "description": "the first street number suffix"
+            },
+            "streetSuffix": {
+              "type": "string",
+              "description": "A modifier denoting a relative direction"
+            },
+            "streetType": {
+              "type": "string",
+              "description": "alley, avenue, boulevard, brae, crescent, drive, highway, lane, terrace, parade, place, tarn, way, wharf "
+            },
+            "geographicLocation": {
+              "$ref": "#/definitions/GeographicLocationRefOrValue"
+            },
+            "geographicSubAddress": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/GeographicSubAddress"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "GeographicLocationRefOrValue": {
+      "description": "A GeographicLocation is a pure-virtual super-class to the GeoJSON-aligned geometries of Point (addresses and locations), MultiPoint, LineString (streets, highways and boundaries), MultiLineString and Polygon (countries, provinces, tracts of land). Use the @type attribute to specify which of these is being specified by the geometry attribute.",
+      "allOf": [
+        {
+          "$ref": "#/definitions/Entity"
+        },
+        {
+          "properties": {
+            "ref": {
+              "$ref": "#/definitions/GeographicLocationRef",
+              "description": "A reference to the GeographicLocation."
+            },
+            "value": {
+              "$ref": "#/definitions/GeographicLocation",
+              "description": "The GeographicLocation (as a value)."
+            }
+          }
+        }
+      ]
+    },
+    "GeographicLocationRef": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/EntityRef"
+        }
+      ]
+    },
+    "GeographicLocation": {
+      "description": "A GeographicLocation is a pure-virtual super-class to the GeoJSON-aligned geometries of Point (addresses and locations), MultiPoint, LineString (streets, highways and boundaries), MultiLineString and Polygon (countries, provinces, tracts of land). Use the @type attribute to specify which of these is being specified by the geometry attribute.",
+      "allOf": [
+        {
+          "$ref": "#/definitions/Entity"
+        },
+        {
+          "properties": {
+            "id": {
+              "type": "string",
+              "description": "Unique identifier of the geographic location"
+            },
+            "href": {
+              "type": "string",
+              "description": "An URI used to access to the geographic location resource"
+            },
+            "bbox": {
+              "description": "A bounding box array that contains the geometry. The axes order follows the axes order of the geometry",
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "GeographicSubAddress": {
+      "description": "Representation of a GeographicSubAddress \nIt is used for addressing within a property in an urban area (country properties are often defined differently). It may refer to a building, a building cluster, or a floor of a multistory building.",
+      "allOf": [
+        {
+          "$ref": "#/definitions/Entity"
+        },
+        {
+          "properties": {
+            "id": {
+              "type": "string",
+              "description": "Unique Identifier of the subAddress"
+            },
+            "href": {
+              "type": "string",
+              "description": "Link to the subAddress"
+            },
+            "buildingName": {
+              "type": "string",
+              "description": "allows for buildings that have well-known names"
+            },
+            "levelNumber": {
+              "type": "string",
+              "description": "used where a level type may be repeated e.g. BASEMENT 1, BASEMENT 2"
+            },
+            "levelType": {
+              "type": "string",
+              "description": "describes level types within a building"
+            },
+            "name": {
+              "type": "string",
+              "description": "Name of the subAddress to identify it with a meaningful identification"
+            },
+            "privateStreetName": {
+              "type": "string",
+              "description": "private streets internal to a property (e.g. a university) may have internal names that are not recorded by the land title office."
+            },
+            "privateStreetNumber": {
+              "type": "string",
+              "description": "private streets numbers internal to a private street"
+            },
+            "subAddressType": {
+              "type": "string",
+              "description": "Type of subAddress : it can be a subunit or a private street"
+            },
+            "subUnitNumber": {
+              "type": "string",
+              "description": "the discriminator used for the subunit\noften just a simple number e.g. FLAT 5, may also be a range"
+            },
+            "subUnitType": {
+              "type": "string",
+              "description": "the type of subunit\ne.g.BERTH, FLAT, PIER, SUITE, SHOP, TOWER, UNIT, WHARF"
+            }
+          }
+        }
+      ]
+    },
+    "BellGeographicAddress": {
+      "description": "A custom Geographic Address to add addressLines.",
+      "allOf": [
+        {
+          "$ref": "#/definitions/GeographicAddress"
+        },
+        {
+          "properties": {
+            "addressLine": {
+              "type": "string",
+              "description": "Free form address line containing multiple fields of the address. This field could be use if the address is not well divided into the other fields"
+            },
+            "addressLine2": {
+              "type": "string",
+              "description": "Second free form address line containing multiple fields of the address. This field could be use if the address is not well divided into the other fields"
+            },
+            "validated": {
+              "type": "boolean",
+              "description": "Indicator that the address has been validated",
+              "default": false
+            }
+          }
+        }
+      ]
+    },
+    "BellGeographicSubAddress": {
+      "description": "Bell extension of GeographicSubAddress",
+      "allOf": [
+        {
+          "$ref": "#/definitions/GeographicSubAddress"
+        },
+        {
+          "properties": {
+            "sectionType": {
+              "type": "string",
+              "description": "Section of subAddress"
+            },
+            "sectionNumber": {
+              "type": "string",
+              "description": "the discriminator used for the section"
+            },
+            "description": {
+              "type": "string",
+              "description": "A textual description of the subAddress"
+            },
+            "serviceLocationCLLI": {
+              "type": "string",
+              "description": "Service location Common Language Location Identifier Code (CLLI). "
+            },
+            "tag": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "GeographicSite": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/Place"
+        },
+        {
+          "properties": {
+            "code": {
+              "type": "string",
+              "description": "A code that may be used for some addressing schemes eg: [ANSI T1.253-1999]"
+            },
+            "description": {
+              "type": "string",
+              "description": "Text describing additional information regarding the site"
+            },
+            "status": {
+              "type": "string",
+              "description": "The condition of the GeographicSite, such as planned, underConstruction, cancelled, active, inactive, former"
+            },
+            "calendar": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/CalendarPeriod"
+              }
+            },
+            "place": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/PlaceRefOrValue"
+              }
+            },
+            "relatedParty": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/RelatedParty"
+              }
+            },
+            "siteRelationship": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/GeographicSiteRelationship"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "GeographicSiteRelationship": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/Entity"
+        },
+        {
+          "required": [
+            "id",
+            "relationshipType"
+          ],
+          "properties": {
+            "id": {
+              "type": "string",
+              "description": "Unique identifier of the related site entity within the server"
+            },
+            "href": {
+              "type": "string",
+              "description": "Reference of the related geographic site"
+            },
+            "relationshipType": {
+              "type": "string",
+              "description": "Type of relationship"
+            },
+            "role": {
+              "type": "string",
+              "description": "Role of the related site in the relationship"
+            },
+            "validFor": {
+              "$ref": "#/definitions/TimePeriod",
+              "description": "Validity for the relationship"
+            }
+          }
+        }
+      ]
+    },
+    "PlaceRefOrValue": {
+      "description": "A  place described by reference or by value linked to a specific entity. The polymorphic attributes @type, @schemaLocation & @referredType are related to the place entity and not the PlaceRefOrValue class itself",
+      "properties": {
+        "ref": {
+          "$ref": "#/definitions/PlaceRef",
+          "description": "A reference to the Place."
+        },
+        "value": {
+          "$ref": "#/definitions/Place",
+          "description": "The Place (as a value)."
+        },
+        "@baseType": {
+          "type": "string",
+          "description": "When sub-classing, this defines the super-class"
+        },
+        "@schemaLocation": {
+          "type": "string",
+          "description": "A URI to a JSON-Schema file that defines additional attributes and relationships"
+        },
+        "@type": {
+          "type": "string",
+          "description": "When sub-classing, this defines the sub-class entity name"
+        }
+      }
+    },
+    "CalendarPeriod": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/Entity"
+        },
+        {
+          "properties": {
+            "day": {
+              "type": "string",
+              "description": "Day where the calendar status applies (e.g.: monday, mon-to-fri, weekdays, weekend, all week, ...)"
+            },
+            "status": {
+              "type": "string",
+              "description": "Indication of the availability of the site (e.g.: open)"
+            },
+            "timeZone": {
+              "type": "string",
+              "description": "Indication of the timezone applicable to the calendar information (e.g.: Paris, GMT+1)"
+            },
+            "hourPeriod": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/HourPeriod"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "HourPeriod": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/Entity"
+        },
+        {
+          "properties": {
+            "endHour": {
+              "type": "string",
+              "description": "The time when the status ends applying"
+            },
+            "startHour": {
+              "type": "string",
+              "description": "The time when the status starts applying"
+            }
+          }
+        }
+      ]
+    },
+    "BellGeographicSite": {
+      "description": "A Bell extension to a Geographic Site.",
+      "allOf": [
+        {
+          "$ref": "#/definitions/GeographicSite"
+        },
+        {
+          "properties": {
+            "externalId": {
+              "type": "string",
+              "description": "Additional identifier coming from an external system"
+            },
+            "sourceSystemId": {
+              "type": "string",
+              "description": "Id of the external system. Not to confuse with the id of the resource in that system (externalId)"
+            },
+            "siteType": {
+              "type": "string",
+              "description": "Type of the site. enumeration: singleFamilyUnit, multiDwellingUnit"
+            },
+            "centralOfficeCLLI": {
+              "type": "string",
+              "description": "Central office Common Language Location Identifier Code (CLLI)"
+            },
+            "SAID": {
+              "type": "string",
+              "description": "Service address ID (SAID)"
+            },
+            "tag": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "externalReference": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/ExternalReference"
+              }
+            },
+            "siteCharacteristic": {
+              "description": "A list of characteristics that characterize this site (siteCharacteristic [*]) ",
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Characteristic"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "BellExternalReference": {
+      "description": "Describes a given characteristic of an object or entity through a name/value pair.",
+      "allOf": [
+        {
+          "$ref": "#/definitions/ExternalReference"
+        },
+        {
+          "properties": {
+            "externalId": {
+              "type": "string",
+              "description": "Additional identifier coming from an external system"
+            },
+            "sourceSystemId": {
+              "type": "string",
+              "description": "Id of the external system where the external reference is defined. Not to confuse with the number of an extenal reference in that system (externalId)"
+            },
+            "preferred": {
+              "type": "boolean",
+              "description": "If true, indicates that it is the preferred external reference in a given source system"
+            }
+          }
+        }
+      ]
+    },
+    "BellNote": {
+      "description": "Bell specialized version of the TMF Note. Used to store comments on different entities",
+      "allOf": [
+        {
+          "$ref": "#/definitions/Note"
+        },
+        {
+          "properties": {
+            "noteType": {
+              "type": "string",
+              "description": "A code that can be applied to a note to classify it, some kind of label"
+            },
+            "clientviewable": {
+              "type": "boolean",
+              "description": "If the note can be viewed by customers"
+            },
+            "isnew": {
+              "type": "boolean",
+              "description": "Indicates the note is new, meaning that it hasn't been seen by any technical staff member"
+            },
+            "summary": {
+              "type": "string",
+              "description": "A short description for the note"
+            }
+          }
+        }
+      ]
+    },
+    "BellErrorRepresentation": {
+      "description": "Bell specialized version of the TMF Error. Used to store the native error representation",
+      "allOf": [
+        {
+          "$ref": "#/definitions/Error"
+        },
+        {
+          "properties": {
+            "causedBy": {
+              "type": "object",
+              "description": "Error cause. May be an Error with custom fields or a list of errors (BellErrorList).",
+              "additionalProperties": {
+                "type": "object"
+              }
+            },
+            "timestamp": {
+              "type": "string",
+              "format": "date-time",
+              "description": "Timestamp when the error is caught, as viewed by the issuer of the error, in ISO 8601 format"
+            },
+            "jsonPath": {
+              "type": "string",
+              "description": "Json path expression associated to the field for which the error is reported. Typically used with validation errors."
+            }
+          }
+        }
+      ]
+    },
+    "BellErrorList": {
+      "discriminator": "@type",
+      "type": "object",
+      "description": "A list of errors. Typically used to return multiple validation errors in the cause ",
+      "properties": {
+        "@schemaLocation": {
+          "type": "string",
+          "format": "uri",
+          "description": "A URI to a JSON-Schema file that defines additional attributes and relationships"
+        },
+        "@baseType": {
+          "type": "string",
+          "description": "When sub-classing, this defines the super-class"
+        },
+        "@type": {
+          "type": "string",
+          "description": "When sub-classing, this defines the sub-class entity name"
+        },
+        "error": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Error"
+          }
+        }
+      }
+    },
+    "StringCharacteristic": {
+      "description": "Standard TMF string characteristic. Describes a given characteristic of an object or entity through a name/value pair.",
+      "allOf": [
+        {
+          "$ref": "#/definitions/Characteristic"
+        },
+        {
+          "properties": {
+            "value": {
+              "type": "string",
+              "description": "Value of the characteristic"
+            }
+          }
+        }
+      ]
+    },
+    "BooleanCharacteristic": {
+      "description": "Standard TMF boolean characteristic. Describes a given characteristic of an object or entity through a name/value pair.",
+      "allOf": [
+        {
+          "$ref": "#/definitions/Characteristic"
+        },
+        {
+          "properties": {
+            "value": {
+              "type": "boolean",
+              "description": "Value of the characteristic"
+            }
+          }
+        }
+      ]
+    },
+    "FloatCharacteristic": {
+      "description": "Standard TMF float characteristic. Describes a given characteristic of an object or entity through a name/value pair.",
+      "allOf": [
+        {
+          "$ref": "#/definitions/Characteristic"
+        },
+        {
+          "properties": {
+            "value": {
+              "type": "number",
+              "format": "float",
+              "description": "Value of the characteristic"
+            }
+          }
+        }
+      ]
+    },
+    "IntegerCharacteristic": {
+      "description": "Standard TMF integer characteristic. Describes a given characteristic of an object or entity through a name/value pair.",
+      "allOf": [
+        {
+          "$ref": "#/definitions/Characteristic"
+        },
+        {
+          "properties": {
+            "value": {
+              "type": "integer",
+              "format": "int32",
+              "description": "Value of the characteristic"
+            }
+          }
+        }
+      ]
+    },
+    "DateTimeCharacteristic": {
+      "description": "Standard TMF datetime characteristic. Describes a given characteristic of an object or entity through a name/value pair.",
+      "allOf": [
+        {
+          "$ref": "#/definitions/Characteristic"
+        },
+        {
+          "properties": {
+            "value": {
+              "type": "string",
+              "format": "date-time",
+              "description": "Value of the characteristic"
+            }
+          }
+        }
+      ]
+    },
+    "ObjectCharacteristic": {
+      "description": "Standard TMF object characteristic. Describes a given characteristic of an object or entity through a name/value pair.",
+      "allOf": [
+        {
+          "$ref": "#/definitions/Characteristic"
+        },
+        {
+          "properties": {
+            "value": {
+              "type": "object",
+              "description": "Value of the characteristic",
+              "additionalProperties": {
+                "type": "object"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "ObjectArrayCharacteristic": {
+      "description": "Standard TMF objectarray characteristic. Describes a given characteristic of an object or entity through a name/value pair.",
+      "allOf": [
+        {
+          "$ref": "#/definitions/Characteristic"
+        },
+        {
+          "properties": {
+            "value": {
+              "description": "Value of the characteristic",
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "StringArrayCharacteristic": {
+      "description": "Standard TMF stringarray characteristic. Describes a given characteristic of an object or entity through a name/value pair.",
+      "allOf": [
+        {
+          "$ref": "#/definitions/Characteristic"
+        },
+        {
+          "properties": {
+            "value": {
+              "description": "Value of the characteristic",
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "GroupCharacteristic": {
+      "description": "Standard TMF group characteristic. Describes a given characteristic of an object or entity through a name/value pair.",
+      "allOf": [
+        {
+          "$ref": "#/definitions/Characteristic"
+        },
+        {
+          "properties": {
+            "value": {
+              "description": "Value of the characteristic",
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Characteristic"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "Event": {
+      "description": "Event with common fields. This is an abstract base definition for all events that are produced by TMF APIs. It must be used as a template for specific events. These specific event definitions must also define an event field, typed with the specific payload for that event",
+      "allOf": [
+        {
+          "$ref": "#/definitions/Entity"
+        },
+        {
+          "properties": {
+            "eventId": {
+              "type": "string",
+              "description": "The identifier of the notification."
+            },
+            "eventTime": {
+              "type": "string",
+              "format": "date-time",
+              "description": "Time of the event occurrence."
+            },
+            "eventType": {
+              "type": "string",
+              "description": "The type of the notification."
+            },
+            "correlationId": {
+              "type": "string",
+              "description": "The correlation id for this event."
+            },
+            "domain": {
+              "type": "string",
+              "description": "The domain of the event."
+            },
+            "title": {
+              "type": "string",
+              "description": "The title of the event."
+            },
+            "description": {
+              "type": "string",
+              "description": "An explanatory of the event."
+            },
+            "priority": {
+              "type": "string",
+              "description": "A priority."
+            },
+            "timeOccurred": {
+              "type": "string",
+              "format": "date-time",
+              "description": "The time the event occurred."
+            },
+            "source": {
+              "$ref": "#/definitions/EntityRef",
+              "description": "Source Entity described by EntityRef"
+            },
+            "reportingSystem": {
+              "$ref": "#/definitions/EntityRef",
+              "description": "Reporting System described by EntityRef"
+            },
+            "relatedParty": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/RelatedParty"
+              }
+            },
+            "analyticCharacteristic": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Characteristic"
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

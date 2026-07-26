@@ -1,0 +1,164 @@
+aid: bell-canada
+url: https://raw.githubusercontent.com/api-evangelist/bell-canada/refs/heads/main/apis.yml
+name: Bell Canada
+kind: company
+description: >-
+  Bell Canada is Canada's largest communications company and the principal operating subsidiary of BCE Inc., providing
+  wireless, wireline, internet, television and enterprise network services across Canada, and operating Bell Media as
+  the country's largest broadcaster. As a facilities-based mobile network operator and broadband carrier it sits at the
+  connectivity layer of the telecom value chain, and its public API posture reflects that: Bell runs a real developer
+  portal at developer.bell.ca whose only published API suite is a set of four TM Forum Open API aligned B2B service
+  management interfaces — Trouble Ticket (TMF621), Service Order (TMF641), Resource Inventory (TMF639) and Change
+  Management (TMF655) — for enterprise and wholesale partners integrating their ITSM systems with Bell. The Swagger 2.0
+  definitions and PDF specifications are downloadable without a login, but access to the sandbox and to any live
+  endpoint requires a business registration form and manual approval; no base URL, no credential scheme and no
+  self-serve key issuance is published, and the documented request examples redact the credential as a literal
+  SECURITY_CREDENTIALS placeholder. Bell publishes no first-party CAMARA network APIs and runs no Open Gateway portal
+  of its own. Its network APIs reach developers indirectly, through EnStream LP — the identity and fraud-signal joint
+  venture Bell Mobility owns with Rogers and TELUS — which announced a partnership with Aduna, the Ericsson-and-carrier
+  joint venture, on 27 February 2025 to distribute Canadian Number Verification and SIM Swap signals through Aduna's
+  CAMARA-aligned global channel. Bell is therefore an aggregator-mediated carrier: partner-gated on its own surface,
+  reachable by developers only through a third party.
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+tags:
+- Telecommunications
+- Canada
+- Mobile Network Operator
+- Broadband
+- 5G
+- IoT
+- TM Forum
+- BSS
+- OSS
+- Network APIs
+- CAMARA
+- Open Gateway
+- Identity Verification
+- SIM Swap
+- Enterprise
+created: '2026-07-25'
+modified: '2026-07-25'
+specificationVersion: '0.19'
+apis:
+- aid: bell-canada:bell-canada-trouble-ticket-api
+  name: Bell Canada Trouble Ticket API
+  description: >-
+    Bell's implementation of the TM Forum TMF621 Trouble Ticket Open API (Bell version v2.5, TMF621 v4.1.1), letting an
+    enterprise or wholesale partner create, patch, retrieve and list trouble tickets against Bell services from their
+    own ITSM or fault management system. Includes the TM Forum hub/listener notification pattern for ticket create,
+    attribute-value-change, status-change, delete, resolved and information-required events.
+  humanURL: https://developer.bell.ca/troubleticket
+  tags:
+  - Trouble Ticket
+  - Service Assurance
+  - TM Forum
+  - TMF621
+  - B2B
+  properties:
+  - type: Documentation
+    url: https://developer.bell.ca/troubleticket
+  - type: APIReference
+    url: https://developer.bell.ca/troubleticket
+  - type: OpenAPI
+    url: openapi/bell-canada-trouble-ticket-api-openapi.json
+  - type: Specification
+    url: https://developer.bell.ca/uploads/BELL_Canada_API_Specification_Trouble_Ticket_v2_5_af537009fa.pdf
+- aid: bell-canada:bell-canada-service-order-api
+  name: Bell Canada Service Order API
+  description: >-
+    Bell's implementation of the TM Forum TMF641 Service Ordering Management Open API (Bell version v1.4, TMF641 v4.6),
+    used by partners to place, amend, cancel and track service requests with Bell over a B2B integration. Covers
+    serviceOrder and cancelServiceOrder resources plus hub/listener notifications for create, state change, milestone,
+    jeopardy, information-required and failure events.
+  humanURL: https://developer.bell.ca/serviceorder
+  tags:
+  - Service Ordering
+  - Provisioning
+  - TM Forum
+  - TMF641
+  - B2B
+  properties:
+  - type: Documentation
+    url: https://developer.bell.ca/serviceorder
+  - type: APIReference
+    url: https://developer.bell.ca/serviceorder
+  - type: OpenAPI
+    url: openapi/bell-canada-service-order-api-openapi.json
+  - type: Specification
+    url: https://developer.bell.ca/uploads/BELL_Canada_API_Specification_Service_Order_v1_4_1_1bdd4073d5.pdf
+- aid: bell-canada:bell-canada-resource-inventory-api
+  name: Bell Canada Resource Inventory Management API
+  description: >-
+    Bell's implementation of the TM Forum TMF639 Resource Inventory Management Open API (Bell version v1.6, TMF639
+    v4.1), exposing logical, physical and generic resource records so partners can query and maintain an inventory
+    view of the Bell resources supporting their services, with hub/listener notifications for resource and physical
+    resource lifecycle events.
+  humanURL: https://developer.bell.ca/resourceinventory
+  tags:
+  - Resource Inventory
+  - Inventory Management
+  - TM Forum
+  - TMF639
+  - OSS
+  properties:
+  - type: Documentation
+    url: https://developer.bell.ca/resourceinventory
+  - type: APIReference
+    url: https://developer.bell.ca/resourceinventory
+  - type: OpenAPI
+    url: openapi/bell-canada-resource-inventory-api-openapi.json
+  - type: Specification
+    url: https://developer.bell.ca/uploads/BELL_Canada_API_Specification_Resource_Inventory_v1_6_1_855c08df43.pdf
+- aid: bell-canada:bell-canada-change-management-api
+  name: Bell Canada Change Management API
+  description: >-
+    Bell's implementation of the TM Forum TMF655 Change Management Open API (Bell version v1.1, TMF655 v4.2), letting a
+    partner raise, update, retrieve and list change requests against Bell services with guaranteed message delivery,
+    plus hub/listener notifications for change request create, status change, delete, attribute value change,
+    approval-required and failure events.
+  humanURL: https://developer.bell.ca/changemanagement
+  tags:
+  - Change Management
+  - Service Assurance
+  - TM Forum
+  - TMF655
+  - B2B
+  properties:
+  - type: Documentation
+    url: https://developer.bell.ca/changemanagement
+  - type: APIReference
+    url: https://developer.bell.ca/changemanagement
+  - type: OpenAPI
+    url: openapi/bell-canada-change-management-api-openapi.json
+  - type: Specification
+    url: https://developer.bell.ca/uploads/BELL_Canada_API_Specification_Change_Management_v1_1_1_b54db5b465.pdf
+common:
+- type: Website
+  url: https://www.bell.ca
+- type: DeveloperPortal
+  url: https://developer.bell.ca
+- type: Documentation
+  url: https://developer.bell.ca/overview
+- type: APIReference
+  url: https://developer.bell.ca/servicemanagement
+- type: SignUp
+  url: https://developer.bell.ca/register
+- type: Contact
+  url: https://developer.bell.ca/contact
+- type: Partners
+  url: https://developer.bell.ca/partners
+- type: Blog
+  url: https://developer.bell.ca/article
+- type: Products
+  url: https://developer.bell.ca/product
+- type: Privacy
+  url: https://aliant.bell.ca/Security_and_privacy/Commitment_to_privacy
+- type: TermsOfService
+  url: https://aliant.bell.ca/Legal_and_terms
+- type: Security
+  url: https://support.bell.ca/Billing-and-Accounts/Security_and_privacy
+- type: Company
+  url: https://www.bce.ca
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com
