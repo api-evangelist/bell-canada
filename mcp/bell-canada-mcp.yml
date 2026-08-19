@@ -2,33 +2,32 @@ generated: '2026-07-25'
 method: derived
 status: candidate
 source: openapi/*.json
-search_result: >-
-  No official or third-party MCP server for Bell Canada was found. There is no MCP reference on
-  developer.bell.ca, nothing in the verified github.com/bellcanada organization (0 public repos),
-  nothing on npm under @modelcontextprotocol or a Bell scope, and nothing in the public MCP
-  registries. The tool list below is DERIVED from the four published Swagger documents as a
-  candidate design, not a server Bell operates.
+search_result: No official or third-party MCP server for Bell Canada was found. There is no MCP reference
+  on developer.bell.ca, nothing in the verified github.com/bellcanada organization (0 public repos), nothing
+  on npm under @modelcontextprotocol or a Bell scope, and nothing in the public MCP registries. The tool
+  list below is DERIVED from the four published Swagger documents as a candidate design, not a server
+  Bell operates.
 server:
   name: bell-canada
   published: false
   url: null
   transport: null
-  note: >-
-    A real server is not currently buildable end-to-end by a third party: the Swagger documents
-    declare host "serverRoot" and Bell emails the endpoint and credentials to approved partners
-    only, so an MCP implementation would have to take the base URL and the SECURITY_CREDENTIALS
-    header value as configuration.
+  note: 'A real server is not currently buildable end-to-end by a third party: the Swagger documents declare
+    host "serverRoot" and Bell emails the endpoint and credentials to approved partners only, so an MCP
+    implementation would have to take the base URL and the SECURITY_CREDENTIALS header value as configuration.'
 auth_requirements:
   credential: SECURITY_CREDENTIALS header (issued out of band)
   sandbox_header: x-external-system (any unique value >= 8 chars)
   see: authentication/bell-canada-authentication.yml
 tools:
 - name: list_trouble_tickets
-  description: List or find trouble tickets raised against Bell services, with TMF filtering, paging and field selection.
+  description: List or find trouble tickets raised against Bell services, with TMF filtering, paging and
+    field selection.
   source_operation: openapi/bell-canada-trouble-ticket-api-openapi.json#listTroubleTicket
   action: read
 - name: create_trouble_ticket
-  description: Raise a new trouble ticket against a Bell service, specifying nature, severity and related entities.
+  description: Raise a new trouble ticket against a Bell service, specifying nature, severity and related
+    entities.
   source_operation: openapi/bell-canada-trouble-ticket-api-openapi.json#createTroubleTicket
   action: write
 - name: get_trouble_ticket
@@ -47,7 +46,8 @@ tools:
   description: List or find service orders placed with Bell.
   source_operation: openapi/bell-canada-service-order-api-openapi.json#listServiceOrder
   action: read
-  note: Bell's reference page marks GetServiceOrderList "Currently not available; will be implemented in the near future."
+  note: Bell's reference page marks GetServiceOrderList "Currently not available; will be implemented
+    in the near future."
 - name: create_service_order
   description: Place a service order with Bell for provisioning or change of a service.
   source_operation: openapi/bell-canada-service-order-api-openapi.json#createServiceOrder
@@ -56,7 +56,8 @@ tools:
   description: Retrieve a service order by its Bell SR id.
   source_operation: openapi/bell-canada-service-order-api-openapi.json#retrieveServiceOrder
   action: read
-  note: Bell's reference page marks GetServiceOrder "Currently not available; will be implemented in the near future."
+  note: Bell's reference page marks GetServiceOrder "Currently not available; will be implemented in the
+    near future."
 - name: update_service_order
   description: Partially update an existing service order (for example, add a worklog entry).
   source_operation: openapi/bell-canada-service-order-api-openapi.json#patchServiceOrder
@@ -123,13 +124,18 @@ tools:
   source_operation: openapi/bell-canada-trouble-ticket-api-openapi.json#unregisterListener
   action: write
 excluded:
-  reason: >-
-    The 31 POST /listener/{event} routes are the CLIENT side of the notification contract — they
-    describe the endpoint the caller must implement, not something an agent calls. They are excluded
-    from the candidate tool set and catalogued in asyncapi/bell-canada-webhooks.yml instead.
+  reason: The 31 POST /listener/{event} routes are the CLIENT side of the notification contract — they
+    describe the endpoint the caller must implement, not something an agent calls. They are excluded from
+    the candidate tool set and catalogued in asyncapi/bell-canada-webhooks.yml instead.
   count: 31
 coverage:
   rest_operations_total: 74
   callable_operations: 43
   candidate_tools: 24
   listener_contracts_excluded: 31
+deployment:
+  mode: none
+  verified: derived
+  tools: 24
+  checked: '2026-08-12'
+  source: catalog MCP census
