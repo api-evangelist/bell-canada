@@ -40,115 +40,358 @@ created: '2026-07-25'
 modified: '2026-07-25'
 specificationVersion: '0.23'
 apis:
-- aid: bell-canada:bell-canada-trouble-ticket-api
-  name: Bell Canada Trouble Ticket API
-  description: >-
-    Bell's implementation of the TM Forum TMF621 Trouble Ticket Open API (Bell version v2.5, TMF621 v4.1.1), letting an
-    enterprise or wholesale partner create, patch, retrieve and list trouble tickets against Bell services from their
-    own ITSM or fault management system. Includes the TM Forum hub/listener notification pattern for ticket create,
-    attribute-value-change, status-change, delete, resolved and information-required events.
+- aid: bell-canada:bell-canada-cancelserviceorder-api
+  name: Bell Canada Cancel Service Order API
+  description: The cancelServiceOrder API from Bell Canada — 2 operation(s) for cancelserviceorder.
   humanURL: https://developer.bell.ca/troubleticket
   tags:
-  - Trouble Ticket
-  - Service Assurance
-  - TM Forum
-  - TMF621
-  - B2B
+  - cancelServiceOrder
   properties:
+  - type: OpenAPI
+    url: openapi/bell-canada-cancelserviceorder-api-openapi.yml
   - type: Documentation
     url: https://developer.bell.ca/troubleticket
   - type: APIReference
     url: https://developer.bell.ca/troubleticket
-  - type: OpenAPI
-    url: openapi/bell-canada-trouble-ticket-api-openapi.json
   - type: Specification
-    url: https://developer.bell.ca/uploads/BELL_Canada_API_Specification_Trouble_Ticket_v2_5_af537009fa.pdf
-  - type: Overlay
-    url: overlays/bell-canada-trouble-ticket-api-overlay.yaml
-  - type: AgentSkill
-    url: skills/bell-canada-raise-and-track-trouble-ticket.md
-- aid: bell-canada:bell-canada-service-order-api
+    url: >-
+      https://developer.bell.ca/uploads/BELL_Canada_API_Specification_Trouble_Ticket_v2_5_af537009fa.pdf
+  - type: Documentation
+    url: https://developer.bell.ca/serviceorder
+  - type: APIReference
+    url: https://developer.bell.ca/serviceorder
+  - type: Specification
+    url: >-
+      https://developer.bell.ca/uploads/BELL_Canada_API_Specification_Service_Order_v1_4_1_1bdd4073d5.pdf
+  - type: Documentation
+    url: https://developer.bell.ca/resourceinventory
+  - type: APIReference
+    url: https://developer.bell.ca/resourceinventory
+  - type: Specification
+    url: >-
+      https://developer.bell.ca/uploads/BELL_Canada_API_Specification_Resource_Inventory_v1_6_1_855c08df43.pdf
+  - type: Documentation
+    url: https://developer.bell.ca/changemanagement
+  - type: APIReference
+    url: https://developer.bell.ca/changemanagement
+  - type: Specification
+    url: >-
+      https://developer.bell.ca/uploads/BELL_Canada_API_Specification_Change_Management_v1_1_1_b54db5b465.pdf
+- aid: bell-canada:bell-canada-changerequest-api
+  name: Bell Canada Change Request API
+  description: The changeRequest API from Bell Canada — 2 operation(s) for changerequest.
+  humanURL: https://developer.bell.ca/troubleticket
+  tags:
+  - changeRequest
+  properties:
+  - type: OpenAPI
+    url: openapi/bell-canada-changerequest-api-openapi.yml
+  - type: Documentation
+    url: https://developer.bell.ca/troubleticket
+  - type: APIReference
+    url: https://developer.bell.ca/troubleticket
+  - type: Specification
+    url: >-
+      https://developer.bell.ca/uploads/BELL_Canada_API_Specification_Trouble_Ticket_v2_5_af537009fa.pdf
+  - type: Documentation
+    url: https://developer.bell.ca/serviceorder
+  - type: APIReference
+    url: https://developer.bell.ca/serviceorder
+  - type: Specification
+    url: >-
+      https://developer.bell.ca/uploads/BELL_Canada_API_Specification_Service_Order_v1_4_1_1bdd4073d5.pdf
+  - type: Documentation
+    url: https://developer.bell.ca/resourceinventory
+  - type: APIReference
+    url: https://developer.bell.ca/resourceinventory
+  - type: Specification
+    url: >-
+      https://developer.bell.ca/uploads/BELL_Canada_API_Specification_Resource_Inventory_v1_6_1_855c08df43.pdf
+  - type: Documentation
+    url: https://developer.bell.ca/changemanagement
+  - type: APIReference
+    url: https://developer.bell.ca/changemanagement
+  - type: Specification
+    url: >-
+      https://developer.bell.ca/uploads/BELL_Canada_API_Specification_Change_Management_v1_1_1_b54db5b465.pdf
+- aid: bell-canada:bell-canada-events-subscription-api
+  name: Bell Canada events subscription API
+  description: The events subscription API from Bell Canada — 2 operation(s) for events subscription.
+  humanURL: https://developer.bell.ca/troubleticket
+  tags:
+  - events subscription
+  properties:
+  - type: OpenAPI
+    url: openapi/bell-canada-events-subscription-api-openapi.yml
+  - type: Documentation
+    url: https://developer.bell.ca/troubleticket
+  - type: APIReference
+    url: https://developer.bell.ca/troubleticket
+  - type: Specification
+    url: >-
+      https://developer.bell.ca/uploads/BELL_Canada_API_Specification_Trouble_Ticket_v2_5_af537009fa.pdf
+  - type: Documentation
+    url: https://developer.bell.ca/serviceorder
+  - type: APIReference
+    url: https://developer.bell.ca/serviceorder
+  - type: Specification
+    url: >-
+      https://developer.bell.ca/uploads/BELL_Canada_API_Specification_Service_Order_v1_4_1_1bdd4073d5.pdf
+  - type: Documentation
+    url: https://developer.bell.ca/resourceinventory
+  - type: APIReference
+    url: https://developer.bell.ca/resourceinventory
+  - type: Specification
+    url: >-
+      https://developer.bell.ca/uploads/BELL_Canada_API_Specification_Resource_Inventory_v1_6_1_855c08df43.pdf
+  - type: Documentation
+    url: https://developer.bell.ca/changemanagement
+  - type: APIReference
+    url: https://developer.bell.ca/changemanagement
+  - type: Specification
+    url: >-
+      https://developer.bell.ca/uploads/BELL_Canada_API_Specification_Change_Management_v1_1_1_b54db5b465.pdf
+- aid: bell-canada:bell-canada-logicalresource-api
+  name: Bell Canada Logical Resource API
+  description: The logicalResource API from Bell Canada — 2 operation(s) for logicalresource.
+  humanURL: https://developer.bell.ca/troubleticket
+  tags:
+  - logicalResource
+  properties:
+  - type: OpenAPI
+    url: openapi/bell-canada-logicalresource-api-openapi.yml
+  - type: Documentation
+    url: https://developer.bell.ca/troubleticket
+  - type: APIReference
+    url: https://developer.bell.ca/troubleticket
+  - type: Specification
+    url: >-
+      https://developer.bell.ca/uploads/BELL_Canada_API_Specification_Trouble_Ticket_v2_5_af537009fa.pdf
+  - type: Documentation
+    url: https://developer.bell.ca/serviceorder
+  - type: APIReference
+    url: https://developer.bell.ca/serviceorder
+  - type: Specification
+    url: >-
+      https://developer.bell.ca/uploads/BELL_Canada_API_Specification_Service_Order_v1_4_1_1bdd4073d5.pdf
+  - type: Documentation
+    url: https://developer.bell.ca/resourceinventory
+  - type: APIReference
+    url: https://developer.bell.ca/resourceinventory
+  - type: Specification
+    url: >-
+      https://developer.bell.ca/uploads/BELL_Canada_API_Specification_Resource_Inventory_v1_6_1_855c08df43.pdf
+  - type: Documentation
+    url: https://developer.bell.ca/changemanagement
+  - type: APIReference
+    url: https://developer.bell.ca/changemanagement
+  - type: Specification
+    url: >-
+      https://developer.bell.ca/uploads/BELL_Canada_API_Specification_Change_Management_v1_1_1_b54db5b465.pdf
+- aid: bell-canada:bell-canada-notification-listeners-client-side-api
+  name: Bell Canada notification listeners (client side) API
+  description: >-
+    The notification listeners (client side) API from Bell Canada — 31 operation(s) for notification listeners
+    (client side).
+  humanURL: https://developer.bell.ca/troubleticket
+  tags:
+  - notification listeners (client side)
+  properties:
+  - type: OpenAPI
+    url: openapi/bell-canada-notification-listeners-client-side-api-openapi.yml
+  - type: Documentation
+    url: https://developer.bell.ca/troubleticket
+  - type: APIReference
+    url: https://developer.bell.ca/troubleticket
+  - type: Specification
+    url: >-
+      https://developer.bell.ca/uploads/BELL_Canada_API_Specification_Trouble_Ticket_v2_5_af537009fa.pdf
+  - type: Documentation
+    url: https://developer.bell.ca/serviceorder
+  - type: APIReference
+    url: https://developer.bell.ca/serviceorder
+  - type: Specification
+    url: >-
+      https://developer.bell.ca/uploads/BELL_Canada_API_Specification_Service_Order_v1_4_1_1bdd4073d5.pdf
+  - type: Documentation
+    url: https://developer.bell.ca/resourceinventory
+  - type: APIReference
+    url: https://developer.bell.ca/resourceinventory
+  - type: Specification
+    url: >-
+      https://developer.bell.ca/uploads/BELL_Canada_API_Specification_Resource_Inventory_v1_6_1_855c08df43.pdf
+  - type: Documentation
+    url: https://developer.bell.ca/changemanagement
+  - type: APIReference
+    url: https://developer.bell.ca/changemanagement
+  - type: Specification
+    url: >-
+      https://developer.bell.ca/uploads/BELL_Canada_API_Specification_Change_Management_v1_1_1_b54db5b465.pdf
+- aid: bell-canada:bell-canada-physicalresource-api
+  name: Bell Canada Physical Resource API
+  description: The physicalResource API from Bell Canada — 2 operation(s) for physicalresource.
+  humanURL: https://developer.bell.ca/troubleticket
+  tags:
+  - physicalResource
+  properties:
+  - type: OpenAPI
+    url: openapi/bell-canada-physicalresource-api-openapi.yml
+  - type: Documentation
+    url: https://developer.bell.ca/troubleticket
+  - type: APIReference
+    url: https://developer.bell.ca/troubleticket
+  - type: Specification
+    url: >-
+      https://developer.bell.ca/uploads/BELL_Canada_API_Specification_Trouble_Ticket_v2_5_af537009fa.pdf
+  - type: Documentation
+    url: https://developer.bell.ca/serviceorder
+  - type: APIReference
+    url: https://developer.bell.ca/serviceorder
+  - type: Specification
+    url: >-
+      https://developer.bell.ca/uploads/BELL_Canada_API_Specification_Service_Order_v1_4_1_1bdd4073d5.pdf
+  - type: Documentation
+    url: https://developer.bell.ca/resourceinventory
+  - type: APIReference
+    url: https://developer.bell.ca/resourceinventory
+  - type: Specification
+    url: >-
+      https://developer.bell.ca/uploads/BELL_Canada_API_Specification_Resource_Inventory_v1_6_1_855c08df43.pdf
+  - type: Documentation
+    url: https://developer.bell.ca/changemanagement
+  - type: APIReference
+    url: https://developer.bell.ca/changemanagement
+  - type: Specification
+    url: >-
+      https://developer.bell.ca/uploads/BELL_Canada_API_Specification_Change_Management_v1_1_1_b54db5b465.pdf
+- aid: bell-canada:bell-canada-resource-api
+  name: Bell Canada Resource API
+  description: The Resource API from Bell Canada — 3 operation(s) for resource.
+  humanURL: https://developer.bell.ca/troubleticket
+  tags:
+  - Resource
+  properties:
+  - type: OpenAPI
+    url: openapi/bell-canada-resource-api-openapi.yml
+  - type: Documentation
+    url: https://developer.bell.ca/troubleticket
+  - type: APIReference
+    url: https://developer.bell.ca/troubleticket
+  - type: Specification
+    url: >-
+      https://developer.bell.ca/uploads/BELL_Canada_API_Specification_Trouble_Ticket_v2_5_af537009fa.pdf
+  - type: Documentation
+    url: https://developer.bell.ca/serviceorder
+  - type: APIReference
+    url: https://developer.bell.ca/serviceorder
+  - type: Specification
+    url: >-
+      https://developer.bell.ca/uploads/BELL_Canada_API_Specification_Service_Order_v1_4_1_1bdd4073d5.pdf
+  - type: Documentation
+    url: https://developer.bell.ca/resourceinventory
+  - type: APIReference
+    url: https://developer.bell.ca/resourceinventory
+  - type: Specification
+    url: >-
+      https://developer.bell.ca/uploads/BELL_Canada_API_Specification_Resource_Inventory_v1_6_1_855c08df43.pdf
+  - type: Documentation
+    url: https://developer.bell.ca/changemanagement
+  - type: APIReference
+    url: https://developer.bell.ca/changemanagement
+  - type: Specification
+    url: >-
+      https://developer.bell.ca/uploads/BELL_Canada_API_Specification_Change_Management_v1_1_1_b54db5b465.pdf
+- aid: bell-canada:bell-canada-serviceorder-api
   name: Bell Canada Service Order API
-  description: >-
-    Bell's implementation of the TM Forum TMF641 Service Ordering Management Open API (Bell version v1.4, TMF641 v4.6),
-    used by partners to place, amend, cancel and track service requests with Bell over a B2B integration. Covers
-    serviceOrder and cancelServiceOrder resources plus hub/listener notifications for create, state change, milestone,
-    jeopardy, information-required and failure events.
-  humanURL: https://developer.bell.ca/serviceorder
+  description: The serviceOrder API from Bell Canada — 2 operation(s) for serviceorder.
+  humanURL: https://developer.bell.ca/troubleticket
   tags:
-  - Service Ordering
-  - Provisioning
-  - TM Forum
-  - TMF641
-  - B2B
+  - serviceOrder
   properties:
+  - type: OpenAPI
+    url: openapi/bell-canada-serviceorder-api-openapi.yml
+  - type: Documentation
+    url: https://developer.bell.ca/troubleticket
+  - type: APIReference
+    url: https://developer.bell.ca/troubleticket
+  - type: Specification
+    url: >-
+      https://developer.bell.ca/uploads/BELL_Canada_API_Specification_Trouble_Ticket_v2_5_af537009fa.pdf
   - type: Documentation
     url: https://developer.bell.ca/serviceorder
   - type: APIReference
     url: https://developer.bell.ca/serviceorder
-  - type: OpenAPI
-    url: openapi/bell-canada-service-order-api-openapi.json
   - type: Specification
-    url: https://developer.bell.ca/uploads/BELL_Canada_API_Specification_Service_Order_v1_4_1_1bdd4073d5.pdf
-  - type: Overlay
-    url: overlays/bell-canada-service-order-api-overlay.yaml
-  - type: AgentSkill
-    url: skills/bell-canada-place-and-cancel-service-order.md
-- aid: bell-canada:bell-canada-resource-inventory-api
-  name: Bell Canada Resource Inventory Management API
-  description: >-
-    Bell's implementation of the TM Forum TMF639 Resource Inventory Management Open API (Bell version v1.6, TMF639
-    v4.1), exposing logical, physical and generic resource records so partners can query and maintain an inventory
-    view of the Bell resources supporting their services, with hub/listener notifications for resource and physical
-    resource lifecycle events.
-  humanURL: https://developer.bell.ca/resourceinventory
-  tags:
-  - Resource Inventory
-  - Inventory Management
-  - TM Forum
-  - TMF639
-  - OSS
-  properties:
+    url: >-
+      https://developer.bell.ca/uploads/BELL_Canada_API_Specification_Service_Order_v1_4_1_1bdd4073d5.pdf
   - type: Documentation
     url: https://developer.bell.ca/resourceinventory
   - type: APIReference
     url: https://developer.bell.ca/resourceinventory
-  - type: OpenAPI
-    url: openapi/bell-canada-resource-inventory-api-openapi.json
   - type: Specification
-    url: https://developer.bell.ca/uploads/BELL_Canada_API_Specification_Resource_Inventory_v1_6_1_855c08df43.pdf
-  - type: Overlay
-    url: overlays/bell-canada-resource-inventory-api-overlay.yaml
-  - type: AgentSkill
-    url: skills/bell-canada-query-resource-inventory.md
-- aid: bell-canada:bell-canada-change-management-api
-  name: Bell Canada Change Management API
-  description: >-
-    Bell's implementation of the TM Forum TMF655 Change Management Open API (Bell version v1.1, TMF655 v4.2), letting a
-    partner raise, update, retrieve and list change requests against Bell services with guaranteed message delivery,
-    plus hub/listener notifications for change request create, status change, delete, attribute value change,
-    approval-required and failure events.
-  humanURL: https://developer.bell.ca/changemanagement
-  tags:
-  - Change Management
-  - Service Assurance
-  - TM Forum
-  - TMF655
-  - B2B
-  properties:
+    url: >-
+      https://developer.bell.ca/uploads/BELL_Canada_API_Specification_Resource_Inventory_v1_6_1_855c08df43.pdf
   - type: Documentation
     url: https://developer.bell.ca/changemanagement
   - type: APIReference
     url: https://developer.bell.ca/changemanagement
-  - type: OpenAPI
-    url: openapi/bell-canada-change-management-api-openapi.json
   - type: Specification
-    url: https://developer.bell.ca/uploads/BELL_Canada_API_Specification_Change_Management_v1_1_1_b54db5b465.pdf
-  - type: Overlay
-    url: overlays/bell-canada-change-management-api-overlay.yaml
-  - type: AgentSkill
-    url: skills/bell-canada-raise-change-request.md
+    url: >-
+      https://developer.bell.ca/uploads/BELL_Canada_API_Specification_Change_Management_v1_1_1_b54db5b465.pdf
+- aid: bell-canada:bell-canada-troubleticket-api
+  name: Bell Canada Trouble Ticket API
+  description: The troubleTicket API from Bell Canada — 2 operation(s) for troubleticket.
+  humanURL: https://developer.bell.ca/troubleticket
+  tags:
+  - troubleTicket
+  properties:
+  - type: OpenAPI
+    url: openapi/bell-canada-troubleticket-api-openapi.yml
+  - type: Documentation
+    url: https://developer.bell.ca/troubleticket
+  - type: APIReference
+    url: https://developer.bell.ca/troubleticket
+  - type: Specification
+    url: >-
+      https://developer.bell.ca/uploads/BELL_Canada_API_Specification_Trouble_Ticket_v2_5_af537009fa.pdf
+  - type: Documentation
+    url: https://developer.bell.ca/serviceorder
+  - type: APIReference
+    url: https://developer.bell.ca/serviceorder
+  - type: Specification
+    url: >-
+      https://developer.bell.ca/uploads/BELL_Canada_API_Specification_Service_Order_v1_4_1_1bdd4073d5.pdf
+  - type: Documentation
+    url: https://developer.bell.ca/resourceinventory
+  - type: APIReference
+    url: https://developer.bell.ca/resourceinventory
+  - type: Specification
+    url: >-
+      https://developer.bell.ca/uploads/BELL_Canada_API_Specification_Resource_Inventory_v1_6_1_855c08df43.pdf
+  - type: Documentation
+    url: https://developer.bell.ca/changemanagement
+  - type: APIReference
+    url: https://developer.bell.ca/changemanagement
+  - type: Specification
+    url: >-
+      https://developer.bell.ca/uploads/BELL_Canada_API_Specification_Change_Management_v1_1_1_b54db5b465.pdf
 common:
+- type: Overlay
+  url: overlays/bell-canada-trouble-ticket-api-overlay.yaml
+- type: AgentSkill
+  url: skills/bell-canada-raise-and-track-trouble-ticket.md
+- type: Overlay
+  url: overlays/bell-canada-service-order-api-overlay.yaml
+- type: AgentSkill
+  url: skills/bell-canada-place-and-cancel-service-order.md
+- type: Overlay
+  url: overlays/bell-canada-resource-inventory-api-overlay.yaml
+- type: AgentSkill
+  url: skills/bell-canada-query-resource-inventory.md
+- type: Overlay
+  url: overlays/bell-canada-change-management-api-overlay.yaml
+- type: AgentSkill
+  url: skills/bell-canada-raise-change-request.md
 - type: AgenticAccess
   url: agentic-access/bell-canada-agentic-access.yml
 - type: DomainSecurity
