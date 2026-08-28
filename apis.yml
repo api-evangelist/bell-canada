@@ -19,6 +19,18 @@ description: >-
   joint venture, on 27 February 2025 to distribute Canadian Number Verification and SIM Swap signals through Aduna's
   CAMARA-aligned global channel. Bell is therefore an aggregator-mediated carrier: partner-gated on its own surface,
   reachable by developers only through a third party.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: false
+  label: Hosted service · you call their endpoint
+  confidence: medium
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
 tags:
 - Telecommunications
