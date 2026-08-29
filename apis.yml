@@ -388,6 +388,9 @@ apis:
     url: >-
       https://developer.bell.ca/uploads/BELL_Canada_API_Specification_Change_Management_v1_1_1_b54db5b465.pdf
 common:
+- type: CapabilityMap
+  url: capabilities/bell-canada-capability-edges.yml
+  name: Bell Canada Business Capability Map
 - type: Overlay
   url: overlays/bell-canada-trouble-ticket-api-overlay.yaml
 - type: AgentSkill

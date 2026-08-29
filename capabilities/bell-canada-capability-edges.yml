@@ -1,0 +1,70 @@
+slug: bell-canada
+provider: Bell Canada
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Telecommunications
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 5
+edges:
+- tag: Resource
+  spec_file: bell-canada-resource-api-openapi.yml
+  capability_id: BC-2600.40
+  capability_id_l1: BC-2600
+  capability_name: Network Inventory Management
+  confidence: 0.9
+  evidence: '"This is Swagger UI environment generated for the TMF Resource Inventory Management specification";
+    GET /resource  listResource  List or find Resource objects'
+  reason: TMF Resource Inventory Management CRUD over Resource/LogicalResource with ResourceStatusType,
+    ResourceOperationalStateType and Place — the authoritative record of network resources, i.e. Network
+    Inventory Management for a carrier.
+- tag: cancelServiceOrder
+  spec_file: bell-canada-cancelserviceorder-api-openapi.yml
+  capability_id: BC-2620
+  capability_id_l1: BC-2620
+  capability_name: Telecom Service Fulfilment Management
+  confidence: 0.85
+  evidence: '"TMF 641 - Service Ordering Management" ... POST /cancelServiceOrder  createCancelServiceOrder  Creates
+    a CancelServiceOrder'
+  reason: TMF641 service order lifecycle for a telecom operator; cancellation task on a ServiceOrderRef
+    sits within telecom service fulfilment order handling. Kept at L1 since cancellation spans capture/decomposition
+    rather than naming one sub-capability.
+- tag: serviceOrder
+  spec_file: bell-canada-serviceorder-api-openapi.yml
+  capability_id: BC-2620
+  capability_id_l1: BC-2620
+  capability_name: Telecom Service Fulfilment Management
+  confidence: 0.85
+  evidence: '"TMF 641 - Service Ordering Management" ... "place an order between internal Customer Order
+    management system to service order management system"; schemas "ServiceOrderItem", "ServiceOrderMilestone"'
+  reason: TMF641 Service Ordering is the canonical telecom service fulfilment surface (order capture,
+    decomposition into CFS/RFS work, provisioning orchestration). Evidence spans capture and decomposition
+    so the L1 is the honest level.
+- tag: physicalResource
+  spec_file: bell-canada-physicalresource-api-openapi.yml
+  capability_id: BC-2600.40
+  capability_id_l1: BC-2600
+  capability_name: Network Inventory Management
+  confidence: 0.82
+  evidence: '"TMF Resource Inventory Management specification"; operations "listPhysicalResource", "createPhysicalResource",
+    schemas "ResourceSpecificationRef", "ResourceOperationalStateType"'
+  reason: TMF639/634-style Resource Inventory API maintaining physical network resource records with operational/administrative
+    state and place — this is the authoritative record of physical network resources, i.e. Network Inventory
+    Management for a facilities-based carrier.
+- tag: troubleTicket
+  spec_file: bell-canada-troubleticket-api-openapi.yml
+  capability_id: BC-2630.30
+  capability_id_l1: BC-2630
+  capability_name: Customer-Impacting Incident Management
+  confidence: 0.7
+  evidence: '"creating, tracking and managing trouble tickets as a result of an issue or problem identified
+    by a customer or another system"'
+  reason: TMF621 trouble tickets raised by customers or fault management systems, with severity and status
+    changes — customer-impacting incident handling. Some overlap with network fault ticketing, hence moderate
+    confidence on the sub-capability.
