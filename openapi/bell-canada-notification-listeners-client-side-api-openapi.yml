@@ -1,0 +1,4588 @@
+openapi: 3.2.0
+info:
+  title: Bell Canada notification listeners (client side) API
+  version: '1.0'
+  description: 'Operations tagged notification listeners (client side) across 4 of this provider''s published API definitions: bell-canada-change-management-api-openapi.json, bell-canada-resource-inventory-api-openapi.json, bell-canada-service-order-api-openapi.json, bell-canada-trouble-ticket-api-openapi.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://serverRoot/tmf-api/ChangeManagement/v4/
+- url: https://serverRoot/resourceInventoryManagement/v4/
+- url: https://serverRoot/tmf-api/serviceOrdering/v4
+- url: https://serverRoot/tmf-api/troubleTicket/v4/
+tags:
+- name: notification listeners (client side)
+paths:
+  /listener/changeRequestCreateEvent:
+    post:
+      operationId: listenToChangeRequestCreateEvent
+      summary: Client listener for entity ChangeRequestCreateEvent
+      description: Example of a client listener for receiving the notification ChangeRequestCreateEvent
+      tags:
+      - notification listeners (client side)
+      responses:
+        '201':
+          description: Notified
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/EventSubscription'
+        '400':
+          description: Bad Request
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+      requestBody:
+        content:
+          application/json;charset=utf-8:
+            schema:
+              $ref: '#/components/schemas/ChangeRequestCreateEvent'
+        description: The event data
+        required: true
+    servers:
+    - url: https://serverRoot/tmf-api/ChangeManagement/v4/
+  /listener/changeRequestStatusChangeEvent:
+    post:
+      operationId: listenToChangeRequestStatusChangeEvent
+      summary: Client listener for entity ChangeRequestStatusChangeEvent
+      description: Example of a client listener for receiving the notification ChangeRequestStatusChangeEvent
+      tags:
+      - notification listeners (client side)
+      responses:
+        '201':
+          description: Notified
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/EventSubscription'
+        '400':
+          description: Bad Request
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+      requestBody:
+        content:
+          application/json;charset=utf-8:
+            schema:
+              $ref: '#/components/schemas/ChangeRequestStatusChangeEvent'
+        description: The event data
+        required: true
+    servers:
+    - url: https://serverRoot/tmf-api/ChangeManagement/v4/
+  /listener/changeRequestDeleteEvent:
+    post:
+      operationId: listenToChangeRequestDeleteEvent
+      summary: Client listener for entity ChangeRequestDeleteEvent
+      description: Example of a client listener for receiving the notification ChangeRequestDeleteEvent
+      tags:
+      - notification listeners (client side)
+      responses:
+        '201':
+          description: Notified
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/EventSubscription'
+        '400':
+          description: Bad Request
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+      requestBody:
+        content:
+          application/json;charset=utf-8:
+            schema:
+              $ref: '#/components/schemas/ChangeRequestDeleteEvent'
+        description: The event data
+        required: true
+    servers:
+    - url: https://serverRoot/tmf-api/ChangeManagement/v4/
+  /listener/changeRequestAttributeValueChangeEvent:
+    post:
+      operationId: listenToChangeRequestAttributeValueChangeEvent
+      summary: Client listener for entity ChangeRequestAttributeValueChangeEvent
+      description: Example of a client listener for receiving the notification ChangeRequestAttributeValueChangeEvent
+      tags:
+      - notification listeners (client side)
+      responses:
+        '201':
+          description: Notified
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/EventSubscription'
+        '400':
+          description: Bad Request
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+      requestBody:
+        content:
+          application/json;charset=utf-8:
+            schema:
+              $ref: '#/components/schemas/ChangeRequestAttributeValueChangeEvent'
+        description: The event data
+        required: true
+    servers:
+    - url: https://serverRoot/tmf-api/ChangeManagement/v4/
+  /listener/changeRequestApprovalRequiredEvent:
+    post:
+      operationId: listenToChangeRequestApprovalRequiredEvent
+      summary: Client listener for entity ChangeRequestApprovalRequiredEvent
+      description: Example of a client listener for receiving the notification ChangeRequestApprovalRequiredEvent
+      tags:
+      - notification listeners (client side)
+      responses:
+        '201':
+          description: Notified
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/EventSubscription'
+        '400':
+          description: Bad Request
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+      requestBody:
+        content:
+          application/json;charset=utf-8:
+            schema:
+              $ref: '#/components/schemas/ChangeRequestApprovalRequiredEvent'
+        description: The event data
+        required: true
+    servers:
+    - url: https://serverRoot/tmf-api/ChangeManagement/v4/
+  /listener/changeRequestFailureEvent:
+    post:
+      operationId: listenToChangeRequestFailureEvent
+      summary: Client listener for entity ChangeRequestFailureEvent
+      description: Example of a client listener for receiving the notification ChangeRequestFailureEvent
+      tags:
+      - notification listeners (client side)
+      responses:
+        '201':
+          description: Notified
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/EventSubscription'
+        '400':
+          description: Bad Request
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+      requestBody:
+        content:
+          application/json;charset=utf-8:
+            schema:
+              $ref: '#/components/schemas/BellChangeRequestFailureEvent'
+        description: The event data
+        required: true
+    servers:
+    - url: https://serverRoot/tmf-api/ChangeManagement/v4/
+  /listener/resourceCreateEvent:
+    post:
+      operationId: listenToResourceCreateEvent
+      summary: Client listener for entity ResourceCreateEvent
+      description: Example of a client listener for receiving the notification ResourceCreateEvent
+      tags:
+      - notification listeners (client side)
+      responses:
+        '201':
+          description: Notified
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/EventSubscription'
+        '400':
+          description: Bad Request
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+      requestBody:
+        content:
+          application/json;charset=utf-8:
+            schema:
+              $ref: '#/components/schemas/ResourceCreateEvent'
+        description: The event data
+        required: true
+    servers:
+    - url: https://serverRoot/resourceInventoryManagement/v4/
+  /listener/resourceAttributeValueChangeEvent:
+    post:
+      operationId: listenToResourceAttributeValueChangeEvent
+      summary: Client listener for entity ResourceAttributeValueChangeEvent
+      description: Example of a client listener for receiving the notification ResourceAttributeValueChangeEvent
+      tags:
+      - notification listeners (client side)
+      responses:
+        '201':
+          description: Notified
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/EventSubscription'
+        '400':
+          description: Bad Request
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+      requestBody:
+        content:
+          application/json;charset=utf-8:
+            schema:
+              $ref: '#/components/schemas/ResourceAttributeValueChangeEvent'
+        description: The event data
+        required: true
+    servers:
+    - url: https://serverRoot/resourceInventoryManagement/v4/
+  /listener/resourceStateChangeEvent:
+    post:
+      operationId: listenToResourceStateChangeEvent
+      summary: Client listener for entity ResourceStateChangeEvent
+      description: Example of a client listener for receiving the notification ResourceStateChangeEvent
+      tags:
+      - notification listeners (client side)
+      responses:
+        '201':
+          description: Notified
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/EventSubscription'
+        '400':
+          description: Bad Request
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+      requestBody:
+        content:
+          application/json;charset=utf-8:
+            schema:
+              $ref: '#/components/schemas/ResourceStateChangeEvent'
+        description: The event data
+        required: true
+    servers:
+    - url: https://serverRoot/resourceInventoryManagement/v4/
+  /listener/resourceDeleteEvent:
+    post:
+      operationId: listenToResourceDeleteEvent
+      summary: Client listener for entity ResourceDeleteEvent
+      description: Example of a client listener for receiving the notification ResourceDeleteEvent
+      tags:
+      - notification listeners (client side)
+      responses:
+        '201':
+          description: Notified
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/EventSubscription'
+        '400':
+          description: Bad Request
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+      requestBody:
+        content:
+          application/json;charset=utf-8:
+            schema:
+              $ref: '#/components/schemas/ResourceDeleteEvent'
+        description: The event data
+        required: true
+    servers:
+    - url: https://serverRoot/resourceInventoryManagement/v4/
+  /listener/physicalResourceCreateEvent:
+    post:
+      operationId: listenToPhysicalResourceCreateEvent
+      summary: Client listener for entity PhysicalResourceCreateEvent
+      description: Example of a client listener for receiving the notification PhysicalResourceCreateEvent
+      tags:
+      - notification listeners (client side)
+      responses:
+        '201':
+          description: Notified
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/EventSubscription'
+        '400':
+          description: Bad Request
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+      requestBody:
+        content:
+          application/json;charset=utf-8:
+            schema:
+              $ref: '#/components/schemas/PhysicalResourceCreateEvent'
+        description: The event data
+        required: true
+    servers:
+    - url: https://serverRoot/resourceInventoryManagement/v4/
+  /listener/physicalResourceAttributeValueChangeEvent:
+    post:
+      operationId: listenToPhysicalResourceAttributeValueChangeEvent
+      summary: Client listener for entity PhysicalResourceAttributeValueChangeEvent
+      description: Example of a client listener for receiving the notification PhysicalResourceAttributeValueChangeEvent
+      tags:
+      - notification listeners (client side)
+      responses:
+        '201':
+          description: Notified
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/EventSubscription'
+        '400':
+          description: Bad Request
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+      requestBody:
+        content:
+          application/json;charset=utf-8:
+            schema:
+              $ref: '#/components/schemas/PhysicalResourceAttributeValueChangeEvent'
+        description: The event data
+        required: true
+    servers:
+    - url: https://serverRoot/resourceInventoryManagement/v4/
+  /listener/physicalResourceStateChangeEvent:
+    post:
+      operationId: listenToPhysicalResourceStateChangeEvent
+      summary: Client listener for entity PhysicalResourceStateChangeEvent
+      description: Example of a client listener for receiving the notification PhysicalResourceStateChangeEvent
+      tags:
+      - notification listeners (client side)
+      responses:
+        '201':
+          description: Notified
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/EventSubscription'
+        '400':
+          description: Bad Request
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+      requestBody:
+        content:
+          application/json;charset=utf-8:
+            schema:
+              $ref: '#/components/schemas/PhysicalResourceStateChangeEvent'
+        description: The event data
+        required: true
+    servers:
+    - url: https://serverRoot/resourceInventoryManagement/v4/
+  /listener/physicalResourceDeleteEvent:
+    post:
+      operationId: listenToPhysicalResourceDeleteEvent
+      summary: Client listener for entity PhysicalResourceDeleteEvent
+      description: Example of a client listener for receiving the notification PhysicalResourceDeleteEvent
+      tags:
+      - notification listeners (client side)
+      responses:
+        '201':
+          description: Notified
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/EventSubscription'
+        '400':
+          description: Bad Request
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+      requestBody:
+        content:
+          application/json;charset=utf-8:
+            schema:
+              $ref: '#/components/schemas/PhysicalResourceDeleteEvent'
+        description: The event data
+        required: true
+    servers:
+    - url: https://serverRoot/resourceInventoryManagement/v4/
+  /listener/serviceOrderCreateEvent:
+    post:
+      operationId: listenToServiceOrderCreateEvent
+      summary: Client listener for entity ServiceOrderCreateEvent
+      description: Example of a client listener for receiving the notification ServiceOrderCreateEvent
+      tags:
+      - notification listeners (client side)
+      responses:
+        '201':
+          description: Notified
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/EventSubscription'
+        '400':
+          description: Bad Request
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+      requestBody:
+        content:
+          application/json;charset=utf-8:
+            schema:
+              $ref: '#/components/schemas/ServiceOrderCreateEvent'
+        description: The event data
+        required: true
+    servers:
+    - url: https://serverRoot/tmf-api/serviceOrdering/v4
+  /listener/serviceOrderAttributeValueChangeEvent:
+    post:
+      operationId: listenToServiceOrderAttributeValueChangeEvent
+      summary: Client listener for entity ServiceOrderAttributeValueChangeEvent
+      description: Example of a client listener for receiving the notification ServiceOrderAttributeValueChangeEvent
+      tags:
+      - notification listeners (client side)
+      responses:
+        '201':
+          description: Notified
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/EventSubscription'
+        '400':
+          description: Bad Request
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+      requestBody:
+        content:
+          application/json;charset=utf-8:
+            schema:
+              $ref: '#/components/schemas/ServiceOrderAttributeValueChangeEvent'
+        description: The event data
+        required: true
+    servers:
+    - url: https://serverRoot/tmf-api/serviceOrdering/v4
+  /listener/serviceOrderStateChangeEvent:
+    post:
+      operationId: listenToServiceOrderStateChangeEvent
+      summary: Client listener for entity ServiceOrderStateChangeEvent
+      description: Example of a client listener for receiving the notification ServiceOrderStateChangeEvent
+      tags:
+      - notification listeners (client side)
+      responses:
+        '201':
+          description: Notified
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/EventSubscription'
+        '400':
+          description: Bad Request
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+      requestBody:
+        content:
+          application/json;charset=utf-8:
+            schema:
+              $ref: '#/components/schemas/ServiceOrderStateChangeEvent'
+        description: The event data
+        required: true
+    servers:
+    - url: https://serverRoot/tmf-api/serviceOrdering/v4
+  /listener/serviceOrderDeleteEvent:
+    post:
+      operationId: listenToServiceOrderDeleteEvent
+      summary: Client listener for entity ServiceOrderDeleteEvent
+      description: Example of a client listener for receiving the notification ServiceOrderDeleteEvent
+      tags:
+      - notification listeners (client side)
+      responses:
+        '201':
+          description: Notified
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/EventSubscription'
+        '400':
+          description: Bad Request
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+      requestBody:
+        content:
+          application/json;charset=utf-8:
+            schema:
+              $ref: '#/components/schemas/ServiceOrderDeleteEvent'
+        description: The event data
+        required: true
+    servers:
+    - url: https://serverRoot/tmf-api/serviceOrdering/v4
+  /listener/serviceOrderInformationRequiredEvent:
+    post:
+      operationId: listenToServiceOrderInformationRequiredEvent
+      summary: Client listener for entity ServiceOrderInformationRequiredEvent
+      description: Example of a client listener for receiving the notification ServiceOrderInformationRequiredEvent
+      tags:
+      - notification listeners (client side)
+      responses:
+        '201':
+          description: Notified
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/EventSubscription'
+        '400':
+          description: Bad Request
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+      requestBody:
+        content:
+          application/json;charset=utf-8:
+            schema:
+              $ref: '#/components/schemas/ServiceOrderInformationRequiredEvent'
+        description: The event data
+        required: true
+    servers:
+    - url: https://serverRoot/tmf-api/serviceOrdering/v4
+  /listener/serviceOrderMilestoneEvent:
+    post:
+      operationId: listenToServiceOrderMilestoneEvent
+      summary: Client listener for entity ServiceOrderMilestoneEvent
+      description: Example of a client listener for receiving the notification ServiceOrderMilestoneEvent
+      tags:
+      - notification listeners (client side)
+      responses:
+        '201':
+          description: Notified
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/EventSubscription'
+        '400':
+          description: Bad Request
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+      requestBody:
+        content:
+          application/json;charset=utf-8:
+            schema:
+              $ref: '#/components/schemas/ServiceOrderMilestoneEvent'
+        description: The event data
+        required: true
+    servers:
+    - url: https://serverRoot/tmf-api/serviceOrdering/v4
+  /listener/serviceOrderJeopardyEvent:
+    post:
+      operationId: listenToServiceOrderJeopardyEvent
+      summary: Client listener for entity ServiceOrderJeopardyEvent
+      description: Example of a client listener for receiving the notification ServiceOrderJeopardyEvent
+      tags:
+      - notification listeners (client side)
+      responses:
+        '201':
+          description: Notified
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/EventSubscription'
+        '400':
+          description: Bad Request
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+      requestBody:
+        content:
+          application/json;charset=utf-8:
+            schema:
+              $ref: '#/components/schemas/ServiceOrderJeopardyEvent'
+        description: The event data
+        required: true
+    servers:
+    - url: https://serverRoot/tmf-api/serviceOrdering/v4
+  /listener/cancelServiceOrderCreateEvent:
+    post:
+      operationId: listenToCancelServiceOrderCreateEvent
+      summary: Client listener for entity CancelServiceOrderCreateEvent
+      description: Example of a client listener for receiving the notification CancelServiceOrderCreateEvent
+      tags:
+      - notification listeners (client side)
+      responses:
+        '201':
+          description: Notified
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/EventSubscription'
+        '400':
+          description: Bad Request
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+      requestBody:
+        content:
+          application/json;charset=utf-8:
+            schema:
+              $ref: '#/components/schemas/CancelServiceOrderCreateEvent'
+        description: The event data
+        required: true
+    servers:
+    - url: https://serverRoot/tmf-api/serviceOrdering/v4
+  /listener/cancelServiceOrderStateChangeEvent:
+    post:
+      operationId: listenToCancelServiceOrderStateChangeEvent
+      summary: Client listener for entity CancelServiceOrderStateChangeEvent
+      description: Example of a client listener for receiving the notification CancelServiceOrderStateChangeEvent
+      tags:
+      - notification listeners (client side)
+      responses:
+        '201':
+          description: Notified
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/EventSubscription'
+        '400':
+          description: Bad Request
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+      requestBody:
+        content:
+          application/json;charset=utf-8:
+            schema:
+              $ref: '#/components/schemas/CancelServiceOrderStateChangeEvent'
+        description: The event data
+        required: true
+    servers:
+    - url: https://serverRoot/tmf-api/serviceOrdering/v4
+  /listener/cancelServiceOrderInformationRequiredEvent:
+    post:
+      operationId: listenToCancelServiceOrderInformationRequiredEvent
+      summary: Client listener for entity CancelServiceOrderInformationRequiredEvent
+      description: Example of a client listener for receiving the notification CancelServiceOrderInformationRequiredEvent
+      tags:
+      - notification listeners (client side)
+      responses:
+        '201':
+          description: Notified
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/EventSubscription'
+        '400':
+          description: Bad Request
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+      requestBody:
+        content:
+          application/json;charset=utf-8:
+            schema:
+              $ref: '#/components/schemas/CancelServiceOrderInformationRequiredEvent'
+        description: The event data
+        required: true
+    servers:
+    - url: https://serverRoot/tmf-api/serviceOrdering/v4
+  /listener/serviceOrderFailureEvent:
+    post:
+      operationId: listenToServiceOrderFailureEvent
+      summary: Client listener for entity ServiceOrderFailureEvent
+      description: Example of a client listener for receiving the notification ServiceOrderFailureEvent
+      tags:
+      - notification listeners (client side)
+      responses:
+        '201':
+          description: Notified
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/EventSubscription'
+        '400':
+          description: Bad Request
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+      requestBody:
+        content:
+          application/json;charset=utf-8:
+            schema:
+              $ref: '#/components/schemas/BellServiceOrderFailureEvent'
+        description: The event data
+        required: true
+    servers:
+    - url: https://serverRoot/tmf-api/serviceOrdering/v4
+  /listener/troubleTicketCreateEvent:
+    post:
+      operationId: listenToTroubleTicketCreateEvent
+      summary: Client listener for entity TroubleTicketCreateEvent
+      description: Example of a client listener for receiving the notification TroubleTicketCreateEvent
+      tags:
+      - notification listeners (client side)
+      responses:
+        '201':
+          description: Notified
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/EventSubscription'
+        '400':
+          description: Bad Request
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+      requestBody:
+        content:
+          application/json;charset=utf-8:
+            schema:
+              $ref: '#/components/schemas/TroubleTicketCreateEvent'
+        description: The event data
+        required: true
+    servers:
+    - url: https://serverRoot/tmf-api/troubleTicket/v4/
+  /listener/troubleTicketAttributeValueChangeEvent:
+    post:
+      operationId: listenToTroubleTicketAttributeValueChangeEvent
+      summary: Client listener for entity TroubleTicketAttributeValueChangeEvent
+      description: Example of a client listener for receiving the notification TroubleTicketAttributeValueChangeEvent
+      tags:
+      - notification listeners (client side)
+      responses:
+        '201':
+          description: Notified
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/EventSubscription'
+        '400':
+          description: Bad Request
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+      requestBody:
+        content:
+          application/json;charset=utf-8:
+            schema:
+              $ref: '#/components/schemas/TroubleTicketAttributeValueChangeEvent'
+        description: The event data
+        required: true
+    servers:
+    - url: https://serverRoot/tmf-api/troubleTicket/v4/
+  /listener/troubleTicketStatusChangeEvent:
+    post:
+      operationId: listenToTroubleTicketStatusChangeEvent
+      summary: Client listener for entity TroubleTicketStatusChangeEvent
+      description: Example of a client listener for receiving the notification TroubleTicketStatusChangeEvent
+      tags:
+      - notification listeners (client side)
+      responses:
+        '201':
+          description: Notified
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/EventSubscription'
+        '400':
+          description: Bad Request
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+      requestBody:
+        content:
+          application/json;charset=utf-8:
+            schema:
+              $ref: '#/components/schemas/TroubleTicketStatusChangeEvent'
+        description: The event data
+        required: true
+    servers:
+    - url: https://serverRoot/tmf-api/troubleTicket/v4/
+  /listener/troubleTicketDeleteEvent:
+    post:
+      operationId: listenToTroubleTicketDeleteEvent
+      summary: Client listener for entity TroubleTicketDeleteEvent
+      description: Example of a client listener for receiving the notification TroubleTicketDeleteEvent
+      tags:
+      - notification listeners (client side)
+      responses:
+        '201':
+          description: Notified
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/EventSubscription'
+        '400':
+          description: Bad Request
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+      requestBody:
+        content:
+          application/json;charset=utf-8:
+            schema:
+              $ref: '#/components/schemas/TroubleTicketDeleteEvent'
+        description: The event data
+        required: true
+    servers:
+    - url: https://serverRoot/tmf-api/troubleTicket/v4/
+  /listener/troubleTicketResolvedEvent:
+    post:
+      operationId: listenToTroubleTicketResolvedEvent
+      summary: Client listener for entity TroubleTicketResolvedEvent
+      description: Example of a client listener for receiving the notification TroubleTicketResolvedEvent
+      tags:
+      - notification listeners (client side)
+      responses:
+        '201':
+          description: Notified
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/EventSubscription'
+        '400':
+          description: Bad Request
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+      requestBody:
+        content:
+          application/json;charset=utf-8:
+            schema:
+              $ref: '#/components/schemas/TroubleTicketResolvedEvent'
+        description: The event data
+        required: true
+    servers:
+    - url: https://serverRoot/tmf-api/troubleTicket/v4/
+  /listener/troubleTicketInformationRequiredEvent:
+    post:
+      operationId: listenToTroubleTicketInformationRequiredEvent
+      summary: Client listener for entity TroubleTicketInformationRequiredEvent
+      description: Example of a client listener for receiving the notification TroubleTicketInformationRequiredEvent
+      tags:
+      - notification listeners (client side)
+      responses:
+        '201':
+          description: Notified
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/EventSubscription'
+        '400':
+          description: Bad Request
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+      requestBody:
+        content:
+          application/json;charset=utf-8:
+            schema:
+              $ref: '#/components/schemas/TroubleTicketInformationRequiredEvent'
+        description: The event data
+        required: true
+    servers:
+    - url: https://serverRoot/tmf-api/troubleTicket/v4/
+components:
+  schemas:
+    AttachmentRefOrValue:
+      description: An attachment by value or by reference. An attachment complements the description of an element, for example through a document, a video, a picture.
+      properties:
+        ref:
+          $ref: '#/components/schemas/AttachmentRef'
+          description: A reference to the Attachment.
+        value:
+          $ref: '#/components/schemas/Attachment'
+          description: The Attachment (as a value).
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class entity name
+    BellChangeRequestFailureEvent:
+      description: The notification data structure
+      allOf:
+      - $ref: '#/components/schemas/Event'
+      - properties:
+          event:
+            $ref: '#/components/schemas/BellChangeRequestFailureEventPayload'
+            description: The event payload linked to the involved resource object
+    ChangeRequestStatusType:
+      type: string
+      description: Possible values for the state of the change request
+      enum:
+      - acknowledged
+      - requestForAuthorization
+      - waitForApproval
+      - approved
+      - scheduled
+      - postImplementationReview
+      - fallbackExecution
+      - cancelled
+      - rejected
+      - inProgress
+      - failed
+      - completed
+    RelatedParty:
+      description: Related Entity reference. A related party defines party or party role linked to a specific entity.
+      allOf:
+      - $ref: '#/components/schemas/Entity'
+      - required:
+        - id
+        - '@referredType'
+        properties:
+          id:
+            type: string
+            description: unique identifier
+          href:
+            type: string
+            format: uri
+            description: Hyperlink reference
+          name:
+            type: string
+            description: Name of the related entity.
+          role:
+            type: string
+            description: Role played by the related party
+          '@referredType':
+            type: string
+            description: The actual type of the target instance when needed for disambiguation.
+    ChangeRequestRelationship:
+      allOf:
+      - $ref: '#/components/schemas/Entity'
+      - required:
+        - relationshipType
+        properties:
+          id:
+            type: string
+            description: unique identifier
+          href:
+            type: string
+            format: uri
+            description: Hyperlink reference
+          relationshipType:
+            type: string
+          changeRequest:
+            $ref: '#/components/schemas/ChangeRequestRefOrValue'
+          changeRequestRelationshipCharacteristic:
+            type: array
+            items:
+              $ref: '#/components/schemas/Characteristic'
+    AttachmentRef:
+      description: Attachment reference. An attachment complements the description of an element (for instance a product) through video, pictures
+      allOf:
+      - $ref: '#/components/schemas/EntityRef'
+      - properties:
+          description:
+            type: string
+            description: A narrative text describing the content of the attachment
+          url:
+            type: string
+            format: uri
+            description: Link to the attachment media/content
+    ChangeRequestRef:
+      description: Reference to a Change Request
+      allOf:
+      - $ref: '#/components/schemas/EntityRef'
+    EventSubscription:
+      type: object
+      description: Sets the communication endpoint address the service instance must use to deliver notification information
+      required:
+      - id
+      - callback
+      properties:
+        id:
+          type: string
+          description: Id of the listener
+        callback:
+          type: string
+          description: The callback being registered.
+        query:
+          type: string
+          description: additional data to be passed
+    Record:
+      description: A record in a worklog.
+      allOf:
+      - $ref: '#/components/schemas/Entity'
+      - properties:
+          id:
+            type: string
+            description: unique identifier
+          href:
+            type: string
+            format: uri
+            description: Hyperlink reference
+          dateTime:
+            type: string
+            format: date-time
+            description: The date time that a record is generated.
+          description:
+            type: string
+            description: The detail description in a record.
+          supportPerson:
+            type: string
+            description: The person who logged that record.
+    Entity:
+      discriminator:
+        propertyName: '@type'
+      description: Base entity schema for use in TMForum Open-APIs
+      properties:
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class entity name
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          format: uri
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+    RelatedEntity:
+      description: A reference to an entity, where the type of the entity is not known in advance.
+      allOf:
+      - $ref: '#/components/schemas/Entity'
+      - required:
+        - id
+        - role
+        - '@referredType'
+        properties:
+          id:
+            type: string
+            description: unique identifier
+          href:
+            type: string
+            format: uri
+            description: Hyperlink reference
+          name:
+            type: string
+            description: Name of the related entity.
+          role:
+            type: string
+            description: The role of an entity.
+          '@referredType':
+            type: string
+            description: The actual type of the target instance when needed for disambiguation.
+    ImpactEntity:
+      description: A reference to an imapcted entity
+      allOf:
+      - $ref: '#/components/schemas/Entity'
+      - required:
+        - id
+        - role
+        - '@referredType'
+        properties:
+          id:
+            type: string
+            description: unique identifier
+          href:
+            type: string
+            format: uri
+            description: Hyperlink reference
+          action:
+            type: string
+            description: The action on an entity.
+          name:
+            type: string
+            description: Name of the related entity.
+          role:
+            type: string
+            description: The role of an entity.
+          '@referredType':
+            type: string
+            description: The actual type of the target instance when needed for disambiguation.
+    ChangeRequestRefOrValue:
+      description: A Service to be created defined by value or existing defined by reference. The polymorphic attributes @type, @schemaLocation & @referredType are related to the Service entity and not the RelatedServiceRefOrValue class itself
+      properties:
+        ref:
+          $ref: '#/components/schemas/ChangeRequestRef'
+          description: A reference to the ChangeRequest.
+        value:
+          $ref: '#/components/schemas/ChangeRequest'
+          description: The ChangeRequest (as a value).
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class entity name
+    ChangeRequestApprovalRequiredEvent:
+      description: The notification data structure
+      allOf:
+      - $ref: '#/components/schemas/Event'
+      - properties:
+          event:
+            $ref: '#/components/schemas/ChangeRequestApprovalRequiredEventPayload'
+            description: The event payload linked to the involved resource object
+    Characteristic:
+      discriminator:
+        propertyName: '@type'
+      type: object
+      description: Describes a given characteristic of an object or entity through a name/value pair.
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the characteristic
+        name:
+          type: string
+          description: Name of the characteristic
+        valueType:
+          type: string
+          description: Data type of the value of the characteristic
+        characteristicRelationship:
+          type: array
+          items:
+            $ref: '#/components/schemas/CharacteristicRelationship'
+        '@schemaLocation':
+          type: string
+          format: uri
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+    Attachment:
+      description: Complements the description of an element (for instance a product) through video, pictures...
+      allOf:
+      - $ref: '#/components/schemas/Entity'
+      - properties:
+          id:
+            type: string
+            description: Unique identifier for this particular attachment
+          href:
+            type: string
+            format: uri
+            description: URI for this Attachment
+          attachmentType:
+            type: string
+            description: Attachment type such as video, picture
+          content:
+            type: string
+            format: base64
+            description: The actual contents of the attachment object, if embedded, encoded as base64
+          description:
+            type: string
+            description: A narrative text describing the content of the attachment
+          mimeType:
+            type: string
+            description: Attachment mime type such as extension file for video, picture and document
+          name:
+            type: string
+            description: The name of the attachment
+          url:
+            type: string
+            format: uri
+            description: Uniform Resource Locator, is a web page address (a subset of URI)
+          size:
+            $ref: '#/components/schemas/Quantity'
+            description: The size of the attachment.
+          validFor:
+            $ref: '#/components/schemas/TimePeriod'
+            description: The period of time for which the attachment is valid
+    BellChangeRequestFailureEventPayload:
+      type: object
+      description: The event data structure
+      properties:
+        failure:
+          $ref: '#/components/schemas/BellErrorRepresentation'
+          description: The error associated to the failure event
+        httpCode:
+          type: string
+          description: http return code at the API level.
+    BellErrorRepresentation:
+      description: Bell specialized version of the TMF Error. Used to store the native error representation
+      allOf:
+      - $ref: '#/components/schemas/Error'
+      - properties:
+          causedBy:
+            type: object
+            description: Error cause. May be an Error with custom fields or a list of errors (BellErrorList).
+            additionalProperties:
+              type: object
+          timestamp:
+            type: string
+            format: date-time
+            description: Timestamp when the error is caught, as viewed by the issuer of the error, in ISO 8601 format
+          jsonPath:
+            type: string
+            description: Json path expression associated to the field for which the error is reported. Typically used with validation errors.
+    Task:
+      description: A step or task along in the process of implementation a Change Request.
+      allOf:
+      - $ref: '#/components/schemas/Entity'
+      - properties:
+          id:
+            type: string
+            description: unique identifier
+          href:
+            type: string
+            format: uri
+            description: Hyperlink reference
+          description:
+            type: string
+            description: The description of the task.
+          name:
+            type: string
+            description: The name of the task.
+          state:
+            type: string
+            description: The state of the task.
+    ChangeRequest:
+      description: "Change Request is a type of request which can be used for the management and control of Change Management process \n -within a service provider organisation or \n -between a customer and a service provider or \n -between a service provider and a partner and vice versa."
+      allOf:
+      - $ref: '#/components/schemas/Entity'
+      - required:
+        - targetEntity
+        properties:
+          id:
+            type: string
+            description: Identifier of a Change Request. It is created on repository side (a Change Management system)
+          href:
+            type: string
+            format: uri
+            description: Hyperlink to access a change request
+          actualEndTime:
+            type: string
+            format: date-time
+            description: Date and time when the change implementation actually finished
+          actualStartTime:
+            type: string
+            format: date-time
+            description: Date and time when the change implementation actually started
+          channel:
+            type: string
+            description: A channel represents the way the Change Request was created
+          completionDate:
+            type: string
+            format: date-time
+            description: Date and time when the change request is confirmed to be completed
+          description:
+            type: string
+            description: Description of the change request
+          impact:
+            type: string
+            description: Indicates the impact of this change
+          lastUpdateDate:
+            type: string
+            format: date-time
+            description: Date and time when the change request was updated
+          plannedEndTime:
+            type: string
+            format: date-time
+            description: Date and time when the change implementation is planned to be finished
+          plannedStartTime:
+            type: string
+            format: date-time
+            description: Date and time when the change implementation is planned to be started
+          priority:
+            type: string
+            description: Used by consumers to prioritize a change request in Change Management system
+          requestDate:
+            type: string
+            format: date-time
+            description: Date and time when the change request is raised
+          requestType:
+            type: string
+            description: Indicates the type of the change request
+          risk:
+            type: string
+            description: The risk to implement this change request
+          riskMitigationPlan:
+            type: string
+            description: The risk mitigation plan
+          riskValue:
+            type: string
+            description: The additional cost if the risk will happen
+          scheduledDate:
+            type: string
+            format: date-time
+            description: Date and time that the schedule is made
+          statusChangeDate:
+            type: string
+            format: date-time
+            description: Date and time when the change request status was changed
+          statusChangeReason:
+            type: string
+            description: Reason of the status change
+          attachment:
+            description: The attachments of the communication message (when it is email type)
+            type: array
+            items:
+              $ref: '#/components/schemas/AttachmentRefOrValue'
+          budget:
+            $ref: '#/components/schemas/Money'
+          changeRelationship:
+            type: array
+            items:
+              $ref: '#/components/schemas/ChangeRequestRelationship'
+          changeRequestCharacteristic:
+            type: array
+            items:
+              $ref: '#/components/schemas/Characteristic'
+          externalReference:
+            type: array
+            items:
+              $ref: '#/components/schemas/ExternalReference'
+          impactEntity:
+            type: array
+            items:
+              $ref: '#/components/schemas/ImpactEntity'
+          location:
+            $ref: '#/components/schemas/RelatedPlaceRefOrValue'
+            description: A list of places (Place [*]). Used to define a place useful for the service (for example a geographical place whre the service is installed)
+          note:
+            type: array
+            items:
+              $ref: '#/components/schemas/Note'
+          problemTicket:
+            type: array
+            items:
+              $ref: '#/components/schemas/ServiceProblemRef'
+          relatedParty:
+            description: The parties involved in the change request
+            type: array
+            items:
+              $ref: '#/components/schemas/RelatedParty'
+          resolution:
+            $ref: '#/components/schemas/Resolution'
+          sla:
+            type: array
+            items:
+              $ref: '#/components/schemas/SLARef'
+          specification:
+            $ref: '#/components/schemas/EntitySpecificationRef'
+          status:
+            $ref: '#/components/schemas/ChangeRequestStatusType'
+          targetEntity:
+            type: array
+            items:
+              $ref: '#/components/schemas/RelatedEntity'
+            minItems: 1
+          troubleTicket:
+            type: array
+            items:
+              $ref: '#/components/schemas/TroubleTicketRef'
+          workLog:
+            type: array
+            items:
+              $ref: '#/components/schemas/WorkLog'
+    ChangeRequestDeleteEvent:
+      description: The notification data structure
+      allOf:
+      - $ref: '#/components/schemas/Event'
+      - properties:
+          event:
+            $ref: '#/components/schemas/ChangeRequestDeleteEventPayload'
+            description: The event payload linked to the involved resource object
+    ChangeRequestCreateEvent:
+      description: The notification data structure
+      allOf:
+      - $ref: '#/components/schemas/Event'
+      - properties:
+          event:
+            $ref: '#/components/schemas/ChangeRequestCreateEventPayload'
+            description: The event payload linked to the involved resource object
+    Resolution:
+      description: The way one or more change request has been implementation through a direct remedy or task
+      allOf:
+      - $ref: '#/components/schemas/Entity'
+      - properties:
+          id:
+            type: string
+            description: unique identifier
+          href:
+            type: string
+            format: uri
+            description: Hyperlink reference
+          code:
+            type: string
+            description: The resolutions code, it can be configured as a multiple level hierarchy
+          description:
+            type: string
+            description: The description of the resolution
+          name:
+            type: string
+            description: The name of the resolution
+          task:
+            type: array
+            items:
+              $ref: '#/components/schemas/Task'
+    ChangeRequestStatusChangeEvent:
+      description: The notification data structure
+      allOf:
+      - $ref: '#/components/schemas/Event'
+      - properties:
+          event:
+            $ref: '#/components/schemas/ChangeRequestStatusChangeEventPayload'
+            description: The event payload linked to the involved resource object
+    Quantity:
+      type: object
+      description: An amount in a given unit
+      properties:
+        amount:
+          type: number
+          format: float
+          description: Numeric value in a given unit
+          default: 1.0
+        units:
+          type: string
+          description: Unit
+    ChangeRequestApprovalRequiredEventPayload:
+      type: object
+      description: The event data structure
+      properties:
+        changeRequest:
+          $ref: '#/components/schemas/ChangeRequest'
+          description: The involved resource data for the event
+    Place:
+      description: Place reference. Place defines the places where the products are sold or delivered.
+      allOf:
+      - $ref: '#/components/schemas/Entity'
+      - properties:
+          id:
+            type: string
+            description: Unique identifier of the place
+          href:
+            type: string
+            description: Unique reference of the place
+          name:
+            type: string
+            description: A user-friendly name for the place, such as [Paris Store], [London Store], [Main Home]
+    ServiceProblemRef:
+      allOf:
+      - $ref: '#/components/schemas/EntityRef'
+    ChangeRequestAttributeValueChangeEventPayload:
+      type: object
+      description: The event data structure
+      properties:
+        changeRequest:
+          $ref: '#/components/schemas/ChangeRequest'
+          description: The involved resource data for the event
+    CharacteristicRelationship:
+      discriminator:
+        propertyName: '@type'
+      type: object
+      description: Another Characteristic that is related to the current Characteristic;
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the characteristic
+        relationshipType:
+          type: string
+          description: The type of relationship
+        '@schemaLocation':
+          type: string
+          format: uri
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+    ExternalReference:
+      description: External reference of the individual or reference in other system
+      allOf:
+      - $ref: '#/components/schemas/Entity'
+      - properties:
+          externalReferenceType:
+            type: string
+            description: Type of the external reference
+          name:
+            type: string
+            description: External reference name
+    ChangeRequestAttributeValueChangeEvent:
+      description: The notification data structure
+      allOf:
+      - $ref: '#/components/schemas/Event'
+      - properties:
+          fieldPath:
+            type: string
+            description: The path identifying the object field concerned by this notification.
+          event:
+            $ref: '#/components/schemas/ChangeRequestAttributeValueChangeEventPayload'
+            description: The event payload linked to the involved resource object
+    ChangeRequestDeleteEventPayload:
+      type: object
+      description: The event data structure
+      properties:
+        changeRequest:
+          $ref: '#/components/schemas/ChangeRequest'
+          description: The involved resource data for the event
+    ChangeRequestStatusChangeEventPayload:
+      type: object
+      description: The event data structure
+      properties:
+        changeRequest:
+          $ref: '#/components/schemas/ChangeRequest'
+          description: The involved resource data for the event
+    WorkLog:
+      description: A record of the work performed on the change request during the investigation and resolution process.
+      allOf:
+      - $ref: '#/components/schemas/Entity'
+      - properties:
+          id:
+            type: string
+            description: unique identifier
+          href:
+            type: string
+            format: uri
+            description: Hyperlink reference
+          createDateTime:
+            type: string
+            format: date-time
+            description: Date and time of worklog generated.
+          description:
+            type: string
+            description: The description of the worklog.
+          lastUpdateDateTime:
+            type: string
+            description: Date and time when the worklog updated.
+          record:
+            type: array
+            items:
+              $ref: '#/components/schemas/Record'
+    Note:
+      description: Extra information about a given entity
+      allOf:
+      - $ref: '#/components/schemas/Entity'
+      - properties:
+          id:
+            type: string
+            description: Identifier of the note within its containing entity
+          author:
+            type: string
+            description: Author of the note
+          date:
+            type: string
+            format: date-time
+            description: Date of the note
+          text:
+            type: string
+            description: Text of the note
+    Error:
+      description: Used when an API throws an Error, typically with a HTTP error response-code (3xx, 4xx, 5xx)
+      allOf:
+      - $ref: '#/components/schemas/Entity'
+      - required:
+        - code
+        - reason
+        properties:
+          code:
+            type: string
+            description: Application relevant detail, defined in the API or a common list.
+          reason:
+            type: string
+            description: Explanation of the reason for the error which can be shown to a client user.
+          message:
+            type: string
+            description: More details and corrective actions related to the error which can be shown to a client user.
+          status:
+            type: string
+            description: HTTP Error code extension
+          referenceError:
+            type: string
+            format: uri
+            description: URI of documentation describing the error.
+    EntitySpecificationRef:
+      description: reference to an EntitySpecification object
+      allOf:
+      - $ref: '#/components/schemas/EntityRef'
+      - properties:
+          version:
+            type: string
+            description: EntitySpecification version
+    RelatedPlaceRefOrValue:
+      description: Related Entity reference. A related place defines a place described by reference or by value linked to a specific entity. The polymorphic attributes @type, @schemaLocation & @referredType are related to the place entity and not the RelatedPlaceRefOrValue class itself
+      properties:
+        role:
+          type: string
+        ref:
+          $ref: '#/components/schemas/PlaceRef'
+          description: A reference to the Place.
+        value:
+          $ref: '#/components/schemas/Place'
+          description: The Place (as a value).
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class entity name
+    TroubleTicketRef:
+      description: TroubleTicket reference, for when a Trouble Ticket is used by other entities
+      allOf:
+      - $ref: '#/components/schemas/EntityRef'
+    Money:
+      type: object
+      description: A base / value business entity used to represent money
+      properties:
+        unit:
+          type: string
+          description: Currency (ISO4217 norm uses 3 letters to define the currency)
+        value:
+          type: number
+          format: float
+          description: A signed floating point number, the meaning of the sign is according to the context of the API that uses this Data type
+    PlaceRef:
+      description: Place reference. PlaceRef defines the placeRefs where the products are sold or delivered.
+      allOf:
+      - $ref: '#/components/schemas/EntityRef'
+    Event:
+      description: Event with common fields. This is an abstract base definition for all events that are produced by TMF APIs. It must be used as a template for specific events. These specific event definitions must also define an event field, typed with the specific payload for that event
+      allOf:
+      - $ref: '#/components/schemas/Entity'
+      - properties:
+          eventId:
+            type: string
+            description: The identifier of the notification.
+          eventTime:
+            type: string
+            format: date-time
+            description: Time of the event occurrence.
+          eventType:
+            type: string
+            description: The type of the notification.
+          correlationId:
+            type: string
+            description: The correlation id for this event.
+          domain:
+            type: string
+            description: The domain of the event.
+          title:
+            type: string
+            description: The title of the event.
+          description:
+            type: string
+            description: An explanatory of the event.
+          priority:
+            type: string
+            description: A priority.
+          timeOccurred:
+            type: string
+            format: date-time
+            description: The time the event occurred.
+          source:
+            $ref: '#/components/schemas/EntityRef'
+            description: Source Entity described by EntityRef
+          reportingSystem:
+            $ref: '#/components/schemas/EntityRef'
+            description: Reporting System described by EntityRef
+          relatedParty:
+            type: array
+            items:
+              $ref: '#/components/schemas/RelatedParty'
+          analyticCharacteristic:
+            type: array
+            items:
+              $ref: '#/components/schemas/Characteristic'
+    TimePeriod:
+      type: object
+      description: A period of time, either as a deadline (endDateTime only) a startDateTime only, or both
+      properties:
+        endDateTime:
+          type: string
+          format: date-time
+          description: End of the time period, using IETC-RFC-3339 format
+        startDateTime:
+          type: string
+          format: date-time
+          description: Start of the time period, using IETC-RFC-3339 format
+    ChangeRequestCreateEventPayload:
+      type: object
+      description: The event data structure
+      properties:
+        changeRequest:
+          $ref: '#/components/schemas/ChangeRequest'
+          description: The involved resource data for the event
+    EntityRef:
+      description: Base entityRef schema for use in TMForum Open-APIs
+      allOf:
+      - $ref: '#/components/schemas/Entity'
+      - properties:
+          id:
+            type: string
+            description: Unique identifier of a related entity.
+          href:
+            type: string
+            description: Reference of the related entity.
+          name:
+            type: string
+            description: Name of the related entity.
+          '@referredType':
+            type: string
+            description: The actual type of the target instance when needed for disambiguation.
+    SLARef:
+      description: 'ServiceLevelAgreement reference: A service level agreement (SLA) is a type of agreement that represents a formal negotiated agreement between two parties designed to create a common understanding about products, services, priorities, responsibilities, and so forth. The SLA is a set of appropriate procedures and targets formally or informally agreed between parties in order to achieve and maintain specified Quality of Service.'
+      allOf:
+      - $ref: '#/components/schemas/EntityRef'
+    AttachmentRefOrValue_2:
+      description: An attachment by value or by reference. For AttachmentRefOrValue, the attribute type,schemaLocation and referredType are related to the contained entity and not to AttchmentRefOrValue itself
+      properties:
+        ref:
+          $ref: '#/components/schemas/AttachmentRef_2'
+          description: A reference to the Attachment.
+        value:
+          $ref: '#/components/schemas/Attachment_2'
+          description: The Attachment (as a value).
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class entity name
+    ResourceSpecificationRef:
+      description: 'Resource Specification reference: The ResourceSpecification is required to realize a ProductSpecification.'
+      allOf:
+      - $ref: '#/components/schemas/EntityRef'
+      - properties:
+          version:
+            type: string
+            description: Resource specification version
+    ResourceDeleteEvent:
+      description: The notification data structure
+      allOf:
+      - $ref: '#/components/schemas/Event'
+      - properties:
+          event:
+            $ref: '#/components/schemas/ResourceDeleteEventPayload'
+            description: The event payload linked to the involved resource object
+    RelatedParty_2:
+      description: Related Entity reference. A related party defines party or party role linked to a specific entity.
+      allOf:
+      - $ref: '#/components/schemas/Entity'
+      - required:
+        - id
+        - '@referredType'
+        properties:
+          id:
+            type: string
+            description: Unique identifier of a related entity.
+          href:
+            type: string
+            description: Reference of the related entity.
+          name:
+            type: string
+            description: Name of the related entity.
+          role:
+            type: string
+            description: Role played by the related party
+          '@referredType':
+            type: string
+            description: The actual type of the target instance when needed for disambiguation.
+    PhysicalResourceCreateEventPayload:
+      type: object
+      description: The event data structure
+      properties:
+        physicalResource:
+          $ref: '#/components/schemas/PhysicalResource'
+          description: The involved resource data for the event
+    AttachmentRef_2:
+      description: Attachment reference. An attachment complements the description of an element (for instance a product) through video, pictures
+      allOf:
+      - $ref: '#/components/schemas/EntityRef'
+      - properties:
+          description:
+            type: string
+            description: A narrative text describing the content of the attachment
+          url:
+            type: string
+            description: Link to the attachment media/content
+    ResourceAttributeValueChangeEvent:
+      description: The notification data structure
+      allOf:
+      - $ref: '#/components/schemas/Event'
+      - properties:
+          fieldPath:
+            type: string
+            description: The path identifying the object field concerned by this notification.
+          event:
+            $ref: '#/components/schemas/ResourceAttributeValueChangeEventPayload'
+            description: The event payload linked to the involved resource object
+    PhysicalResourceDeleteEvent:
+      description: The notification data structure
+      allOf:
+      - $ref: '#/components/schemas/Event'
+      - properties:
+          event:
+            $ref: '#/components/schemas/PhysicalResourceDeleteEventPayload'
+            description: The event payload linked to the involved resource object
+    PhysicalResourceStateChangeEvent:
+      description: The notification data structure
+      allOf:
+      - $ref: '#/components/schemas/Event'
+      - properties:
+          event:
+            $ref: '#/components/schemas/PhysicalResourceStateChangeEventPayload'
+            description: The event payload linked to the involved resource object
+    ResourceDeleteEventPayload:
+      type: object
+      description: The event data structure
+      properties:
+        resource:
+          $ref: '#/components/schemas/Resource'
+          description: The involved resource data for the event
+    ResourceStatusType:
+      type: string
+      description: ResourceStatusType enumerations
+      enum:
+      - standby
+      - alarm
+      - available
+      - reserved
+      - unknown
+      - suspended
+    PhysicalResourceStateChangeEventPayload:
+      type: object
+      description: The event data structure
+      properties:
+        physicalResource:
+          $ref: '#/components/schemas/PhysicalResource'
+          description: The involved resource data for the event
+    ResourceOperationalStateType:
+      type: string
+      description: ResourceOperationalStateType enumerations
+      enum:
+      - enable
+      - disable
+    ResourceStateChangeEvent:
+      description: The notification data structure
+      allOf:
+      - $ref: '#/components/schemas/Event'
+      - properties:
+          event:
+            $ref: '#/components/schemas/ResourceStateChangeEventPayload'
+            description: The event payload linked to the involved resource object
+    Attachment_2:
+      description: Complements the description of an element (for instance a product) through video, pictures...
+      allOf:
+      - $ref: '#/components/schemas/Entity'
+      - properties:
+          id:
+            type: string
+            description: Unique identifier for this particular attachment
+          href:
+            type: string
+            description: URI for this Attachment
+          attachmentType:
+            type: string
+            description: Attachment type such as video, picture
+          content:
+            type: string
+            description: The actual contents of the attachment object, if embedded, encoded as base64
+          description:
+            type: string
+            description: A narrative text describing the content of the attachment
+          mimeType:
+            type: string
+            description: Attachment mime type such as extension file for video, picture and document
+          name:
+            type: string
+            description: The name of the attachment
+          url:
+            type: string
+            description: Uniform Resource Locator, is a web page address (a subset of URI)
+          size:
+            $ref: '#/components/schemas/Quantity'
+            description: The size of the attachment.
+          validFor:
+            $ref: '#/components/schemas/TimePeriod_2'
+            description: The period of time for which the attachment is valid
+    ResourceAttributeValueChangeEventPayload:
+      type: object
+      description: The event data structure
+      properties:
+        resource:
+          $ref: '#/components/schemas/Resource'
+          description: The involved resource data for the event
+    ResourceCreateEvent:
+      description: The notification data structure
+      allOf:
+      - $ref: '#/components/schemas/Event'
+      - properties:
+          event:
+            $ref: '#/components/schemas/ResourceCreateEventPayload'
+            description: The event payload linked to the involved resource object
+    ResourceAdministrativeStateType:
+      type: string
+      description: ResourceAdministrativeStateType enumerations
+      enum:
+      - locked
+      - unlocked
+      - shutdown
+    PhysicalResourceDeleteEventPayload:
+      type: object
+      description: The event data structure
+      properties:
+        physicalResource:
+          $ref: '#/components/schemas/PhysicalResource'
+          description: The involved resource data for the event
+    ResourceUsageStateType:
+      type: string
+      description: ResourceUsageStateType enumerations
+      enum:
+      - idle
+      - active
+      - busy
+    PhysicalResourceAttributeValueChangeEventPayload:
+      type: object
+      description: The event data structure
+      properties:
+        physicalResource:
+          $ref: '#/components/schemas/PhysicalResource'
+          description: The involved resource data for the event
+    ResourceCreateEventPayload:
+      type: object
+      description: The event data structure
+      properties:
+        resource:
+          $ref: '#/components/schemas/Resource'
+          description: The involved resource data for the event
+    PhysicalResourceCreateEvent:
+      description: The notification data structure
+      allOf:
+      - $ref: '#/components/schemas/Event'
+      - properties:
+          event:
+            $ref: '#/components/schemas/PhysicalResourceCreateEventPayload'
+            description: The event payload linked to the involved resource object
+    Note_2:
+      description: Extra information about a given entity
+      allOf:
+      - $ref: '#/components/schemas/Entity'
+      - properties:
+          id:
+            type: string
+            description: Identifier of the note within its containing entity (may or may not be globally unique, depending on provider implementation)
+          author:
+            type: string
+            description: Author of the note
+          date:
+            type: string
+            format: date-time
+            description: Date of the note
+          text:
+            type: string
+            description: Text of the note
+    TimePeriod_2:
+      type: object
+      description: A period of time, either as a deadline (endDateTime only) a startDateTime only, or both
+      properties:
+        endDateTime:
+          type: string
+          format: date-time
+          description: End of the time period, using IETC-RFC-3339 format
+        startDateTime:
+          type: string
+          format: date-time
+          description: Start of the time period, using IETC-RFC-3339 format. If you define a start, you must also define an end
+    ResourceStateChangeEventPayload:
+      type: object
+      description: The event data structure
+      properties:
+        resource:
+          $ref: '#/components/schemas/Resource'
+          description: The involved resource data for the event
+    PhysicalResource:
+      description: Physical resource is a type of resource that describes the common set of attributes shared by all concrete physical resources (e.g. EQUIPMENT) in the inventory.
+      allOf:
+      - $ref: '#/components/schemas/Resource'
+      - properties:
+          manufactureDate:
+            type: string
+            format: date-time
+            description: This is a string attribute that defines the date of manufacture of this item in the fixed format "dd/mm/yyyy". This is an optional attribute.
+          powerState:
+            type: string
+            description: "This defines the current power status of the hardware item. Values include:\n\n  0:  Unknown\n  1:  Not Applicable\n  2:  No Power Applied\n  3: Full Power Applied\n  4:  Power Save - Normal\n  5:  Power Save - Degraded\n  6:  Power Save - Standby\n  7:  Power Save - Critical\n  8:  Power Save - Low Power Mode\n  9:  Power Save - Unknown\n 10: Power Cycle\n 11: Power Warning\n 12: Power Off"
+          serialNumber:
+            type: string
+            description: This is a string that represents a manufacturer-allocated number used to identify different instances of the same hardware item. The ModelNumber and PartNumber attributes are used to identify different types of hardware items. This is a REQUIRED attribute.
+          versionNumber:
+            type: string
+            description: This is a string that identifies the version of this physical resource. This is an optional attribute.
+          '@referredType':
+            type: string
+            description: The actual type of the target instance when needed for disambiguation.
+    ResourceRelationship:
+      allOf:
+      - $ref: '#/components/schemas/Entity'
+      - properties:
+          id:
+            type: string
+            description: id of the related resource.
+          href:
+            type: string
+            description: href of the related resource.
+          relationshipType:
+            type: string
+          resourceRelationshipCharacteristic:
+            type: array
+            items:
+              $ref: '#/components/schemas/Characteristic'
+    PhysicalResourceAttributeValueChangeEvent:
+      description: The notification data structure
+      allOf:
+      - $ref: '#/components/schemas/Event'
+      - properties:
+          fieldPath:
+            type: string
+            description: The path identifying the object field concerned by this notification.
+          event:
+            $ref: '#/components/schemas/PhysicalResourceAttributeValueChangeEventPayload'
+            description: The event payload linked to the involved resource object
+    Resource:
+      description: Resource is an abstract entity that describes the common set of attributes shared by all concrete resources (e.g. TPE, EQUIPMENT) in the inventory.
+      allOf:
+      - $ref: '#/components/schemas/Entity'
+      - required:
+        - id
+        - href
+        properties:
+          id:
+            type: string
+            description: Identifier of an instance of the resource. Required to be unique within the resource type.  Used in URIs as the identifier for specific instances of a type.
+          href:
+            type: string
+            description: The URI for the object itself.
+          category:
+            type: string
+            description: Category of the concrete resource. e.g Gold, Silver for MSISDN concrete resource
+          description:
+            type: string
+            description: free-text description of the resource
+          endOperatingDate:
+            type: string
+            format: date-time
+            description: A date time( DateTime). The date till the resource is operating
+          name:
+            type: string
+            description: A string used to give a name to the resource
+          resourceVersion:
+            type: string
+            description: A field that identifies the specific version of an instance of a resource.
+          startOperatingDate:
+            type: string
+            format: date-time
+            description: A date time( DateTime). The date from which the resource is operating
+          administrativeState:
+            $ref: '#/components/schemas/ResourceAdministrativeStateType'
+            description: Tracks the lifecycle status of the resource, such as planning, installing, opereating, retiring and so on.
+          attachment:
+            type: array
+            items:
+              $ref: '#/components/schemas/AttachmentRefOrValue_2'
+          note:
+            type: array
+            items:
+              $ref: '#/components/schemas/Note_2'
+          operationalState:
+            $ref: '#/components/schemas/ResourceOperationalStateType'
+            description: Tracks the lifecycle status of the resource, such as planning, installing, opereating, retiring and so on.
+          place:
+            $ref: '#/components/schemas/RelatedPlaceRefOrValue'
+          relatedParty:
+            type: array
+            items:
+              $ref: '#/components/schemas/RelatedParty_2'
+          resourceCharacteristic:
+            type: array
+            items:
+              $ref: '#/components/schemas/Characteristic'
+          resourceRelationship:
+            type: array
+            items:
+              $ref: '#/components/schemas/ResourceRelationship'
+          resourceSpecification:
+            $ref: '#/components/schemas/ResourceSpecificationRef'
+          resourceStatus:
+            $ref: '#/components/schemas/ResourceStatusType'
+            description: Tracks the lifecycle status of the resource, such as planning, installing, opereating, retiring and so on.
+          usageState:
+            $ref: '#/components/schemas/ResourceUsageStateType'
+            description: Tracks the lifecycle status of the resource, such as planning, installing, opereating, retiring and so on.
+    OrderItemActionType:
+      type: string
+      description: action to be performed on the product
+      enum:
+      - add
+      - modify
+      - delete
+      - noChange
+    RelatedParty_3:
+      description: Related Party reference. A related party defines party or party role linked to a specific entity.
+      allOf:
+      - $ref: '#/components/schemas/Entity'
+      - required:
+        - id
+        - '@referredType'
+        properties:
+          id:
+            type: string
+            description: unique identifier
+          href:
+            type: string
+            format: uri
+            description: Hyperlink reference
+          name:
+            type: string
+            description: Name of the related entity.
+          role:
+            type: string
+            description: Role played by the related party
+          '@referredType':
+            type: string
+            description: The actual type of the target instance when needed for disambiguation.
+    ServiceOrder:
+      allOf:
+      - $ref: '#/components/schemas/Entity'
+      - properties:
+          id:
+            type: string
+            description: ID created on repository side
+          href:
+            type: string
+            description: Hyperlink to access the order
+          cancellationDate:
+            type: string
+            format: date-time
+            description: 'Date when the order is cancelled. This is used when order is cancelled. '
+          cancellationReason:
+            type: string
+            description: 'Reason why the order is cancelled. This is used when order is cancelled. '
+          category:
+            type: string
+            description: 'Used to categorize the order, useful for the OM system, such as: Broadband, TVOption'
+          completionDate:
+            type: string
+            format: date-time
+            description: Effective delivery date amended by the provider
+          description:
+            type: string
+            description: A free-text description of the service order
+          expectedCompletionDate:
+            type: string
+            format: date-time
+            description: Expected delivery date amended by the provider
+          externalId:
+            type: string
+            description: ID given by the consumer to facilitate searches
+          notificationContact:
+            type: string
+            description: Contact attached to the order to send back information regarding this order
+          orderDate:
+            type: string
+            format: date-time
+          priority:
+            type: string
+            description: Can be used by consumers to prioritize orders in a Service Order Management system
+          requestedCompletionDate:
+            type: string
+            format: date-time
+            description: Requested delivery date from the requestors perspective
+          requestedStartDate:
+            type: string
+            format: date-time
+            description: Order start date wished by the requestor
+          startDate:
+            type: string
+            format: date-time
+            description: Date when the order was started for processing
+          errorMessage:
+            description: the error(s) cause an order status change
+            type: array
+            items:
+              $ref: '#/components/schemas/ServiceOrderErrorMessage'
+          externalReference:
+            type: array
+            items:
+              $ref: '#/components/schemas/ExternalReference'
+          jeopardyAlert:
+            description: A list of jeopardy alerts related to this order
+            type: array
+            items:
+              $ref: '#/components/schemas/ServiceOrderJeopardyAlert'
+          milestone:
+            description: A list of milestones related to this order
+            type: array
+            items:
+              $ref: '#/components/schemas/ServiceOrderMilestone'
+          note:
+            description: Extra-information about the order; e.g. useful to add extra delivery information that could be useful for a human process
+            type: array
+            items:
+              $ref: '#/components/schemas/Note_3'
+          orderRelationship:
+            description: A list of service orders related to this order (e.g. prerequisite, dependent on)
+            type: array
+            items:
+              $ref: '#/components/schemas/ServiceOrderRelationship'
+          relatedParty:
+            description: A list of parties which are involved in this order and the role they are playing
+            type: array
+            items:
+              $ref: '#/components/schemas/RelatedParty_3'
+          serviceOrderItem:
+            description: A list of service order items to be processed by this order
+            type: array
+            items:
+              $ref: '#/components/schemas/ServiceOrderItem'
+          state:
+            $ref: '#/components/schemas/ServiceOrderStateType'
+            description: 'State of the order: described in the state-machine diagram'
+    ConstraintRef:
+      description: Constraint reference. The Constraint resource represents a policy/rule applied to an entity or entity spec.
+      allOf:
+      - $ref: '#/components/schemas/EntityRef'
+      - properties:
+          version:
+            type: string
+            description: constraint version
+    ServiceOrderMilestone:
+      description: ServiceOrderMilestone represents an action or event marking a significant change or stage in processing of a service order.
+      allOf:
+      - $ref: '#/components/schemas/Entity'
+      - properties:
+          id:
+            type: string
+            description: identifier of the Milestone
+          description:
+            type: string
+            description: free-text description of the Milestone
+          message:
+            type: string
+            description: A string represents the message of the milestone
+          milestoneDate:
+            type: string
+            format: date-time
+            description: A date time( DateTime). The date that the milestone happens
+          name:
+            type: string
+            description: A string used to give a name to the milestone
+          status:
+            type: string
+            description: The milestone status
+          serviceOrderItem:
+            description: A list of order item references corresponded to this milestone
+            type: array
+            items:
+              $ref: '#/components/schemas/ServiceOrderItemRef'
+    FeatureRelationship:
+      type: object
+      description: Configuration feature
+      required:
+      - name
+      - relationshipType
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the target feature.
+        name:
+          type: string
+          description: This is the name of the target feature.
+        relationshipType:
+          type: string
+          description: This is the type of the feature relationship.
+        validFor:
+          $ref: '#/components/schemas/TimePeriod'
+          description: The period for which this feature relationship is valid.
+    ServiceOrderRelationship:
+      description: Linked service order to the one containing this attribute
+      allOf:
+      - $ref: '#/components/schemas/Entity'
+      - required:
+        - id
+        - relationshipType
+        properties:
+          id:
+            type: string
+            description: The id of the related order
+          href:
+            type: string
+            description: A hyperlink to the related order
+          relationshipType:
+            type: string
+            description: 'The type of related order, such as: [dependency] if the order needs to be [not started] until another order item is complete (a service order in this case) or [cross-ref] to keep track of the source order (a productOrder)'
+          '@referredType':
+            type: string
+            description: The entity type of the related order
+    BellServiceOrderFailureEventPayload:
+      type: object
+      description: The event data structure
+      properties:
+        failure:
+          $ref: '#/components/schemas/BellErrorRepresentation'
+          description: The error associated to the failure event
+        httpCode:
+          type: string
+          description: http return code at the API level.
+    CancelServiceOrderCreateEvent:
+      description: The notification data structure
+      allOf:
+      - $ref: '#/components/schemas/Event'
+      - properties:
+          event:
+            $ref: '#/components/schemas/CancelServiceOrderCreateEventPayload'
+            description: The event payload linked to the involved resource object
+    ResourceRef:
+      allOf:
+      - $ref: '#/components/schemas/EntityRef'
+    ServiceSpecificationRef:
+      description: 'Service specification reference: ServiceSpecification(s) required to realize a ProductSpecification.'
+      allOf:
+      - $ref: '#/components/schemas/EntityRef'
+      - properties:
+          version:
+            type: string
+            description: Service specification version
+    ServiceOrderCreateEvent:
+      description: The notification data structure
+      allOf:
+      - $ref: '#/components/schemas/Event'
+      - properties:
+          event:
+            $ref: '#/components/schemas/ServiceOrderCreateEventPayload'
+            description: The event payload linked to the involved resource object
+    ServiceOrderDeleteEventPayload:
+      type: object
+      description: The event data structure
+      properties:
+        serviceOrder:
+          $ref: '#/components/schemas/ServiceOrder'
+          description: The involved resource data for the event
+    ServiceOrderItem:
+      allOf:
+      - $ref: '#/components/schemas/Entity'
+      - required:
+        - id
+        - action
+        - service
+        properties:
+          id:
+            type: string
+            description: Identifier of the individual line item
+          quantity:
+            type: integer
+            description: Quantity ordered
+          action:
+            $ref: '#/components/schemas/OrderItemActionType'
+            description: 'The action to be carried out on the Service. Can be: add, modify, delete, noChange'
+          appointment:
+            $ref: '#/components/schemas/AppointmentRef'
+            description: An appointment that was set up with a related party for this order item
+          errorMessage:
+            description: the error(s) cause an order item status change
+            type: array
+            items:
+              $ref: '#/components/schemas/ServiceOrderItemErrorMessage'
+          service:
+            $ref: '#/components/schemas/ServiceRefOrValue'
+            description: The Service to be acted on by the order item
+          serviceOrderItem:
+            description: A list of order items embedded to this order item
+            type: array
+            items:
+              $ref: '#/components/schemas/ServiceOrderItem'
+          serviceOrderItemRelationship:
+            description: A list of order items related to this order item
+            type: array
+            items:
+              $ref: '#/components/schemas/ServiceOrderItemRelationship'
+          state:
+            $ref: '#/components/schemas/ServiceOrderItemStateType'
+            description: 'State of the order item: described in the state machine diagram. This is the requested state.'
+    CancelServiceOrder:
+      description: Request for cancellation an existing Service order
+      allOf:
+      - $ref: '#/components/schemas/Entity'
+      - properties:
+          id:
+            type: string
+            description: unique identifier
+          href:
+            type: string
+            format: uri
+            description: Hyperlink reference
+          cancellationReason:
+            type: string
+            description: Reason why the order is cancelled.
+          completionMessage:
+            type: string
+            description: an optional message describing the completion of the task if it is done as expected or it is denied for a reason (like order in an state of PoNR).
+          effectiveCancellationDate:
+            type: string
+            format: date-time
+            description: Date when the order is cancelled.
+          requestedCancellationDate:
+            type: string
+            format: date-time
+            description: Date when the submitter wants the order to be cancelled
+          errorMessage:
+            $ref: '#/components/schemas/ErrorMessage'
+            description: the error(s) cause the termination of cancelServiceOrder (in TerminatedWithError state)
+          serviceOrder:
+            $ref: '#/components/schemas/ServiceOrderRef'
+          state:
+            $ref: '#/components/schemas/TaskStateType'
+            description: Tracks the lifecycle status of the cancellation request, such as Acknowledged, Rejected, InProgress, Pending and so on.
+    Service:
+      description: 'Service is a base class for defining the Service hierarchy. All Services are characterized as either being possibly visible and usable by a Customer or not. This gives rise to the two subclasses of Service: CustomerFacingService and ResourceFacingService.'
+      allOf:
+      - $ref: '#/components/schemas/Entity'
+      - properties:
+          id:
+            type: string
+            description: Unique identifier of the service
+          href:
+            type: string
+            description: Reference of the service
+          category:
+            type: string
+            description: Is it a customer facing or resource facing service
+          description:
+            type: string
+            description: Free-text description of the service
+          endDate:
+            type: string
+            format: date-time
+            description: Date when the service ends
+          hasStarted:
+            type: boolean
+            description: If TRUE, this Service has already been started
+          isBundle:
+            type: boolean
+            description: If true, the service is a ServiceBundle which regroup a service hierachy. If false, the service is a 'atomic' service (hierachy leaf).
+          isServiceEnabled:
+            type: boolean
+            description: 'If FALSE and hasStarted is FALSE, this particular Service has NOT been enabled for use - if FALSE and hasStarted is TRUE then the service has failed '
+          isStateful:
+            type: boolean
+            description: If TRUE, this Service can be changed without affecting any other services
+          name:
+            type: string
+            description: Name of the service
+          serviceDate:
+            type: string
+            description: Date when the service was created (whatever its status).
+          serviceType:
+            type: string
+            description: Business type of the service
+          startDate:
+            type: string
+            format: date-time
+            description: Date when the service starts
+          startMode:
+            type: string
+            description: 'This attribute is an enumerated integer that indicates how the Service is started, such as: 0: Unknown; 1: Automatically by the managed environment; 2: Automatically by the owning device; 3: Manually by the Provider of the Service; 4: Manually by a Customer of the Provider; 5: Any of the above'
+          feature:
+            description: 'A list of feature associated with this service '
+            type: array
+            items:
+              $ref: '#/components/schemas/Feature'
+          note:
+            description: A list of notes made on this service
+            type: array
+            items:
+              $ref: '#/components/schemas/Note_3'
+          place:
+            description: A list of places (Place [*]). Used to define a place useful for the service (for example a geographical place whre the service is installed)
+            type: array
+            items:
+              $ref: '#/components/schemas/RelatedPlaceRefOrValue'
+          relatedEntity:
+            description: 'A list of related  entity in relationship with this service '
+            type: array
+            items:
+              $ref: '#/components/schemas/RelatedEntityRefOrValue'
+          relatedParty:
+            description: A list of related party references (RelatedParty [*]). A related party defines party or party role linked to a specific entity
+            type: array
+            items:
+              $ref: '#/components/schemas/RelatedParty_3'
+          serviceCharacteristic:
+            description: 'A list of characteristics that characterize this service (ServiceCharacteristic [*]) '
+            type: array
+            items:
+              $ref: '#/components/schemas/Characteristic'
+          serviceOrderItem:
+            description: A list of service order items related to this service
+            type: array
+            items:
+              $ref: '#/components/schemas/RelatedServiceOrderItem'
+          serviceRelationship:
+            description: A list of service relationships (ServiceRelationship [*]). Describes links with other service(s) in the inventory.
+            type: array
+            items:
+              $ref: '#/components/schemas/ServiceRelationship'
+          serviceSpecification:
+            $ref: '#/components/schemas/ServiceSpecificationRef'
+            description: The specification from which this service was instantiated
+          state:
+            $ref: '#/components/schemas/ServiceStateType'
+            description: The life cycle state of the service, such as designed, reserved, active, etc...
+          supportingResource:
+            description: 'A list of supporting resources (SupportingResource [*]).Note: only Service of type RFS can be associated with Resources'
+            type: array
+            items:
+              $ref: '#/components/schemas/ResourceRef'
+          supportingService:
+            description: A list of supporting services (SupportingService [*]). A collection of services that support this service (bundling, link CFS to RFS)
+            type: array
+            items:
+              $ref: '#/components/schemas/ServiceRefOrValue'
+    ServiceOrderRef:
+      description: Service Order reference. Useful to understand the which was the Service order through which the service was instantiated in the service inventory
+      allOf:
+      - $ref: '#/components/schemas/EntityRef'
+    CancelServiceOrderStateChangeEvent:
+      description: The notification data structure
+      allOf:
+      - $ref: '#/components/schemas/Event'
+      - properties:
+          event:
+            $ref: '#/components/schemas/CancelServiceOrderStateChangeEventPayload'
+            description: The event payload linked to the involved resource object
+    ServiceOrderStateChangeEventPayload:
+      type: object
+      description: The event data structure
+      properties:
+        serviceOrder:
+          $ref: '#/components/schemas/ServiceOrder'
+          description: The involved resource data for the event
+    ServiceOrderItemRef:
+      allOf:
+      - $ref: '#/components/schemas/EntityRef'
+      - properties:
+          itemId:
+            type: string
+            description: Identifier of the line item
+          serviceOrderHref:
+            type: string
+            format: uri
+            description: Link to the order to which this item belongs to
+          serviceOrderId:
+            type: string
+            description: Identifier of the order that this item belongs to
+    ServiceOrderDeleteEvent:
+      description: The notification data structure
+      allOf:
+      - $ref: '#/components/schemas/Event'
+      - properties:
+          event:
+            $ref: '#/components/schemas/ServiceOrderDeleteEventPayload'
+            description: The event payload linked to the involved resource object
+    CancelServiceOrderCreateEventPayload:
+      type: object
+      description: The event data structure
+      properties:
+        cancelServiceOrder:
+          $ref: '#/components/schemas/CancelServiceOrder'
+          description: The involved resource data for the event
+    BellServiceOrderFailureEvent:
+      description: The notification data structure
+      allOf:
+      - $ref: '#/components/schemas/Event'
+      - properties:
+          event:
+            $ref: '#/components/schemas/BellServiceOrderFailureEventPayload'
+            description: The event payload linked to the involved resource object
+    ServiceRef:
+      description: Service reference, for when Service is used by other entities
+      allOf:
+      - $ref: '#/components/schemas/EntityRef'
+    ServiceOrderAttributeValueChangeEvent:
+      description: The notification data structure
+      allOf:
+      - $ref: '#/components/schemas/Event'
+      - properties:
+          fieldPath:
+            type: string
+            description: The path identifying the object field concerned by this notification.
+          event:
+            $ref: '#/components/schemas/ServiceOrderAttributeValueChangeEventPayload'
+            description: The event payload linked to the involved resource object
+    ServiceOrderStateType:
+      type: string
+      description: Possible values for the state of the order
+      enum:
+      - acknowledged
+      - rejected
+      - pending
+      - held
+      - inProgress
+      - cancelled
+      - completed
+      - failed
+      - partial
+      - assessingCancellation
+      - pendingCancellation
+    ServiceOrderCreateEventPayload:
+      type: object
+      description: The event data structure
+      properties:
+        serviceOrder:
+          $ref: '#/components/schemas/ServiceOrder'
+          description: The involved resource data for the event
+    ServiceOrderItemRelationship:
+      description: Linked service order item to the one containing this attribute
+      allOf:
+      - $ref: '#/components/schemas/Entity'
+      - properties:
+          relationshipType:
+            type: string
+            description: 'The type of related order item, can be: dependency if the order item needs to be not started until another order item is complete'
+          orderItem:
+            $ref: '#/components/schemas/ServiceOrderItemRef'
+            description: A service order item in relationship with this order item
+    RelatedServiceOrderItem:
+      description: RelatedServiceOrderItem (a ServiceOrder item) .The service order item which triggered service creation/change/termination.
+      allOf:
+      - $ref: '#/components/schemas/Entity'
+      - properties:
+          id:
+            type: string
+            description: unique identifier
+          href:
+            type: string
+            format: uri
+            description: Hyperlink reference
+          itemId:
+            type: string
+            description: Identifier of the order item where the service was managed
+          role:
+            type: string
+            description: role of the service order item for this service
+          serviceOrderHref:
+            type: string
+            description: Reference of the related entity.
+          serviceOrderId:
+            type: string
+            description: Unique identifier of a related entity.
+          itemAction:
+            $ref: '#/components/schemas/OrderItemActionType'
+            description: Action of the order item for this service
+          '@referredType':
+            type: string
+            description: The actual type of the target instance when needed for disambiguation.
+    ServiceOrderJeopardyAlert:
+      description: A ServiceOrderJeopardyAlert represents a predicted exception during a service order processing that would brings risk to complete successfully the ordetr.
+      allOf:
+      - $ref: '#/components/schemas/Entity'
+      - properties:
+          id:
+            type: string
+            description: identifier of the JeopardyAlert
+          alertDate:
+            type: string
+            format: date-time
+            description: A date time( DateTime). The date that the alert issued
+          exception:
+            type: string
+            description: ' The exception associated with this jeopardy alert'
+          jeopardyType:
+            type: string
+            description: A string represents the type of jeopardy/risk like Normal, Hazard, Critical, ...
+          message:
+            type: string
+            description: A string represents the message of the alert
+          name:
+            type: string
+            description: A string used to give a name to the jeopardy alert
+          serviceOrderItem:
+            description: A list of order item references corresponded to this alert
+            type: array
+            items:
+              $ref: '#/components/schemas/ServiceOrderItemRef'
+    ServiceOrderJeopardyEvent:
+      type: object
+      description: The notification data structure
+      properties:
+        event:
+          $ref: '#/components/schemas/ServiceOrderJeopardyEventPayload'
+          description: The event payload linked to the involved resource object
+        eventId:
+          type: string
+          description: The identifier of the notification.
+        eventTime:
+          type: string
+          format: date-time
+          description: Time of the event occurrence.
+        eventType:
+          type: string
+          description: The type of the notification.
+        correlationId:
+          type: string
+          description: The correlation id for this event.
+        domain:
+          type: string
+          description: The domain of the event.
+        title:
+          type: string
+          description: The title of the event.
+        description:
+          type: string
+          description: An explnatory of the event.
+        priority:
+          type: string
+          description: A priority.
+        timeOcurred:
+          type: string
+          format: date-time
+          description: The time the event occured.
+    TaskStateType:
+      type: string
+      description: Possible values for the state of a task
+      enum:
+      - accepted
+      - terminatedWithError
+      - inProgress
+      - done
+    ServiceRelationship:
+      allOf:
+      - $ref: '#/components/schemas/Entity'
+      - required:
+        - relationshipType
+        properties:
+          id:
+            type: string
+            description: unique identifier
+          href:
+            type: string
+            format: uri
+            description: Hyperlink reference
+          relationshipType:
+            type: string
+          service:
+            $ref: '#/components/schemas/ServiceRefOrValue'
+          serviceRelationshipCharacteristic:
+            type: array
+            items:
+              $ref: '#/components/schemas/Characteristic'
+    ServiceOrderAttributeValueChangeEventPayload:
+      type: object
+      description: The event data structure
+      properties:
+        serviceOrder:
+          $ref: '#/components/schemas/ServiceOrder'
+          description: The involved resource data for the event
+    CancelServiceOrderInformationRequiredEvent:
+      description: The notification data structure
+      allOf:
+      - $ref: '#/components/schemas/Event'
+      - properties:
+          fieldPath:
+            type: string
+            description: The path identifying the object field concerned by this notification.
+          event:
+            $ref: '#/components/schemas/CancelServiceOrderInformationRequiredEventPayload'
+            description: The event payload linked to the involved resource object
+    ServiceOrderInformationRequiredEventPayload:
+      type: object
+      description: The event data structure
+      properties:
+        serviceOrder:
+          $ref: '#/components/schemas/ServiceOrder'
+          description: The involved resource data for the event
+    ServiceOrderStateChangeEvent:
+      description: The notification data structure
+      allOf:
+      - $ref: '#/components/schemas/Event'
+      - properties:
+          event:
+            $ref: '#/components/schemas/ServiceOrderStateChangeEventPayload'
+            description: The event payload linked to the involved resource object
+    ServiceOrderItemErrorMessage:
+      description: AServiceOrderItemErrorMessage represents an error that causes a status change in a service order item.
+      allOf:
+      - $ref: '#/components/schemas/Entity'
+      - properties:
+          code:
+            type: string
+            description: error code
+          message:
+            type: string
+            description: More details and corrective actions related to the error
+          reason:
+            type: string
+            description: Explanation of the reason for the error
+          referenceError:
+            type: string
+            format: uri
+            description: URI of documentation describing the error
+          status:
+            type: string
+            description: error code extension like sys-ABC-2001
+          timestamp:
+            type: string
+            format: date-time
+            description: Date when the error happened
+    CancelServiceOrderStateChangeEventPayload:
+      type: object
+      description: The event data structure
+      properties:
+        cancelServiceOrder:
+          $ref: '#/components/schemas/CancelServiceOrder'
+          description: The involved resource data for the event
+    ServiceOrderJeopardyEventPayload:
+      type: object
+      description: The event data structure
+      properties:
+        serviceOrder:
+          $ref: '#/components/schemas/ServiceOrder'
+          description: The involved resource data for the event
+    Feature:
+      type: object
+      description: Configuration feature.
+      required:
+      - name
+      - featureCharacteristic
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the feature.
+        isBundle:
+          type: boolean
+          description: True if this is a feature group. Default is false.
+        isEnabled:
+          type: boolean
+          description: True if this feature is enabled. Default is true.
+        name:
+          type: string
+          description: This is the name for the feature.
+        constraint:
+          description: This is a list of feature constraints.
+          type: array
+          items:
+            $ref: '#/components/schemas/ConstraintRef'
+        featureCharacteristic:
+          description: This is a list of Characteristics for a particular feature.
+          type: array
+          items:
+            $ref: '#/components/schemas/Characteristic'
+          minItems: 1
+        featureRelationship:
+          type: array
+          items:
+            $ref: '#/components/schemas/FeatureRelationship'
+    ServiceStateType:
+      type: string
+      description: Valid values for the lifecycle state of the service
+      enum:
+      - feasibilityChecked
+      - designed
+      - reserved
+      - inactive
+      - active
+      - terminated
+    ServiceOrderMilestoneEvent:
+      description: The notification data structure
+      allOf:
+      - $ref: '#/components/schemas/Event'
+      - properties:
+          event:
+            $ref: '#/components/schemas/ServiceOrderMilestoneEventPayload'
+            description: The event payload linked to the involved resource object
+    ErrorMessage:
+      description: represents an Error
+      allOf:
+      - $ref: '#/components/schemas/Entity'
+      - properties:
+          code:
+            type: string
+            description: error code
+          message:
+            type: string
+            description: More details and corrective actions related to the error
+          reason:
+            type: string
+            description: Explanation of the reason for the error
+          referenceError:
+            type: string
+            format: uri
+            description: URI of documentation describing the error
+          status:
+            type: string
+            description: error code extension like sys-ABC-2001
+    Note_3:
+      description: Extra information about a given entity
+      allOf:
+      - $ref: '#/components/schemas/Entity'
+      - required:
+        - text
+        properties:
+          id:
+            type: string
+            description: Identifier of the note within its containing entity
+          author:
+            type: string
+            description: Author of the note
+          date:
+            type: string
+            format: date-time
+            description: Date of the note
+          text:
+            type: string
+            description: Text of the note
+    ServiceOrderMilestoneEventPayload:
+      type: object
+      description: The event data structure
+      properties:
+        serviceOrder:
+          $ref: '#/components/schemas/ServiceOrder'
+          description: The involved resource data for the event
+    AppointmentRef:
+      description: Refers an appointment, such as a Customer presentation or internal meeting or site visit
+      allOf:
+      - $ref: '#/components/schemas/EntityRef'
+      - properties:
+          description:
+            type: string
+            description: An explanatory text regarding the appointment made with a party
+    ServiceRefOrValue:
+      description: A Service to be created defined by value or existing defined by reference. The polymorphic attributes @type, @schemaLocation & @referredType are related to the Service entity and not the RelatedServiceRefOrValue class itself
+      properties:
+        ref:
+          $ref: '#/components/schemas/ServiceRef'
+          description: A reference to the Service.
+        value:
+          $ref: '#/components/schemas/Service'
+          description: The Service (as a value).
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class entity name
+    RelatedEntityRefOrValue:
+      description: A reference to an entity, where the type of the entity is not known in advance. A related entity defines a entity described by reference or by value linked to a specific entity. The polymorphic attributes @type, @schemaLocation & @referredType are related to the Entity and not the RelatedEntityRefOrValue class itself
+      properties:
+        role:
+          type: string
+        ref:
+          $ref: '#/components/schemas/EntityRef'
+          description: A reference to the Entity.
+        value:
+          $ref: '#/components/schemas/Entity'
+          description: The Entity (as a value).
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class entity name
+    ServiceOrderItemStateType:
+      type: string
+      description: Possible values for the state of the order item
+      enum:
+      - acknowledged
+      - rejected
+      - pending
+      - held
+      - inProgress
+      - cancelled
+      - completed
+      - failed
+      - assessingCancellation
+      - pendingCancellation
+      - partial
+    CancelServiceOrderInformationRequiredEventPayload:
+      type: object
+      description: The event data structure
+      properties:
+        cancelServiceOrder:
+          $ref: '#/components/schemas/CancelServiceOrder'
+          description: The involved resource data for the event
+    ServiceOrderErrorMessage:
+      description: A ServiceOrderErrorMessage represents an error that causes a status change in a service order.
+      allOf:
+      - $ref: '#/components/schemas/Entity'
+      - properties:
+          code:
+            type: string
+            description: error code
+          message:
+            type: string
+            description: More details and corrective actions related to the error
+          reason:
+            type: string
+            description: Explanation of the reason for the error
+          referenceError:
+            type: string
+            format: uri
+            description: URI of documentation describing the error
+          status:
+            type: string
+            description: error code extension like sys-ABC-2001
+          timestamp:
+            type: string
+            format: date-time
+            description: Date when the error happened
+          serviceOrderItem:
+            description: A list of order item references corresponded to this error
+            type: array
+            items:
+              $ref: '#/components/schemas/ServiceOrderItemRef'
+    ServiceOrderInformationRequiredEvent:
+      description: The notification data structure
+      allOf:
+      - $ref: '#/components/schemas/Event'
+      - properties:
+          fieldPath:
+            type: string
+            description: The path identifying the object field concerned by this notification.
+          event:
+            $ref: '#/components/schemas/ServiceOrderInformationRequiredEventPayload'
+            description: The event payload linked to the involved resource object
+    AttachmentRefOrValue_3:
+      description: An attachment by value or by reference. For AttachmentRefOrValue, the attribute type,schemaLocation and referredType are related to the contained entity and not to AttchmentRefOrValue itself
+      allOf:
+      - $ref: '#/components/schemas/Entity'
+      - properties:
+          ref:
+            $ref: '#/components/schemas/AttachmentRef_3'
+            description: A reference to the Attachment.
+          value:
+            $ref: '#/components/schemas/Attachment_3'
+            description: The Attachment (as a value).
+    RelatedParty_4:
+      description: Related Entity reference. A related party defines party or party role linked to a specific entity.
+      allOf:
+      - $ref: '#/components/schemas/Entity'
+      - required:
+        - id
+        - '@referredType'
+        properties:
+          id:
+            type: string
+            description: Unique identifier of a related entity.
+          href:
+            type: string
+            description: Reference of the related entity.
+          name:
+            type: string
+            description: Name of the related entity.
+          role:
+            type: string
+            description: Role played by the related party
+          '@referredType':
+            type: string
+            description: The actual type of the target instance when needed for disambiguation.
+    AttachmentRef_3:
+      description: Attachment reference. An attachment complements the description of an element (for instance a product) through video, pictures
+      allOf:
+      - $ref: '#/components/schemas/EntityRef'
+      - properties:
+          description:
+            type: string
+            description: A narrative text describing the content of the attachment
+          url:
+            type: string
+            description: Link to the attachment media/content
+    RelatedEntity_2:
+      description: A reference to an entity, where the type of the entity is not known in advance.
+      allOf:
+      - $ref: '#/components/schemas/Entity'
+      - required:
+        - id
+        - role
+        - '@referredType'
+        properties:
+          id:
+            type: string
+            description: Unique identifier of a related entity.
+          href:
+            type: string
+            description: Reference of the related entity.
+          name:
+            type: string
+            description: Name of the related entity.
+          role:
+            type: string
+            description: The role of an entity.
+          '@referredType':
+            type: string
+            description: The actual type of the target instance when needed for disambiguation.
+    Characteristic_2:
+      description: Describes a given characteristic of an object or entity through a name/value pair.
+      allOf:
+      - $ref: '#/components/schemas/Entity'
+      - properties:
+          id:
+            type: string
+            description: Unique identifier of the characteristic
+          name:
+            type: string
+            description: Name of the characteristic
+          valueType:
+            type: string
+            description: Data type of the value of the characteristic
+    Attachment_3:
+      description: Complements the description of an element (for instance a product) through video, pictures...
+      allOf:
+      - $ref: '#/components/schemas/Entity'
+      - properties:
+          id:
+            type: string
+            description: Unique identifier for this particular attachment
+          href:
+            type: string
+            description: URI for this Attachment
+          attachmentType:
+            type: string
+            description: Attachment type such as video, picture
+          content:
+            type: string
+            description: The actual contents of the attachment object, if embedded, encoded as base64
+          description:
+            type: string
+            description: A narrative text describing the content of the attachment
+          mimeType:
+            type: string
+            description: Attachment mime type such as extension file for video, picture and document
+          name:
+            type: string
+            description: The name of the attachment
+          url:
+            type: string
+            description: Uniform Resource Locator, is a web page address (a subset of URI)
+          size:
+            $ref: '#/components/schemas/Quantity'
+            description: The size of the attachment.
+          validFor:
+            $ref: '#/components/schemas/TimePeriod_3'
+            description: The period of time for which the attachment is valid
+    TroubleTicketCreateEventPayload:
+      type: object
+      description: The event data structure
+      properties:
+        troubleTicket:
+          $ref: '#/components/schemas/TroubleTicket'
+          description: The involved resource data for the event
+    TroubleTicketInformationRequiredEvent:
+      description: The notification data structure
+      allOf:
+      - $ref: '#/components/schemas/Event'
+      - properties:
+          fieldPath:
+            type: string
+            description: The path identifying the object field concerned by this notification.
+          event:
+            $ref: '#/components/schemas/TroubleTicketInformationRequiredEventPayload'
+            description: The event payload linked to the involved resource object
+    TroubleTicketStatusChangeEvent:
+      description: The notification data structure
+      allOf:
+      - $ref: '#/components/schemas/Event'
+      - properties:
+          event:
+            $ref: '#/components/schemas/TroubleTicketStatusChangeEventPayload'
+            description: The event payload linked to the involved resource object
+    TroubleTicketAttributeValueChangeEvent:
+      description: The notification data structure
+      allOf:
+      - $ref: '#/components/schemas/Event'
+      - properties:
+          fieldPath:
+            type: string
+            description: The path identifying the object field concerned by this notification.
+          event:
+            $ref: '#/components/schemas/TroubleTicketAttributeValueChangeEventPayload'
+            description: The event payload linked to the involved resource object
+    TroubleTicketStatusChangeEventPayload:
+      type: object
+      description: The event data structure
+      properties:
+        troubleTicket:
+          $ref: '#/components/schemas/TroubleTicket'
+          description: The involved resource data for the event
+    TroubleTicketResolvedEventPayload:
+      type: object
+      description: The event data structure
+      properties:
+        troubleTicket:
+          $ref: '#/components/schemas/TroubleTicket'
+          description: The involved resource data for the event
+    ChannelRef:
+      description: The channel to which the resource reference to. e.g. channel for selling product offerings, channel for opening a trouble ticket etc..
+      allOf:
+      - $ref: '#/components/schemas/EntityRef'
+    TroubleTicketResolvedEvent:
+      description: The notification data structure
+      allOf:
+      - $ref: '#/components/schemas/Event'
+      - properties:
+          event:
+            $ref: '#/components/schemas/TroubleTicketResolvedEventPayload'
+            description: The event payload linked to the involved resource object
+    TroubleTicketCreateEvent:
+      description: The notification data structure
+      allOf:
+      - $ref: '#/components/schemas/Event'
+      - properties:
+          event:
+            $ref: '#/components/schemas/TroubleTicketCreateEventPayload'
+            description: The event payload linked to the involved resource object
+    Note_4:
+      description: Extra information about a given entity
+      allOf:
+      - $ref: '#/components/schemas/Entity'
+      - properties:
+          id:
+            type: string
+            description: Identifier of the note within its containing entity (may or may not be globally unique, depending on provider implementation)
+          author:
+            type: string
+            description: Author of the note
+          date:
+            type: string
+            format: date-time
+            description: Date of the note
+          text:
+            type: string
+            description: Text of the note
+    TroubleTicketInformationRequiredEventPayload:
+      type: object
+      description: The event data structure
+      properties:
+        troubleTicket:
+          $ref: '#/components/schemas/TroubleTicket'
+          description: The involved resource data for the event
+    StatusChange:
+      description: Holds the status notification reasons and associated date the status changed, populated by the server
+      allOf:
+      - $ref: '#/components/schemas/Entity'
+      - properties:
+          changeDate:
+            type: string
+            format: date-time
+            description: The date and time the status changed.
+          changeReason:
+            type: string
+            description: The reason why the status changed.
+          status:
+            type: string
+            description: The status of the trouble ticket
+    TroubleTicketStatusType:
+      type: string
+      description: Possible values for the status of the trouble ticket
+      enum:
+      - submitted
+      - acknowledged
+      - rejected
+      - pending
+      - held
+      - inProgress
+      - cancelled
+      - closed
+      - resolved
+    TroubleTicketAttributeValueChangeEventPayload:
+      type: object
+      description: The event data structure
+      properties:
+        troubleTicket:
+          $ref: '#/components/schemas/TroubleTicket'
+          description: The involved resource data for the event
+    TroubleTicketDeleteEventPayload:
+      type: object
+      description: The event data structure
+      properties:
+        troubleTicket:
+          $ref: '#/components/schemas/TroubleTicket'
+          description: The involved resource data for the event
+    TimePeriod_3:
+      type: object
+      description: A period of time, either as a deadline (endDateTime only) a startDateTime only, or both
+      properties:
+        endDateTime:
+          type: string
+          format: date-time
+          description: End of the time period, using IETC-RFC-3339 format
+        startDateTime:
+          type: string
+          format: date-time
+          description: Start of the time period, using IETC-RFC-3339 format. If you define a start, you must also define an end
+    TroubleTicketRelationship:
+      description: Represents a relationship between trouble Trouble Tickets
+      allOf:
+      - $ref: '#/components/schemas/Entity'
+      - properties:
+          id:
+            type: string
+            description: Unique identifier of the Trouble Ticket
+          href:
+            type: string
+            description: Reference of the Trouble Ticket
+          name:
+            type: string
+            description: Name of the Trouble Ticket
+          relationshipType:
+            type: string
+            description: Type of the  Trouble Ticket relationship can be isChiled, dependent etc...
+    TroubleTicketDeleteEvent:
+      description: The notification data structure
+      allOf:
+      - $ref: '#/components/schemas/Event'
+      - properties:
+          event:
+            $ref: '#/components/schemas/TroubleTicketDeleteEventPayload'
+            description: The event payload linked to the involved resource object
+    TroubleTicket:
+      description: A trouble ticket is a record of an issue that is created, tracked, and managed by a trouble ticket management system
+      allOf:
+      - $ref: '#/components/schemas/Entity'
+      - properties:
+          id:
+            type: string
+            description: Unique identifier of the trouble ticket
+          href:
+            type: string
+            description: Hyperlink, a reference to the trouble ticket entity
+          creationDate:
+            type: string
+            format: date-time
+            description: The date on which the trouble ticket was created
+          description:
+            type: string
+            description: Description of the trouble or issue
+          expectedResolutionDate:
+            type: string
+            format: date-time
+            description: The expected resolution date determined by the trouble ticket system
+          externalId:
+            type: string
+            description: Additional identifier coming from an external system
+          lastUpdate:
+            type: string
+            format: date-time
+            description: The date and time that the trouble ticked was last updated
+          name:
+            type: string
+            description: Name of the trouble ticket, typically a short description provided by the user that create the ticket
+          priority:
+            type: string
+            description: 'The priority of the trouble ticket and how quickly the issue should be resolved. Example: Critical, High, Medium, Low. The value is set by the ticket management system considering the severity, ticket type etc...'
+          requestedResolutionDate:
+            type: string
+            format: date-time
+            description: The resolution date requested by the user
+          resolutionDate:
+            type: string
+            format: date-time
+            description: The date and time the trouble ticket was resolved
+          severity:
+            type: string
+            description: "The severity of the issue. Indicate the implication of the issue on the expected functionality e.g. of a system, application, service etc.. \nSeverity values can be for example : Critical, Major, Minor"
+          statusChangeDate:
+            type: string
+            format: date-time
+            description: The date and time the status changed.
+          statusChangeReason:
+            type: string
+            description: The reason for changing the status
+          ticketType:
+            type: string
+            description: represent a business type of the trouble ticket e.g. incident, complain, request
+          attachment:
+            description: File(s) attached to the trouble ticket. e.g. pictur of broken device, scaning of a bill or charge
+            type: array
+            items:
+              $ref: '#/components/schemas/AttachmentRefOrValue_3'
+          channel:
+            $ref: '#/components/schemas/ChannelRef'
+            description: The channel that origin the trouble ticket
+          note:
+            description: The note(s) that are associated to the ticket.
+            type: array
+            items:
+              $ref: '#/components/schemas/Note_4'
+          relatedEntity:
+            description: An entity that is related to the ticket such as a bill, a product, etc. The entity against which the ticket is associated.
+            type: array
+            items:
+              $ref: '#/components/schemas/RelatedEntity_2'
+          relatedParty:
+            description: The related party(ies) that are associated to the ticket.
+            type: array
+            items:
+              $ref: '#/components/schemas/RelatedParty_4'
+          status:
+            $ref: '#/components/schemas/TroubleTicketStatusType'
+            description: The current status of the trouble ticket
+          statusChange:
+            description: The status change history that are associated to the ticket.Populated by the server
+            type: array
+            items:
+              $ref: '#/components/schemas/StatusChange'
+          troubleTicketRelationship:
+            description: A list of trouble ticket relationships (TroubleTicketRelationship [*]). Represents a relationship between trouble tickets
+            type: array
+            items:
+              $ref: '#/components/schemas/TroubleTicketRelationship'
+x-refined-from:
+- bell-canada-change-management-api-openapi.json
+- bell-canada-resource-inventory-api-openapi.json
+- bell-canada-service-order-api-openapi.json
+- bell-canada-trouble-ticket-api-openapi.json

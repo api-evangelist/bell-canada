@@ -1,0 +1,396 @@
+openapi: 3.2.0
+info:
+  title: ServiceOrdering Cancel Service Order API
+  description: "## TMF API Reference : TMF 641 - Service Ordering Management\n\n Version 4.6 \n\nThe Service Order API provides a standardized mechanism for managing Service Order, a type of order which can be used to place an order between internal Customer Order management system to service order management system or between a service provider and a partner and vice versa.\n\n### Service Order resource\nA service order will describe a list of service order items.  A service order item references an action on an existing  or  future  service.  By  service  we  designed  Customer Facing  Service  (CFS)  as  well  as  Resource Facing Service (RFS).\nFrom a component perspective, a service order should be available\n- from a Service Orchestration Component (and it could mix CFS and RFS)\n- from an Infrastructure Control & Management component (and it would have only RFS)\n\n### TMF641 performs the following operations on service order resource :\n- Retrieval of a service order or a collection of service orders depending on filter criteria\n- Partial update of a service order (including updating rules)\n- Creation of a service order (including default values and creation rules)\n- Deletion of service order (for administration purposes)\n- Notification of events on Service order\n\n**Cancel Service Order resource**\n\nThis resource is used to request a service order cancellation.\n\n**TMF641 provides following operations on Cancel Service Order resource :**\n\n- Retrieval of a cancel service order or a collection of cancel service orders \n- Creation of a cancel service order \n- Notification of events on cancel service order.\n\nCopyright Â© TM Forum 2020. All Rights Reserved"
+  version: 4.6.0
+servers:
+- url: https://serverRoot/tmf-api/serviceOrdering/v4
+tags:
+- name: cancelServiceOrder
+paths:
+  /cancelServiceOrder:
+    get:
+      operationId: listCancelServiceOrder
+      summary: List or find CancelServiceOrder objects
+      description: This operation list or find CancelServiceOrder entities
+      tags:
+      - cancelServiceOrder
+      parameters:
+      - in: query
+        name: fields
+        required: false
+        description: Comma-separated properties to be provided in response
+        schema:
+          type: string
+      - in: query
+        name: offset
+        required: false
+        description: Requested index for start of resources to be provided in response
+        schema:
+          type: integer
+      - in: query
+        name: limit
+        required: false
+        description: Requested number of resources to be provided in response
+        schema:
+          type: integer
+      - in: query
+        name: sort
+        required: false
+        description: To have the output sorted by fields. Can support one or many fields, as well as ascending and descending sort order
+        schema:
+          type: string
+      - in: query
+        name: expand
+        required: false
+        description: Lists the sub-entities to expand along with the depth value. Empty means expand all at depth level N
+        schema:
+          type: string
+      - in: query
+        name: depth
+        required: false
+        description: Depth level where objects are dereferenced and inserted as values into the response
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          headers:
+            X-Result-Count:
+              description: Actual number of items returned in the response body
+              schema:
+                type: integer
+            X-Total-Count:
+              description: Total number of items matching criteria
+              schema:
+                type: integer
+          content:
+            application/json;charset=utf-8:
+              schema:
+                items:
+                  $ref: '#/components/schemas/CancelServiceOrder'
+                type: array
+        '400':
+          description: Bad Request
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      operationId: createCancelServiceOrder
+      summary: Creates a CancelServiceOrder
+      description: This operation creates a CancelServiceOrder entity.
+      tags:
+      - cancelServiceOrder
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/CancelServiceOrder'
+        '202':
+          description: Accepted
+        '400':
+          description: Bad Request
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+      requestBody:
+        content:
+          application/json;charset=utf-8:
+            schema:
+              $ref: '#/components/schemas/CancelServiceOrder_Create'
+        description: The CancelServiceOrder to be created
+        required: true
+  /cancelServiceOrder/{id}:
+    get:
+      operationId: retrieveCancelServiceOrder
+      summary: Retrieves a CancelServiceOrder by ID
+      description: This operation retrieves a CancelServiceOrder entity. Attribute selection is enabled for all first level attributes.
+      tags:
+      - cancelServiceOrder
+      parameters:
+      - in: path
+        name: id
+        required: true
+        description: Identifier of the CancelServiceOrder
+        schema:
+          type: string
+      - in: query
+        name: fields
+        required: false
+        description: Comma-separated properties to be provided in response
+        schema:
+          type: string
+      - in: query
+        name: expand
+        required: false
+        description: Lists the sub-entities to expand along with the depth value. Empty means expand all at depth level N
+        schema:
+          type: string
+      - in: query
+        name: depth
+        required: false
+        description: Depth level where objects are dereferenced and inserted as values into the response
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/CancelServiceOrder'
+        '400':
+          description: Bad Request
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    Error:
+      description: Used when an API throws an Error, typically with a HTTP error response-code (3xx, 4xx, 5xx)
+      allOf:
+      - $ref: '#/components/schemas/Entity'
+      - required:
+        - code
+        - reason
+        properties:
+          code:
+            type: string
+            description: Application relevant detail, defined in the API or a common list.
+          reason:
+            type: string
+            description: Explanation of the reason for the error which can be shown to a client user.
+          message:
+            type: string
+            description: More details and corrective actions related to the error which can be shown to a client user.
+          status:
+            type: string
+            description: HTTP Error code extension
+          referenceError:
+            type: string
+            format: uri
+            description: URI of documentation describing the error.
+    TaskStateType:
+      type: string
+      description: Possible values for the state of a task
+      enum:
+      - accepted
+      - terminatedWithError
+      - inProgress
+      - done
+    CancelServiceOrder_Create:
+      description: 'Request for cancellation an existing Service order
+
+        Skipped properties: id,href,state,effectiveCancellationDate,completionMessage,errorMessage'
+      allOf:
+      - $ref: '#/components/schemas/Entity'
+      - required:
+        - serviceOrder
+        properties:
+          cancellationReason:
+            type: string
+            description: Reason why the order is cancelled.
+          requestedCancellationDate:
+            type: string
+            format: date-time
+            description: Date when the submitter wants the order to be cancelled
+          serviceOrder:
+            $ref: '#/components/schemas/ServiceOrderRef'
+    EntityRef:
+      description: Base entityRef schema for use in TMForum Open-APIs
+      allOf:
+      - $ref: '#/components/schemas/Entity'
+      - properties:
+          id:
+            type: string
+            description: Unique identifier of a related entity.
+          href:
+            type: string
+            description: Reference of the related entity.
+          name:
+            type: string
+            description: Name of the related entity.
+          '@referredType':
+            type: string
+            description: The actual type of the target instance when needed for disambiguation.
+    Entity:
+      discriminator:
+        propertyName: '@type'
+      description: Base entity schema for use in TMForum Open-APIs
+      properties:
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class entity name
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          format: uri
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+    ErrorMessage:
+      description: represents an Error
+      allOf:
+      - $ref: '#/components/schemas/Entity'
+      - properties:
+          code:
+            type: string
+            description: error code
+          message:
+            type: string
+            description: More details and corrective actions related to the error
+          reason:
+            type: string
+            description: Explanation of the reason for the error
+          referenceError:
+            type: string
+            format: uri
+            description: URI of documentation describing the error
+          status:
+            type: string
+            description: error code extension like sys-ABC-2001
+    ServiceOrderRef:
+      description: Service Order reference. Useful to understand the which was the Service order through which the service was instantiated in the service inventory
+      allOf:
+      - $ref: '#/components/schemas/EntityRef'
+    CancelServiceOrder:
+      description: Request for cancellation an existing Service order
+      allOf:
+      - $ref: '#/components/schemas/Entity'
+      - properties:
+          id:
+            type: string
+            description: unique identifier
+          href:
+            type: string
+            format: uri
+            description: Hyperlink reference
+          cancellationReason:
+            type: string
+            description: Reason why the order is cancelled.
+          completionMessage:
+            type: string
+            description: an optional message describing the completion of the task if it is done as expected or it is denied for a reason (like order in an state of PoNR).
+          effectiveCancellationDate:
+            type: string
+            format: date-time
+            description: Date when the order is cancelled.
+          requestedCancellationDate:
+            type: string
+            format: date-time
+            description: Date when the submitter wants the order to be cancelled
+          errorMessage:
+            $ref: '#/components/schemas/ErrorMessage'
+            description: the error(s) cause the termination of cancelServiceOrder (in TerminatedWithError state)
+          serviceOrder:
+            $ref: '#/components/schemas/ServiceOrderRef'
+          state:
+            $ref: '#/components/schemas/TaskStateType'
+            description: Tracks the lifecycle status of the cancellation request, such as Acknowledged, Rejected, InProgress, Pending and so on.

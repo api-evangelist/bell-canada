@@ -1,0 +1,1345 @@
+openapi: 3.2.0
+info:
+  title: ServiceOrdering Service Order API
+  description: "## TMF API Reference : TMF 641 - Service Ordering Management\n\n Version 4.6 \n\nThe Service Order API provides a standardized mechanism for managing Service Order, a type of order which can be used to place an order between internal Customer Order management system to service order management system or between a service provider and a partner and vice versa.\n\n### Service Order resource\nA service order will describe a list of service order items.  A service order item references an action on an existing  or  future  service.  By  service  we  designed  Customer Facing  Service  (CFS)  as  well  as  Resource Facing Service (RFS).\nFrom a component perspective, a service order should be available\n- from a Service Orchestration Component (and it could mix CFS and RFS)\n- from an Infrastructure Control & Management component (and it would have only RFS)\n\n### TMF641 performs the following operations on service order resource :\n- Retrieval of a service order or a collection of service orders depending on filter criteria\n- Partial update of a service order (including updating rules)\n- Creation of a service order (including default values and creation rules)\n- Deletion of service order (for administration purposes)\n- Notification of events on Service order\n\n**Cancel Service Order resource**\n\nThis resource is used to request a service order cancellation.\n\n**TMF641 provides following operations on Cancel Service Order resource :**\n\n- Retrieval of a cancel service order or a collection of cancel service orders \n- Creation of a cancel service order \n- Notification of events on cancel service order.\n\nCopyright Â© TM Forum 2020. All Rights Reserved"
+  version: 4.6.0
+servers:
+- url: https://serverRoot/tmf-api/serviceOrdering/v4
+tags:
+- name: serviceOrder
+paths:
+  /serviceOrder:
+    get:
+      operationId: listServiceOrder
+      summary: List or find ServiceOrder objects
+      description: This operation list or find ServiceOrder entities
+      tags:
+      - serviceOrder
+      parameters:
+      - in: query
+        name: fields
+        required: false
+        description: Comma-separated properties to be provided in response
+        schema:
+          type: string
+      - in: query
+        name: offset
+        required: false
+        description: Requested index for start of resources to be provided in response
+        schema:
+          type: integer
+      - in: query
+        name: limit
+        required: false
+        description: Requested number of resources to be provided in response
+        schema:
+          type: integer
+      - in: query
+        name: sort
+        required: false
+        description: To have the output sorted by fields. Can support one or many fields, as well as ascending and descending sort order
+        schema:
+          type: string
+      - in: query
+        name: expand
+        required: false
+        description: Lists the sub-entities to expand along with the depth value. Empty means expand all at depth level N
+        schema:
+          type: string
+      - in: query
+        name: depth
+        required: false
+        description: Depth level where objects are dereferenced and inserted as values into the response
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          headers:
+            X-Result-Count:
+              description: Actual number of items returned in the response body
+              schema:
+                type: integer
+            X-Total-Count:
+              description: Total number of items matching criteria
+              schema:
+                type: integer
+          content:
+            application/json;charset=utf-8:
+              schema:
+                items:
+                  $ref: '#/components/schemas/ServiceOrder'
+                type: array
+        '400':
+          description: Bad Request
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      operationId: createServiceOrder
+      summary: Creates a ServiceOrder
+      description: This operation creates a ServiceOrder entity.
+      tags:
+      - serviceOrder
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/ServiceOrder'
+        '202':
+          description: Accepted
+        '400':
+          description: Bad Request
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+      requestBody:
+        content:
+          application/json;charset=utf-8:
+            schema:
+              $ref: '#/components/schemas/ServiceOrder_Create'
+        description: The ServiceOrder to be created
+        required: true
+  /serviceOrder/{id}:
+    get:
+      operationId: retrieveServiceOrder
+      summary: Retrieves a ServiceOrder by ID
+      description: This operation retrieves a ServiceOrder entity. Attribute selection is enabled for all first level attributes.
+      tags:
+      - serviceOrder
+      parameters:
+      - in: path
+        name: id
+        required: true
+        description: Identifier of the ServiceOrder
+        schema:
+          type: string
+      - in: query
+        name: fields
+        required: false
+        description: Comma-separated properties to be provided in response
+        schema:
+          type: string
+      - in: query
+        name: expand
+        required: false
+        description: Lists the sub-entities to expand along with the depth value. Empty means expand all at depth level N
+        schema:
+          type: string
+      - in: query
+        name: depth
+        required: false
+        description: Depth level where objects are dereferenced and inserted as values into the response
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/ServiceOrder'
+        '400':
+          description: Bad Request
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+    patch:
+      operationId: patchServiceOrder
+      summary: Updates partially a ServiceOrder
+      description: This operation updates partially a ServiceOrder entity.
+      tags:
+      - serviceOrder
+      parameters:
+      - in: path
+        name: id
+        required: true
+        description: Identifier of the ServiceOrder
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Updated
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/ServiceOrder'
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+      requestBody:
+        content:
+          application/json;charset=utf-8:
+            schema:
+              $ref: '#/components/schemas/ServiceOrder_Update'
+        description: The ServiceOrder to be updated
+        required: true
+    delete:
+      operationId: deleteServiceOrder
+      summary: Deletes a ServiceOrder
+      description: This operation deletes a ServiceOrder entity.
+      tags:
+      - serviceOrder
+      parameters:
+      - in: path
+        name: id
+        required: true
+        description: Identifier of the ServiceOrder
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Deleted
+        '400':
+          description: Bad Request
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    OrderItemActionType:
+      type: string
+      description: action to be performed on the product
+      enum:
+      - add
+      - modify
+      - delete
+      - noChange
+    RelatedParty:
+      description: Related Party reference. A related party defines party or party role linked to a specific entity.
+      allOf:
+      - $ref: '#/components/schemas/Entity'
+      - required:
+        - id
+        - '@referredType'
+        properties:
+          id:
+            type: string
+            description: unique identifier
+          href:
+            type: string
+            format: uri
+            description: Hyperlink reference
+          name:
+            type: string
+            description: Name of the related entity.
+          role:
+            type: string
+            description: Role played by the related party
+          '@referredType':
+            type: string
+            description: The actual type of the target instance when needed for disambiguation.
+    ServiceOrder:
+      allOf:
+      - $ref: '#/components/schemas/Entity'
+      - properties:
+          id:
+            type: string
+            description: ID created on repository side
+          href:
+            type: string
+            description: Hyperlink to access the order
+          cancellationDate:
+            type: string
+            format: date-time
+            description: 'Date when the order is cancelled. This is used when order is cancelled. '
+          cancellationReason:
+            type: string
+            description: 'Reason why the order is cancelled. This is used when order is cancelled. '
+          category:
+            type: string
+            description: 'Used to categorize the order, useful for the OM system, such as: Broadband, TVOption'
+          completionDate:
+            type: string
+            format: date-time
+            description: Effective delivery date amended by the provider
+          description:
+            type: string
+            description: A free-text description of the service order
+          expectedCompletionDate:
+            type: string
+            format: date-time
+            description: Expected delivery date amended by the provider
+          externalId:
+            type: string
+            description: ID given by the consumer to facilitate searches
+          notificationContact:
+            type: string
+            description: Contact attached to the order to send back information regarding this order
+          orderDate:
+            type: string
+            format: date-time
+          priority:
+            type: string
+            description: Can be used by consumers to prioritize orders in a Service Order Management system
+          requestedCompletionDate:
+            type: string
+            format: date-time
+            description: Requested delivery date from the requestors perspective
+          requestedStartDate:
+            type: string
+            format: date-time
+            description: Order start date wished by the requestor
+          startDate:
+            type: string
+            format: date-time
+            description: Date when the order was started for processing
+          errorMessage:
+            description: the error(s) cause an order status change
+            type: array
+            items:
+              $ref: '#/components/schemas/ServiceOrderErrorMessage'
+          externalReference:
+            type: array
+            items:
+              $ref: '#/components/schemas/ExternalReference'
+          jeopardyAlert:
+            description: A list of jeopardy alerts related to this order
+            type: array
+            items:
+              $ref: '#/components/schemas/ServiceOrderJeopardyAlert'
+          milestone:
+            description: A list of milestones related to this order
+            type: array
+            items:
+              $ref: '#/components/schemas/ServiceOrderMilestone'
+          note:
+            description: Extra-information about the order; e.g. useful to add extra delivery information that could be useful for a human process
+            type: array
+            items:
+              $ref: '#/components/schemas/Note'
+          orderRelationship:
+            description: A list of service orders related to this order (e.g. prerequisite, dependent on)
+            type: array
+            items:
+              $ref: '#/components/schemas/ServiceOrderRelationship'
+          relatedParty:
+            description: A list of parties which are involved in this order and the role they are playing
+            type: array
+            items:
+              $ref: '#/components/schemas/RelatedParty'
+          serviceOrderItem:
+            description: A list of service order items to be processed by this order
+            type: array
+            items:
+              $ref: '#/components/schemas/ServiceOrderItem'
+          state:
+            $ref: '#/components/schemas/ServiceOrderStateType'
+            description: 'State of the order: described in the state-machine diagram'
+    ConstraintRef:
+      description: Constraint reference. The Constraint resource represents a policy/rule applied to an entity or entity spec.
+      allOf:
+      - $ref: '#/components/schemas/EntityRef'
+      - properties:
+          version:
+            type: string
+            description: constraint version
+    ServiceOrderMilestone:
+      description: ServiceOrderMilestone represents an action or event marking a significant change or stage in processing of a service order.
+      allOf:
+      - $ref: '#/components/schemas/Entity'
+      - properties:
+          id:
+            type: string
+            description: identifier of the Milestone
+          description:
+            type: string
+            description: free-text description of the Milestone
+          message:
+            type: string
+            description: A string represents the message of the milestone
+          milestoneDate:
+            type: string
+            format: date-time
+            description: A date time( DateTime). The date that the milestone happens
+          name:
+            type: string
+            description: A string used to give a name to the milestone
+          status:
+            type: string
+            description: The milestone status
+          serviceOrderItem:
+            description: A list of order item references corresponded to this milestone
+            type: array
+            items:
+              $ref: '#/components/schemas/ServiceOrderItemRef'
+    FeatureRelationship:
+      type: object
+      description: Configuration feature
+      required:
+      - name
+      - relationshipType
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the target feature.
+        name:
+          type: string
+          description: This is the name of the target feature.
+        relationshipType:
+          type: string
+          description: This is the type of the feature relationship.
+        validFor:
+          $ref: '#/components/schemas/TimePeriod'
+          description: The period for which this feature relationship is valid.
+    ServiceOrderRelationship:
+      description: Linked service order to the one containing this attribute
+      allOf:
+      - $ref: '#/components/schemas/Entity'
+      - required:
+        - id
+        - relationshipType
+        properties:
+          id:
+            type: string
+            description: The id of the related order
+          href:
+            type: string
+            description: A hyperlink to the related order
+          relationshipType:
+            type: string
+            description: 'The type of related order, such as: [dependency] if the order needs to be [not started] until another order item is complete (a service order in this case) or [cross-ref] to keep track of the source order (a productOrder)'
+          '@referredType':
+            type: string
+            description: The entity type of the related order
+    Entity:
+      discriminator:
+        propertyName: '@type'
+      description: Base entity schema for use in TMForum Open-APIs
+      properties:
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class entity name
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          format: uri
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+    ResourceRef:
+      allOf:
+      - $ref: '#/components/schemas/EntityRef'
+    ServiceSpecificationRef:
+      description: 'Service specification reference: ServiceSpecification(s) required to realize a ProductSpecification.'
+      allOf:
+      - $ref: '#/components/schemas/EntityRef'
+      - properties:
+          version:
+            type: string
+            description: Service specification version
+    ServiceOrderItem:
+      allOf:
+      - $ref: '#/components/schemas/Entity'
+      - required:
+        - id
+        - action
+        - service
+        properties:
+          id:
+            type: string
+            description: Identifier of the individual line item
+          quantity:
+            type: integer
+            description: Quantity ordered
+          action:
+            $ref: '#/components/schemas/OrderItemActionType'
+            description: 'The action to be carried out on the Service. Can be: add, modify, delete, noChange'
+          appointment:
+            $ref: '#/components/schemas/AppointmentRef'
+            description: An appointment that was set up with a related party for this order item
+          errorMessage:
+            description: the error(s) cause an order item status change
+            type: array
+            items:
+              $ref: '#/components/schemas/ServiceOrderItemErrorMessage'
+          service:
+            $ref: '#/components/schemas/ServiceRefOrValue'
+            description: The Service to be acted on by the order item
+          serviceOrderItem:
+            description: A list of order items embedded to this order item
+            type: array
+            items:
+              $ref: '#/components/schemas/ServiceOrderItem'
+          serviceOrderItemRelationship:
+            description: A list of order items related to this order item
+            type: array
+            items:
+              $ref: '#/components/schemas/ServiceOrderItemRelationship'
+          state:
+            $ref: '#/components/schemas/ServiceOrderItemStateType'
+            description: 'State of the order item: described in the state machine diagram. This is the requested state.'
+    Characteristic:
+      discriminator:
+        propertyName: '@type'
+      type: object
+      description: Describes a given characteristic of an object or entity through a name/value pair.
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the characteristic
+        name:
+          type: string
+          description: Name of the characteristic
+        valueType:
+          type: string
+          description: Data type of the value of the characteristic
+        characteristicRelationship:
+          type: array
+          items:
+            $ref: '#/components/schemas/CharacteristicRelationship'
+        '@schemaLocation':
+          type: string
+          format: uri
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+    Service:
+      description: 'Service is a base class for defining the Service hierarchy. All Services are characterized as either being possibly visible and usable by a Customer or not. This gives rise to the two subclasses of Service: CustomerFacingService and ResourceFacingService.'
+      allOf:
+      - $ref: '#/components/schemas/Entity'
+      - properties:
+          id:
+            type: string
+            description: Unique identifier of the service
+          href:
+            type: string
+            description: Reference of the service
+          category:
+            type: string
+            description: Is it a customer facing or resource facing service
+          description:
+            type: string
+            description: Free-text description of the service
+          endDate:
+            type: string
+            format: date-time
+            description: Date when the service ends
+          hasStarted:
+            type: boolean
+            description: If TRUE, this Service has already been started
+          isBundle:
+            type: boolean
+            description: If true, the service is a ServiceBundle which regroup a service hierachy. If false, the service is a 'atomic' service (hierachy leaf).
+          isServiceEnabled:
+            type: boolean
+            description: 'If FALSE and hasStarted is FALSE, this particular Service has NOT been enabled for use - if FALSE and hasStarted is TRUE then the service has failed '
+          isStateful:
+            type: boolean
+            description: If TRUE, this Service can be changed without affecting any other services
+          name:
+            type: string
+            description: Name of the service
+          serviceDate:
+            type: string
+            description: Date when the service was created (whatever its status).
+          serviceType:
+            type: string
+            description: Business type of the service
+          startDate:
+            type: string
+            format: date-time
+            description: Date when the service starts
+          startMode:
+            type: string
+            description: 'This attribute is an enumerated integer that indicates how the Service is started, such as: 0: Unknown; 1: Automatically by the managed environment; 2: Automatically by the owning device; 3: Manually by the Provider of the Service; 4: Manually by a Customer of the Provider; 5: Any of the above'
+          feature:
+            description: 'A list of feature associated with this service '
+            type: array
+            items:
+              $ref: '#/components/schemas/Feature'
+          note:
+            description: A list of notes made on this service
+            type: array
+            items:
+              $ref: '#/components/schemas/Note'
+          place:
+            description: A list of places (Place [*]). Used to define a place useful for the service (for example a geographical place whre the service is installed)
+            type: array
+            items:
+              $ref: '#/components/schemas/RelatedPlaceRefOrValue'
+          relatedEntity:
+            description: 'A list of related  entity in relationship with this service '
+            type: array
+            items:
+              $ref: '#/components/schemas/RelatedEntityRefOrValue'
+          relatedParty:
+            description: A list of related party references (RelatedParty [*]). A related party defines party or party role linked to a specific entity
+            type: array
+            items:
+              $ref: '#/components/schemas/RelatedParty'
+          serviceCharacteristic:
+            description: 'A list of characteristics that characterize this service (ServiceCharacteristic [*]) '
+            type: array
+            items:
+              $ref: '#/components/schemas/Characteristic'
+          serviceOrderItem:
+            description: A list of service order items related to this service
+            type: array
+            items:
+              $ref: '#/components/schemas/RelatedServiceOrderItem'
+          serviceRelationship:
+            description: A list of service relationships (ServiceRelationship [*]). Describes links with other service(s) in the inventory.
+            type: array
+            items:
+              $ref: '#/components/schemas/ServiceRelationship'
+          serviceSpecification:
+            $ref: '#/components/schemas/ServiceSpecificationRef'
+            description: The specification from which this service was instantiated
+          state:
+            $ref: '#/components/schemas/ServiceStateType'
+            description: The life cycle state of the service, such as designed, reserved, active, etc...
+          supportingResource:
+            description: 'A list of supporting resources (SupportingResource [*]).Note: only Service of type RFS can be associated with Resources'
+            type: array
+            items:
+              $ref: '#/components/schemas/ResourceRef'
+          supportingService:
+            description: A list of supporting services (SupportingService [*]). A collection of services that support this service (bundling, link CFS to RFS)
+            type: array
+            items:
+              $ref: '#/components/schemas/ServiceRefOrValue'
+    ServiceOrderItemRef:
+      allOf:
+      - $ref: '#/components/schemas/EntityRef'
+      - properties:
+          itemId:
+            type: string
+            description: Identifier of the line item
+          serviceOrderHref:
+            type: string
+            format: uri
+            description: Link to the order to which this item belongs to
+          serviceOrderId:
+            type: string
+            description: Identifier of the order that this item belongs to
+    ServiceOrder_Update:
+      type: object
+      description: '
+
+        Skipped properties: id,href,orderDate,jeopardyAlert,errorMessage,milestone,@baseType,@schemaLocation,@type,cancellationDate,cancellationReason,category,completionDate,startDate'
+      properties:
+        description:
+          type: string
+          description: A free-text description of the service order
+        expectedCompletionDate:
+          type: string
+          format: date-time
+          description: Expected delivery date amended by the provider
+        externalId:
+          type: string
+          description: ID given by the consumer to facilitate searches
+        notificationContact:
+          type: string
+          description: Contact attached to the order to send back information regarding this order
+        priority:
+          type: string
+          description: Can be used by consumers to prioritize orders in a Service Order Management system
+        requestedCompletionDate:
+          type: string
+          format: date-time
+          description: Requested delivery date from the requestors perspective
+        requestedStartDate:
+          type: string
+          format: date-time
+          description: Order start date wished by the requestor
+        externalReference:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExternalReference'
+        note:
+          description: Extra-information about the order; e.g. useful to add extra delivery information that could be useful for a human process
+          type: array
+          items:
+            $ref: '#/components/schemas/Note'
+        orderRelationship:
+          description: A list of service orders related to this order (e.g. prerequisite, dependent on)
+          type: array
+          items:
+            $ref: '#/components/schemas/ServiceOrderRelationship'
+        relatedParty:
+          description: A list of parties which are involved in this order and the role they are playing
+          type: array
+          items:
+            $ref: '#/components/schemas/RelatedParty'
+        serviceOrderItem:
+          description: A list of service order items to be processed by this order
+          type: array
+          items:
+            $ref: '#/components/schemas/ServiceOrderItem'
+        state:
+          $ref: '#/components/schemas/ServiceOrderStateType'
+          description: 'State of the order: described in the state-machine diagram'
+    ServiceRef:
+      description: Service reference, for when Service is used by other entities
+      allOf:
+      - $ref: '#/components/schemas/EntityRef'
+    ServiceOrderStateType:
+      type: string
+      description: Possible values for the state of the order
+      enum:
+      - acknowledged
+      - rejected
+      - pending
+      - held
+      - inProgress
+      - cancelled
+      - completed
+      - failed
+      - partial
+      - assessingCancellation
+      - pendingCancellation
+    Place:
+      description: Place reference. Place defines the places where the products are sold or delivered.
+      allOf:
+      - $ref: '#/components/schemas/Entity'
+      - properties:
+          id:
+            type: string
+            description: Unique identifier of the place
+          href:
+            type: string
+            description: Unique reference of the place
+          name:
+            type: string
+            description: A user-friendly name for the place, such as [Paris Store], [London Store], [Main Home]
+    ServiceOrderItemRelationship:
+      description: Linked service order item to the one containing this attribute
+      allOf:
+      - $ref: '#/components/schemas/Entity'
+      - properties:
+          relationshipType:
+            type: string
+            description: 'The type of related order item, can be: dependency if the order item needs to be not started until another order item is complete'
+          orderItem:
+            $ref: '#/components/schemas/ServiceOrderItemRef'
+            description: A service order item in relationship with this order item
+    RelatedServiceOrderItem:
+      description: RelatedServiceOrderItem (a ServiceOrder item) .The service order item which triggered service creation/change/termination.
+      allOf:
+      - $ref: '#/components/schemas/Entity'
+      - properties:
+          id:
+            type: string
+            description: unique identifier
+          href:
+            type: string
+            format: uri
+            description: Hyperlink reference
+          itemId:
+            type: string
+            description: Identifier of the order item where the service was managed
+          role:
+            type: string
+            description: role of the service order item for this service
+          serviceOrderHref:
+            type: string
+            description: Reference of the related entity.
+          serviceOrderId:
+            type: string
+            description: Unique identifier of a related entity.
+          itemAction:
+            $ref: '#/components/schemas/OrderItemActionType'
+            description: Action of the order item for this service
+          '@referredType':
+            type: string
+            description: The actual type of the target instance when needed for disambiguation.
+    ServiceOrderJeopardyAlert:
+      description: A ServiceOrderJeopardyAlert represents a predicted exception during a service order processing that would brings risk to complete successfully the ordetr.
+      allOf:
+      - $ref: '#/components/schemas/Entity'
+      - properties:
+          id:
+            type: string
+            description: identifier of the JeopardyAlert
+          alertDate:
+            type: string
+            format: date-time
+            description: A date time( DateTime). The date that the alert issued
+          exception:
+            type: string
+            description: ' The exception associated with this jeopardy alert'
+          jeopardyType:
+            type: string
+            description: A string represents the type of jeopardy/risk like Normal, Hazard, Critical, ...
+          message:
+            type: string
+            description: A string represents the message of the alert
+          name:
+            type: string
+            description: A string used to give a name to the jeopardy alert
+          serviceOrderItem:
+            description: A list of order item references corresponded to this alert
+            type: array
+            items:
+              $ref: '#/components/schemas/ServiceOrderItemRef'
+    ServiceOrder_Create:
+      description: '
+
+        Skipped properties: id,href,orderDate,completionDate,expectedCompletionDate,startDate,state,jeopardyAlert,errorMessage,milestone'
+      allOf:
+      - $ref: '#/components/schemas/Entity'
+      - required:
+        - serviceOrderItem
+        properties:
+          cancellationDate:
+            type: string
+            format: date-time
+            description: 'Date when the order is cancelled. This is used when order is cancelled. '
+          cancellationReason:
+            type: string
+            description: 'Reason why the order is cancelled. This is used when order is cancelled. '
+          category:
+            type: string
+            description: 'Used to categorize the order, useful for the OM system, such as: Broadband, TVOption'
+          description:
+            type: string
+            description: A free-text description of the service order
+          externalId:
+            type: string
+            description: ID given by the consumer to facilitate searches
+          notificationContact:
+            type: string
+            description: Contact attached to the order to send back information regarding this order
+          priority:
+            type: string
+            description: Can be used by consumers to prioritize orders in a Service Order Management system
+          requestedCompletionDate:
+            type: string
+            format: date-time
+            description: Requested delivery date from the requestors perspective
+          requestedStartDate:
+            type: string
+            format: date-time
+            description: Order start date wished by the requestor
+          externalReference:
+            type: array
+            items:
+              $ref: '#/components/schemas/ExternalReference'
+          note:
+            description: Extra-information about the order; e.g. useful to add extra delivery information that could be useful for a human process
+            type: array
+            items:
+              $ref: '#/components/schemas/Note'
+          orderRelationship:
+            description: A list of service orders related to this order (e.g. prerequisite, dependent on)
+            type: array
+            items:
+              $ref: '#/components/schemas/ServiceOrderRelationship'
+          relatedParty:
+            description: A list of parties which are involved in this order and the role they are playing
+            type: array
+            items:
+              $ref: '#/components/schemas/RelatedParty'
+          serviceOrderItem:
+            description: A list of service order items to be processed by this order
+            type: array
+            items:
+              $ref: '#/components/schemas/ServiceOrderItem'
+            minItems: 1
+    CharacteristicRelationship:
+      discriminator:
+        propertyName: '@type'
+      type: object
+      description: Another Characteristic that is related to the current Characteristic;
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the characteristic
+        relationshipType:
+          type: string
+          description: The type of relationship
+        '@schemaLocation':
+          type: string
+          format: uri
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+    ExternalReference:
+      description: External reference of the individual or reference in other system
+      allOf:
+      - $ref: '#/components/schemas/Entity'
+      - properties:
+          externalReferenceType:
+            type: string
+            description: Type of the external reference
+          name:
+            type: string
+            description: External reference name
+    ServiceRelationship:
+      allOf:
+      - $ref: '#/components/schemas/Entity'
+      - required:
+        - relationshipType
+        properties:
+          id:
+            type: string
+            description: unique identifier
+          href:
+            type: string
+            format: uri
+            description: Hyperlink reference
+          relationshipType:
+            type: string
+          service:
+            $ref: '#/components/schemas/ServiceRefOrValue'
+          serviceRelationshipCharacteristic:
+            type: array
+            items:
+              $ref: '#/components/schemas/Characteristic'
+    ServiceOrderItemErrorMessage:
+      description: AServiceOrderItemErrorMessage represents an error that causes a status change in a service order item.
+      allOf:
+      - $ref: '#/components/schemas/Entity'
+      - properties:
+          code:
+            type: string
+            description: error code
+          message:
+            type: string
+            description: More details and corrective actions related to the error
+          reason:
+            type: string
+            description: Explanation of the reason for the error
+          referenceError:
+            type: string
+            format: uri
+            description: URI of documentation describing the error
+          status:
+            type: string
+            description: error code extension like sys-ABC-2001
+          timestamp:
+            type: string
+            format: date-time
+            description: Date when the error happened
+    Feature:
+      type: object
+      description: Configuration feature.
+      required:
+      - name
+      - featureCharacteristic
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the feature.
+        isBundle:
+          type: boolean
+          description: True if this is a feature group. Default is false.
+        isEnabled:
+          type: boolean
+          description: True if this feature is enabled. Default is true.
+        name:
+          type: string
+          description: This is the name for the feature.
+        constraint:
+          description: This is a list of feature constraints.
+          type: array
+          items:
+            $ref: '#/components/schemas/ConstraintRef'
+        featureCharacteristic:
+          description: This is a list of Characteristics for a particular feature.
+          type: array
+          items:
+            $ref: '#/components/schemas/Characteristic'
+          minItems: 1
+        featureRelationship:
+          type: array
+          items:
+            $ref: '#/components/schemas/FeatureRelationship'
+    ServiceStateType:
+      type: string
+      description: Valid values for the lifecycle state of the service
+      enum:
+      - feasibilityChecked
+      - designed
+      - reserved
+      - inactive
+      - active
+      - terminated
+    Note:
+      description: Extra information about a given entity
+      allOf:
+      - $ref: '#/components/schemas/Entity'
+      - required:
+        - text
+        properties:
+          id:
+            type: string
+            description: Identifier of the note within its containing entity
+          author:
+            type: string
+            description: Author of the note
+          date:
+            type: string
+            format: date-time
+            description: Date of the note
+          text:
+            type: string
+            description: Text of the note
+    Error:
+      description: Used when an API throws an Error, typically with a HTTP error response-code (3xx, 4xx, 5xx)
+      allOf:
+      - $ref: '#/components/schemas/Entity'
+      - required:
+        - code
+        - reason
+        properties:
+          code:
+            type: string
+            description: Application relevant detail, defined in the API or a common list.
+          reason:
+            type: string
+            description: Explanation of the reason for the error which can be shown to a client user.
+          message:
+            type: string
+            description: More details and corrective actions related to the error which can be shown to a client user.
+          status:
+            type: string
+            description: HTTP Error code extension
+          referenceError:
+            type: string
+            format: uri
+            description: URI of documentation describing the error.
+    AppointmentRef:
+      description: Refers an appointment, such as a Customer presentation or internal meeting or site visit
+      allOf:
+      - $ref: '#/components/schemas/EntityRef'
+      - properties:
+          description:
+            type: string
+            description: An explanatory text regarding the appointment made with a party
+    ServiceRefOrValue:
+      description: A Service to be created defined by value or existing defined by reference. The polymorphic attributes @type, @schemaLocation & @referredType are related to the Service entity and not the RelatedServiceRefOrValue class itself
+      properties:
+        ref:
+          $ref: '#/components/schemas/ServiceRef'
+          description: A reference to the Service.
+        value:
+          $ref: '#/components/schemas/Service'
+          description: The Service (as a value).
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class entity name
+    RelatedPlaceRefOrValue:
+      description: Related Entity reference. A related place defines a place described by reference or by value linked to a specific entity. The polymorphic attributes @type, @schemaLocation & @referredType are related to the place entity and not the RelatedPlaceRefOrValue class itself
+      properties:
+        role:
+          type: string
+        ref:
+          $ref: '#/components/schemas/PlaceRef'
+          description: A reference to the Place.
+        value:
+          $ref: '#/components/schemas/Place'
+          description: The Place (as a value).
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class entity name
+    RelatedEntityRefOrValue:
+      description: A reference to an entity, where the type of the entity is not known in advance. A related entity defines a entity described by reference or by value linked to a specific entity. The polymorphic attributes @type, @schemaLocation & @referredType are related to the Entity and not the RelatedEntityRefOrValue class itself
+      properties:
+        role:
+          type: string
+        ref:
+          $ref: '#/components/schemas/EntityRef'
+          description: A reference to the Entity.
+        value:
+          $ref: '#/components/schemas/Entity'
+          description: The Entity (as a value).
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class entity name
+    ServiceOrderItemStateType:
+      type: string
+      description: Possible values for the state of the order item
+      enum:
+      - acknowledged
+      - rejected
+      - pending
+      - held
+      - inProgress
+      - cancelled
+      - completed
+      - failed
+      - assessingCancellation
+      - pendingCancellation
+      - partial
+    ServiceOrderErrorMessage:
+      description: A ServiceOrderErrorMessage represents an error that causes a status change in a service order.
+      allOf:
+      - $ref: '#/components/schemas/Entity'
+      - properties:
+          code:
+            type: string
+            description: error code
+          message:
+            type: string
+            description: More details and corrective actions related to the error
+          reason:
+            type: string
+            description: Explanation of the reason for the error
+          referenceError:
+            type: string
+            format: uri
+            description: URI of documentation describing the error
+          status:
+            type: string
+            description: error code extension like sys-ABC-2001
+          timestamp:
+            type: string
+            format: date-time
+            description: Date when the error happened
+          serviceOrderItem:
+            description: A list of order item references corresponded to this error
+            type: array
+            items:
+              $ref: '#/components/schemas/ServiceOrderItemRef'
+    PlaceRef:
+      description: Place reference. PlaceRef defines the placeRefs where the products are sold or delivered.
+      allOf:
+      - $ref: '#/components/schemas/EntityRef'
+    TimePeriod:
+      type: object
+      description: A period of time, either as a deadline (endDateTime only) a startDateTime only, or both
+      properties:
+        endDateTime:
+          type: string
+          format: date-time
+          description: End of the time period, using IETC-RFC-3339 format
+        startDateTime:
+          type: string
+          format: date-time
+          description: Start of the time period, using IETC-RFC-3339 format
+    EntityRef:
+      description: Base entityRef schema for use in TMForum Open-APIs
+      allOf:
+      - $ref: '#/components/schemas/Entity'
+      - properties:
+          id:
+            type: string
+            description: Unique identifier of a related entity.
+          href:
+            type: string
+            description: Reference of the related entity.
+          name:
+            type: string
+            description: Name of the related entity.
+          '@referredType':
+            type: string
+            description: The actual type of the target instance when needed for disambiguation.
