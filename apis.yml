@@ -56,7 +56,8 @@ apis:
   name: Bell Canada Cancel Service Order API
   description: The cancelServiceOrder API from Bell Canada — 2 operation(s) for cancelserviceorder.
   humanURL: https://developer.bell.ca/troubleticket
-  tags:
+  tags: []
+  tags_raw:
   - cancelServiceOrder
   properties:
   - type: OpenAPI
@@ -93,7 +94,8 @@ apis:
   name: Bell Canada Change Request API
   description: The changeRequest API from Bell Canada — 2 operation(s) for changerequest.
   humanURL: https://developer.bell.ca/troubleticket
-  tags:
+  tags: []
+  tags_raw:
   - changeRequest
   properties:
   - type: OpenAPI
@@ -167,7 +169,8 @@ apis:
   name: Bell Canada Logical Resource API
   description: The logicalResource API from Bell Canada — 2 operation(s) for logicalresource.
   humanURL: https://developer.bell.ca/troubleticket
-  tags:
+  tags: []
+  tags_raw:
   - logicalResource
   properties:
   - type: OpenAPI
@@ -243,7 +246,8 @@ apis:
   name: Bell Canada Physical Resource API
   description: The physicalResource API from Bell Canada — 2 operation(s) for physicalresource.
   humanURL: https://developer.bell.ca/troubleticket
-  tags:
+  tags: []
+  tags_raw:
   - physicalResource
   properties:
   - type: OpenAPI
@@ -318,6 +322,8 @@ apis:
   description: The serviceOrder API from Bell Canada — 2 operation(s) for serviceorder.
   humanURL: https://developer.bell.ca/troubleticket
   tags:
+  - ServiceOrder
+  tags_raw:
   - serviceOrder
   properties:
   - type: OpenAPI
@@ -355,6 +361,8 @@ apis:
   description: The troubleTicket API from Bell Canada — 2 operation(s) for troubleticket.
   humanURL: https://developer.bell.ca/troubleticket
   tags:
+  - Trouble Ticket
+  tags_raw:
   - troubleTicket
   properties:
   - type: OpenAPI
