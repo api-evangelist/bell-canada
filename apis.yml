@@ -321,8 +321,7 @@ apis:
   name: Bell Canada Service Order API
   description: The serviceOrder API from Bell Canada — 2 operation(s) for serviceorder.
   humanURL: https://developer.bell.ca/troubleticket
-  tags:
-  - ServiceOrder
+  tags: []
   tags_raw:
   - serviceOrder
   properties:
