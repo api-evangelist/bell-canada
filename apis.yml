@@ -331,16 +331,15 @@ apis:
   - type: Specification
     url: >-
       https://developer.bell.ca/uploads/BELL_Canada_API_Specification_Change_Management_v1_1_1_b54db5b465.pdf
-- aid: bell-canada:bell-canada-serviceorder-api
+- aid: bell-canada:bell-canada-service-order-api
   name: Bell Canada Service Order API
-  description: The serviceOrder API from Bell Canada — 2 operation(s) for serviceorder.
+  description: The Service Order API from Bell Canada — 2 operation(s) for service order.
   humanURL: https://developer.bell.ca/troubleticket
-  tags: []
-  tags_raw:
-  - serviceOrder
+  tags:
+  - Service Order
   properties:
   - type: OpenAPI
-    url: openapi/bell-canada-serviceorder-api-openapi.yml
+    url: openapi/bell-canada-service-order-api-openapi.yml
   - type: Documentation
     url: https://developer.bell.ca/troubleticket
   - type: APIReference
@@ -369,17 +368,15 @@ apis:
   - type: Specification
     url: >-
       https://developer.bell.ca/uploads/BELL_Canada_API_Specification_Change_Management_v1_1_1_b54db5b465.pdf
-- aid: bell-canada:bell-canada-troubleticket-api
+- aid: bell-canada:bell-canada-trouble-ticket-api
   name: Bell Canada Trouble Ticket API
-  description: The troubleTicket API from Bell Canada — 2 operation(s) for troubleticket.
+  description: The Trouble Ticket API from Bell Canada — 2 operation(s) for trouble ticket.
   humanURL: https://developer.bell.ca/troubleticket
   tags:
   - Trouble Ticket
-  tags_raw:
-  - troubleTicket
   properties:
   - type: OpenAPI
-    url: openapi/bell-canada-troubleticket-api-openapi.yml
+    url: openapi/bell-canada-trouble-ticket-api-openapi.yml
   - type: Documentation
     url: https://developer.bell.ca/troubleticket
   - type: APIReference
