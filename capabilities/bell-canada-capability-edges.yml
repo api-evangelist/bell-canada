@@ -36,7 +36,8 @@ edges:
     sits within telecom service fulfilment order handling. Kept at L1 since cancellation spans capture/decomposition
     rather than naming one sub-capability.
 - tag: serviceOrder
-  spec_file: bell-canada-serviceorder-api-openapi.yml
+  spec_file: bell-canada-service-order-api-openapi.yml
+  reanchored_from: bell-canada-serviceorder-api-openapi.yml
   capability_id: BC-2620
   capability_id_l1: BC-2620
   capability_name: Telecom Service Fulfilment Management
@@ -58,7 +59,8 @@ edges:
     state and place — this is the authoritative record of physical network resources, i.e. Network Inventory
     Management for a facilities-based carrier.
 - tag: troubleTicket
-  spec_file: bell-canada-troubleticket-api-openapi.yml
+  spec_file: bell-canada-trouble-ticket-api-openapi.yml
+  reanchored_from: bell-canada-troubleticket-api-openapi.yml
   capability_id: BC-2630.30
   capability_id_l1: BC-2630
   capability_name: Customer-Impacting Incident Management
