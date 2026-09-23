@@ -1,0 +1,48 @@
+{
+  "provider": "bell-canada",
+  "sources": [
+    "_original/bell-canada-change-management-api-openapi.json",
+    "_original/bell-canada-resource-inventory-api-openapi.json",
+    "_original/bell-canada-service-order-api-openapi.json",
+    "_original/bell-canada-trouble-ticket-api-openapi.json"
+  ],
+  "outputs": [
+    "bell-canada-changerequest-api-openapi.yml",
+    "bell-canada-events-subscription-api-openapi.yml",
+    "bell-canada-notification-listeners-client-side-api-openapi.yml",
+    "bell-canada-resource-api-openapi.yml",
+    "bell-canada-logicalresource-api-openapi.yml",
+    "bell-canada-physicalresource-api-openapi.yml",
+    "bell-canada-cancelserviceorder-api-openapi.yml",
+    "bell-canada-serviceorder-api-openapi.yml",
+    "bell-canada-troubleticket-api-openapi.yml"
+  ],
+  "archived": [
+    "deleted 2 superseded output(s) from the previous generation"
+  ],
+  "errors": [],
+  "warnings": [],
+  "notes": [
+    "sourced from openapi/_original/ (4 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "bell-canada-change-management-api-openapi.json: upgraded swagger 2.0 -> OpenAPI 3.2.0",
+    "bell-canada-resource-inventory-api-openapi.json: upgraded swagger 2.0 -> OpenAPI 3.2.0",
+    "bell-canada-resource-inventory-api-openapi.json: declared missing tag: Resource",
+    "bell-canada-service-order-api-openapi.json: upgraded swagger 2.0 -> OpenAPI 3.2.0",
+    "bell-canada-trouble-ticket-api-openapi.json: upgraded swagger 2.0 -> OpenAPI 3.2.0",
+    "tag 'events subscription' spans 4 source specs (bell-canada-change-management-api-openapi.json, bell-canada-resource-inventory-api-openapi.json, bell-canada-service-order-api-openapi.json, bell-canada-trouble-ticket-api-openapi.json): per-path servers applied",
+    "tag 'notification listeners (client side)' spans 4 source specs (bell-canada-change-management-api-openapi.json, bell-canada-resource-inventory-api-openapi.json, bell-canada-service-order-api-openapi.json, bell-canada-trouble-ticket-api-openapi.json): per-path servers applied",
+    "superseded outputs removed: bell-canada-service-order-api-openapi.yml, bell-canada-trouble-ticket-api-openapi.yml",
+    "apis.yml register: written (+2 apis, 9 total)"
+  ],
+  "skipped": [
+    "bell-canada-cancelserviceorder-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "bell-canada-changerequest-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "bell-canada-events-subscription-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "bell-canada-logicalresource-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "bell-canada-notification-listeners-client-side-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "bell-canada-physicalresource-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "bell-canada-resource-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "bell-canada-service-order-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "bell-canada-trouble-ticket-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
+}
