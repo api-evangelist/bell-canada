@@ -259,21 +259,30 @@ paths:
                 $ref: '#/components/schemas/Error'
 components:
   schemas:
-    Entity:
-      discriminator:
-        propertyName: '@type'
-      description: Base entity schema for use in TMForum Open-APIs
-      properties:
-        '@type':
-          type: string
-          description: When sub-classing, this defines the sub-class entity name
-        '@baseType':
-          type: string
-          description: When sub-classing, this defines the super-class
-        '@schemaLocation':
-          type: string
-          format: uri
-          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+    Error:
+      description: Used when an API throws an Error, typically with a HTTP error response-code (3xx, 4xx, 5xx)
+      allOf:
+      - $ref: '#/components/schemas/Entity'
+      - required:
+        - code
+        - reason
+        properties:
+          code:
+            type: string
+            description: Application relevant detail, defined in the API or a common list.
+          reason:
+            type: string
+            description: Explanation of the reason for the error which can be shown to a client user.
+          message:
+            type: string
+            description: More details and corrective actions related to the error which can be shown to a client user.
+          status:
+            type: string
+            description: HTTP Error code extension
+          referenceError:
+            type: string
+            format: uri
+            description: URI of documentation describing the error.
     ErrorMessage:
       description: represents an Error
       allOf:
@@ -295,45 +304,6 @@ components:
           status:
             type: string
             description: error code extension like sys-ABC-2001
-    ServiceOrderRef:
-      description: Service Order reference. Useful to understand the which was the Service order through which the service was instantiated in the service inventory
-      allOf:
-      - $ref: '#/components/schemas/EntityRef'
-    EntityRef:
-      description: Base entityRef schema for use in TMForum Open-APIs
-      allOf:
-      - $ref: '#/components/schemas/Entity'
-      - properties:
-          id:
-            type: string
-            description: Unique identifier of a related entity.
-          href:
-            type: string
-            description: Reference of the related entity.
-          name:
-            type: string
-            description: Name of the related entity.
-          '@referredType':
-            type: string
-            description: The actual type of the target instance when needed for disambiguation.
-    CancelServiceOrder_Create:
-      description: 'Request for cancellation an existing Service order
-
-        Skipped properties: id,href,state,effectiveCancellationDate,completionMessage,errorMessage'
-      allOf:
-      - $ref: '#/components/schemas/Entity'
-      - required:
-        - serviceOrder
-        properties:
-          cancellationReason:
-            type: string
-            description: Reason why the order is cancelled.
-          requestedCancellationDate:
-            type: string
-            format: date-time
-            description: Date when the submitter wants the order to be cancelled
-          serviceOrder:
-            $ref: '#/components/schemas/ServiceOrderRef'
     CancelServiceOrder:
       description: Request for cancellation an existing Service order
       allOf:
@@ -368,6 +338,25 @@ components:
           state:
             $ref: '#/components/schemas/TaskStateType'
             description: Tracks the lifecycle status of the cancellation request, such as Acknowledged, Rejected, InProgress, Pending and so on.
+    ServiceOrderRef:
+      description: Service Order reference. Useful to understand the which was the Service order through which the service was instantiated in the service inventory
+      allOf:
+      - $ref: '#/components/schemas/EntityRef'
+    Entity:
+      discriminator:
+        propertyName: '@type'
+      description: Base entity schema for use in TMForum Open-APIs
+      properties:
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class entity name
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          format: uri
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
     TaskStateType:
       type: string
       description: Possible values for the state of a task
@@ -376,27 +365,38 @@ components:
       - terminatedWithError
       - inProgress
       - done
-    Error:
-      description: Used when an API throws an Error, typically with a HTTP error response-code (3xx, 4xx, 5xx)
+    CancelServiceOrder_Create:
+      description: 'Request for cancellation an existing Service order
+
+        Skipped properties: id,href,state,effectiveCancellationDate,completionMessage,errorMessage'
       allOf:
       - $ref: '#/components/schemas/Entity'
       - required:
-        - code
-        - reason
+        - serviceOrder
         properties:
-          code:
+          cancellationReason:
             type: string
-            description: Application relevant detail, defined in the API or a common list.
-          reason:
+            description: Reason why the order is cancelled.
+          requestedCancellationDate:
             type: string
-            description: Explanation of the reason for the error which can be shown to a client user.
-          message:
+            format: date-time
+            description: Date when the submitter wants the order to be cancelled
+          serviceOrder:
+            $ref: '#/components/schemas/ServiceOrderRef'
+    EntityRef:
+      description: Base entityRef schema for use in TMForum Open-APIs
+      allOf:
+      - $ref: '#/components/schemas/Entity'
+      - properties:
+          id:
             type: string
-            description: More details and corrective actions related to the error which can be shown to a client user.
-          status:
+            description: Unique identifier of a related entity.
+          href:
             type: string
-            description: HTTP Error code extension
-          referenceError:
+            description: Reference of the related entity.
+          name:
             type: string
-            format: uri
-            description: URI of documentation describing the error.
+            description: Name of the related entity.
+          '@referredType':
+            type: string
+            description: The actual type of the target instance when needed for disambiguation.

@@ -467,17 +467,43 @@ paths:
                 $ref: '#/components/schemas/Error'
 components:
   schemas:
-    LogicalResource:
-      description: Logic resource is a type of resource that describes the common set of attributes shared by all concrete logical resources (e.g. TPE, MSISDN, IP Addresses) in the inventory.
+    ResourceAdministrativeStateType:
+      type: string
+      description: ResourceAdministrativeStateType enumerations
+      enum:
+      - locked
+      - unlocked
+      - shutdown
+    JsonPathPatchOperation:
+      type: object
+      description: A JsonPath operation to be applied to a json element
+      required:
+      - op
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the operation. This identifier is optional. This field is used to relate a response to each operation. In the case of tasks, we need to process each operation individually, so we need to identify each operation with a unique id and associate it their respective response.
+        op:
+          type: string
+          description: The operation to be performed on the related object.
+          enum:
+          - add
+          - remove
+          - replace
+        jsonPath:
+          type: string
+          description: A JSONPath expression
+        value:
+          type: object
+          description: The value to be used within the operations.
+    ResourceSpecificationRef:
+      description: 'Resource Specification reference: The ResourceSpecification is required to realize a ProductSpecification.'
       allOf:
-      - $ref: '#/components/schemas/Resource'
+      - $ref: '#/components/schemas/EntityRef'
       - properties:
-          value:
+          version:
             type: string
-            description: the value of the logical resource. E.g '0746712345' for  MSISDN's
-          '@referredType':
-            type: string
-            description: The actual type of the target instance when needed for disambiguation.
+            description: Resource specification version
     Entity:
       discriminator:
         propertyName: '@type'
@@ -493,6 +519,17 @@ components:
           type: string
           format: uri
           description: A URI to a JSON-Schema file that defines additional attributes and relationships
+    AttachmentRef:
+      description: Attachment reference. An attachment complements the description of an element (for instance a product) through video, pictures
+      allOf:
+      - $ref: '#/components/schemas/EntityRef'
+      - properties:
+          description:
+            type: string
+            description: A narrative text describing the content of the attachment
+          url:
+            type: string
+            description: Link to the attachment media/content
     EntityRef:
       description: Base entityRef schema for use in TMForum Open-APIs
       allOf:
@@ -510,25 +547,18 @@ components:
           '@referredType':
             type: string
             description: The actual type of the target instance when needed for disambiguation.
-    Characteristic:
+    CharacteristicRelationship:
       discriminator:
         propertyName: '@type'
       type: object
-      description: Describes a given characteristic of an object or entity through a name/value pair.
+      description: Another Characteristic that is related to the current Characteristic;
       properties:
         id:
           type: string
           description: Unique identifier of the characteristic
-        name:
+        relationshipType:
           type: string
-          description: Name of the characteristic
-        valueType:
-          type: string
-          description: Data type of the value of the characteristic
-        characteristicRelationship:
-          type: array
-          items:
-            $ref: '#/components/schemas/CharacteristicRelationship'
+          description: The type of relationship
         '@schemaLocation':
           type: string
           format: uri
@@ -539,6 +569,33 @@ components:
         '@type':
           type: string
           description: When sub-classing, this defines the sub-class Extensible name
+    RelatedPlaceRefOrValue:
+      description: Related Entity reference. A related place defines a place described by reference or by value linked to a specific entity. The polymorphic attributes @type, @schemaLocation & @referredType are related to the place entity and not the RelatedPlaceRefOrValue class itself
+      properties:
+        role:
+          type: string
+        ref:
+          $ref: '#/components/schemas/PlaceRef'
+          description: A reference to the Place.
+        value:
+          $ref: '#/components/schemas/Place'
+          description: The Place (as a value).
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class entity name
+    ResourceUsageStateType:
+      type: string
+      description: ResourceUsageStateType enumerations
+      enum:
+      - idle
+      - active
+      - busy
     Resource:
       description: Resource is an abstract entity that describes the common set of attributes shared by all concrete resources (e.g. TPE, EQUIPMENT) in the inventory.
       allOf:
@@ -609,124 +666,6 @@ components:
           usageState:
             $ref: '#/components/schemas/ResourceUsageStateType'
             description: Tracks the lifecycle status of the resource, such as planning, installing, opereating, retiring and so on.
-    ResourceAdministrativeStateType:
-      type: string
-      description: ResourceAdministrativeStateType enumerations
-      enum:
-      - locked
-      - unlocked
-      - shutdown
-    ResourceOperationalStateType:
-      type: string
-      description: ResourceOperationalStateType enumerations
-      enum:
-      - enable
-      - disable
-    Quantity:
-      type: object
-      description: An amount in a given unit
-      properties:
-        amount:
-          type: number
-          format: float
-          description: Numeric value in a given unit
-          default: 1.0
-        units:
-          type: string
-          description: Unit
-    AttachmentRefOrValue:
-      description: An attachment by value or by reference. For AttachmentRefOrValue, the attribute type,schemaLocation and referredType are related to the contained entity and not to AttchmentRefOrValue itself
-      properties:
-        ref:
-          $ref: '#/components/schemas/AttachmentRef'
-          description: A reference to the Attachment.
-        value:
-          $ref: '#/components/schemas/Attachment'
-          description: The Attachment (as a value).
-        '@baseType':
-          type: string
-          description: When sub-classing, this defines the super-class
-        '@schemaLocation':
-          type: string
-          description: A URI to a JSON-Schema file that defines additional attributes and relationships
-        '@type':
-          type: string
-          description: When sub-classing, this defines the sub-class entity name
-    RelatedParty:
-      description: Related Entity reference. A related party defines party or party role linked to a specific entity.
-      allOf:
-      - $ref: '#/components/schemas/Entity'
-      - required:
-        - id
-        - '@referredType'
-        properties:
-          id:
-            type: string
-            description: Unique identifier of a related entity.
-          href:
-            type: string
-            description: Reference of the related entity.
-          name:
-            type: string
-            description: Name of the related entity.
-          role:
-            type: string
-            description: Role played by the related party
-          '@referredType':
-            type: string
-            description: The actual type of the target instance when needed for disambiguation.
-    AttachmentRef:
-      description: Attachment reference. An attachment complements the description of an element (for instance a product) through video, pictures
-      allOf:
-      - $ref: '#/components/schemas/EntityRef'
-      - properties:
-          description:
-            type: string
-            description: A narrative text describing the content of the attachment
-          url:
-            type: string
-            description: Link to the attachment media/content
-    ResourceStatusType:
-      type: string
-      description: ResourceStatusType enumerations
-      enum:
-      - standby
-      - alarm
-      - available
-      - reserved
-      - unknown
-      - suspended
-    ResourceRelationship:
-      allOf:
-      - $ref: '#/components/schemas/Entity'
-      - properties:
-          id:
-            type: string
-            description: id of the related resource.
-          href:
-            type: string
-            description: href of the related resource.
-          relationshipType:
-            type: string
-          resourceRelationshipCharacteristic:
-            type: array
-            items:
-              $ref: '#/components/schemas/Characteristic'
-    ResourceUsageStateType:
-      type: string
-      description: ResourceUsageStateType enumerations
-      enum:
-      - idle
-      - active
-      - busy
-    ResourceSpecificationRef:
-      description: 'Resource Specification reference: The ResourceSpecification is required to realize a ProductSpecification.'
-      allOf:
-      - $ref: '#/components/schemas/EntityRef'
-      - properties:
-          version:
-            type: string
-            description: Resource specification version
     Error:
       description: Used when an API throws an Error, typically with a HTTP error response-code (3xx, 4xx, 5xx)
       allOf:
@@ -751,46 +690,81 @@ components:
             type: string
             format: uri
             description: URI of documentation describing the error.
-    Place:
-      description: Place reference. Place defines the places where the products are sold or delivered.
+    Quantity:
+      type: object
+      description: An amount in a given unit
+      properties:
+        amount:
+          type: number
+          format: float
+          description: Numeric value in a given unit
+          default: 1.0
+        units:
+          type: string
+          description: Unit
+    LogicalResource:
+      description: Logic resource is a type of resource that describes the common set of attributes shared by all concrete logical resources (e.g. TPE, MSISDN, IP Addresses) in the inventory.
+      allOf:
+      - $ref: '#/components/schemas/Resource'
+      - properties:
+          value:
+            type: string
+            description: the value of the logical resource. E.g '0746712345' for  MSISDN's
+          '@referredType':
+            type: string
+            description: The actual type of the target instance when needed for disambiguation.
+    ResourceRelationship:
       allOf:
       - $ref: '#/components/schemas/Entity'
       - properties:
           id:
             type: string
-            description: Unique identifier of the place
+            description: id of the related resource.
           href:
             type: string
-            description: Unique reference of the place
-          name:
+            description: href of the related resource.
+          relationshipType:
             type: string
-            description: A user-friendly name for the place, such as [Paris Store], [London Store], [Main Home]
-    JsonPathPatchOperation:
-      type: object
-      description: A JsonPath operation to be applied to a json element
-      required:
-      - op
+          resourceRelationshipCharacteristic:
+            type: array
+            items:
+              $ref: '#/components/schemas/Characteristic'
+    AttachmentRefOrValue:
+      description: An attachment by value or by reference. For AttachmentRefOrValue, the attribute type,schemaLocation and referredType are related to the contained entity and not to AttchmentRefOrValue itself
       properties:
-        id:
-          type: string
-          description: Unique identifier of the operation. This identifier is optional. This field is used to relate a response to each operation. In the case of tasks, we need to process each operation individually, so we need to identify each operation with a unique id and associate it their respective response.
-        op:
-          type: string
-          description: The operation to be performed on the related object.
-          enum:
-          - add
-          - remove
-          - replace
-        jsonPath:
-          type: string
-          description: A JSONPath expression
+        ref:
+          $ref: '#/components/schemas/AttachmentRef'
+          description: A reference to the Attachment.
         value:
-          type: object
-          description: The value to be used within the operations.
-    PlaceRef:
-      description: Place reference. PlaceRef defines the placeRefs where the products are sold or delivered.
-      allOf:
-      - $ref: '#/components/schemas/EntityRef'
+          $ref: '#/components/schemas/Attachment'
+          description: The Attachment (as a value).
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class entity name
+    ResourceOperationalStateType:
+      type: string
+      description: ResourceOperationalStateType enumerations
+      enum:
+      - enable
+      - disable
+    TimePeriod:
+      type: object
+      description: A period of time, either as a deadline (endDateTime only) a startDateTime only, or both
+      properties:
+        endDateTime:
+          type: string
+          format: date-time
+          description: End of the time period, using IETC-RFC-3339 format
+        startDateTime:
+          type: string
+          format: date-time
+          description: Start of the time period, using IETC-RFC-3339 format. If you define a start, you must also define an end
     Attachment:
       description: Complements the description of an element (for instance a product) through video, pictures...
       allOf:
@@ -826,6 +800,43 @@ components:
           validFor:
             $ref: '#/components/schemas/TimePeriod'
             description: The period of time for which the attachment is valid
+    RelatedParty:
+      description: Related Entity reference. A related party defines party or party role linked to a specific entity.
+      allOf:
+      - $ref: '#/components/schemas/Entity'
+      - required:
+        - id
+        - '@referredType'
+        properties:
+          id:
+            type: string
+            description: Unique identifier of a related entity.
+          href:
+            type: string
+            description: Reference of the related entity.
+          name:
+            type: string
+            description: Name of the related entity.
+          role:
+            type: string
+            description: Role played by the related party
+          '@referredType':
+            type: string
+            description: The actual type of the target instance when needed for disambiguation.
+    PlaceRef:
+      description: Place reference. PlaceRef defines the placeRefs where the products are sold or delivered.
+      allOf:
+      - $ref: '#/components/schemas/EntityRef'
+    ResourceStatusType:
+      type: string
+      description: ResourceStatusType enumerations
+      enum:
+      - standby
+      - alarm
+      - available
+      - reserved
+      - unknown
+      - suspended
     Note:
       description: Extra information about a given entity
       allOf:
@@ -844,38 +855,25 @@ components:
           text:
             type: string
             description: Text of the note
-    RelatedPlaceRefOrValue:
-      description: Related Entity reference. A related place defines a place described by reference or by value linked to a specific entity. The polymorphic attributes @type, @schemaLocation & @referredType are related to the place entity and not the RelatedPlaceRefOrValue class itself
-      properties:
-        role:
-          type: string
-        ref:
-          $ref: '#/components/schemas/PlaceRef'
-          description: A reference to the Place.
-        value:
-          $ref: '#/components/schemas/Place'
-          description: The Place (as a value).
-        '@baseType':
-          type: string
-          description: When sub-classing, this defines the super-class
-        '@schemaLocation':
-          type: string
-          description: A URI to a JSON-Schema file that defines additional attributes and relationships
-        '@type':
-          type: string
-          description: When sub-classing, this defines the sub-class entity name
-    CharacteristicRelationship:
+    Characteristic:
       discriminator:
         propertyName: '@type'
       type: object
-      description: Another Characteristic that is related to the current Characteristic;
+      description: Describes a given characteristic of an object or entity through a name/value pair.
       properties:
         id:
           type: string
           description: Unique identifier of the characteristic
-        relationshipType:
+        name:
           type: string
-          description: The type of relationship
+          description: Name of the characteristic
+        valueType:
+          type: string
+          description: Data type of the value of the characteristic
+        characteristicRelationship:
+          type: array
+          items:
+            $ref: '#/components/schemas/CharacteristicRelationship'
         '@schemaLocation':
           type: string
           format: uri
@@ -886,25 +884,29 @@ components:
         '@type':
           type: string
           description: When sub-classing, this defines the sub-class Extensible name
-    TimePeriod:
-      type: object
-      description: A period of time, either as a deadline (endDateTime only) a startDateTime only, or both
-      properties:
-        endDateTime:
-          type: string
-          format: date-time
-          description: End of the time period, using IETC-RFC-3339 format
-        startDateTime:
-          type: string
-          format: date-time
-          description: Start of the time period, using IETC-RFC-3339 format. If you define a start, you must also define an end
-    Resource_Update:
+    Place:
+      description: Place reference. Place defines the places where the products are sold or delivered.
+      allOf:
+      - $ref: '#/components/schemas/Entity'
+      - properties:
+          id:
+            type: string
+            description: Unique identifier of the place
+          href:
+            type: string
+            description: Unique reference of the place
+          name:
+            type: string
+            description: A user-friendly name for the place, such as [Paris Store], [London Store], [Main Home]
+    Resource_Create:
       description: 'Resource is an abstract entity that describes the common set of attributes shared by all concrete resources (e.g. TPE, EQUIPMENT) in the inventory.
 
         Skipped properties: id,href'
       allOf:
       - $ref: '#/components/schemas/Entity'
-      - properties:
+      - required:
+        - name
+        properties:
           category:
             type: string
             description: Category of the concrete resource. e.g Gold, Silver for MSISDN concrete resource
@@ -961,15 +963,13 @@ components:
           usageState:
             $ref: '#/components/schemas/ResourceUsageStateType'
             description: Tracks the lifecycle status of the resource, such as planning, installing, opereating, retiring and so on.
-    Resource_Create:
+    Resource_Update:
       description: 'Resource is an abstract entity that describes the common set of attributes shared by all concrete resources (e.g. TPE, EQUIPMENT) in the inventory.
 
         Skipped properties: id,href'
       allOf:
       - $ref: '#/components/schemas/Entity'
-      - required:
-        - name
-        properties:
+      - properties:
           category:
             type: string
             description: Category of the concrete resource. e.g Gold, Silver for MSISDN concrete resource

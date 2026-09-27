@@ -2028,31 +2028,6 @@ paths:
     - url: https://serverRoot/tmf-api/troubleTicket/v4/
 components:
   schemas:
-    BellChangeRequestFailureEventPayload:
-      type: object
-      description: The event data structure
-      properties:
-        failure:
-          $ref: '#/components/schemas/BellErrorRepresentation'
-          description: The error associated to the failure event
-        httpCode:
-          type: string
-          description: http return code at the API level.
-    Entity:
-      discriminator:
-        propertyName: '@type'
-      description: Base entity schema for use in TMForum Open-APIs
-      properties:
-        '@type':
-          type: string
-          description: When sub-classing, this defines the sub-class entity name
-        '@baseType':
-          type: string
-          description: When sub-classing, this defines the super-class
-        '@schemaLocation':
-          type: string
-          format: uri
-          description: A URI to a JSON-Schema file that defines additional attributes and relationships
     BellErrorRepresentation:
       description: Bell specialized version of the TMF Error. Used to store the native error representation
       allOf:
@@ -2070,158 +2045,6 @@ components:
           jsonPath:
             type: string
             description: Json path expression associated to the field for which the error is reported. Typically used with validation errors.
-    TroubleTicketRef:
-      description: TroubleTicket reference, for when a Trouble Ticket is used by other entities
-      allOf:
-      - $ref: '#/components/schemas/EntityRef'
-    EntityRef:
-      description: Base entityRef schema for use in TMForum Open-APIs
-      allOf:
-      - $ref: '#/components/schemas/Entity'
-      - properties:
-          id:
-            type: string
-            description: Unique identifier of a related entity.
-          href:
-            type: string
-            description: Reference of the related entity.
-          name:
-            type: string
-            description: Name of the related entity.
-          '@referredType':
-            type: string
-            description: The actual type of the target instance when needed for disambiguation.
-    Characteristic:
-      discriminator:
-        propertyName: '@type'
-      type: object
-      description: Describes a given characteristic of an object or entity through a name/value pair.
-      properties:
-        id:
-          type: string
-          description: Unique identifier of the characteristic
-        name:
-          type: string
-          description: Name of the characteristic
-        valueType:
-          type: string
-          description: Data type of the value of the characteristic
-        characteristicRelationship:
-          type: array
-          items:
-            $ref: '#/components/schemas/CharacteristicRelationship'
-        '@schemaLocation':
-          type: string
-          format: uri
-          description: A URI to a JSON-Schema file that defines additional attributes and relationships
-        '@baseType':
-          type: string
-          description: When sub-classing, this defines the super-class
-        '@type':
-          type: string
-          description: When sub-classing, this defines the sub-class Extensible name
-    Money:
-      type: object
-      description: A base / value business entity used to represent money
-      properties:
-        unit:
-          type: string
-          description: Currency (ISO4217 norm uses 3 letters to define the currency)
-        value:
-          type: number
-          format: float
-          description: A signed floating point number, the meaning of the sign is according to the context of the API that uses this Data type
-    BellChangeRequestFailureEvent:
-      description: The notification data structure
-      allOf:
-      - $ref: '#/components/schemas/Event'
-      - properties:
-          event:
-            $ref: '#/components/schemas/BellChangeRequestFailureEventPayload'
-            description: The event payload linked to the involved resource object
-    ChangeRequestRef:
-      description: Reference to a Change Request
-      allOf:
-      - $ref: '#/components/schemas/EntityRef'
-    ChangeRequestRefOrValue:
-      description: A Service to be created defined by value or existing defined by reference. The polymorphic attributes @type, @schemaLocation & @referredType are related to the Service entity and not the RelatedServiceRefOrValue class itself
-      properties:
-        ref:
-          $ref: '#/components/schemas/ChangeRequestRef'
-          description: A reference to the ChangeRequest.
-        value:
-          $ref: '#/components/schemas/ChangeRequest'
-          description: The ChangeRequest (as a value).
-        '@baseType':
-          type: string
-          description: When sub-classing, this defines the super-class
-        '@schemaLocation':
-          type: string
-          description: A URI to a JSON-Schema file that defines additional attributes and relationships
-        '@type':
-          type: string
-          description: When sub-classing, this defines the sub-class entity name
-    EntitySpecificationRef:
-      description: reference to an EntitySpecification object
-      allOf:
-      - $ref: '#/components/schemas/EntityRef'
-      - properties:
-          version:
-            type: string
-            description: EntitySpecification version
-    Quantity:
-      type: object
-      description: An amount in a given unit
-      properties:
-        amount:
-          type: number
-          format: float
-          description: Numeric value in a given unit
-          default: 1.0
-        units:
-          type: string
-          description: Unit
-    AttachmentRefOrValue:
-      description: An attachment by value or by reference. An attachment complements the description of an element, for example through a document, a video, a picture.
-      properties:
-        ref:
-          $ref: '#/components/schemas/AttachmentRef'
-          description: A reference to the Attachment.
-        value:
-          $ref: '#/components/schemas/Attachment'
-          description: The Attachment (as a value).
-        '@baseType':
-          type: string
-          description: When sub-classing, this defines the super-class
-        '@schemaLocation':
-          type: string
-          description: A URI to a JSON-Schema file that defines additional attributes and relationships
-        '@type':
-          type: string
-          description: When sub-classing, this defines the sub-class entity name
-    ServiceProblemRef:
-      allOf:
-      - $ref: '#/components/schemas/EntityRef'
-    EventSubscription:
-      type: object
-      description: Sets the communication endpoint address the service instance must use to deliver notification information
-      required:
-      - id
-      - callback
-      properties:
-        id:
-          type: string
-          description: Id of the listener
-        callback:
-          type: string
-          description: The callback being registered.
-        query:
-          type: string
-          description: additional data to be passed
-    SLARef:
-      description: 'ServiceLevelAgreement reference: A service level agreement (SLA) is a type of agreement that represents a formal negotiated agreement between two parties designed to create a common understanding about products, services, priorities, responsibilities, and so forth. The SLA is a set of appropriate procedures and targets formally or informally agreed between parties in order to achieve and maintain specified Quality of Service.'
-      allOf:
-      - $ref: '#/components/schemas/EntityRef'
     RelatedEntity:
       description: A reference to an entity, where the type of the entity is not known in advance.
       allOf:
@@ -2247,101 +2070,17 @@ components:
           '@referredType':
             type: string
             description: The actual type of the target instance when needed for disambiguation.
-    ImpactEntity:
-      description: A reference to an imapcted entity
+    ServiceProblemRef:
       allOf:
-      - $ref: '#/components/schemas/Entity'
-      - required:
-        - id
-        - role
-        - '@referredType'
-        properties:
-          id:
-            type: string
-            description: unique identifier
-          href:
-            type: string
-            format: uri
-            description: Hyperlink reference
-          action:
-            type: string
-            description: The action on an entity.
-          name:
-            type: string
-            description: Name of the related entity.
-          role:
-            type: string
-            description: The role of an entity.
-          '@referredType':
-            type: string
-            description: The actual type of the target instance when needed for disambiguation.
-    ChangeRequestDeleteEventPayload:
-      type: object
-      description: The event data structure
-      properties:
-        changeRequest:
-          $ref: '#/components/schemas/ChangeRequest'
-          description: The involved resource data for the event
-    Record:
-      description: A record in a worklog.
+      - $ref: '#/components/schemas/EntityRef'
+    ChangeRequestRef:
+      description: Reference to a Change Request
       allOf:
-      - $ref: '#/components/schemas/Entity'
-      - properties:
-          id:
-            type: string
-            description: unique identifier
-          href:
-            type: string
-            format: uri
-            description: Hyperlink reference
-          dateTime:
-            type: string
-            format: date-time
-            description: The date time that a record is generated.
-          description:
-            type: string
-            description: The detail description in a record.
-          supportPerson:
-            type: string
-            description: The person who logged that record.
-    ChangeRequestApprovalRequiredEventPayload:
-      type: object
-      description: The event data structure
-      properties:
-        changeRequest:
-          $ref: '#/components/schemas/ChangeRequest'
-          description: The involved resource data for the event
-    ChangeRequestCreateEventPayload:
-      type: object
-      description: The event data structure
-      properties:
-        changeRequest:
-          $ref: '#/components/schemas/ChangeRequest'
-          description: The involved resource data for the event
-    RelatedParty:
-      description: Related Entity reference. A related party defines party or party role linked to a specific entity.
+      - $ref: '#/components/schemas/EntityRef'
+    SLARef:
+      description: 'ServiceLevelAgreement reference: A service level agreement (SLA) is a type of agreement that represents a formal negotiated agreement between two parties designed to create a common understanding about products, services, priorities, responsibilities, and so forth. The SLA is a set of appropriate procedures and targets formally or informally agreed between parties in order to achieve and maintain specified Quality of Service.'
       allOf:
-      - $ref: '#/components/schemas/Entity'
-      - required:
-        - id
-        - '@referredType'
-        properties:
-          id:
-            type: string
-            description: unique identifier
-          href:
-            type: string
-            format: uri
-            description: Hyperlink reference
-          name:
-            type: string
-            description: Name of the related entity.
-          role:
-            type: string
-            description: Role played by the related party
-          '@referredType':
-            type: string
-            description: The actual type of the target instance when needed for disambiguation.
+      - $ref: '#/components/schemas/EntityRef'
     Event:
       description: Event with common fields. This is an abstract base definition for all events that are produced by TMF APIs. It must be used as a template for specific events. These specific event definitions must also define an event field, typed with the specific payload for that event
       allOf:
@@ -2390,6 +2129,59 @@ components:
             type: array
             items:
               $ref: '#/components/schemas/Characteristic'
+    Entity:
+      discriminator:
+        propertyName: '@type'
+      description: Base entity schema for use in TMForum Open-APIs
+      properties:
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class entity name
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          format: uri
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+    ChangeRequestRelationship:
+      allOf:
+      - $ref: '#/components/schemas/Entity'
+      - required:
+        - relationshipType
+        properties:
+          id:
+            type: string
+            description: unique identifier
+          href:
+            type: string
+            format: uri
+            description: Hyperlink reference
+          relationshipType:
+            type: string
+          changeRequest:
+            $ref: '#/components/schemas/ChangeRequestRefOrValue'
+          changeRequestRelationshipCharacteristic:
+            type: array
+            items:
+              $ref: '#/components/schemas/Characteristic'
+    EntityRef:
+      description: Base entityRef schema for use in TMForum Open-APIs
+      allOf:
+      - $ref: '#/components/schemas/Entity'
+      - properties:
+          id:
+            type: string
+            description: Unique identifier of a related entity.
+          href:
+            type: string
+            description: Reference of the related entity.
+          name:
+            type: string
+            description: Name of the related entity.
+          '@referredType':
+            type: string
+            description: The actual type of the target instance when needed for disambiguation.
     AttachmentRef:
       description: Attachment reference. An attachment complements the description of an element (for instance a product) through video, pictures
       allOf:
@@ -2402,14 +2194,81 @@ components:
             type: string
             format: uri
             description: Link to the attachment media/content
-    ChangeRequestApprovalRequiredEvent:
+    CharacteristicRelationship:
+      discriminator:
+        propertyName: '@type'
+      type: object
+      description: Another Characteristic that is related to the current Characteristic;
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the characteristic
+        relationshipType:
+          type: string
+          description: The type of relationship
+        '@schemaLocation':
+          type: string
+          format: uri
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
+    BellChangeRequestFailureEventPayload:
+      type: object
+      description: The event data structure
+      properties:
+        failure:
+          $ref: '#/components/schemas/BellErrorRepresentation'
+          description: The error associated to the failure event
+        httpCode:
+          type: string
+          description: http return code at the API level.
+    EntitySpecificationRef:
+      description: reference to an EntitySpecification object
+      allOf:
+      - $ref: '#/components/schemas/EntityRef'
+      - properties:
+          version:
+            type: string
+            description: EntitySpecification version
+    BellChangeRequestFailureEvent:
       description: The notification data structure
       allOf:
       - $ref: '#/components/schemas/Event'
       - properties:
           event:
-            $ref: '#/components/schemas/ChangeRequestApprovalRequiredEventPayload'
+            $ref: '#/components/schemas/BellChangeRequestFailureEventPayload'
             description: The event payload linked to the involved resource object
+    ChangeRequestCreateEventPayload:
+      type: object
+      description: The event data structure
+      properties:
+        changeRequest:
+          $ref: '#/components/schemas/ChangeRequest'
+          description: The involved resource data for the event
+    RelatedPlaceRefOrValue:
+      description: Related Entity reference. A related place defines a place described by reference or by value linked to a specific entity. The polymorphic attributes @type, @schemaLocation & @referredType are related to the place entity and not the RelatedPlaceRefOrValue class itself
+      properties:
+        role:
+          type: string
+        ref:
+          $ref: '#/components/schemas/PlaceRef'
+          description: A reference to the Place.
+        value:
+          $ref: '#/components/schemas/Place'
+          description: The Place (as a value).
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class entity name
     ChangeRequestStatusChangeEvent:
       description: The notification data structure
       allOf:
@@ -2418,28 +2277,14 @@ components:
           event:
             $ref: '#/components/schemas/ChangeRequestStatusChangeEventPayload'
             description: The event payload linked to the involved resource object
-    ChangeRequestAttributeValueChangeEvent:
+    ChangeRequestApprovalRequiredEvent:
       description: The notification data structure
       allOf:
       - $ref: '#/components/schemas/Event'
       - properties:
-          fieldPath:
-            type: string
-            description: The path identifying the object field concerned by this notification.
           event:
-            $ref: '#/components/schemas/ChangeRequestAttributeValueChangeEventPayload'
+            $ref: '#/components/schemas/ChangeRequestApprovalRequiredEventPayload'
             description: The event payload linked to the involved resource object
-    ExternalReference:
-      description: External reference of the individual or reference in other system
-      allOf:
-      - $ref: '#/components/schemas/Entity'
-      - properties:
-          externalReferenceType:
-            type: string
-            description: Type of the external reference
-          name:
-            type: string
-            description: External reference name
     Error:
       description: Used when an API throws an Error, typically with a HTTP error response-code (3xx, 4xx, 5xx)
       allOf:
@@ -2464,41 +2309,66 @@ components:
             type: string
             format: uri
             description: URI of documentation describing the error.
-    ChangeRequestRelationship:
+    Quantity:
+      type: object
+      description: An amount in a given unit
+      properties:
+        amount:
+          type: number
+          format: float
+          description: Numeric value in a given unit
+          default: 1.0
+        units:
+          type: string
+          description: Unit
+    AttachmentRefOrValue:
+      description: An attachment by value or by reference. An attachment complements the description of an element, for example through a document, a video, a picture.
+      properties:
+        ref:
+          $ref: '#/components/schemas/AttachmentRef'
+          description: A reference to the Attachment.
+        value:
+          $ref: '#/components/schemas/Attachment'
+          description: The Attachment (as a value).
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class entity name
+    ChangeRequestDeleteEventPayload:
+      type: object
+      description: The event data structure
+      properties:
+        changeRequest:
+          $ref: '#/components/schemas/ChangeRequest'
+          description: The involved resource data for the event
+    ChangeRequestAttributeValueChangeEvent:
+      description: The notification data structure
       allOf:
-      - $ref: '#/components/schemas/Entity'
-      - required:
-        - relationshipType
-        properties:
-          id:
-            type: string
-            description: unique identifier
-          href:
-            type: string
-            format: uri
-            description: Hyperlink reference
-          relationshipType:
-            type: string
-          changeRequest:
-            $ref: '#/components/schemas/ChangeRequestRefOrValue'
-          changeRequestRelationshipCharacteristic:
-            type: array
-            items:
-              $ref: '#/components/schemas/Characteristic'
-    Place:
-      description: Place reference. Place defines the places where the products are sold or delivered.
-      allOf:
-      - $ref: '#/components/schemas/Entity'
+      - $ref: '#/components/schemas/Event'
       - properties:
-          id:
+          fieldPath:
             type: string
-            description: Unique identifier of the place
-          href:
-            type: string
-            description: Unique reference of the place
-          name:
-            type: string
-            description: A user-friendly name for the place, such as [Paris Store], [London Store], [Main Home]
+            description: The path identifying the object field concerned by this notification.
+          event:
+            $ref: '#/components/schemas/ChangeRequestAttributeValueChangeEventPayload'
+            description: The event payload linked to the involved resource object
+    ChangeRequestCreateEvent:
+      description: The notification data structure
+      allOf:
+      - $ref: '#/components/schemas/Event'
+      - properties:
+          event:
+            $ref: '#/components/schemas/ChangeRequestCreateEventPayload'
+            description: The event payload linked to the involved resource object
+    TroubleTicketRef:
+      description: TroubleTicket reference, for when a Trouble Ticket is used by other entities
+      allOf:
+      - $ref: '#/components/schemas/EntityRef'
     ChangeRequestStatusType:
       type: string
       description: Possible values for the state of the change request
@@ -2515,28 +2385,61 @@ components:
       - inProgress
       - failed
       - completed
-    ChangeRequestAttributeValueChangeEventPayload:
-      type: object
-      description: The event data structure
-      properties:
-        changeRequest:
-          $ref: '#/components/schemas/ChangeRequest'
-          description: The involved resource data for the event
-    ChangeRequestCreateEvent:
+    ChangeRequestDeleteEvent:
       description: The notification data structure
       allOf:
       - $ref: '#/components/schemas/Event'
       - properties:
           event:
-            $ref: '#/components/schemas/ChangeRequestCreateEventPayload'
+            $ref: '#/components/schemas/ChangeRequestDeleteEventPayload'
             description: The event payload linked to the involved resource object
-    ChangeRequestStatusChangeEventPayload:
-      type: object
-      description: The event data structure
-      properties:
-        changeRequest:
-          $ref: '#/components/schemas/ChangeRequest'
-          description: The involved resource data for the event
+    Record:
+      description: A record in a worklog.
+      allOf:
+      - $ref: '#/components/schemas/Entity'
+      - properties:
+          id:
+            type: string
+            description: unique identifier
+          href:
+            type: string
+            format: uri
+            description: Hyperlink reference
+          dateTime:
+            type: string
+            format: date-time
+            description: The date time that a record is generated.
+          description:
+            type: string
+            description: The detail description in a record.
+          supportPerson:
+            type: string
+            description: The person who logged that record.
+    Resolution:
+      description: The way one or more change request has been implementation through a direct remedy or task
+      allOf:
+      - $ref: '#/components/schemas/Entity'
+      - properties:
+          id:
+            type: string
+            description: unique identifier
+          href:
+            type: string
+            format: uri
+            description: Hyperlink reference
+          code:
+            type: string
+            description: The resolutions code, it can be configured as a multiple level hierarchy
+          description:
+            type: string
+            description: The description of the resolution
+          name:
+            type: string
+            description: The name of the resolution
+          task:
+            type: array
+            items:
+              $ref: '#/components/schemas/Task'
     Task:
       description: A step or task along in the process of implementation a Change Request.
       allOf:
@@ -2558,18 +2461,18 @@ components:
           state:
             type: string
             description: The state of the task.
-    PlaceRef:
-      description: Place reference. PlaceRef defines the placeRefs where the products are sold or delivered.
-      allOf:
-      - $ref: '#/components/schemas/EntityRef'
-    ChangeRequestDeleteEvent:
-      description: The notification data structure
-      allOf:
-      - $ref: '#/components/schemas/Event'
-      - properties:
-          event:
-            $ref: '#/components/schemas/ChangeRequestDeleteEventPayload'
-            description: The event payload linked to the involved resource object
+    TimePeriod:
+      type: object
+      description: A period of time, either as a deadline (endDateTime only) a startDateTime only, or both
+      properties:
+        endDateTime:
+          type: string
+          format: date-time
+          description: End of the time period, using IETC-RFC-3339 format
+        startDateTime:
+          type: string
+          format: date-time
+          description: Start of the time period, using IETC-RFC-3339 format
     Attachment:
       description: Complements the description of an element (for instance a product) through video, pictures...
       allOf:
@@ -2608,6 +2511,115 @@ components:
           validFor:
             $ref: '#/components/schemas/TimePeriod'
             description: The period of time for which the attachment is valid
+    RelatedParty:
+      description: Related Entity reference. A related party defines party or party role linked to a specific entity.
+      allOf:
+      - $ref: '#/components/schemas/Entity'
+      - required:
+        - id
+        - '@referredType'
+        properties:
+          id:
+            type: string
+            description: unique identifier
+          href:
+            type: string
+            format: uri
+            description: Hyperlink reference
+          name:
+            type: string
+            description: Name of the related entity.
+          role:
+            type: string
+            description: Role played by the related party
+          '@referredType':
+            type: string
+            description: The actual type of the target instance when needed for disambiguation.
+    ImpactEntity:
+      description: A reference to an imapcted entity
+      allOf:
+      - $ref: '#/components/schemas/Entity'
+      - required:
+        - id
+        - role
+        - '@referredType'
+        properties:
+          id:
+            type: string
+            description: unique identifier
+          href:
+            type: string
+            format: uri
+            description: Hyperlink reference
+          action:
+            type: string
+            description: The action on an entity.
+          name:
+            type: string
+            description: Name of the related entity.
+          role:
+            type: string
+            description: The role of an entity.
+          '@referredType':
+            type: string
+            description: The actual type of the target instance when needed for disambiguation.
+    Money:
+      type: object
+      description: A base / value business entity used to represent money
+      properties:
+        unit:
+          type: string
+          description: Currency (ISO4217 norm uses 3 letters to define the currency)
+        value:
+          type: number
+          format: float
+          description: A signed floating point number, the meaning of the sign is according to the context of the API that uses this Data type
+    WorkLog:
+      description: A record of the work performed on the change request during the investigation and resolution process.
+      allOf:
+      - $ref: '#/components/schemas/Entity'
+      - properties:
+          id:
+            type: string
+            description: unique identifier
+          href:
+            type: string
+            format: uri
+            description: Hyperlink reference
+          createDateTime:
+            type: string
+            format: date-time
+            description: Date and time of worklog generated.
+          description:
+            type: string
+            description: The description of the worklog.
+          lastUpdateDateTime:
+            type: string
+            description: Date and time when the worklog updated.
+          record:
+            type: array
+            items:
+              $ref: '#/components/schemas/Record'
+    PlaceRef:
+      description: Place reference. PlaceRef defines the placeRefs where the products are sold or delivered.
+      allOf:
+      - $ref: '#/components/schemas/EntityRef'
+    EventSubscription:
+      type: object
+      description: Sets the communication endpoint address the service instance must use to deliver notification information
+      required:
+      - id
+      - callback
+      properties:
+        id:
+          type: string
+          description: Id of the listener
+        callback:
+          type: string
+          description: The callback being registered.
+        query:
+          type: string
+          description: additional data to be passed
     Note:
       description: Extra information about a given entity
       allOf:
@@ -2626,51 +2638,67 @@ components:
           text:
             type: string
             description: Text of the note
-    Resolution:
-      description: The way one or more change request has been implementation through a direct remedy or task
+    ChangeRequestStatusChangeEventPayload:
+      type: object
+      description: The event data structure
+      properties:
+        changeRequest:
+          $ref: '#/components/schemas/ChangeRequest'
+          description: The involved resource data for the event
+    ChangeRequestAttributeValueChangeEventPayload:
+      type: object
+      description: The event data structure
+      properties:
+        changeRequest:
+          $ref: '#/components/schemas/ChangeRequest'
+          description: The involved resource data for the event
+    ChangeRequestApprovalRequiredEventPayload:
+      type: object
+      description: The event data structure
+      properties:
+        changeRequest:
+          $ref: '#/components/schemas/ChangeRequest'
+          description: The involved resource data for the event
+    ExternalReference:
+      description: External reference of the individual or reference in other system
       allOf:
       - $ref: '#/components/schemas/Entity'
       - properties:
-          id:
+          externalReferenceType:
             type: string
-            description: unique identifier
-          href:
-            type: string
-            format: uri
-            description: Hyperlink reference
-          code:
-            type: string
-            description: The resolutions code, it can be configured as a multiple level hierarchy
-          description:
-            type: string
-            description: The description of the resolution
+            description: Type of the external reference
           name:
             type: string
-            description: The name of the resolution
-          task:
-            type: array
-            items:
-              $ref: '#/components/schemas/Task'
-    RelatedPlaceRefOrValue:
-      description: Related Entity reference. A related place defines a place described by reference or by value linked to a specific entity. The polymorphic attributes @type, @schemaLocation & @referredType are related to the place entity and not the RelatedPlaceRefOrValue class itself
+            description: External reference name
+    Characteristic:
+      discriminator:
+        propertyName: '@type'
+      type: object
+      description: Describes a given characteristic of an object or entity through a name/value pair.
       properties:
-        role:
+        id:
           type: string
-        ref:
-          $ref: '#/components/schemas/PlaceRef'
-          description: A reference to the Place.
-        value:
-          $ref: '#/components/schemas/Place'
-          description: The Place (as a value).
+          description: Unique identifier of the characteristic
+        name:
+          type: string
+          description: Name of the characteristic
+        valueType:
+          type: string
+          description: Data type of the value of the characteristic
+        characteristicRelationship:
+          type: array
+          items:
+            $ref: '#/components/schemas/CharacteristicRelationship'
+        '@schemaLocation':
+          type: string
+          format: uri
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
         '@baseType':
           type: string
           description: When sub-classing, this defines the super-class
-        '@schemaLocation':
-          type: string
-          description: A URI to a JSON-Schema file that defines additional attributes and relationships
         '@type':
           type: string
-          description: When sub-classing, this defines the sub-class entity name
+          description: When sub-classing, this defines the sub-class Extensible name
     ChangeRequest:
       description: "Change Request is a type of request which can be used for the management and control of Change Management process \n -within a service provider organisation or \n -between a customer and a service provider or \n -between a service provider and a partner and vice versa."
       allOf:
@@ -2810,66 +2838,60 @@ components:
             type: array
             items:
               $ref: '#/components/schemas/WorkLog'
-    CharacteristicRelationship:
-      discriminator:
-        propertyName: '@type'
-      type: object
-      description: Another Characteristic that is related to the current Characteristic;
+    ChangeRequestRefOrValue:
+      description: A Service to be created defined by value or existing defined by reference. The polymorphic attributes @type, @schemaLocation & @referredType are related to the Service entity and not the RelatedServiceRefOrValue class itself
       properties:
-        id:
-          type: string
-          description: Unique identifier of the characteristic
-        relationshipType:
-          type: string
-          description: The type of relationship
-        '@schemaLocation':
-          type: string
-          format: uri
-          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+        ref:
+          $ref: '#/components/schemas/ChangeRequestRef'
+          description: A reference to the ChangeRequest.
+        value:
+          $ref: '#/components/schemas/ChangeRequest'
+          description: The ChangeRequest (as a value).
         '@baseType':
           type: string
           description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
         '@type':
           type: string
-          description: When sub-classing, this defines the sub-class Extensible name
-    WorkLog:
-      description: A record of the work performed on the change request during the investigation and resolution process.
+          description: When sub-classing, this defines the sub-class entity name
+    Place:
+      description: Place reference. Place defines the places where the products are sold or delivered.
       allOf:
       - $ref: '#/components/schemas/Entity'
       - properties:
           id:
             type: string
-            description: unique identifier
+            description: Unique identifier of the place
           href:
             type: string
-            format: uri
-            description: Hyperlink reference
-          createDateTime:
+            description: Unique reference of the place
+          name:
             type: string
-            format: date-time
-            description: Date and time of worklog generated.
-          description:
-            type: string
-            description: The description of the worklog.
-          lastUpdateDateTime:
-            type: string
-            description: Date and time when the worklog updated.
-          record:
-            type: array
-            items:
-              $ref: '#/components/schemas/Record'
-    TimePeriod:
+            description: A user-friendly name for the place, such as [Paris Store], [London Store], [Main Home]
+    ResourceAttributeValueChangeEventPayload:
       type: object
-      description: A period of time, either as a deadline (endDateTime only) a startDateTime only, or both
+      description: The event data structure
       properties:
-        endDateTime:
-          type: string
-          format: date-time
-          description: End of the time period, using IETC-RFC-3339 format
-        startDateTime:
-          type: string
-          format: date-time
-          description: Start of the time period, using IETC-RFC-3339 format
+        resource:
+          $ref: '#/components/schemas/Resource'
+          description: The involved resource data for the event
+    ResourceAdministrativeStateType:
+      type: string
+      description: ResourceAdministrativeStateType enumerations
+      enum:
+      - locked
+      - unlocked
+      - shutdown
+    PhysicalResourceCreateEvent:
+      description: The notification data structure
+      allOf:
+      - $ref: '#/components/schemas/Event'
+      - properties:
+          event:
+            $ref: '#/components/schemas/PhysicalResourceCreateEventPayload'
+            description: The event payload linked to the involved resource object
     PhysicalResourceStateChangeEvent:
       description: The notification data structure
       allOf:
@@ -2878,18 +2900,63 @@ components:
           event:
             $ref: '#/components/schemas/PhysicalResourceStateChangeEventPayload'
             description: The event payload linked to the involved resource object
-    ResourceAttributeValueChangeEvent:
+    ResourceSpecificationRef:
+      description: 'Resource Specification reference: The ResourceSpecification is required to realize a ProductSpecification.'
+      allOf:
+      - $ref: '#/components/schemas/EntityRef'
+      - properties:
+          version:
+            type: string
+            description: Resource specification version
+    AttachmentRef_2:
+      description: Attachment reference. An attachment complements the description of an element (for instance a product) through video, pictures
+      allOf:
+      - $ref: '#/components/schemas/EntityRef'
+      - properties:
+          description:
+            type: string
+            description: A narrative text describing the content of the attachment
+          url:
+            type: string
+            description: Link to the attachment media/content
+    ResourceCreateEventPayload:
+      type: object
+      description: The event data structure
+      properties:
+        resource:
+          $ref: '#/components/schemas/Resource'
+          description: The involved resource data for the event
+    ResourceCreateEvent:
       description: The notification data structure
       allOf:
       - $ref: '#/components/schemas/Event'
       - properties:
-          fieldPath:
-            type: string
-            description: The path identifying the object field concerned by this notification.
           event:
-            $ref: '#/components/schemas/ResourceAttributeValueChangeEventPayload'
+            $ref: '#/components/schemas/ResourceCreateEventPayload'
             description: The event payload linked to the involved resource object
-    PhysicalResourceAttributeValueChangeEventPayload:
+    PhysicalResourceCreateEventPayload:
+      type: object
+      description: The event data structure
+      properties:
+        physicalResource:
+          $ref: '#/components/schemas/PhysicalResource'
+          description: The involved resource data for the event
+    PhysicalResourceDeleteEvent:
+      description: The notification data structure
+      allOf:
+      - $ref: '#/components/schemas/Event'
+      - properties:
+          event:
+            $ref: '#/components/schemas/PhysicalResourceDeleteEventPayload'
+            description: The event payload linked to the involved resource object
+    ResourceUsageStateType:
+      type: string
+      description: ResourceUsageStateType enumerations
+      enum:
+      - idle
+      - active
+      - busy
+    PhysicalResourceDeleteEventPayload:
       type: object
       description: The event data structure
       properties:
@@ -2966,44 +3033,14 @@ components:
           usageState:
             $ref: '#/components/schemas/ResourceUsageStateType'
             description: Tracks the lifecycle status of the resource, such as planning, installing, opereating, retiring and so on.
-    ResourceAdministrativeStateType:
-      type: string
-      description: ResourceAdministrativeStateType enumerations
-      enum:
-      - locked
-      - unlocked
-      - shutdown
-    ResourceCreateEventPayload:
-      type: object
-      description: The event data structure
-      properties:
-        resource:
-          $ref: '#/components/schemas/Resource'
-          description: The involved resource data for the event
-    ResourceOperationalStateType:
-      type: string
-      description: ResourceOperationalStateType enumerations
-      enum:
-      - enable
-      - disable
-    AttachmentRefOrValue_2:
-      description: An attachment by value or by reference. For AttachmentRefOrValue, the attribute type,schemaLocation and referredType are related to the contained entity and not to AttchmentRefOrValue itself
-      properties:
-        ref:
-          $ref: '#/components/schemas/AttachmentRef_2'
-          description: A reference to the Attachment.
-        value:
-          $ref: '#/components/schemas/Attachment_2'
-          description: The Attachment (as a value).
-        '@baseType':
-          type: string
-          description: When sub-classing, this defines the super-class
-        '@schemaLocation':
-          type: string
-          description: A URI to a JSON-Schema file that defines additional attributes and relationships
-        '@type':
-          type: string
-          description: When sub-classing, this defines the sub-class entity name
+    ResourceStateChangeEvent:
+      description: The notification data structure
+      allOf:
+      - $ref: '#/components/schemas/Event'
+      - properties:
+          event:
+            $ref: '#/components/schemas/ResourceStateChangeEventPayload'
+            description: The event payload linked to the involved resource object
     PhysicalResource:
       description: Physical resource is a type of resource that describes the common set of attributes shared by all concrete physical resources (e.g. EQUIPMENT) in the inventory.
       allOf:
@@ -3032,73 +3069,6 @@ components:
         resource:
           $ref: '#/components/schemas/Resource'
           description: The involved resource data for the event
-    ResourceCreateEvent:
-      description: The notification data structure
-      allOf:
-      - $ref: '#/components/schemas/Event'
-      - properties:
-          event:
-            $ref: '#/components/schemas/ResourceCreateEventPayload'
-            description: The event payload linked to the involved resource object
-    RelatedParty_2:
-      description: Related Entity reference. A related party defines party or party role linked to a specific entity.
-      allOf:
-      - $ref: '#/components/schemas/Entity'
-      - required:
-        - id
-        - '@referredType'
-        properties:
-          id:
-            type: string
-            description: Unique identifier of a related entity.
-          href:
-            type: string
-            description: Reference of the related entity.
-          name:
-            type: string
-            description: Name of the related entity.
-          role:
-            type: string
-            description: Role played by the related party
-          '@referredType':
-            type: string
-            description: The actual type of the target instance when needed for disambiguation.
-    ResourceAttributeValueChangeEventPayload:
-      type: object
-      description: The event data structure
-      properties:
-        resource:
-          $ref: '#/components/schemas/Resource'
-          description: The involved resource data for the event
-    AttachmentRef_2:
-      description: Attachment reference. An attachment complements the description of an element (for instance a product) through video, pictures
-      allOf:
-      - $ref: '#/components/schemas/EntityRef'
-      - properties:
-          description:
-            type: string
-            description: A narrative text describing the content of the attachment
-          url:
-            type: string
-            description: Link to the attachment media/content
-    PhysicalResourceDeleteEvent:
-      description: The notification data structure
-      allOf:
-      - $ref: '#/components/schemas/Event'
-      - properties:
-          event:
-            $ref: '#/components/schemas/PhysicalResourceDeleteEventPayload'
-            description: The event payload linked to the involved resource object
-    ResourceStatusType:
-      type: string
-      description: ResourceStatusType enumerations
-      enum:
-      - standby
-      - alarm
-      - available
-      - reserved
-      - unknown
-      - suspended
     ResourceRelationship:
       allOf:
       - $ref: '#/components/schemas/Entity'
@@ -3115,69 +3085,49 @@ components:
             type: array
             items:
               $ref: '#/components/schemas/Characteristic'
-    ResourceUsageStateType:
+    AttachmentRefOrValue_2:
+      description: An attachment by value or by reference. For AttachmentRefOrValue, the attribute type,schemaLocation and referredType are related to the contained entity and not to AttchmentRefOrValue itself
+      properties:
+        ref:
+          $ref: '#/components/schemas/AttachmentRef_2'
+          description: A reference to the Attachment.
+        value:
+          $ref: '#/components/schemas/Attachment_2'
+          description: The Attachment (as a value).
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class entity name
+    ResourceOperationalStateType:
       type: string
-      description: ResourceUsageStateType enumerations
+      description: ResourceOperationalStateType enumerations
       enum:
-      - idle
-      - active
-      - busy
-    ResourceStateChangeEvent:
-      description: The notification data structure
-      allOf:
-      - $ref: '#/components/schemas/Event'
-      - properties:
-          event:
-            $ref: '#/components/schemas/ResourceStateChangeEventPayload'
-            description: The event payload linked to the involved resource object
-    ResourceSpecificationRef:
-      description: 'Resource Specification reference: The ResourceSpecification is required to realize a ProductSpecification.'
-      allOf:
-      - $ref: '#/components/schemas/EntityRef'
-      - properties:
-          version:
-            type: string
-            description: Resource specification version
-    PhysicalResourceAttributeValueChangeEvent:
-      description: The notification data structure
-      allOf:
-      - $ref: '#/components/schemas/Event'
-      - properties:
-          fieldPath:
-            type: string
-            description: The path identifying the object field concerned by this notification.
-          event:
-            $ref: '#/components/schemas/PhysicalResourceAttributeValueChangeEventPayload'
-            description: The event payload linked to the involved resource object
-    PhysicalResourceStateChangeEventPayload:
+      - enable
+      - disable
+    PhysicalResourceAttributeValueChangeEventPayload:
       type: object
       description: The event data structure
       properties:
         physicalResource:
           $ref: '#/components/schemas/PhysicalResource'
           description: The involved resource data for the event
-    PhysicalResourceCreateEvent:
-      description: The notification data structure
-      allOf:
-      - $ref: '#/components/schemas/Event'
-      - properties:
-          event:
-            $ref: '#/components/schemas/PhysicalResourceCreateEventPayload'
-            description: The event payload linked to the involved resource object
-    ResourceStateChangeEventPayload:
+    TimePeriod_2:
       type: object
-      description: The event data structure
+      description: A period of time, either as a deadline (endDateTime only) a startDateTime only, or both
       properties:
-        resource:
-          $ref: '#/components/schemas/Resource'
-          description: The involved resource data for the event
-    PhysicalResourceDeleteEventPayload:
-      type: object
-      description: The event data structure
-      properties:
-        physicalResource:
-          $ref: '#/components/schemas/PhysicalResource'
-          description: The involved resource data for the event
+        endDateTime:
+          type: string
+          format: date-time
+          description: End of the time period, using IETC-RFC-3339 format
+        startDateTime:
+          type: string
+          format: date-time
+          description: Start of the time period, using IETC-RFC-3339 format. If you define a start, you must also define an end
     Attachment_2:
       description: Complements the description of an element (for instance a product) through video, pictures...
       allOf:
@@ -3213,6 +3163,46 @@ components:
           validFor:
             $ref: '#/components/schemas/TimePeriod_2'
             description: The period of time for which the attachment is valid
+    RelatedParty_2:
+      description: Related Entity reference. A related party defines party or party role linked to a specific entity.
+      allOf:
+      - $ref: '#/components/schemas/Entity'
+      - required:
+        - id
+        - '@referredType'
+        properties:
+          id:
+            type: string
+            description: Unique identifier of a related entity.
+          href:
+            type: string
+            description: Reference of the related entity.
+          name:
+            type: string
+            description: Name of the related entity.
+          role:
+            type: string
+            description: Role played by the related party
+          '@referredType':
+            type: string
+            description: The actual type of the target instance when needed for disambiguation.
+    ResourceStateChangeEventPayload:
+      type: object
+      description: The event data structure
+      properties:
+        resource:
+          $ref: '#/components/schemas/Resource'
+          description: The involved resource data for the event
+    ResourceStatusType:
+      type: string
+      description: ResourceStatusType enumerations
+      enum:
+      - standby
+      - alarm
+      - available
+      - reserved
+      - unknown
+      - suspended
     Note_2:
       description: Extra information about a given entity
       allOf:
@@ -3239,56 +3229,7 @@ components:
           event:
             $ref: '#/components/schemas/ResourceDeleteEventPayload'
             description: The event payload linked to the involved resource object
-    PhysicalResourceCreateEventPayload:
-      type: object
-      description: The event data structure
-      properties:
-        physicalResource:
-          $ref: '#/components/schemas/PhysicalResource'
-          description: The involved resource data for the event
-    TimePeriod_2:
-      type: object
-      description: A period of time, either as a deadline (endDateTime only) a startDateTime only, or both
-      properties:
-        endDateTime:
-          type: string
-          format: date-time
-          description: End of the time period, using IETC-RFC-3339 format
-        startDateTime:
-          type: string
-          format: date-time
-          description: Start of the time period, using IETC-RFC-3339 format. If you define a start, you must also define an end
-    ServiceOrderItemStateType:
-      type: string
-      description: Possible values for the state of the order item
-      enum:
-      - acknowledged
-      - rejected
-      - pending
-      - held
-      - inProgress
-      - cancelled
-      - completed
-      - failed
-      - assessingCancellation
-      - pendingCancellation
-      - partial
-    CancelServiceOrderCreateEvent:
-      description: The notification data structure
-      allOf:
-      - $ref: '#/components/schemas/Event'
-      - properties:
-          event:
-            $ref: '#/components/schemas/CancelServiceOrderCreateEventPayload'
-            description: The event payload linked to the involved resource object
-    ServiceOrderAttributeValueChangeEventPayload:
-      type: object
-      description: The event data structure
-      properties:
-        serviceOrder:
-          $ref: '#/components/schemas/ServiceOrder'
-          description: The involved resource data for the event
-    ServiceOrderAttributeValueChangeEvent:
+    PhysicalResourceAttributeValueChangeEvent:
       description: The notification data structure
       allOf:
       - $ref: '#/components/schemas/Event'
@@ -3297,159 +3238,34 @@ components:
             type: string
             description: The path identifying the object field concerned by this notification.
           event:
-            $ref: '#/components/schemas/ServiceOrderAttributeValueChangeEventPayload'
+            $ref: '#/components/schemas/PhysicalResourceAttributeValueChangeEventPayload'
             description: The event payload linked to the involved resource object
-    ServiceSpecificationRef:
-      description: 'Service specification reference: ServiceSpecification(s) required to realize a ProductSpecification.'
+    ResourceAttributeValueChangeEvent:
+      description: The notification data structure
       allOf:
-      - $ref: '#/components/schemas/EntityRef'
+      - $ref: '#/components/schemas/Event'
       - properties:
-          version:
+          fieldPath:
             type: string
-            description: Service specification version
-    ServiceOrderItemErrorMessage:
-      description: AServiceOrderItemErrorMessage represents an error that causes a status change in a service order item.
-      allOf:
-      - $ref: '#/components/schemas/Entity'
-      - properties:
-          code:
-            type: string
-            description: error code
-          message:
-            type: string
-            description: More details and corrective actions related to the error
-          reason:
-            type: string
-            description: Explanation of the reason for the error
-          referenceError:
-            type: string
-            format: uri
-            description: URI of documentation describing the error
-          status:
-            type: string
-            description: error code extension like sys-ABC-2001
-          timestamp:
-            type: string
-            format: date-time
-            description: Date when the error happened
-    ServiceRefOrValue:
-      description: A Service to be created defined by value or existing defined by reference. The polymorphic attributes @type, @schemaLocation & @referredType are related to the Service entity and not the RelatedServiceRefOrValue class itself
-      properties:
-        ref:
-          $ref: '#/components/schemas/ServiceRef'
-          description: A reference to the Service.
-        value:
-          $ref: '#/components/schemas/Service'
-          description: The Service (as a value).
-        '@baseType':
-          type: string
-          description: When sub-classing, this defines the super-class
-        '@schemaLocation':
-          type: string
-          description: A URI to a JSON-Schema file that defines additional attributes and relationships
-        '@type':
-          type: string
-          description: When sub-classing, this defines the sub-class entity name
-    ConstraintRef:
-      description: Constraint reference. The Constraint resource represents a policy/rule applied to an entity or entity spec.
-      allOf:
-      - $ref: '#/components/schemas/EntityRef'
-      - properties:
-          version:
-            type: string
-            description: constraint version
-    ServiceOrderRef:
-      description: Service Order reference. Useful to understand the which was the Service order through which the service was instantiated in the service inventory
-      allOf:
-      - $ref: '#/components/schemas/EntityRef'
-    ServiceStateType:
-      type: string
-      description: Valid values for the lifecycle state of the service
-      enum:
-      - feasibilityChecked
-      - designed
-      - reserved
-      - inactive
-      - active
-      - terminated
-    CancelServiceOrderStateChangeEventPayload:
+            description: The path identifying the object field concerned by this notification.
+          event:
+            $ref: '#/components/schemas/ResourceAttributeValueChangeEventPayload'
+            description: The event payload linked to the involved resource object
+    PhysicalResourceStateChangeEventPayload:
       type: object
       description: The event data structure
       properties:
-        cancelServiceOrder:
-          $ref: '#/components/schemas/CancelServiceOrder'
+        physicalResource:
+          $ref: '#/components/schemas/PhysicalResource'
           description: The involved resource data for the event
-    CancelServiceOrder:
-      description: Request for cancellation an existing Service order
-      allOf:
-      - $ref: '#/components/schemas/Entity'
-      - properties:
-          id:
-            type: string
-            description: unique identifier
-          href:
-            type: string
-            format: uri
-            description: Hyperlink reference
-          cancellationReason:
-            type: string
-            description: Reason why the order is cancelled.
-          completionMessage:
-            type: string
-            description: an optional message describing the completion of the task if it is done as expected or it is denied for a reason (like order in an state of PoNR).
-          effectiveCancellationDate:
-            type: string
-            format: date-time
-            description: Date when the order is cancelled.
-          requestedCancellationDate:
-            type: string
-            format: date-time
-            description: Date when the submitter wants the order to be cancelled
-          errorMessage:
-            $ref: '#/components/schemas/ErrorMessage'
-            description: the error(s) cause the termination of cancelServiceOrder (in TerminatedWithError state)
-          serviceOrder:
-            $ref: '#/components/schemas/ServiceOrderRef'
-          state:
-            $ref: '#/components/schemas/TaskStateType'
-            description: Tracks the lifecycle status of the cancellation request, such as Acknowledged, Rejected, InProgress, Pending and so on.
-    CancelServiceOrderStateChangeEvent:
+    BellServiceOrderFailureEvent:
       description: The notification data structure
       allOf:
       - $ref: '#/components/schemas/Event'
       - properties:
           event:
-            $ref: '#/components/schemas/CancelServiceOrderStateChangeEventPayload'
+            $ref: '#/components/schemas/BellServiceOrderFailureEventPayload'
             description: The event payload linked to the involved resource object
-    ServiceRelationship:
-      allOf:
-      - $ref: '#/components/schemas/Entity'
-      - required:
-        - relationshipType
-        properties:
-          id:
-            type: string
-            description: unique identifier
-          href:
-            type: string
-            format: uri
-            description: Hyperlink reference
-          relationshipType:
-            type: string
-          service:
-            $ref: '#/components/schemas/ServiceRefOrValue'
-          serviceRelationshipCharacteristic:
-            type: array
-            items:
-              $ref: '#/components/schemas/Characteristic'
-    TaskStateType:
-      type: string
-      description: Possible values for the state of a task
-      enum:
-      - accepted
-      - terminatedWithError
-      - inProgress
-      - done
     RelatedServiceOrderItem:
       description: RelatedServiceOrderItem (a ServiceOrder item) .The service order item which triggered service creation/change/termination.
       allOf:
@@ -3480,58 +3296,21 @@ components:
           '@referredType':
             type: string
             description: The actual type of the target instance when needed for disambiguation.
-    OrderItemActionType:
+    ServiceOrderItemStateType:
       type: string
-      description: action to be performed on the product
+      description: Possible values for the state of the order item
       enum:
-      - add
-      - modify
-      - delete
-      - noChange
-    Feature:
-      type: object
-      description: Configuration feature.
-      required:
-      - name
-      - featureCharacteristic
-      properties:
-        id:
-          type: string
-          description: Unique identifier of the feature.
-        isBundle:
-          type: boolean
-          description: True if this is a feature group. Default is false.
-        isEnabled:
-          type: boolean
-          description: True if this feature is enabled. Default is true.
-        name:
-          type: string
-          description: This is the name for the feature.
-        constraint:
-          description: This is a list of feature constraints.
-          type: array
-          items:
-            $ref: '#/components/schemas/ConstraintRef'
-        featureCharacteristic:
-          description: This is a list of Characteristics for a particular feature.
-          type: array
-          items:
-            $ref: '#/components/schemas/Characteristic'
-          minItems: 1
-        featureRelationship:
-          type: array
-          items:
-            $ref: '#/components/schemas/FeatureRelationship'
-    CancelServiceOrderCreateEventPayload:
-      type: object
-      description: The event data structure
-      properties:
-        cancelServiceOrder:
-          $ref: '#/components/schemas/CancelServiceOrder'
-          description: The involved resource data for the event
-    ResourceRef:
-      allOf:
-      - $ref: '#/components/schemas/EntityRef'
+      - acknowledged
+      - rejected
+      - pending
+      - held
+      - inProgress
+      - cancelled
+      - completed
+      - failed
+      - assessingCancellation
+      - pendingCancellation
+      - partial
     ServiceOrderStateChangeEventPayload:
       type: object
       description: The event data structure
@@ -3539,16 +3318,166 @@ components:
         serviceOrder:
           $ref: '#/components/schemas/ServiceOrder'
           description: The involved resource data for the event
-    CancelServiceOrderInformationRequiredEvent:
+    ErrorMessage:
+      description: represents an Error
+      allOf:
+      - $ref: '#/components/schemas/Entity'
+      - properties:
+          code:
+            type: string
+            description: error code
+          message:
+            type: string
+            description: More details and corrective actions related to the error
+          reason:
+            type: string
+            description: Explanation of the reason for the error
+          referenceError:
+            type: string
+            format: uri
+            description: URI of documentation describing the error
+          status:
+            type: string
+            description: error code extension like sys-ABC-2001
+    BellServiceOrderFailureEventPayload:
+      type: object
+      description: The event data structure
+      properties:
+        failure:
+          $ref: '#/components/schemas/BellErrorRepresentation'
+          description: The error associated to the failure event
+        httpCode:
+          type: string
+          description: http return code at the API level.
+    ServiceOrderRelationship:
+      description: Linked service order to the one containing this attribute
+      allOf:
+      - $ref: '#/components/schemas/Entity'
+      - required:
+        - id
+        - relationshipType
+        properties:
+          id:
+            type: string
+            description: The id of the related order
+          href:
+            type: string
+            description: A hyperlink to the related order
+          relationshipType:
+            type: string
+            description: 'The type of related order, such as: [dependency] if the order needs to be [not started] until another order item is complete (a service order in this case) or [cross-ref] to keep track of the source order (a productOrder)'
+          '@referredType':
+            type: string
+            description: The entity type of the related order
+    ConstraintRef:
+      description: Constraint reference. The Constraint resource represents a policy/rule applied to an entity or entity spec.
+      allOf:
+      - $ref: '#/components/schemas/EntityRef'
+      - properties:
+          version:
+            type: string
+            description: constraint version
+    ServiceOrderMilestoneEventPayload:
+      type: object
+      description: The event data structure
+      properties:
+        serviceOrder:
+          $ref: '#/components/schemas/ServiceOrder'
+          description: The involved resource data for the event
+    ServiceRefOrValue:
+      description: A Service to be created defined by value or existing defined by reference. The polymorphic attributes @type, @schemaLocation & @referredType are related to the Service entity and not the RelatedServiceRefOrValue class itself
+      properties:
+        ref:
+          $ref: '#/components/schemas/ServiceRef'
+          description: A reference to the Service.
+        value:
+          $ref: '#/components/schemas/Service'
+          description: The Service (as a value).
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class entity name
+    CancelServiceOrderStateChangeEventPayload:
+      type: object
+      description: The event data structure
+      properties:
+        cancelServiceOrder:
+          $ref: '#/components/schemas/CancelServiceOrder'
+          description: The involved resource data for the event
+    ServiceOrderCreateEventPayload:
+      type: object
+      description: The event data structure
+      properties:
+        serviceOrder:
+          $ref: '#/components/schemas/ServiceOrder'
+          description: The involved resource data for the event
+    ServiceOrderItemRef:
+      allOf:
+      - $ref: '#/components/schemas/EntityRef'
+      - properties:
+          itemId:
+            type: string
+            description: Identifier of the line item
+          serviceOrderHref:
+            type: string
+            format: uri
+            description: Link to the order to which this item belongs to
+          serviceOrderId:
+            type: string
+            description: Identifier of the order that this item belongs to
+    ServiceOrderItem:
+      allOf:
+      - $ref: '#/components/schemas/Entity'
+      - required:
+        - id
+        - action
+        - service
+        properties:
+          id:
+            type: string
+            description: Identifier of the individual line item
+          quantity:
+            type: integer
+            description: Quantity ordered
+          action:
+            $ref: '#/components/schemas/OrderItemActionType'
+            description: 'The action to be carried out on the Service. Can be: add, modify, delete, noChange'
+          appointment:
+            $ref: '#/components/schemas/AppointmentRef'
+            description: An appointment that was set up with a related party for this order item
+          errorMessage:
+            description: the error(s) cause an order item status change
+            type: array
+            items:
+              $ref: '#/components/schemas/ServiceOrderItemErrorMessage'
+          service:
+            $ref: '#/components/schemas/ServiceRefOrValue'
+            description: The Service to be acted on by the order item
+          serviceOrderItem:
+            description: A list of order items embedded to this order item
+            type: array
+            items:
+              $ref: '#/components/schemas/ServiceOrderItem'
+          serviceOrderItemRelationship:
+            description: A list of order items related to this order item
+            type: array
+            items:
+              $ref: '#/components/schemas/ServiceOrderItemRelationship'
+          state:
+            $ref: '#/components/schemas/ServiceOrderItemStateType'
+            description: 'State of the order item: described in the state machine diagram. This is the requested state.'
+    ServiceOrderMilestoneEvent:
       description: The notification data structure
       allOf:
       - $ref: '#/components/schemas/Event'
       - properties:
-          fieldPath:
-            type: string
-            description: The path identifying the object field concerned by this notification.
           event:
-            $ref: '#/components/schemas/CancelServiceOrderInformationRequiredEventPayload'
+            $ref: '#/components/schemas/ServiceOrderMilestoneEventPayload'
             description: The event payload linked to the involved resource object
     ServiceOrder:
       allOf:
@@ -3647,6 +3576,183 @@ components:
           state:
             $ref: '#/components/schemas/ServiceOrderStateType'
             description: 'State of the order: described in the state-machine diagram'
+    ServiceOrderInformationRequiredEvent:
+      description: The notification data structure
+      allOf:
+      - $ref: '#/components/schemas/Event'
+      - properties:
+          fieldPath:
+            type: string
+            description: The path identifying the object field concerned by this notification.
+          event:
+            $ref: '#/components/schemas/ServiceOrderInformationRequiredEventPayload'
+            description: The event payload linked to the involved resource object
+    OrderItemActionType:
+      type: string
+      description: action to be performed on the product
+      enum:
+      - add
+      - modify
+      - delete
+      - noChange
+    ServiceRelationship:
+      allOf:
+      - $ref: '#/components/schemas/Entity'
+      - required:
+        - relationshipType
+        properties:
+          id:
+            type: string
+            description: unique identifier
+          href:
+            type: string
+            format: uri
+            description: Hyperlink reference
+          relationshipType:
+            type: string
+          service:
+            $ref: '#/components/schemas/ServiceRefOrValue'
+          serviceRelationshipCharacteristic:
+            type: array
+            items:
+              $ref: '#/components/schemas/Characteristic'
+    ServiceOrderAttributeValueChangeEvent:
+      description: The notification data structure
+      allOf:
+      - $ref: '#/components/schemas/Event'
+      - properties:
+          fieldPath:
+            type: string
+            description: The path identifying the object field concerned by this notification.
+          event:
+            $ref: '#/components/schemas/ServiceOrderAttributeValueChangeEventPayload'
+            description: The event payload linked to the involved resource object
+    AppointmentRef:
+      description: Refers an appointment, such as a Customer presentation or internal meeting or site visit
+      allOf:
+      - $ref: '#/components/schemas/EntityRef'
+      - properties:
+          description:
+            type: string
+            description: An explanatory text regarding the appointment made with a party
+    ServiceOrderRef:
+      description: Service Order reference. Useful to understand the which was the Service order through which the service was instantiated in the service inventory
+      allOf:
+      - $ref: '#/components/schemas/EntityRef'
+    CancelServiceOrderStateChangeEvent:
+      description: The notification data structure
+      allOf:
+      - $ref: '#/components/schemas/Event'
+      - properties:
+          event:
+            $ref: '#/components/schemas/CancelServiceOrderStateChangeEventPayload'
+            description: The event payload linked to the involved resource object
+    ServiceOrderItemErrorMessage:
+      description: AServiceOrderItemErrorMessage represents an error that causes a status change in a service order item.
+      allOf:
+      - $ref: '#/components/schemas/Entity'
+      - properties:
+          code:
+            type: string
+            description: error code
+          message:
+            type: string
+            description: More details and corrective actions related to the error
+          reason:
+            type: string
+            description: Explanation of the reason for the error
+          referenceError:
+            type: string
+            format: uri
+            description: URI of documentation describing the error
+          status:
+            type: string
+            description: error code extension like sys-ABC-2001
+          timestamp:
+            type: string
+            format: date-time
+            description: Date when the error happened
+    ServiceOrderJeopardyAlert:
+      description: A ServiceOrderJeopardyAlert represents a predicted exception during a service order processing that would brings risk to complete successfully the ordetr.
+      allOf:
+      - $ref: '#/components/schemas/Entity'
+      - properties:
+          id:
+            type: string
+            description: identifier of the JeopardyAlert
+          alertDate:
+            type: string
+            format: date-time
+            description: A date time( DateTime). The date that the alert issued
+          exception:
+            type: string
+            description: ' The exception associated with this jeopardy alert'
+          jeopardyType:
+            type: string
+            description: A string represents the type of jeopardy/risk like Normal, Hazard, Critical, ...
+          message:
+            type: string
+            description: A string represents the message of the alert
+          name:
+            type: string
+            description: A string used to give a name to the jeopardy alert
+          serviceOrderItem:
+            description: A list of order item references corresponded to this alert
+            type: array
+            items:
+              $ref: '#/components/schemas/ServiceOrderItemRef'
+    ServiceOrderJeopardyEventPayload:
+      type: object
+      description: The event data structure
+      properties:
+        serviceOrder:
+          $ref: '#/components/schemas/ServiceOrder'
+          description: The involved resource data for the event
+    TaskStateType:
+      type: string
+      description: Possible values for the state of a task
+      enum:
+      - accepted
+      - terminatedWithError
+      - inProgress
+      - done
+    CancelServiceOrderCreateEvent:
+      description: The notification data structure
+      allOf:
+      - $ref: '#/components/schemas/Event'
+      - properties:
+          event:
+            $ref: '#/components/schemas/CancelServiceOrderCreateEventPayload'
+            description: The event payload linked to the involved resource object
+    ServiceOrderMilestone:
+      description: ServiceOrderMilestone represents an action or event marking a significant change or stage in processing of a service order.
+      allOf:
+      - $ref: '#/components/schemas/Entity'
+      - properties:
+          id:
+            type: string
+            description: identifier of the Milestone
+          description:
+            type: string
+            description: free-text description of the Milestone
+          message:
+            type: string
+            description: A string represents the message of the milestone
+          milestoneDate:
+            type: string
+            format: date-time
+            description: A date time( DateTime). The date that the milestone happens
+          name:
+            type: string
+            description: A string used to give a name to the milestone
+          status:
+            type: string
+            description: The milestone status
+          serviceOrderItem:
+            description: A list of order item references corresponded to this milestone
+            type: array
+            items:
+              $ref: '#/components/schemas/ServiceOrderItemRef'
     ServiceOrderJeopardyEvent:
       type: object
       description: The notification data structure
@@ -3683,15 +3789,7 @@ components:
           type: string
           format: date-time
           description: The time the event occured.
-    ServiceOrderDeleteEvent:
-      description: The notification data structure
-      allOf:
-      - $ref: '#/components/schemas/Event'
-      - properties:
-          event:
-            $ref: '#/components/schemas/ServiceOrderDeleteEventPayload'
-            description: The event payload linked to the involved resource object
-    ServiceOrderInformationRequiredEvent:
+    CancelServiceOrderInformationRequiredEvent:
       description: The notification data structure
       allOf:
       - $ref: '#/components/schemas/Event'
@@ -3700,65 +3798,26 @@ components:
             type: string
             description: The path identifying the object field concerned by this notification.
           event:
-            $ref: '#/components/schemas/ServiceOrderInformationRequiredEventPayload'
+            $ref: '#/components/schemas/CancelServiceOrderInformationRequiredEventPayload'
             description: The event payload linked to the involved resource object
-    BellServiceOrderFailureEvent:
-      description: The notification data structure
-      allOf:
-      - $ref: '#/components/schemas/Event'
-      - properties:
-          event:
-            $ref: '#/components/schemas/BellServiceOrderFailureEventPayload'
-            description: The event payload linked to the involved resource object
-    ServiceOrderItem:
+    CancelServiceOrderCreateEventPayload:
+      type: object
+      description: The event data structure
+      properties:
+        cancelServiceOrder:
+          $ref: '#/components/schemas/CancelServiceOrder'
+          description: The involved resource data for the event
+    ServiceOrderItemRelationship:
+      description: Linked service order item to the one containing this attribute
       allOf:
       - $ref: '#/components/schemas/Entity'
-      - required:
-        - id
-        - action
-        - service
-        properties:
-          id:
-            type: string
-            description: Identifier of the individual line item
-          quantity:
-            type: integer
-            description: Quantity ordered
-          action:
-            $ref: '#/components/schemas/OrderItemActionType'
-            description: 'The action to be carried out on the Service. Can be: add, modify, delete, noChange'
-          appointment:
-            $ref: '#/components/schemas/AppointmentRef'
-            description: An appointment that was set up with a related party for this order item
-          errorMessage:
-            description: the error(s) cause an order item status change
-            type: array
-            items:
-              $ref: '#/components/schemas/ServiceOrderItemErrorMessage'
-          service:
-            $ref: '#/components/schemas/ServiceRefOrValue'
-            description: The Service to be acted on by the order item
-          serviceOrderItem:
-            description: A list of order items embedded to this order item
-            type: array
-            items:
-              $ref: '#/components/schemas/ServiceOrderItem'
-          serviceOrderItemRelationship:
-            description: A list of order items related to this order item
-            type: array
-            items:
-              $ref: '#/components/schemas/ServiceOrderItemRelationship'
-          state:
-            $ref: '#/components/schemas/ServiceOrderItemStateType'
-            description: 'State of the order item: described in the state machine diagram. This is the requested state.'
-    AppointmentRef:
-      description: Refers an appointment, such as a Customer presentation or internal meeting or site visit
-      allOf:
-      - $ref: '#/components/schemas/EntityRef'
       - properties:
-          description:
+          relationshipType:
             type: string
-            description: An explanatory text regarding the appointment made with a party
+            description: 'The type of related order item, can be: dependency if the order item needs to be not started until another order item is complete'
+          orderItem:
+            $ref: '#/components/schemas/ServiceOrderItemRef'
+            description: A service order item in relationship with this order item
     RelatedEntityRefOrValue:
       description: A reference to an entity, where the type of the entity is not known in advance. A related entity defines a entity described by reference or by value linked to a specific entity. The polymorphic attributes @type, @schemaLocation & @referredType are related to the Entity and not the RelatedEntityRefOrValue class itself
       properties:
@@ -3779,260 +3838,38 @@ components:
         '@type':
           type: string
           description: When sub-classing, this defines the sub-class entity name
-    RelatedParty_3:
-      description: Related Party reference. A related party defines party or party role linked to a specific entity.
+    ServiceRef:
+      description: Service reference, for when Service is used by other entities
       allOf:
-      - $ref: '#/components/schemas/Entity'
-      - required:
-        - id
-        - '@referredType'
-        properties:
-          id:
-            type: string
-            description: unique identifier
-          href:
-            type: string
-            format: uri
-            description: Hyperlink reference
-          name:
-            type: string
-            description: Name of the related entity.
-          role:
-            type: string
-            description: Role played by the related party
-          '@referredType':
-            type: string
-            description: The actual type of the target instance when needed for disambiguation.
-    ServiceOrderJeopardyAlert:
-      description: A ServiceOrderJeopardyAlert represents a predicted exception during a service order processing that would brings risk to complete successfully the ordetr.
-      allOf:
-      - $ref: '#/components/schemas/Entity'
-      - properties:
-          id:
-            type: string
-            description: identifier of the JeopardyAlert
-          alertDate:
-            type: string
-            format: date-time
-            description: A date time( DateTime). The date that the alert issued
-          exception:
-            type: string
-            description: ' The exception associated with this jeopardy alert'
-          jeopardyType:
-            type: string
-            description: A string represents the type of jeopardy/risk like Normal, Hazard, Critical, ...
-          message:
-            type: string
-            description: A string represents the message of the alert
-          name:
-            type: string
-            description: A string used to give a name to the jeopardy alert
-          serviceOrderItem:
-            description: A list of order item references corresponded to this alert
-            type: array
-            items:
-              $ref: '#/components/schemas/ServiceOrderItemRef'
-    ServiceOrderCreateEvent:
-      description: The notification data structure
-      allOf:
-      - $ref: '#/components/schemas/Event'
-      - properties:
-          event:
-            $ref: '#/components/schemas/ServiceOrderCreateEventPayload'
-            description: The event payload linked to the involved resource object
-    BellServiceOrderFailureEventPayload:
+      - $ref: '#/components/schemas/EntityRef'
+    FeatureRelationship:
       type: object
-      description: The event data structure
+      description: Configuration feature
+      required:
+      - name
+      - relationshipType
       properties:
-        failure:
-          $ref: '#/components/schemas/BellErrorRepresentation'
-          description: The error associated to the failure event
-        httpCode:
+        id:
           type: string
-          description: http return code at the API level.
-    ServiceOrderJeopardyEventPayload:
-      type: object
-      description: The event data structure
-      properties:
-        serviceOrder:
-          $ref: '#/components/schemas/ServiceOrder'
-          description: The involved resource data for the event
-    ServiceOrderCreateEventPayload:
-      type: object
-      description: The event data structure
-      properties:
-        serviceOrder:
-          $ref: '#/components/schemas/ServiceOrder'
-          description: The involved resource data for the event
-    ServiceOrderItemRelationship:
-      description: Linked service order item to the one containing this attribute
+          description: Unique identifier of the target feature.
+        name:
+          type: string
+          description: This is the name of the target feature.
+        relationshipType:
+          type: string
+          description: This is the type of the feature relationship.
+        validFor:
+          $ref: '#/components/schemas/TimePeriod'
+          description: The period for which this feature relationship is valid.
+    ServiceOrderDeleteEvent:
+      description: The notification data structure
       allOf:
-      - $ref: '#/components/schemas/Entity'
+      - $ref: '#/components/schemas/Event'
       - properties:
-          relationshipType:
-            type: string
-            description: 'The type of related order item, can be: dependency if the order item needs to be not started until another order item is complete'
-          orderItem:
-            $ref: '#/components/schemas/ServiceOrderItemRef'
-            description: A service order item in relationship with this order item
+          event:
+            $ref: '#/components/schemas/ServiceOrderDeleteEventPayload'
+            description: The event payload linked to the involved resource object
     ServiceOrderDeleteEventPayload:
-      type: object
-      description: The event data structure
-      properties:
-        serviceOrder:
-          $ref: '#/components/schemas/ServiceOrder'
-          description: The involved resource data for the event
-    ServiceOrderStateChangeEvent:
-      description: The notification data structure
-      allOf:
-      - $ref: '#/components/schemas/Event'
-      - properties:
-          event:
-            $ref: '#/components/schemas/ServiceOrderStateChangeEventPayload'
-            description: The event payload linked to the involved resource object
-    CancelServiceOrderInformationRequiredEventPayload:
-      type: object
-      description: The event data structure
-      properties:
-        cancelServiceOrder:
-          $ref: '#/components/schemas/CancelServiceOrder'
-          description: The involved resource data for the event
-    ServiceOrderRelationship:
-      description: Linked service order to the one containing this attribute
-      allOf:
-      - $ref: '#/components/schemas/Entity'
-      - required:
-        - id
-        - relationshipType
-        properties:
-          id:
-            type: string
-            description: The id of the related order
-          href:
-            type: string
-            description: A hyperlink to the related order
-          relationshipType:
-            type: string
-            description: 'The type of related order, such as: [dependency] if the order needs to be [not started] until another order item is complete (a service order in this case) or [cross-ref] to keep track of the source order (a productOrder)'
-          '@referredType':
-            type: string
-            description: The entity type of the related order
-    ServiceOrderErrorMessage:
-      description: A ServiceOrderErrorMessage represents an error that causes a status change in a service order.
-      allOf:
-      - $ref: '#/components/schemas/Entity'
-      - properties:
-          code:
-            type: string
-            description: error code
-          message:
-            type: string
-            description: More details and corrective actions related to the error
-          reason:
-            type: string
-            description: Explanation of the reason for the error
-          referenceError:
-            type: string
-            format: uri
-            description: URI of documentation describing the error
-          status:
-            type: string
-            description: error code extension like sys-ABC-2001
-          timestamp:
-            type: string
-            format: date-time
-            description: Date when the error happened
-          serviceOrderItem:
-            description: A list of order item references corresponded to this error
-            type: array
-            items:
-              $ref: '#/components/schemas/ServiceOrderItemRef'
-    ServiceOrderMilestoneEventPayload:
-      type: object
-      description: The event data structure
-      properties:
-        serviceOrder:
-          $ref: '#/components/schemas/ServiceOrder'
-          description: The involved resource data for the event
-    ServiceOrderMilestone:
-      description: ServiceOrderMilestone represents an action or event marking a significant change or stage in processing of a service order.
-      allOf:
-      - $ref: '#/components/schemas/Entity'
-      - properties:
-          id:
-            type: string
-            description: identifier of the Milestone
-          description:
-            type: string
-            description: free-text description of the Milestone
-          message:
-            type: string
-            description: A string represents the message of the milestone
-          milestoneDate:
-            type: string
-            format: date-time
-            description: A date time( DateTime). The date that the milestone happens
-          name:
-            type: string
-            description: A string used to give a name to the milestone
-          status:
-            type: string
-            description: The milestone status
-          serviceOrderItem:
-            description: A list of order item references corresponded to this milestone
-            type: array
-            items:
-              $ref: '#/components/schemas/ServiceOrderItemRef'
-    ServiceOrderMilestoneEvent:
-      description: The notification data structure
-      allOf:
-      - $ref: '#/components/schemas/Event'
-      - properties:
-          event:
-            $ref: '#/components/schemas/ServiceOrderMilestoneEventPayload'
-            description: The event payload linked to the involved resource object
-    ErrorMessage:
-      description: represents an Error
-      allOf:
-      - $ref: '#/components/schemas/Entity'
-      - properties:
-          code:
-            type: string
-            description: error code
-          message:
-            type: string
-            description: More details and corrective actions related to the error
-          reason:
-            type: string
-            description: Explanation of the reason for the error
-          referenceError:
-            type: string
-            format: uri
-            description: URI of documentation describing the error
-          status:
-            type: string
-            description: error code extension like sys-ABC-2001
-    Note_3:
-      description: Extra information about a given entity
-      allOf:
-      - $ref: '#/components/schemas/Entity'
-      - required:
-        - text
-        properties:
-          id:
-            type: string
-            description: Identifier of the note within its containing entity
-          author:
-            type: string
-            description: Author of the note
-          date:
-            type: string
-            format: date-time
-            description: Date of the note
-          text:
-            type: string
-            description: Text of the note
-    ServiceOrderInformationRequiredEventPayload:
       type: object
       description: The event data structure
       properties:
@@ -4144,10 +3981,38 @@ components:
             type: array
             items:
               $ref: '#/components/schemas/ServiceRefOrValue'
-    ServiceRef:
-      description: Service reference, for when Service is used by other entities
+    ServiceSpecificationRef:
+      description: 'Service specification reference: ServiceSpecification(s) required to realize a ProductSpecification.'
       allOf:
       - $ref: '#/components/schemas/EntityRef'
+      - properties:
+          version:
+            type: string
+            description: Service specification version
+    RelatedParty_3:
+      description: Related Party reference. A related party defines party or party role linked to a specific entity.
+      allOf:
+      - $ref: '#/components/schemas/Entity'
+      - required:
+        - id
+        - '@referredType'
+        properties:
+          id:
+            type: string
+            description: unique identifier
+          href:
+            type: string
+            format: uri
+            description: Hyperlink reference
+          name:
+            type: string
+            description: Name of the related entity.
+          role:
+            type: string
+            description: Role played by the related party
+          '@referredType':
+            type: string
+            description: The actual type of the target instance when needed for disambiguation.
     ServiceOrderStateType:
       type: string
       description: Possible values for the state of the order
@@ -4163,103 +4028,174 @@ components:
       - partial
       - assessingCancellation
       - pendingCancellation
-    FeatureRelationship:
+    Feature:
       type: object
-      description: Configuration feature
+      description: Configuration feature.
       required:
       - name
-      - relationshipType
+      - featureCharacteristic
       properties:
         id:
           type: string
-          description: Unique identifier of the target feature.
+          description: Unique identifier of the feature.
+        isBundle:
+          type: boolean
+          description: True if this is a feature group. Default is false.
+        isEnabled:
+          type: boolean
+          description: True if this feature is enabled. Default is true.
         name:
           type: string
-          description: This is the name of the target feature.
-        relationshipType:
-          type: string
-          description: This is the type of the feature relationship.
-        validFor:
-          $ref: '#/components/schemas/TimePeriod'
-          description: The period for which this feature relationship is valid.
-    ServiceOrderItemRef:
-      allOf:
-      - $ref: '#/components/schemas/EntityRef'
-      - properties:
-          itemId:
-            type: string
-            description: Identifier of the line item
-          serviceOrderHref:
-            type: string
-            format: uri
-            description: Link to the order to which this item belongs to
-          serviceOrderId:
-            type: string
-            description: Identifier of the order that this item belongs to
-    TroubleTicketInformationRequiredEventPayload:
+          description: This is the name for the feature.
+        constraint:
+          description: This is a list of feature constraints.
+          type: array
+          items:
+            $ref: '#/components/schemas/ConstraintRef'
+        featureCharacteristic:
+          description: This is a list of Characteristics for a particular feature.
+          type: array
+          items:
+            $ref: '#/components/schemas/Characteristic'
+          minItems: 1
+        featureRelationship:
+          type: array
+          items:
+            $ref: '#/components/schemas/FeatureRelationship'
+    ServiceOrderAttributeValueChangeEventPayload:
       type: object
       description: The event data structure
       properties:
-        troubleTicket:
-          $ref: '#/components/schemas/TroubleTicket'
+        serviceOrder:
+          $ref: '#/components/schemas/ServiceOrder'
           description: The involved resource data for the event
-    Characteristic_2:
-      description: Describes a given characteristic of an object or entity through a name/value pair.
+    CancelServiceOrderInformationRequiredEventPayload:
+      type: object
+      description: The event data structure
+      properties:
+        cancelServiceOrder:
+          $ref: '#/components/schemas/CancelServiceOrder'
+          description: The involved resource data for the event
+    ServiceStateType:
+      type: string
+      description: Valid values for the lifecycle state of the service
+      enum:
+      - feasibilityChecked
+      - designed
+      - reserved
+      - inactive
+      - active
+      - terminated
+    Note_3:
+      description: Extra information about a given entity
+      allOf:
+      - $ref: '#/components/schemas/Entity'
+      - required:
+        - text
+        properties:
+          id:
+            type: string
+            description: Identifier of the note within its containing entity
+          author:
+            type: string
+            description: Author of the note
+          date:
+            type: string
+            format: date-time
+            description: Date of the note
+          text:
+            type: string
+            description: Text of the note
+    CancelServiceOrder:
+      description: Request for cancellation an existing Service order
       allOf:
       - $ref: '#/components/schemas/Entity'
       - properties:
           id:
             type: string
-            description: Unique identifier of the characteristic
-          name:
+            description: unique identifier
+          href:
             type: string
-            description: Name of the characteristic
-          valueType:
+            format: uri
+            description: Hyperlink reference
+          cancellationReason:
             type: string
-            description: Data type of the value of the characteristic
-    TroubleTicketDeleteEvent:
+            description: Reason why the order is cancelled.
+          completionMessage:
+            type: string
+            description: an optional message describing the completion of the task if it is done as expected or it is denied for a reason (like order in an state of PoNR).
+          effectiveCancellationDate:
+            type: string
+            format: date-time
+            description: Date when the order is cancelled.
+          requestedCancellationDate:
+            type: string
+            format: date-time
+            description: Date when the submitter wants the order to be cancelled
+          errorMessage:
+            $ref: '#/components/schemas/ErrorMessage'
+            description: the error(s) cause the termination of cancelServiceOrder (in TerminatedWithError state)
+          serviceOrder:
+            $ref: '#/components/schemas/ServiceOrderRef'
+          state:
+            $ref: '#/components/schemas/TaskStateType'
+            description: Tracks the lifecycle status of the cancellation request, such as Acknowledged, Rejected, InProgress, Pending and so on.
+    ServiceOrderErrorMessage:
+      description: A ServiceOrderErrorMessage represents an error that causes a status change in a service order.
+      allOf:
+      - $ref: '#/components/schemas/Entity'
+      - properties:
+          code:
+            type: string
+            description: error code
+          message:
+            type: string
+            description: More details and corrective actions related to the error
+          reason:
+            type: string
+            description: Explanation of the reason for the error
+          referenceError:
+            type: string
+            format: uri
+            description: URI of documentation describing the error
+          status:
+            type: string
+            description: error code extension like sys-ABC-2001
+          timestamp:
+            type: string
+            format: date-time
+            description: Date when the error happened
+          serviceOrderItem:
+            description: A list of order item references corresponded to this error
+            type: array
+            items:
+              $ref: '#/components/schemas/ServiceOrderItemRef'
+    ServiceOrderInformationRequiredEventPayload:
+      type: object
+      description: The event data structure
+      properties:
+        serviceOrder:
+          $ref: '#/components/schemas/ServiceOrder'
+          description: The involved resource data for the event
+    ResourceRef:
+      allOf:
+      - $ref: '#/components/schemas/EntityRef'
+    ServiceOrderCreateEvent:
       description: The notification data structure
       allOf:
       - $ref: '#/components/schemas/Event'
       - properties:
           event:
-            $ref: '#/components/schemas/TroubleTicketDeleteEventPayload'
+            $ref: '#/components/schemas/ServiceOrderCreateEventPayload'
             description: The event payload linked to the involved resource object
-    TroubleTicketStatusChangeEventPayload:
-      type: object
-      description: The event data structure
-      properties:
-        troubleTicket:
-          $ref: '#/components/schemas/TroubleTicket'
-          description: The involved resource data for the event
-    TroubleTicketRelationship:
-      description: Represents a relationship between trouble Trouble Tickets
+    ServiceOrderStateChangeEvent:
+      description: The notification data structure
       allOf:
-      - $ref: '#/components/schemas/Entity'
+      - $ref: '#/components/schemas/Event'
       - properties:
-          id:
-            type: string
-            description: Unique identifier of the Trouble Ticket
-          href:
-            type: string
-            description: Reference of the Trouble Ticket
-          name:
-            type: string
-            description: Name of the Trouble Ticket
-          relationshipType:
-            type: string
-            description: Type of the  Trouble Ticket relationship can be isChiled, dependent etc...
-    AttachmentRefOrValue_3:
-      description: An attachment by value or by reference. For AttachmentRefOrValue, the attribute type,schemaLocation and referredType are related to the contained entity and not to AttchmentRefOrValue itself
-      allOf:
-      - $ref: '#/components/schemas/Entity'
-      - properties:
-          ref:
-            $ref: '#/components/schemas/AttachmentRef_3'
-            description: A reference to the Attachment.
-          value:
-            $ref: '#/components/schemas/Attachment_3'
-            description: The Attachment (as a value).
+          event:
+            $ref: '#/components/schemas/ServiceOrderStateChangeEventPayload'
+            description: The event payload linked to the involved resource object
     RelatedEntity_2:
       description: A reference to an entity, where the type of the entity is not known in advance.
       allOf:
@@ -4284,6 +4220,38 @@ components:
           '@referredType':
             type: string
             description: The actual type of the target instance when needed for disambiguation.
+    TroubleTicketStatusType:
+      type: string
+      description: Possible values for the status of the trouble ticket
+      enum:
+      - submitted
+      - acknowledged
+      - rejected
+      - pending
+      - held
+      - inProgress
+      - cancelled
+      - closed
+      - resolved
+    TroubleTicketDeleteEvent:
+      description: The notification data structure
+      allOf:
+      - $ref: '#/components/schemas/Event'
+      - properties:
+          event:
+            $ref: '#/components/schemas/TroubleTicketDeleteEventPayload'
+            description: The event payload linked to the involved resource object
+    TroubleTicketInformationRequiredEvent:
+      description: The notification data structure
+      allOf:
+      - $ref: '#/components/schemas/Event'
+      - properties:
+          fieldPath:
+            type: string
+            description: The path identifying the object field concerned by this notification.
+          event:
+            $ref: '#/components/schemas/TroubleTicketInformationRequiredEventPayload'
+            description: The event payload linked to the involved resource object
     StatusChange:
       description: Holds the status notification reasons and associated date the status changed, populated by the server
       allOf:
@@ -4299,39 +4267,17 @@ components:
           status:
             type: string
             description: The status of the trouble ticket
-    TroubleTicketResolvedEvent:
-      description: The notification data structure
+    AttachmentRef_3:
+      description: Attachment reference. An attachment complements the description of an element (for instance a product) through video, pictures
       allOf:
-      - $ref: '#/components/schemas/Event'
+      - $ref: '#/components/schemas/EntityRef'
       - properties:
-          event:
-            $ref: '#/components/schemas/TroubleTicketResolvedEventPayload'
-            description: The event payload linked to the involved resource object
-    TroubleTicketInformationRequiredEvent:
-      description: The notification data structure
-      allOf:
-      - $ref: '#/components/schemas/Event'
-      - properties:
-          fieldPath:
+          description:
             type: string
-            description: The path identifying the object field concerned by this notification.
-          event:
-            $ref: '#/components/schemas/TroubleTicketInformationRequiredEventPayload'
-            description: The event payload linked to the involved resource object
-    TroubleTicketResolvedEventPayload:
-      type: object
-      description: The event data structure
-      properties:
-        troubleTicket:
-          $ref: '#/components/schemas/TroubleTicket'
-          description: The involved resource data for the event
-    TroubleTicketCreateEventPayload:
-      type: object
-      description: The event data structure
-      properties:
-        troubleTicket:
-          $ref: '#/components/schemas/TroubleTicket'
-          description: The involved resource data for the event
+            description: A narrative text describing the content of the attachment
+          url:
+            type: string
+            description: Link to the attachment media/content
     TroubleTicket:
       description: A trouble ticket is a record of an issue that is created, tracked, and managed by a trouble ticket management system
       allOf:
@@ -4424,72 +4370,6 @@ components:
             type: array
             items:
               $ref: '#/components/schemas/TroubleTicketRelationship'
-    RelatedParty_4:
-      description: Related Entity reference. A related party defines party or party role linked to a specific entity.
-      allOf:
-      - $ref: '#/components/schemas/Entity'
-      - required:
-        - id
-        - '@referredType'
-        properties:
-          id:
-            type: string
-            description: Unique identifier of a related entity.
-          href:
-            type: string
-            description: Reference of the related entity.
-          name:
-            type: string
-            description: Name of the related entity.
-          role:
-            type: string
-            description: Role played by the related party
-          '@referredType':
-            type: string
-            description: The actual type of the target instance when needed for disambiguation.
-    AttachmentRef_3:
-      description: Attachment reference. An attachment complements the description of an element (for instance a product) through video, pictures
-      allOf:
-      - $ref: '#/components/schemas/EntityRef'
-      - properties:
-          description:
-            type: string
-            description: A narrative text describing the content of the attachment
-          url:
-            type: string
-            description: Link to the attachment media/content
-    ChannelRef:
-      description: The channel to which the resource reference to. e.g. channel for selling product offerings, channel for opening a trouble ticket etc..
-      allOf:
-      - $ref: '#/components/schemas/EntityRef'
-    TroubleTicketAttributeValueChangeEventPayload:
-      type: object
-      description: The event data structure
-      properties:
-        troubleTicket:
-          $ref: '#/components/schemas/TroubleTicket'
-          description: The involved resource data for the event
-    TroubleTicketStatusType:
-      type: string
-      description: Possible values for the status of the trouble ticket
-      enum:
-      - submitted
-      - acknowledged
-      - rejected
-      - pending
-      - held
-      - inProgress
-      - cancelled
-      - closed
-      - resolved
-    TroubleTicketCreateEvent:
-      description: The notification data structure
-      allOf:
-      - $ref: '#/components/schemas/Event'
-      - properties:
-          event:
-            $ref: '#/components/schemas/TroubleTicketCreateEventPayload'
-            description: The event payload linked to the involved resource object
     TroubleTicketDeleteEventPayload:
       type: object
       description: The event data structure
@@ -4497,6 +4377,67 @@ components:
         troubleTicket:
           $ref: '#/components/schemas/TroubleTicket'
           description: The involved resource data for the event
+    ChannelRef:
+      description: The channel to which the resource reference to. e.g. channel for selling product offerings, channel for opening a trouble ticket etc..
+      allOf:
+      - $ref: '#/components/schemas/EntityRef'
+    AttachmentRefOrValue_3:
+      description: An attachment by value or by reference. For AttachmentRefOrValue, the attribute type,schemaLocation and referredType are related to the contained entity and not to AttchmentRefOrValue itself
+      allOf:
+      - $ref: '#/components/schemas/Entity'
+      - properties:
+          ref:
+            $ref: '#/components/schemas/AttachmentRef_3'
+            description: A reference to the Attachment.
+          value:
+            $ref: '#/components/schemas/Attachment_3'
+            description: The Attachment (as a value).
+    TroubleTicketCreateEventPayload:
+      type: object
+      description: The event data structure
+      properties:
+        troubleTicket:
+          $ref: '#/components/schemas/TroubleTicket'
+          description: The involved resource data for the event
+    TroubleTicketResolvedEvent:
+      description: The notification data structure
+      allOf:
+      - $ref: '#/components/schemas/Event'
+      - properties:
+          event:
+            $ref: '#/components/schemas/TroubleTicketResolvedEventPayload'
+            description: The event payload linked to the involved resource object
+    TroubleTicketAttributeValueChangeEvent:
+      description: The notification data structure
+      allOf:
+      - $ref: '#/components/schemas/Event'
+      - properties:
+          fieldPath:
+            type: string
+            description: The path identifying the object field concerned by this notification.
+          event:
+            $ref: '#/components/schemas/TroubleTicketAttributeValueChangeEventPayload'
+            description: The event payload linked to the involved resource object
+    TroubleTicketStatusChangeEvent:
+      description: The notification data structure
+      allOf:
+      - $ref: '#/components/schemas/Event'
+      - properties:
+          event:
+            $ref: '#/components/schemas/TroubleTicketStatusChangeEventPayload'
+            description: The event payload linked to the involved resource object
+    TimePeriod_3:
+      type: object
+      description: A period of time, either as a deadline (endDateTime only) a startDateTime only, or both
+      properties:
+        endDateTime:
+          type: string
+          format: date-time
+          description: End of the time period, using IETC-RFC-3339 format
+        startDateTime:
+          type: string
+          format: date-time
+          description: Start of the time period, using IETC-RFC-3339 format. If you define a start, you must also define an end
     Attachment_3:
       description: Complements the description of an element (for instance a product) through video, pictures...
       allOf:
@@ -4532,6 +4473,67 @@ components:
           validFor:
             $ref: '#/components/schemas/TimePeriod_3'
             description: The period of time for which the attachment is valid
+    TroubleTicketRelationship:
+      description: Represents a relationship between trouble Trouble Tickets
+      allOf:
+      - $ref: '#/components/schemas/Entity'
+      - properties:
+          id:
+            type: string
+            description: Unique identifier of the Trouble Ticket
+          href:
+            type: string
+            description: Reference of the Trouble Ticket
+          name:
+            type: string
+            description: Name of the Trouble Ticket
+          relationshipType:
+            type: string
+            description: Type of the  Trouble Ticket relationship can be isChiled, dependent etc...
+    TroubleTicketStatusChangeEventPayload:
+      type: object
+      description: The event data structure
+      properties:
+        troubleTicket:
+          $ref: '#/components/schemas/TroubleTicket'
+          description: The involved resource data for the event
+    RelatedParty_4:
+      description: Related Entity reference. A related party defines party or party role linked to a specific entity.
+      allOf:
+      - $ref: '#/components/schemas/Entity'
+      - required:
+        - id
+        - '@referredType'
+        properties:
+          id:
+            type: string
+            description: Unique identifier of a related entity.
+          href:
+            type: string
+            description: Reference of the related entity.
+          name:
+            type: string
+            description: Name of the related entity.
+          role:
+            type: string
+            description: Role played by the related party
+          '@referredType':
+            type: string
+            description: The actual type of the target instance when needed for disambiguation.
+    TroubleTicketAttributeValueChangeEventPayload:
+      type: object
+      description: The event data structure
+      properties:
+        troubleTicket:
+          $ref: '#/components/schemas/TroubleTicket'
+          description: The involved resource data for the event
+    TroubleTicketInformationRequiredEventPayload:
+      type: object
+      description: The event data structure
+      properties:
+        troubleTicket:
+          $ref: '#/components/schemas/TroubleTicket'
+          description: The involved resource data for the event
     Note_4:
       description: Extra information about a given entity
       allOf:
@@ -4550,37 +4552,35 @@ components:
           text:
             type: string
             description: Text of the note
-    TroubleTicketStatusChangeEvent:
+    TroubleTicketCreateEvent:
       description: The notification data structure
       allOf:
       - $ref: '#/components/schemas/Event'
       - properties:
           event:
-            $ref: '#/components/schemas/TroubleTicketStatusChangeEventPayload'
+            $ref: '#/components/schemas/TroubleTicketCreateEventPayload'
             description: The event payload linked to the involved resource object
-    TroubleTicketAttributeValueChangeEvent:
-      description: The notification data structure
-      allOf:
-      - $ref: '#/components/schemas/Event'
-      - properties:
-          fieldPath:
-            type: string
-            description: The path identifying the object field concerned by this notification.
-          event:
-            $ref: '#/components/schemas/TroubleTicketAttributeValueChangeEventPayload'
-            description: The event payload linked to the involved resource object
-    TimePeriod_3:
+    TroubleTicketResolvedEventPayload:
       type: object
-      description: A period of time, either as a deadline (endDateTime only) a startDateTime only, or both
+      description: The event data structure
       properties:
-        endDateTime:
-          type: string
-          format: date-time
-          description: End of the time period, using IETC-RFC-3339 format
-        startDateTime:
-          type: string
-          format: date-time
-          description: Start of the time period, using IETC-RFC-3339 format. If you define a start, you must also define an end
+        troubleTicket:
+          $ref: '#/components/schemas/TroubleTicket'
+          description: The involved resource data for the event
+    Characteristic_2:
+      description: Describes a given characteristic of an object or entity through a name/value pair.
+      allOf:
+      - $ref: '#/components/schemas/Entity'
+      - properties:
+          id:
+            type: string
+            description: Unique identifier of the characteristic
+          name:
+            type: string
+            description: Name of the characteristic
+          valueType:
+            type: string
+            description: Data type of the value of the characteristic
 x-refined-from:
 - bell-canada-change-management-api-openapi.json
 - bell-canada-resource-inventory-api-openapi.json
