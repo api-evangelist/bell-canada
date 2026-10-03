@@ -394,17 +394,18 @@ paths:
                 $ref: '#/components/schemas/Error'
 components:
   schemas:
-    AttachmentRefOrValue:
-      description: An attachment by value or by reference. For AttachmentRefOrValue, the attribute type,schemaLocation and referredType are related to the contained entity and not to AttchmentRefOrValue itself
-      allOf:
-      - $ref: '#/components/schemas/Entity'
-      - properties:
-          ref:
-            $ref: '#/components/schemas/AttachmentRef'
-            description: A reference to the Attachment.
-          value:
-            $ref: '#/components/schemas/Attachment'
-            description: The Attachment (as a value).
+    Quantity:
+      type: object
+      description: An amount in a given unit
+      properties:
+        amount:
+          type: number
+          format: float
+          description: Numeric value in a given unit
+          default: 1.0
+        units:
+          type: string
+          description: Unit
     TroubleTicket:
       description: A trouble ticket is a record of an issue that is created, tracked, and managed by a trouble ticket management system
       allOf:
@@ -497,30 +498,6 @@ components:
             type: array
             items:
               $ref: '#/components/schemas/TroubleTicketRelationship'
-    RelatedEntity:
-      description: A reference to an entity, where the type of the entity is not known in advance.
-      allOf:
-      - $ref: '#/components/schemas/Entity'
-      - required:
-        - id
-        - role
-        - '@referredType'
-        properties:
-          id:
-            type: string
-            description: Unique identifier of a related entity.
-          href:
-            type: string
-            description: Reference of the related entity.
-          name:
-            type: string
-            description: Name of the related entity.
-          role:
-            type: string
-            description: The role of an entity.
-          '@referredType':
-            type: string
-            description: The actual type of the target instance when needed for disambiguation.
     TroubleTicket_Update:
       description: 'A trouble ticket is a record of an issue that is created, tracked, and managed by a trouble ticket management system
 
@@ -592,24 +569,10 @@ components:
             type: array
             items:
               $ref: '#/components/schemas/TroubleTicketRelationship'
-    Note:
-      description: Extra information about a given entity
+    ChannelRef:
+      description: The channel to which the resource reference to. e.g. channel for selling product offerings, channel for opening a trouble ticket etc..
       allOf:
-      - $ref: '#/components/schemas/Entity'
-      - properties:
-          id:
-            type: string
-            description: Identifier of the note within its containing entity (may or may not be globally unique, depending on provider implementation)
-          author:
-            type: string
-            description: Author of the note
-          date:
-            type: string
-            format: date-time
-            description: Date of the note
-          text:
-            type: string
-            description: Text of the note
+      - $ref: '#/components/schemas/EntityRef'
     TroubleTicketStatusType:
       type: string
       description: Possible values for the status of the trouble ticket
@@ -634,6 +597,108 @@ components:
           url:
             type: string
             description: Link to the attachment media/content
+    Attachment:
+      description: Complements the description of an element (for instance a product) through video, pictures...
+      allOf:
+      - $ref: '#/components/schemas/Entity'
+      - properties:
+          id:
+            type: string
+            description: Unique identifier for this particular attachment
+          href:
+            type: string
+            description: URI for this Attachment
+          attachmentType:
+            type: string
+            description: Attachment type such as video, picture
+          content:
+            type: string
+            description: The actual contents of the attachment object, if embedded, encoded as base64
+          description:
+            type: string
+            description: A narrative text describing the content of the attachment
+          mimeType:
+            type: string
+            description: Attachment mime type such as extension file for video, picture and document
+          name:
+            type: string
+            description: The name of the attachment
+          url:
+            type: string
+            description: Uniform Resource Locator, is a web page address (a subset of URI)
+          size:
+            $ref: '#/components/schemas/Quantity'
+            description: The size of the attachment.
+          validFor:
+            $ref: '#/components/schemas/TimePeriod'
+            description: The period of time for which the attachment is valid
+    StatusChange:
+      description: Holds the status notification reasons and associated date the status changed, populated by the server
+      allOf:
+      - $ref: '#/components/schemas/Entity'
+      - properties:
+          changeDate:
+            type: string
+            format: date-time
+            description: The date and time the status changed.
+          changeReason:
+            type: string
+            description: The reason why the status changed.
+          status:
+            type: string
+            description: The status of the trouble ticket
+    EntityRef:
+      description: Base entityRef schema for use in TMForum Open-APIs
+      allOf:
+      - $ref: '#/components/schemas/Entity'
+      - properties:
+          id:
+            type: string
+            description: Unique identifier of a related entity.
+          href:
+            type: string
+            description: Reference of the related entity.
+          name:
+            type: string
+            description: Name of the related entity.
+          '@referredType':
+            type: string
+            description: The actual type of the target instance when needed for disambiguation.
+    Note:
+      description: Extra information about a given entity
+      allOf:
+      - $ref: '#/components/schemas/Entity'
+      - properties:
+          id:
+            type: string
+            description: Identifier of the note within its containing entity (may or may not be globally unique, depending on provider implementation)
+          author:
+            type: string
+            description: Author of the note
+          date:
+            type: string
+            format: date-time
+            description: Date of the note
+          text:
+            type: string
+            description: Text of the note
+    TroubleTicketRelationship:
+      description: Represents a relationship between trouble Trouble Tickets
+      allOf:
+      - $ref: '#/components/schemas/Entity'
+      - properties:
+          id:
+            type: string
+            description: Unique identifier of the Trouble Ticket
+          href:
+            type: string
+            description: Reference of the Trouble Ticket
+          name:
+            type: string
+            description: Name of the Trouble Ticket
+          relationshipType:
+            type: string
+            description: Type of the  Trouble Ticket relationship can be isChiled, dependent etc...
     TroubleTicket_Create:
       description: 'A trouble ticket is a record of an issue that is created, tracked, and managed by a trouble ticket management system
 
@@ -726,6 +791,41 @@ components:
             type: array
             items:
               $ref: '#/components/schemas/TroubleTicketRelationship'
+    AttachmentRefOrValue:
+      description: An attachment by value or by reference. For AttachmentRefOrValue, the attribute type,schemaLocation and referredType are related to the contained entity and not to AttchmentRefOrValue itself
+      allOf:
+      - $ref: '#/components/schemas/Entity'
+      - properties:
+          ref:
+            $ref: '#/components/schemas/AttachmentRef'
+            description: A reference to the Attachment.
+          value:
+            $ref: '#/components/schemas/Attachment'
+            description: The Attachment (as a value).
+    Error:
+      description: Used when an API throws an Error, typically with a HTTP error response-code (3xx, 4xx, 5xx)
+      allOf:
+      - $ref: '#/components/schemas/Entity'
+      - required:
+        - code
+        - reason
+        properties:
+          code:
+            type: string
+            description: Application relevant detail, defined in the API or a common list.
+          reason:
+            type: string
+            description: Explanation of the reason for the error which can be shown to a client user.
+          message:
+            type: string
+            description: More details and corrective actions related to the error which can be shown to a client user.
+          status:
+            type: string
+            description: HTTP Error code extension
+          referenceError:
+            type: string
+            format: uri
+            description: URI of documentation describing the error.
     TimePeriod:
       type: object
       description: A period of time, either as a deadline (endDateTime only) a startDateTime only, or both
@@ -753,109 +853,30 @@ components:
           type: string
           format: uri
           description: A URI to a JSON-Schema file that defines additional attributes and relationships
-    TroubleTicketRelationship:
-      description: Represents a relationship between trouble Trouble Tickets
-      allOf:
-      - $ref: '#/components/schemas/Entity'
-      - properties:
-          id:
-            type: string
-            description: Unique identifier of the Trouble Ticket
-          href:
-            type: string
-            description: Reference of the Trouble Ticket
-          name:
-            type: string
-            description: Name of the Trouble Ticket
-          relationshipType:
-            type: string
-            description: Type of the  Trouble Ticket relationship can be isChiled, dependent etc...
-    Attachment:
-      description: Complements the description of an element (for instance a product) through video, pictures...
-      allOf:
-      - $ref: '#/components/schemas/Entity'
-      - properties:
-          id:
-            type: string
-            description: Unique identifier for this particular attachment
-          href:
-            type: string
-            description: URI for this Attachment
-          attachmentType:
-            type: string
-            description: Attachment type such as video, picture
-          content:
-            type: string
-            description: The actual contents of the attachment object, if embedded, encoded as base64
-          description:
-            type: string
-            description: A narrative text describing the content of the attachment
-          mimeType:
-            type: string
-            description: Attachment mime type such as extension file for video, picture and document
-          name:
-            type: string
-            description: The name of the attachment
-          url:
-            type: string
-            description: Uniform Resource Locator, is a web page address (a subset of URI)
-          size:
-            $ref: '#/components/schemas/Quantity'
-            description: The size of the attachment.
-          validFor:
-            $ref: '#/components/schemas/TimePeriod'
-            description: The period of time for which the attachment is valid
-    Quantity:
-      type: object
-      description: An amount in a given unit
-      properties:
-        amount:
-          type: number
-          format: float
-          description: Numeric value in a given unit
-          default: 1.0
-        units:
-          type: string
-          description: Unit
-    StatusChange:
-      description: Holds the status notification reasons and associated date the status changed, populated by the server
-      allOf:
-      - $ref: '#/components/schemas/Entity'
-      - properties:
-          changeDate:
-            type: string
-            format: date-time
-            description: The date and time the status changed.
-          changeReason:
-            type: string
-            description: The reason why the status changed.
-          status:
-            type: string
-            description: The status of the trouble ticket
-    Error:
-      description: Used when an API throws an Error, typically with a HTTP error response-code (3xx, 4xx, 5xx)
+    RelatedEntity:
+      description: A reference to an entity, where the type of the entity is not known in advance.
       allOf:
       - $ref: '#/components/schemas/Entity'
       - required:
-        - code
-        - reason
+        - id
+        - role
+        - '@referredType'
         properties:
-          code:
+          id:
             type: string
-            description: Application relevant detail, defined in the API or a common list.
-          reason:
+            description: Unique identifier of a related entity.
+          href:
             type: string
-            description: Explanation of the reason for the error which can be shown to a client user.
-          message:
+            description: Reference of the related entity.
+          name:
             type: string
-            description: More details and corrective actions related to the error which can be shown to a client user.
-          status:
+            description: Name of the related entity.
+          role:
             type: string
-            description: HTTP Error code extension
-          referenceError:
+            description: The role of an entity.
+          '@referredType':
             type: string
-            format: uri
-            description: URI of documentation describing the error.
+            description: The actual type of the target instance when needed for disambiguation.
     RelatedParty:
       description: Related Entity reference. A related party defines party or party role linked to a specific entity.
       allOf:
@@ -879,24 +900,3 @@ components:
           '@referredType':
             type: string
             description: The actual type of the target instance when needed for disambiguation.
-    EntityRef:
-      description: Base entityRef schema for use in TMForum Open-APIs
-      allOf:
-      - $ref: '#/components/schemas/Entity'
-      - properties:
-          id:
-            type: string
-            description: Unique identifier of a related entity.
-          href:
-            type: string
-            description: Reference of the related entity.
-          name:
-            type: string
-            description: Name of the related entity.
-          '@referredType':
-            type: string
-            description: The actual type of the target instance when needed for disambiguation.
-    ChannelRef:
-      description: The channel to which the resource reference to. e.g. channel for selling product offerings, channel for opening a trouble ticket etc..
-      allOf:
-      - $ref: '#/components/schemas/EntityRef'
