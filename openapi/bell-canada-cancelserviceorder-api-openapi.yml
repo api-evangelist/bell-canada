@@ -259,6 +259,80 @@ paths:
                 $ref: '#/components/schemas/Error'
 components:
   schemas:
+    Entity:
+      discriminator:
+        propertyName: '@type'
+      description: Base entity schema for use in TMForum Open-APIs
+      properties:
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class entity name
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          format: uri
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+    CancelServiceOrder:
+      description: Request for cancellation an existing Service order
+      allOf:
+      - $ref: '#/components/schemas/Entity'
+      - properties:
+          id:
+            type: string
+            description: unique identifier
+          href:
+            type: string
+            format: uri
+            description: Hyperlink reference
+          cancellationReason:
+            type: string
+            description: Reason why the order is cancelled.
+          completionMessage:
+            type: string
+            description: an optional message describing the completion of the task if it is done as expected or it is denied for a reason (like order in an state of PoNR).
+          effectiveCancellationDate:
+            type: string
+            format: date-time
+            description: Date when the order is cancelled.
+          requestedCancellationDate:
+            type: string
+            format: date-time
+            description: Date when the submitter wants the order to be cancelled
+          errorMessage:
+            $ref: '#/components/schemas/ErrorMessage'
+            description: the error(s) cause the termination of cancelServiceOrder (in TerminatedWithError state)
+          serviceOrder:
+            $ref: '#/components/schemas/ServiceOrderRef'
+          state:
+            $ref: '#/components/schemas/TaskStateType'
+            description: Tracks the lifecycle status of the cancellation request, such as Acknowledged, Rejected, InProgress, Pending and so on.
+    ErrorMessage:
+      description: represents an Error
+      allOf:
+      - $ref: '#/components/schemas/Entity'
+      - properties:
+          code:
+            type: string
+            description: error code
+          message:
+            type: string
+            description: More details and corrective actions related to the error
+          reason:
+            type: string
+            description: Explanation of the reason for the error
+          referenceError:
+            type: string
+            format: uri
+            description: URI of documentation describing the error
+          status:
+            type: string
+            description: error code extension like sys-ABC-2001
+    ServiceOrderRef:
+      description: Service Order reference. Useful to understand the which was the Service order through which the service was instantiated in the service inventory
+      allOf:
+      - $ref: '#/components/schemas/EntityRef'
     TaskStateType:
       type: string
       description: Possible values for the state of a task
@@ -267,10 +341,23 @@ components:
       - terminatedWithError
       - inProgress
       - done
-    ServiceOrderRef:
-      description: Service Order reference. Useful to understand the which was the Service order through which the service was instantiated in the service inventory
+    EntityRef:
+      description: Base entityRef schema for use in TMForum Open-APIs
       allOf:
-      - $ref: '#/components/schemas/EntityRef'
+      - $ref: '#/components/schemas/Entity'
+      - properties:
+          id:
+            type: string
+            description: Unique identifier of a related entity.
+          href:
+            type: string
+            description: Reference of the related entity.
+          name:
+            type: string
+            description: Name of the related entity.
+          '@referredType':
+            type: string
+            description: The actual type of the target instance when needed for disambiguation.
     CancelServiceOrder_Create:
       description: 'Request for cancellation an existing Service order
 
@@ -313,90 +400,3 @@ components:
             type: string
             format: uri
             description: URI of documentation describing the error.
-    EntityRef:
-      description: Base entityRef schema for use in TMForum Open-APIs
-      allOf:
-      - $ref: '#/components/schemas/Entity'
-      - properties:
-          id:
-            type: string
-            description: Unique identifier of a related entity.
-          href:
-            type: string
-            description: Reference of the related entity.
-          name:
-            type: string
-            description: Name of the related entity.
-          '@referredType':
-            type: string
-            description: The actual type of the target instance when needed for disambiguation.
-    ErrorMessage:
-      description: represents an Error
-      allOf:
-      - $ref: '#/components/schemas/Entity'
-      - properties:
-          code:
-            type: string
-            description: error code
-          message:
-            type: string
-            description: More details and corrective actions related to the error
-          reason:
-            type: string
-            description: Explanation of the reason for the error
-          referenceError:
-            type: string
-            format: uri
-            description: URI of documentation describing the error
-          status:
-            type: string
-            description: error code extension like sys-ABC-2001
-    CancelServiceOrder:
-      description: Request for cancellation an existing Service order
-      allOf:
-      - $ref: '#/components/schemas/Entity'
-      - properties:
-          id:
-            type: string
-            description: unique identifier
-          href:
-            type: string
-            format: uri
-            description: Hyperlink reference
-          cancellationReason:
-            type: string
-            description: Reason why the order is cancelled.
-          completionMessage:
-            type: string
-            description: an optional message describing the completion of the task if it is done as expected or it is denied for a reason (like order in an state of PoNR).
-          effectiveCancellationDate:
-            type: string
-            format: date-time
-            description: Date when the order is cancelled.
-          requestedCancellationDate:
-            type: string
-            format: date-time
-            description: Date when the submitter wants the order to be cancelled
-          errorMessage:
-            $ref: '#/components/schemas/ErrorMessage'
-            description: the error(s) cause the termination of cancelServiceOrder (in TerminatedWithError state)
-          serviceOrder:
-            $ref: '#/components/schemas/ServiceOrderRef'
-          state:
-            $ref: '#/components/schemas/TaskStateType'
-            description: Tracks the lifecycle status of the cancellation request, such as Acknowledged, Rejected, InProgress, Pending and so on.
-    Entity:
-      discriminator:
-        propertyName: '@type'
-      description: Base entity schema for use in TMForum Open-APIs
-      properties:
-        '@type':
-          type: string
-          description: When sub-classing, this defines the sub-class entity name
-        '@baseType':
-          type: string
-          description: When sub-classing, this defines the super-class
-        '@schemaLocation':
-          type: string
-          format: uri
-          description: A URI to a JSON-Schema file that defines additional attributes and relationships

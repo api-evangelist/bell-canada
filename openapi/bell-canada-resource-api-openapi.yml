@@ -467,12 +467,6 @@ paths:
                 $ref: '#/components/schemas/Error'
 components:
   schemas:
-    ResourceOperationalStateType:
-      type: string
-      description: ResourceOperationalStateType enumerations
-      enum:
-      - enable
-      - disable
     Resource:
       description: Resource is an abstract entity that describes the common set of attributes shared by all concrete resources (e.g. TPE, EQUIPMENT) in the inventory.
       allOf:
@@ -543,17 +537,21 @@ components:
           usageState:
             $ref: '#/components/schemas/ResourceUsageStateType'
             description: Tracks the lifecycle status of the resource, such as planning, installing, opereating, retiring and so on.
-    AttachmentRef:
-      description: Attachment reference. An attachment complements the description of an element (for instance a product) through video, pictures
-      allOf:
-      - $ref: '#/components/schemas/EntityRef'
-      - properties:
-          description:
-            type: string
-            description: A narrative text describing the content of the attachment
-          url:
-            type: string
-            description: Link to the attachment media/content
+    Entity:
+      discriminator:
+        propertyName: '@type'
+      description: Base entity schema for use in TMForum Open-APIs
+      properties:
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class entity name
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          format: uri
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
     AttachmentRefOrValue:
       description: An attachment by value or by reference. For AttachmentRefOrValue, the attribute type,schemaLocation and referredType are related to the contained entity and not to AttchmentRefOrValue itself
       properties:
@@ -563,6 +561,45 @@ components:
         value:
           $ref: '#/components/schemas/Attachment'
           description: The Attachment (as a value).
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class entity name
+    LogicalResource:
+      description: Logic resource is a type of resource that describes the common set of attributes shared by all concrete logical resources (e.g. TPE, MSISDN, IP Addresses) in the inventory.
+      allOf:
+      - $ref: '#/components/schemas/Resource'
+      - properties:
+          value:
+            type: string
+            description: the value of the logical resource. E.g '0746712345' for  MSISDN's
+          '@referredType':
+            type: string
+            description: The actual type of the target instance when needed for disambiguation.
+    ResourceSpecificationRef:
+      description: 'Resource Specification reference: The ResourceSpecification is required to realize a ProductSpecification.'
+      allOf:
+      - $ref: '#/components/schemas/EntityRef'
+      - properties:
+          version:
+            type: string
+            description: Resource specification version
+    RelatedPlaceRefOrValue:
+      description: Related Entity reference. A related place defines a place described by reference or by value linked to a specific entity. The polymorphic attributes @type, @schemaLocation & @referredType are related to the place entity and not the RelatedPlaceRefOrValue class itself
+      properties:
+        role:
+          type: string
+        ref:
+          $ref: '#/components/schemas/PlaceRef'
+          description: A reference to the Place.
+        value:
+          $ref: '#/components/schemas/Place'
+          description: The Place (as a value).
         '@baseType':
           type: string
           description: When sub-classing, this defines the super-class
@@ -584,69 +621,75 @@ components:
           type: string
           format: date-time
           description: Start of the time period, using IETC-RFC-3339 format. If you define a start, you must also define an end
-    Place:
-      description: Place reference. Place defines the places where the products are sold or delivered.
+    ResourceRelationship:
       allOf:
       - $ref: '#/components/schemas/Entity'
       - properties:
           id:
             type: string
-            description: Unique identifier of the place
+            description: id of the related resource.
           href:
             type: string
-            description: Unique reference of the place
-          name:
+            description: href of the related resource.
+          relationshipType:
             type: string
-            description: A user-friendly name for the place, such as [Paris Store], [London Store], [Main Home]
-    LogicalResource:
-      description: Logic resource is a type of resource that describes the common set of attributes shared by all concrete logical resources (e.g. TPE, MSISDN, IP Addresses) in the inventory.
+          resourceRelationshipCharacteristic:
+            type: array
+            items:
+              $ref: '#/components/schemas/Characteristic'
+    AttachmentRef:
+      description: Attachment reference. An attachment complements the description of an element (for instance a product) through video, pictures
       allOf:
-      - $ref: '#/components/schemas/Resource'
+      - $ref: '#/components/schemas/EntityRef'
       - properties:
-          value:
+          description:
             type: string
-            description: the value of the logical resource. E.g '0746712345' for  MSISDN's
-          '@referredType':
+            description: A narrative text describing the content of the attachment
+          url:
             type: string
-            description: The actual type of the target instance when needed for disambiguation.
-    RelatedPlaceRefOrValue:
-      description: Related Entity reference. A related place defines a place described by reference or by value linked to a specific entity. The polymorphic attributes @type, @schemaLocation & @referredType are related to the place entity and not the RelatedPlaceRefOrValue class itself
+            description: Link to the attachment media/content
+    ResourceOperationalStateType:
+      type: string
+      description: ResourceOperationalStateType enumerations
+      enum:
+      - enable
+      - disable
+    Quantity:
+      type: object
+      description: An amount in a given unit
       properties:
-        role:
+        amount:
+          type: number
+          format: float
+          description: Numeric value in a given unit
+          default: 1.0
+        units:
           type: string
-        ref:
-          $ref: '#/components/schemas/PlaceRef'
-          description: A reference to the Place.
-        value:
-          $ref: '#/components/schemas/Place'
-          description: The Place (as a value).
-        '@baseType':
-          type: string
-          description: When sub-classing, this defines the super-class
-        '@schemaLocation':
-          type: string
-          description: A URI to a JSON-Schema file that defines additional attributes and relationships
-        '@type':
-          type: string
-          description: When sub-classing, this defines the sub-class entity name
-    Note:
-      description: Extra information about a given entity
+          description: Unit
+    Error:
+      description: Used when an API throws an Error, typically with a HTTP error response-code (3xx, 4xx, 5xx)
       allOf:
       - $ref: '#/components/schemas/Entity'
-      - properties:
-          id:
+      - required:
+        - code
+        - reason
+        properties:
+          code:
             type: string
-            description: Identifier of the note within its containing entity (may or may not be globally unique, depending on provider implementation)
-          author:
+            description: Application relevant detail, defined in the API or a common list.
+          reason:
             type: string
-            description: Author of the note
-          date:
+            description: Explanation of the reason for the error which can be shown to a client user.
+          message:
             type: string
-            format: date-time
-            description: Date of the note
-          text:
+            description: More details and corrective actions related to the error which can be shown to a client user.
+          status:
             type: string
-            description: Text of the note
+            description: HTTP Error code extension
+          referenceError:
+            type: string
+            format: uri
+            description: URI of documentation describing the error.
     Characteristic:
       discriminator:
         propertyName: '@type'
@@ -676,37 +719,101 @@ components:
         '@type':
           type: string
           description: When sub-classing, this defines the sub-class Extensible name
-    Entity:
+    ResourceAdministrativeStateType:
+      type: string
+      description: ResourceAdministrativeStateType enumerations
+      enum:
+      - locked
+      - unlocked
+      - shutdown
+    Place:
+      description: Place reference. Place defines the places where the products are sold or delivered.
+      allOf:
+      - $ref: '#/components/schemas/Entity'
+      - properties:
+          id:
+            type: string
+            description: Unique identifier of the place
+          href:
+            type: string
+            description: Unique reference of the place
+          name:
+            type: string
+            description: A user-friendly name for the place, such as [Paris Store], [London Store], [Main Home]
+    CharacteristicRelationship:
       discriminator:
         propertyName: '@type'
-      description: Base entity schema for use in TMForum Open-APIs
+      type: object
+      description: Another Characteristic that is related to the current Characteristic;
       properties:
-        '@type':
+        id:
           type: string
-          description: When sub-classing, this defines the sub-class entity name
-        '@baseType':
+          description: Unique identifier of the characteristic
+        relationshipType:
           type: string
-          description: When sub-classing, this defines the super-class
+          description: The type of relationship
         '@schemaLocation':
           type: string
           format: uri
           description: A URI to a JSON-Schema file that defines additional attributes and relationships
-    Quantity:
-      type: object
-      description: An amount in a given unit
-      properties:
-        amount:
-          type: number
-          format: float
-          description: Numeric value in a given unit
-          default: 1.0
-        units:
+        '@baseType':
           type: string
-          description: Unit
+          description: When sub-classing, this defines the super-class
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class Extensible name
     PlaceRef:
       description: Place reference. PlaceRef defines the placeRefs where the products are sold or delivered.
       allOf:
       - $ref: '#/components/schemas/EntityRef'
+    ResourceUsageStateType:
+      type: string
+      description: ResourceUsageStateType enumerations
+      enum:
+      - idle
+      - active
+      - busy
+    Note:
+      description: Extra information about a given entity
+      allOf:
+      - $ref: '#/components/schemas/Entity'
+      - properties:
+          id:
+            type: string
+            description: Identifier of the note within its containing entity (may or may not be globally unique, depending on provider implementation)
+          author:
+            type: string
+            description: Author of the note
+          date:
+            type: string
+            format: date-time
+            description: Date of the note
+          text:
+            type: string
+            description: Text of the note
+    RelatedParty:
+      description: Related Entity reference. A related party defines party or party role linked to a specific entity.
+      allOf:
+      - $ref: '#/components/schemas/Entity'
+      - required:
+        - id
+        - '@referredType'
+        properties:
+          id:
+            type: string
+            description: Unique identifier of a related entity.
+          href:
+            type: string
+            description: Reference of the related entity.
+          name:
+            type: string
+            description: Name of the related entity.
+          role:
+            type: string
+            description: Role played by the related party
+          '@referredType':
+            type: string
+            description: The actual type of the target instance when needed for disambiguation.
     ResourceStatusType:
       type: string
       description: ResourceStatusType enumerations
@@ -752,69 +859,6 @@ components:
           validFor:
             $ref: '#/components/schemas/TimePeriod'
             description: The period of time for which the attachment is valid
-    ResourceUsageStateType:
-      type: string
-      description: ResourceUsageStateType enumerations
-      enum:
-      - idle
-      - active
-      - busy
-    EntityRef:
-      description: Base entityRef schema for use in TMForum Open-APIs
-      allOf:
-      - $ref: '#/components/schemas/Entity'
-      - properties:
-          id:
-            type: string
-            description: Unique identifier of a related entity.
-          href:
-            type: string
-            description: Reference of the related entity.
-          name:
-            type: string
-            description: Name of the related entity.
-          '@referredType':
-            type: string
-            description: The actual type of the target instance when needed for disambiguation.
-    ResourceRelationship:
-      allOf:
-      - $ref: '#/components/schemas/Entity'
-      - properties:
-          id:
-            type: string
-            description: id of the related resource.
-          href:
-            type: string
-            description: href of the related resource.
-          relationshipType:
-            type: string
-          resourceRelationshipCharacteristic:
-            type: array
-            items:
-              $ref: '#/components/schemas/Characteristic'
-    RelatedParty:
-      description: Related Entity reference. A related party defines party or party role linked to a specific entity.
-      allOf:
-      - $ref: '#/components/schemas/Entity'
-      - required:
-        - id
-        - '@referredType'
-        properties:
-          id:
-            type: string
-            description: Unique identifier of a related entity.
-          href:
-            type: string
-            description: Reference of the related entity.
-          name:
-            type: string
-            description: Name of the related entity.
-          role:
-            type: string
-            description: Role played by the related party
-          '@referredType':
-            type: string
-            description: The actual type of the target instance when needed for disambiguation.
     JsonPathPatchOperation:
       type: object
       description: A JsonPath operation to be applied to a json element
@@ -837,67 +881,23 @@ components:
         value:
           type: object
           description: The value to be used within the operations.
-    ResourceAdministrativeStateType:
-      type: string
-      description: ResourceAdministrativeStateType enumerations
-      enum:
-      - locked
-      - unlocked
-      - shutdown
-    ResourceSpecificationRef:
-      description: 'Resource Specification reference: The ResourceSpecification is required to realize a ProductSpecification.'
-      allOf:
-      - $ref: '#/components/schemas/EntityRef'
-      - properties:
-          version:
-            type: string
-            description: Resource specification version
-    CharacteristicRelationship:
-      discriminator:
-        propertyName: '@type'
-      type: object
-      description: Another Characteristic that is related to the current Characteristic;
-      properties:
-        id:
-          type: string
-          description: Unique identifier of the characteristic
-        relationshipType:
-          type: string
-          description: The type of relationship
-        '@schemaLocation':
-          type: string
-          format: uri
-          description: A URI to a JSON-Schema file that defines additional attributes and relationships
-        '@baseType':
-          type: string
-          description: When sub-classing, this defines the super-class
-        '@type':
-          type: string
-          description: When sub-classing, this defines the sub-class Extensible name
-    Error:
-      description: Used when an API throws an Error, typically with a HTTP error response-code (3xx, 4xx, 5xx)
+    EntityRef:
+      description: Base entityRef schema for use in TMForum Open-APIs
       allOf:
       - $ref: '#/components/schemas/Entity'
-      - required:
-        - code
-        - reason
-        properties:
-          code:
+      - properties:
+          id:
             type: string
-            description: Application relevant detail, defined in the API or a common list.
-          reason:
+            description: Unique identifier of a related entity.
+          href:
             type: string
-            description: Explanation of the reason for the error which can be shown to a client user.
-          message:
+            description: Reference of the related entity.
+          name:
             type: string
-            description: More details and corrective actions related to the error which can be shown to a client user.
-          status:
+            description: Name of the related entity.
+          '@referredType':
             type: string
-            description: HTTP Error code extension
-          referenceError:
-            type: string
-            format: uri
-            description: URI of documentation describing the error.
+            description: The actual type of the target instance when needed for disambiguation.
     Resource_Update:
       description: 'Resource is an abstract entity that describes the common set of attributes shared by all concrete resources (e.g. TPE, EQUIPMENT) in the inventory.
 

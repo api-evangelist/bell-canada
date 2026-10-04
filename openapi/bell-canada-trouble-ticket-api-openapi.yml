@@ -394,311 +394,21 @@ paths:
                 $ref: '#/components/schemas/Error'
 components:
   schemas:
-    Quantity:
-      type: object
-      description: An amount in a given unit
+    Entity:
+      discriminator:
+        propertyName: '@type'
+      description: Base entity schema for use in TMForum Open-APIs
       properties:
-        amount:
-          type: number
-          format: float
-          description: Numeric value in a given unit
-          default: 1.0
-        units:
+        '@type':
           type: string
-          description: Unit
-    TroubleTicket:
-      description: A trouble ticket is a record of an issue that is created, tracked, and managed by a trouble ticket management system
-      allOf:
-      - $ref: '#/components/schemas/Entity'
-      - properties:
-          id:
-            type: string
-            description: Unique identifier of the trouble ticket
-          href:
-            type: string
-            description: Hyperlink, a reference to the trouble ticket entity
-          creationDate:
-            type: string
-            format: date-time
-            description: The date on which the trouble ticket was created
-          description:
-            type: string
-            description: Description of the trouble or issue
-          expectedResolutionDate:
-            type: string
-            format: date-time
-            description: The expected resolution date determined by the trouble ticket system
-          externalId:
-            type: string
-            description: Additional identifier coming from an external system
-          lastUpdate:
-            type: string
-            format: date-time
-            description: The date and time that the trouble ticked was last updated
-          name:
-            type: string
-            description: Name of the trouble ticket, typically a short description provided by the user that create the ticket
-          priority:
-            type: string
-            description: 'The priority of the trouble ticket and how quickly the issue should be resolved. Example: Critical, High, Medium, Low. The value is set by the ticket management system considering the severity, ticket type etc...'
-          requestedResolutionDate:
-            type: string
-            format: date-time
-            description: The resolution date requested by the user
-          resolutionDate:
-            type: string
-            format: date-time
-            description: The date and time the trouble ticket was resolved
-          severity:
-            type: string
-            description: "The severity of the issue. Indicate the implication of the issue on the expected functionality e.g. of a system, application, service etc.. \nSeverity values can be for example : Critical, Major, Minor"
-          statusChangeDate:
-            type: string
-            format: date-time
-            description: The date and time the status changed.
-          statusChangeReason:
-            type: string
-            description: The reason for changing the status
-          ticketType:
-            type: string
-            description: represent a business type of the trouble ticket e.g. incident, complain, request
-          attachment:
-            description: File(s) attached to the trouble ticket. e.g. pictur of broken device, scaning of a bill or charge
-            type: array
-            items:
-              $ref: '#/components/schemas/AttachmentRefOrValue'
-          channel:
-            $ref: '#/components/schemas/ChannelRef'
-            description: The channel that origin the trouble ticket
-          note:
-            description: The note(s) that are associated to the ticket.
-            type: array
-            items:
-              $ref: '#/components/schemas/Note'
-          relatedEntity:
-            description: An entity that is related to the ticket such as a bill, a product, etc. The entity against which the ticket is associated.
-            type: array
-            items:
-              $ref: '#/components/schemas/RelatedEntity'
-          relatedParty:
-            description: The related party(ies) that are associated to the ticket.
-            type: array
-            items:
-              $ref: '#/components/schemas/RelatedParty'
-          status:
-            $ref: '#/components/schemas/TroubleTicketStatusType'
-            description: The current status of the trouble ticket
-          statusChange:
-            description: The status change history that are associated to the ticket.Populated by the server
-            type: array
-            items:
-              $ref: '#/components/schemas/StatusChange'
-          troubleTicketRelationship:
-            description: A list of trouble ticket relationships (TroubleTicketRelationship [*]). Represents a relationship between trouble tickets
-            type: array
-            items:
-              $ref: '#/components/schemas/TroubleTicketRelationship'
-    TroubleTicket_Update:
-      description: 'A trouble ticket is a record of an issue that is created, tracked, and managed by a trouble ticket management system
-
-        Skipped properties: id,href,creationDate,lastUpdate,statusChange,statusChangeDate'
-      allOf:
-      - $ref: '#/components/schemas/Entity'
-      - properties:
-          description:
-            type: string
-            description: Description of the trouble or issue
-          expectedResolutionDate:
-            type: string
-            format: date-time
-            description: The expected resolution date determined by the trouble ticket system
-          externalId:
-            type: string
-            description: Additional identifier coming from an external system
-          name:
-            type: string
-            description: Name of the trouble ticket, typically a short description provided by the user that create the ticket
-          priority:
-            type: string
-            description: 'The priority of the trouble ticket and how quickly the issue should be resolved. Example: Critical, High, Medium, Low. The value is set by the ticket management system considering the severity, ticket type etc...'
-          requestedResolutionDate:
-            type: string
-            format: date-time
-            description: The resolution date requested by the user
-          resolutionDate:
-            type: string
-            format: date-time
-            description: The date and time the trouble ticket was resolved
-          severity:
-            type: string
-            description: "The severity of the issue. Indicate the implication of the issue on the expected functionality e.g. of a system, application, service etc.. \nSeverity values can be for example : Critical, Major, Minor"
-          statusChangeReason:
-            type: string
-            description: The reason for changing the status
-          ticketType:
-            type: string
-            description: represent a business type of the trouble ticket e.g. incident, complain, request
-          attachment:
-            description: File(s) attached to the trouble ticket. e.g. pictur of broken device, scaning of a bill or charge
-            type: array
-            items:
-              $ref: '#/components/schemas/AttachmentRefOrValue'
-          channel:
-            $ref: '#/components/schemas/ChannelRef'
-            description: The channel that origin the trouble ticket
-          note:
-            description: The note(s) that are associated to the ticket.
-            type: array
-            items:
-              $ref: '#/components/schemas/Note'
-          relatedEntity:
-            description: An entity that is related to the ticket such as a bill, a product, etc. The entity against which the ticket is associated.
-            type: array
-            items:
-              $ref: '#/components/schemas/RelatedEntity'
-          relatedParty:
-            description: The related party(ies) that are associated to the ticket.
-            type: array
-            items:
-              $ref: '#/components/schemas/RelatedParty'
-          status:
-            $ref: '#/components/schemas/TroubleTicketStatusType'
-            description: The current status of the trouble ticket
-          troubleTicketRelationship:
-            description: A list of trouble ticket relationships (TroubleTicketRelationship [*]). Represents a relationship between trouble tickets
-            type: array
-            items:
-              $ref: '#/components/schemas/TroubleTicketRelationship'
-    ChannelRef:
-      description: The channel to which the resource reference to. e.g. channel for selling product offerings, channel for opening a trouble ticket etc..
-      allOf:
-      - $ref: '#/components/schemas/EntityRef'
-    TroubleTicketStatusType:
-      type: string
-      description: Possible values for the status of the trouble ticket
-      enum:
-      - submitted
-      - acknowledged
-      - rejected
-      - pending
-      - held
-      - inProgress
-      - cancelled
-      - closed
-      - resolved
-    AttachmentRef:
-      description: Attachment reference. An attachment complements the description of an element (for instance a product) through video, pictures
-      allOf:
-      - $ref: '#/components/schemas/EntityRef'
-      - properties:
-          description:
-            type: string
-            description: A narrative text describing the content of the attachment
-          url:
-            type: string
-            description: Link to the attachment media/content
-    Attachment:
-      description: Complements the description of an element (for instance a product) through video, pictures...
-      allOf:
-      - $ref: '#/components/schemas/Entity'
-      - properties:
-          id:
-            type: string
-            description: Unique identifier for this particular attachment
-          href:
-            type: string
-            description: URI for this Attachment
-          attachmentType:
-            type: string
-            description: Attachment type such as video, picture
-          content:
-            type: string
-            description: The actual contents of the attachment object, if embedded, encoded as base64
-          description:
-            type: string
-            description: A narrative text describing the content of the attachment
-          mimeType:
-            type: string
-            description: Attachment mime type such as extension file for video, picture and document
-          name:
-            type: string
-            description: The name of the attachment
-          url:
-            type: string
-            description: Uniform Resource Locator, is a web page address (a subset of URI)
-          size:
-            $ref: '#/components/schemas/Quantity'
-            description: The size of the attachment.
-          validFor:
-            $ref: '#/components/schemas/TimePeriod'
-            description: The period of time for which the attachment is valid
-    StatusChange:
-      description: Holds the status notification reasons and associated date the status changed, populated by the server
-      allOf:
-      - $ref: '#/components/schemas/Entity'
-      - properties:
-          changeDate:
-            type: string
-            format: date-time
-            description: The date and time the status changed.
-          changeReason:
-            type: string
-            description: The reason why the status changed.
-          status:
-            type: string
-            description: The status of the trouble ticket
-    EntityRef:
-      description: Base entityRef schema for use in TMForum Open-APIs
-      allOf:
-      - $ref: '#/components/schemas/Entity'
-      - properties:
-          id:
-            type: string
-            description: Unique identifier of a related entity.
-          href:
-            type: string
-            description: Reference of the related entity.
-          name:
-            type: string
-            description: Name of the related entity.
-          '@referredType':
-            type: string
-            description: The actual type of the target instance when needed for disambiguation.
-    Note:
-      description: Extra information about a given entity
-      allOf:
-      - $ref: '#/components/schemas/Entity'
-      - properties:
-          id:
-            type: string
-            description: Identifier of the note within its containing entity (may or may not be globally unique, depending on provider implementation)
-          author:
-            type: string
-            description: Author of the note
-          date:
-            type: string
-            format: date-time
-            description: Date of the note
-          text:
-            type: string
-            description: Text of the note
-    TroubleTicketRelationship:
-      description: Represents a relationship between trouble Trouble Tickets
-      allOf:
-      - $ref: '#/components/schemas/Entity'
-      - properties:
-          id:
-            type: string
-            description: Unique identifier of the Trouble Ticket
-          href:
-            type: string
-            description: Reference of the Trouble Ticket
-          name:
-            type: string
-            description: Name of the Trouble Ticket
-          relationshipType:
-            type: string
-            description: Type of the  Trouble Ticket relationship can be isChiled, dependent etc...
+          description: When sub-classing, this defines the sub-class entity name
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          format: uri
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
     TroubleTicket_Create:
       description: 'A trouble ticket is a record of an issue that is created, tracked, and managed by a trouble ticket management system
 
@@ -791,68 +501,115 @@ components:
             type: array
             items:
               $ref: '#/components/schemas/TroubleTicketRelationship'
-    AttachmentRefOrValue:
-      description: An attachment by value or by reference. For AttachmentRefOrValue, the attribute type,schemaLocation and referredType are related to the contained entity and not to AttchmentRefOrValue itself
+    TroubleTicketRelationship:
+      description: Represents a relationship between trouble Trouble Tickets
       allOf:
       - $ref: '#/components/schemas/Entity'
       - properties:
-          ref:
-            $ref: '#/components/schemas/AttachmentRef'
-            description: A reference to the Attachment.
-          value:
-            $ref: '#/components/schemas/Attachment'
-            description: The Attachment (as a value).
-    Error:
-      description: Used when an API throws an Error, typically with a HTTP error response-code (3xx, 4xx, 5xx)
+          id:
+            type: string
+            description: Unique identifier of the Trouble Ticket
+          href:
+            type: string
+            description: Reference of the Trouble Ticket
+          name:
+            type: string
+            description: Name of the Trouble Ticket
+          relationshipType:
+            type: string
+            description: Type of the  Trouble Ticket relationship can be isChiled, dependent etc...
+    TroubleTicket:
+      description: A trouble ticket is a record of an issue that is created, tracked, and managed by a trouble ticket management system
       allOf:
       - $ref: '#/components/schemas/Entity'
-      - required:
-        - code
-        - reason
-        properties:
-          code:
+      - properties:
+          id:
             type: string
-            description: Application relevant detail, defined in the API or a common list.
-          reason:
+            description: Unique identifier of the trouble ticket
+          href:
             type: string
-            description: Explanation of the reason for the error which can be shown to a client user.
-          message:
+            description: Hyperlink, a reference to the trouble ticket entity
+          creationDate:
             type: string
-            description: More details and corrective actions related to the error which can be shown to a client user.
+            format: date-time
+            description: The date on which the trouble ticket was created
+          description:
+            type: string
+            description: Description of the trouble or issue
+          expectedResolutionDate:
+            type: string
+            format: date-time
+            description: The expected resolution date determined by the trouble ticket system
+          externalId:
+            type: string
+            description: Additional identifier coming from an external system
+          lastUpdate:
+            type: string
+            format: date-time
+            description: The date and time that the trouble ticked was last updated
+          name:
+            type: string
+            description: Name of the trouble ticket, typically a short description provided by the user that create the ticket
+          priority:
+            type: string
+            description: 'The priority of the trouble ticket and how quickly the issue should be resolved. Example: Critical, High, Medium, Low. The value is set by the ticket management system considering the severity, ticket type etc...'
+          requestedResolutionDate:
+            type: string
+            format: date-time
+            description: The resolution date requested by the user
+          resolutionDate:
+            type: string
+            format: date-time
+            description: The date and time the trouble ticket was resolved
+          severity:
+            type: string
+            description: "The severity of the issue. Indicate the implication of the issue on the expected functionality e.g. of a system, application, service etc.. \nSeverity values can be for example : Critical, Major, Minor"
+          statusChangeDate:
+            type: string
+            format: date-time
+            description: The date and time the status changed.
+          statusChangeReason:
+            type: string
+            description: The reason for changing the status
+          ticketType:
+            type: string
+            description: represent a business type of the trouble ticket e.g. incident, complain, request
+          attachment:
+            description: File(s) attached to the trouble ticket. e.g. pictur of broken device, scaning of a bill or charge
+            type: array
+            items:
+              $ref: '#/components/schemas/AttachmentRefOrValue'
+          channel:
+            $ref: '#/components/schemas/ChannelRef'
+            description: The channel that origin the trouble ticket
+          note:
+            description: The note(s) that are associated to the ticket.
+            type: array
+            items:
+              $ref: '#/components/schemas/Note'
+          relatedEntity:
+            description: An entity that is related to the ticket such as a bill, a product, etc. The entity against which the ticket is associated.
+            type: array
+            items:
+              $ref: '#/components/schemas/RelatedEntity'
+          relatedParty:
+            description: The related party(ies) that are associated to the ticket.
+            type: array
+            items:
+              $ref: '#/components/schemas/RelatedParty'
           status:
-            type: string
-            description: HTTP Error code extension
-          referenceError:
-            type: string
-            format: uri
-            description: URI of documentation describing the error.
-    TimePeriod:
-      type: object
-      description: A period of time, either as a deadline (endDateTime only) a startDateTime only, or both
-      properties:
-        endDateTime:
-          type: string
-          format: date-time
-          description: End of the time period, using IETC-RFC-3339 format
-        startDateTime:
-          type: string
-          format: date-time
-          description: Start of the time period, using IETC-RFC-3339 format. If you define a start, you must also define an end
-    Entity:
-      discriminator:
-        propertyName: '@type'
-      description: Base entity schema for use in TMForum Open-APIs
-      properties:
-        '@type':
-          type: string
-          description: When sub-classing, this defines the sub-class entity name
-        '@baseType':
-          type: string
-          description: When sub-classing, this defines the super-class
-        '@schemaLocation':
-          type: string
-          format: uri
-          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+            $ref: '#/components/schemas/TroubleTicketStatusType'
+            description: The current status of the trouble ticket
+          statusChange:
+            description: The status change history that are associated to the ticket.Populated by the server
+            type: array
+            items:
+              $ref: '#/components/schemas/StatusChange'
+          troubleTicketRelationship:
+            description: A list of trouble ticket relationships (TroubleTicketRelationship [*]). Represents a relationship between trouble tickets
+            type: array
+            items:
+              $ref: '#/components/schemas/TroubleTicketRelationship'
     RelatedEntity:
       description: A reference to an entity, where the type of the entity is not known in advance.
       allOf:
@@ -877,6 +634,132 @@ components:
           '@referredType':
             type: string
             description: The actual type of the target instance when needed for disambiguation.
+    TroubleTicket_Update:
+      description: 'A trouble ticket is a record of an issue that is created, tracked, and managed by a trouble ticket management system
+
+        Skipped properties: id,href,creationDate,lastUpdate,statusChange,statusChangeDate'
+      allOf:
+      - $ref: '#/components/schemas/Entity'
+      - properties:
+          description:
+            type: string
+            description: Description of the trouble or issue
+          expectedResolutionDate:
+            type: string
+            format: date-time
+            description: The expected resolution date determined by the trouble ticket system
+          externalId:
+            type: string
+            description: Additional identifier coming from an external system
+          name:
+            type: string
+            description: Name of the trouble ticket, typically a short description provided by the user that create the ticket
+          priority:
+            type: string
+            description: 'The priority of the trouble ticket and how quickly the issue should be resolved. Example: Critical, High, Medium, Low. The value is set by the ticket management system considering the severity, ticket type etc...'
+          requestedResolutionDate:
+            type: string
+            format: date-time
+            description: The resolution date requested by the user
+          resolutionDate:
+            type: string
+            format: date-time
+            description: The date and time the trouble ticket was resolved
+          severity:
+            type: string
+            description: "The severity of the issue. Indicate the implication of the issue on the expected functionality e.g. of a system, application, service etc.. \nSeverity values can be for example : Critical, Major, Minor"
+          statusChangeReason:
+            type: string
+            description: The reason for changing the status
+          ticketType:
+            type: string
+            description: represent a business type of the trouble ticket e.g. incident, complain, request
+          attachment:
+            description: File(s) attached to the trouble ticket. e.g. pictur of broken device, scaning of a bill or charge
+            type: array
+            items:
+              $ref: '#/components/schemas/AttachmentRefOrValue'
+          channel:
+            $ref: '#/components/schemas/ChannelRef'
+            description: The channel that origin the trouble ticket
+          note:
+            description: The note(s) that are associated to the ticket.
+            type: array
+            items:
+              $ref: '#/components/schemas/Note'
+          relatedEntity:
+            description: An entity that is related to the ticket such as a bill, a product, etc. The entity against which the ticket is associated.
+            type: array
+            items:
+              $ref: '#/components/schemas/RelatedEntity'
+          relatedParty:
+            description: The related party(ies) that are associated to the ticket.
+            type: array
+            items:
+              $ref: '#/components/schemas/RelatedParty'
+          status:
+            $ref: '#/components/schemas/TroubleTicketStatusType'
+            description: The current status of the trouble ticket
+          troubleTicketRelationship:
+            description: A list of trouble ticket relationships (TroubleTicketRelationship [*]). Represents a relationship between trouble tickets
+            type: array
+            items:
+              $ref: '#/components/schemas/TroubleTicketRelationship'
+    AttachmentRef:
+      description: Attachment reference. An attachment complements the description of an element (for instance a product) through video, pictures
+      allOf:
+      - $ref: '#/components/schemas/EntityRef'
+      - properties:
+          description:
+            type: string
+            description: A narrative text describing the content of the attachment
+          url:
+            type: string
+            description: Link to the attachment media/content
+    StatusChange:
+      description: Holds the status notification reasons and associated date the status changed, populated by the server
+      allOf:
+      - $ref: '#/components/schemas/Entity'
+      - properties:
+          changeDate:
+            type: string
+            format: date-time
+            description: The date and time the status changed.
+          changeReason:
+            type: string
+            description: The reason why the status changed.
+          status:
+            type: string
+            description: The status of the trouble ticket
+    Note:
+      description: Extra information about a given entity
+      allOf:
+      - $ref: '#/components/schemas/Entity'
+      - properties:
+          id:
+            type: string
+            description: Identifier of the note within its containing entity (may or may not be globally unique, depending on provider implementation)
+          author:
+            type: string
+            description: Author of the note
+          date:
+            type: string
+            format: date-time
+            description: Date of the note
+          text:
+            type: string
+            description: Text of the note
+    AttachmentRefOrValue:
+      description: An attachment by value or by reference. For AttachmentRefOrValue, the attribute type,schemaLocation and referredType are related to the contained entity and not to AttchmentRefOrValue itself
+      allOf:
+      - $ref: '#/components/schemas/Entity'
+      - properties:
+          ref:
+            $ref: '#/components/schemas/AttachmentRef'
+            description: A reference to the Attachment.
+          value:
+            $ref: '#/components/schemas/Attachment'
+            description: The Attachment (as a value).
     RelatedParty:
       description: Related Entity reference. A related party defines party or party role linked to a specific entity.
       allOf:
@@ -900,3 +783,120 @@ components:
           '@referredType':
             type: string
             description: The actual type of the target instance when needed for disambiguation.
+    ChannelRef:
+      description: The channel to which the resource reference to. e.g. channel for selling product offerings, channel for opening a trouble ticket etc..
+      allOf:
+      - $ref: '#/components/schemas/EntityRef'
+    Quantity:
+      type: object
+      description: An amount in a given unit
+      properties:
+        amount:
+          type: number
+          format: float
+          description: Numeric value in a given unit
+          default: 1.0
+        units:
+          type: string
+          description: Unit
+    Attachment:
+      description: Complements the description of an element (for instance a product) through video, pictures...
+      allOf:
+      - $ref: '#/components/schemas/Entity'
+      - properties:
+          id:
+            type: string
+            description: Unique identifier for this particular attachment
+          href:
+            type: string
+            description: URI for this Attachment
+          attachmentType:
+            type: string
+            description: Attachment type such as video, picture
+          content:
+            type: string
+            description: The actual contents of the attachment object, if embedded, encoded as base64
+          description:
+            type: string
+            description: A narrative text describing the content of the attachment
+          mimeType:
+            type: string
+            description: Attachment mime type such as extension file for video, picture and document
+          name:
+            type: string
+            description: The name of the attachment
+          url:
+            type: string
+            description: Uniform Resource Locator, is a web page address (a subset of URI)
+          size:
+            $ref: '#/components/schemas/Quantity'
+            description: The size of the attachment.
+          validFor:
+            $ref: '#/components/schemas/TimePeriod'
+            description: The period of time for which the attachment is valid
+    TimePeriod:
+      type: object
+      description: A period of time, either as a deadline (endDateTime only) a startDateTime only, or both
+      properties:
+        endDateTime:
+          type: string
+          format: date-time
+          description: End of the time period, using IETC-RFC-3339 format
+        startDateTime:
+          type: string
+          format: date-time
+          description: Start of the time period, using IETC-RFC-3339 format. If you define a start, you must also define an end
+    TroubleTicketStatusType:
+      type: string
+      description: Possible values for the status of the trouble ticket
+      enum:
+      - submitted
+      - acknowledged
+      - rejected
+      - pending
+      - held
+      - inProgress
+      - cancelled
+      - closed
+      - resolved
+    EntityRef:
+      description: Base entityRef schema for use in TMForum Open-APIs
+      allOf:
+      - $ref: '#/components/schemas/Entity'
+      - properties:
+          id:
+            type: string
+            description: Unique identifier of a related entity.
+          href:
+            type: string
+            description: Reference of the related entity.
+          name:
+            type: string
+            description: Name of the related entity.
+          '@referredType':
+            type: string
+            description: The actual type of the target instance when needed for disambiguation.
+    Error:
+      description: Used when an API throws an Error, typically with a HTTP error response-code (3xx, 4xx, 5xx)
+      allOf:
+      - $ref: '#/components/schemas/Entity'
+      - required:
+        - code
+        - reason
+        properties:
+          code:
+            type: string
+            description: Application relevant detail, defined in the API or a common list.
+          reason:
+            type: string
+            description: Explanation of the reason for the error which can be shown to a client user.
+          message:
+            type: string
+            description: More details and corrective actions related to the error which can be shown to a client user.
+          status:
+            type: string
+            description: HTTP Error code extension
+          referenceError:
+            type: string
+            format: uri
+            description: URI of documentation describing the error.
