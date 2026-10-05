@@ -1,0 +1,12 @@
+{
+ "url": "https://developer.bell.ca/uploads/service_order_swagger_v4_6_a3c597cdf5.json",
+ "requested_url": "https://developer.bell.ca/uploads/service_order_swagger_v4_6_a3c597cdf5.json",
+ "status": 200,
+ "content_type": "application/json; charset=utf-8",
+ "bytes": 173623,
+ "sha256": "11cf45cb7b0d030236dfd61945d8f356995e10a779e8d9f518f23bbea0d3170d",
+ "fetched_at": "2026-10-04",
+ "fetched_by": "APIEvangelist-Harvest/1.0 (+https://apievangelist.com)",
+ "match": "byte-identical",
+ "note": "Re-fetched from the provider by verify-openapi-sources.py; the archived file is byte-identical to what the provider serves."
+}

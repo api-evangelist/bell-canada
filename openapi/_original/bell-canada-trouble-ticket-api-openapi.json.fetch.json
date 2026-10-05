@@ -1,0 +1,12 @@
+{
+ "url": "https://developer.bell.ca/uploads/trouble_ticket_api_v4_1_1_compound_swagger_950417978c.json",
+ "requested_url": "https://developer.bell.ca/uploads/trouble_ticket_api_v4_1_1_compound_swagger_950417978c.json",
+ "status": 200,
+ "content_type": "application/json; charset=utf-8",
+ "bytes": 130615,
+ "sha256": "ceffca30465c4d930872a4d6f75c7fbd4fc6795f2026372bd7965a8932de94c9",
+ "fetched_at": "2026-10-04",
+ "fetched_by": "APIEvangelist-Harvest/1.0 (+https://apievangelist.com)",
+ "match": "byte-identical",
+ "note": "Re-fetched from the provider by verify-openapi-sources.py; the archived file is byte-identical to what the provider serves."
+}
