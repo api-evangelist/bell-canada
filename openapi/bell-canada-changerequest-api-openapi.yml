@@ -388,41 +388,207 @@ paths:
                 $ref: '#/components/schemas/Error'
 components:
   schemas:
-    Entity:
+    Attachment:
+      description: Complements the description of an element (for instance a product) through video, pictures...
+      allOf:
+      - $ref: '#/components/schemas/Entity'
+      - properties:
+          id:
+            type: string
+            description: Unique identifier for this particular attachment
+          href:
+            type: string
+            format: uri
+            description: URI for this Attachment
+          attachmentType:
+            type: string
+            description: Attachment type such as video, picture
+          content:
+            type: string
+            format: base64
+            description: The actual contents of the attachment object, if embedded, encoded as base64
+          description:
+            type: string
+            description: A narrative text describing the content of the attachment
+          mimeType:
+            type: string
+            description: Attachment mime type such as extension file for video, picture and document
+          name:
+            type: string
+            description: The name of the attachment
+          url:
+            type: string
+            format: uri
+            description: Uniform Resource Locator, is a web page address (a subset of URI)
+          size:
+            $ref: '#/components/schemas/Quantity'
+            description: The size of the attachment.
+          validFor:
+            $ref: '#/components/schemas/TimePeriod'
+            description: The period of time for which the attachment is valid
+    SLARef:
+      description: 'ServiceLevelAgreement reference: A service level agreement (SLA) is a type of agreement that represents a formal negotiated agreement between two parties designed to create a common understanding about products, services, priorities, responsibilities, and so forth. The SLA is a set of appropriate procedures and targets formally or informally agreed between parties in order to achieve and maintain specified Quality of Service.'
+      allOf:
+      - $ref: '#/components/schemas/EntityRef'
+    AttachmentRef:
+      description: Attachment reference. An attachment complements the description of an element (for instance a product) through video, pictures
+      allOf:
+      - $ref: '#/components/schemas/EntityRef'
+      - properties:
+          description:
+            type: string
+            description: A narrative text describing the content of the attachment
+          url:
+            type: string
+            format: uri
+            description: Link to the attachment media/content
+    ChangeRequestRef:
+      description: Reference to a Change Request
+      allOf:
+      - $ref: '#/components/schemas/EntityRef'
+    ChangeRequest_Create:
+      description: "Change Request is a type of request which can be used for the management and control of Change Management process \n -within a service provider organisation or \n -between a customer and a service provider or \n -between a service provider and a partner and vice versa.\nSkipped properties: id,href,lastUpdateTime,statusChangeDate,statusChangeReason,status,actualEndTime,actualStartTime,completionDate,lastUpdateDate"
+      allOf:
+      - $ref: '#/components/schemas/Entity'
+      - required:
+        - plannedEndTime
+        - plannedStartTime
+        - priority
+        - requestType
+        - specification
+        - targetEntity
+        properties:
+          channel:
+            type: string
+            description: A channel represents the way the Change Request was created
+          description:
+            type: string
+            description: Description of the change request
+          impact:
+            type: string
+            description: Indicates the impact of this change
+          plannedEndTime:
+            type: string
+            format: date-time
+            description: Date and time when the change implementation is planned to be finished
+          plannedStartTime:
+            type: string
+            format: date-time
+            description: Date and time when the change implementation is planned to be started
+          priority:
+            type: string
+            description: Used by consumers to prioritize a change request in Change Management system
+          requestDate:
+            type: string
+            format: date-time
+            description: Date and time when the change request is raised
+          requestType:
+            type: string
+            description: Indicates the type of the change request
+          risk:
+            type: string
+            description: The risk to implement this change request
+          riskMitigationPlan:
+            type: string
+            description: The risk mitigation plan
+          riskValue:
+            type: string
+            description: The additional cost if the risk will happen
+          scheduledDate:
+            type: string
+            format: date-time
+            description: Date and time that the schedule is made
+          attachment:
+            description: The attachments of the communication message (when it is email type)
+            type: array
+            items:
+              $ref: '#/components/schemas/AttachmentRefOrValue'
+          budget:
+            $ref: '#/components/schemas/Money'
+          changeRelationship:
+            type: array
+            items:
+              $ref: '#/components/schemas/ChangeRequestRelationship'
+          changeRequestCharacteristic:
+            type: array
+            items:
+              $ref: '#/components/schemas/Characteristic'
+          externalReference:
+            type: array
+            items:
+              $ref: '#/components/schemas/ExternalReference'
+          impactEntity:
+            type: array
+            items:
+              $ref: '#/components/schemas/ImpactEntity'
+          location:
+            $ref: '#/components/schemas/RelatedPlaceRefOrValue'
+            description: A list of places (Place [*]). Used to define a place useful for the service (for example a geographical place whre the service is installed)
+          note:
+            type: array
+            items:
+              $ref: '#/components/schemas/Note'
+          problemTicket:
+            type: array
+            items:
+              $ref: '#/components/schemas/ServiceProblemRef'
+          relatedParty:
+            description: The parties involved in the change request
+            type: array
+            items:
+              $ref: '#/components/schemas/RelatedParty'
+          resolution:
+            $ref: '#/components/schemas/Resolution'
+          sla:
+            type: array
+            items:
+              $ref: '#/components/schemas/SLARef'
+          specification:
+            $ref: '#/components/schemas/EntitySpecificationRef'
+          targetEntity:
+            type: array
+            items:
+              $ref: '#/components/schemas/RelatedEntity'
+            minItems: 1
+          troubleTicket:
+            type: array
+            items:
+              $ref: '#/components/schemas/TroubleTicketRef'
+          workLog:
+            type: array
+            items:
+              $ref: '#/components/schemas/WorkLog'
+    Characteristic:
       discriminator:
         propertyName: '@type'
-      description: Base entity schema for use in TMForum Open-APIs
+      type: object
+      description: Describes a given characteristic of an object or entity through a name/value pair.
       properties:
-        '@type':
+        id:
           type: string
-          description: When sub-classing, this defines the sub-class entity name
-        '@baseType':
+          description: Unique identifier of the characteristic
+        name:
           type: string
-          description: When sub-classing, this defines the super-class
+          description: Name of the characteristic
+        valueType:
+          type: string
+          description: Data type of the value of the characteristic
+        characteristicRelationship:
+          type: array
+          items:
+            $ref: '#/components/schemas/CharacteristicRelationship'
         '@schemaLocation':
           type: string
           format: uri
           description: A URI to a JSON-Schema file that defines additional attributes and relationships
-    ChangeRequestRefOrValue:
-      description: A Service to be created defined by value or existing defined by reference. The polymorphic attributes @type, @schemaLocation & @referredType are related to the Service entity and not the RelatedServiceRefOrValue class itself
-      properties:
-        ref:
-          $ref: '#/components/schemas/ChangeRequestRef'
-          description: A reference to the ChangeRequest.
-        value:
-          $ref: '#/components/schemas/ChangeRequest'
-          description: The ChangeRequest (as a value).
         '@baseType':
           type: string
           description: When sub-classing, this defines the super-class
-        '@schemaLocation':
-          type: string
-          description: A URI to a JSON-Schema file that defines additional attributes and relationships
         '@type':
           type: string
-          description: When sub-classing, this defines the sub-class entity name
-    RelatedEntity:
-      description: A reference to an entity, where the type of the entity is not known in advance.
+          description: When sub-classing, this defines the sub-class Extensible name
+    ImpactEntity:
+      description: A reference to an imapcted entity
       allOf:
       - $ref: '#/components/schemas/Entity'
       - required:
@@ -437,6 +603,9 @@ components:
             type: string
             format: uri
             description: Hyperlink reference
+          action:
+            type: string
+            description: The action on an entity.
           name:
             type: string
             description: Name of the related entity.
@@ -446,6 +615,20 @@ components:
           '@referredType':
             type: string
             description: The actual type of the target instance when needed for disambiguation.
+    Place:
+      description: Place reference. Place defines the places where the products are sold or delivered.
+      allOf:
+      - $ref: '#/components/schemas/Entity'
+      - properties:
+          id:
+            type: string
+            description: Unique identifier of the place
+          href:
+            type: string
+            description: Unique reference of the place
+          name:
+            type: string
+            description: A user-friendly name for the place, such as [Paris Store], [London Store], [Main Home]
     ChangeRequest_Update:
       description: "Change Request is a type of request which can be used for the management and control of Change Management process \n -within a service provider organisation or \n -between a customer and a service provider or \n -between a service provider and a partner and vice versa.\nSkipped properties: id,href,@baseType,@schemaLocation,@type"
       allOf:
@@ -578,15 +761,15 @@ components:
             type: array
             items:
               $ref: '#/components/schemas/WorkLog'
-    AttachmentRefOrValue:
-      description: An attachment by value or by reference. An attachment complements the description of an element, for example through a document, a video, a picture.
+    ChangeRequestRefOrValue:
+      description: A Service to be created defined by value or existing defined by reference. The polymorphic attributes @type, @schemaLocation & @referredType are related to the Service entity and not the RelatedServiceRefOrValue class itself
       properties:
         ref:
-          $ref: '#/components/schemas/AttachmentRef'
-          description: A reference to the Attachment.
+          $ref: '#/components/schemas/ChangeRequestRef'
+          description: A reference to the ChangeRequest.
         value:
-          $ref: '#/components/schemas/Attachment'
-          description: The Attachment (as a value).
+          $ref: '#/components/schemas/ChangeRequest'
+          description: The ChangeRequest (as a value).
         '@baseType':
           type: string
           description: When sub-classing, this defines the super-class
@@ -596,6 +779,98 @@ components:
         '@type':
           type: string
           description: When sub-classing, this defines the sub-class entity name
+    ChangeRequestStatusType:
+      type: string
+      description: Possible values for the state of the change request
+      enum:
+      - acknowledged
+      - requestForAuthorization
+      - waitForApproval
+      - approved
+      - scheduled
+      - postImplementationReview
+      - fallbackExecution
+      - cancelled
+      - rejected
+      - inProgress
+      - failed
+      - completed
+    PlaceRef:
+      description: Place reference. PlaceRef defines the placeRefs where the products are sold or delivered.
+      allOf:
+      - $ref: '#/components/schemas/EntityRef'
+    Entity:
+      discriminator:
+        propertyName: '@type'
+      description: Base entity schema for use in TMForum Open-APIs
+      properties:
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class entity name
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          format: uri
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+    RelatedParty:
+      description: Related Entity reference. A related party defines party or party role linked to a specific entity.
+      allOf:
+      - $ref: '#/components/schemas/Entity'
+      - required:
+        - id
+        - '@referredType'
+        properties:
+          id:
+            type: string
+            description: unique identifier
+          href:
+            type: string
+            format: uri
+            description: Hyperlink reference
+          name:
+            type: string
+            description: Name of the related entity.
+          role:
+            type: string
+            description: Role played by the related party
+          '@referredType':
+            type: string
+            description: The actual type of the target instance when needed for disambiguation.
+    Note:
+      description: Extra information about a given entity
+      allOf:
+      - $ref: '#/components/schemas/Entity'
+      - properties:
+          id:
+            type: string
+            description: Identifier of the note within its containing entity
+          author:
+            type: string
+            description: Author of the note
+          date:
+            type: string
+            format: date-time
+            description: Date of the note
+          text:
+            type: string
+            description: Text of the note
+    Money:
+      type: object
+      description: A base / value business entity used to represent money
+      properties:
+        unit:
+          type: string
+          description: Currency (ISO4217 norm uses 3 letters to define the currency)
+        value:
+          type: number
+          format: float
+          description: A signed floating point number, the meaning of the sign is according to the context of the API that uses this Data type
+    TroubleTicketRef:
+      description: TroubleTicket reference, for when a Trouble Ticket is used by other entities
+      allOf:
+      - $ref: '#/components/schemas/EntityRef'
     WorkLog:
       description: A record of the work performed on the change request during the investigation and resolution process.
       allOf:
@@ -622,38 +897,17 @@ components:
             type: array
             items:
               $ref: '#/components/schemas/Record'
-    RelatedPlaceRefOrValue:
-      description: Related Entity reference. A related place defines a place described by reference or by value linked to a specific entity. The polymorphic attributes @type, @schemaLocation & @referredType are related to the place entity and not the RelatedPlaceRefOrValue class itself
-      properties:
-        role:
-          type: string
-        ref:
-          $ref: '#/components/schemas/PlaceRef'
-          description: A reference to the Place.
-        value:
-          $ref: '#/components/schemas/Place'
-          description: The Place (as a value).
-        '@baseType':
-          type: string
-          description: When sub-classing, this defines the super-class
-        '@schemaLocation':
-          type: string
-          description: A URI to a JSON-Schema file that defines additional attributes and relationships
-        '@type':
-          type: string
-          description: When sub-classing, this defines the sub-class entity name
-    TimePeriod:
-      type: object
-      description: A period of time, either as a deadline (endDateTime only) a startDateTime only, or both
-      properties:
-        endDateTime:
-          type: string
-          format: date-time
-          description: End of the time period, using IETC-RFC-3339 format
-        startDateTime:
-          type: string
-          format: date-time
-          description: Start of the time period, using IETC-RFC-3339 format
+    ExternalReference:
+      description: External reference of the individual or reference in other system
+      allOf:
+      - $ref: '#/components/schemas/Entity'
+      - properties:
+          externalReferenceType:
+            type: string
+            description: Type of the external reference
+          name:
+            type: string
+            description: External reference name
     ChangeRequestRelationship:
       allOf:
       - $ref: '#/components/schemas/Entity'
@@ -675,26 +929,51 @@ components:
             type: array
             items:
               $ref: '#/components/schemas/Characteristic'
-    AttachmentRef:
-      description: Attachment reference. An attachment complements the description of an element (for instance a product) through video, pictures
+    Task:
+      description: A step or task along in the process of implementation a Change Request.
       allOf:
-      - $ref: '#/components/schemas/EntityRef'
+      - $ref: '#/components/schemas/Entity'
       - properties:
-          description:
+          id:
             type: string
-            description: A narrative text describing the content of the attachment
-          url:
+            description: unique identifier
+          href:
             type: string
             format: uri
-            description: Link to the attachment media/content
-    EntitySpecificationRef:
-      description: reference to an EntitySpecification object
-      allOf:
-      - $ref: '#/components/schemas/EntityRef'
-      - properties:
-          version:
+            description: Hyperlink reference
+          description:
             type: string
-            description: EntitySpecification version
+            description: The description of the task.
+          name:
+            type: string
+            description: The name of the task.
+          state:
+            type: string
+            description: The state of the task.
+    Error:
+      description: Used when an API throws an Error, typically with a HTTP error response-code (3xx, 4xx, 5xx)
+      allOf:
+      - $ref: '#/components/schemas/Entity'
+      - required:
+        - code
+        - reason
+        properties:
+          code:
+            type: string
+            description: Application relevant detail, defined in the API or a common list.
+          reason:
+            type: string
+            description: Explanation of the reason for the error which can be shown to a client user.
+          message:
+            type: string
+            description: More details and corrective actions related to the error which can be shown to a client user.
+          status:
+            type: string
+            description: HTTP Error code extension
+          referenceError:
+            type: string
+            format: uri
+            description: URI of documentation describing the error.
     Resolution:
       description: The way one or more change request has been implementation through a direct remedy or task
       allOf:
@@ -720,6 +999,9 @@ components:
             type: array
             items:
               $ref: '#/components/schemas/Task'
+    ServiceProblemRef:
+      allOf:
+      - $ref: '#/components/schemas/EntityRef'
     Quantity:
       type: object
       description: An amount in a given unit
@@ -732,65 +1014,20 @@ components:
         units:
           type: string
           description: Unit
-    SLARef:
-      description: 'ServiceLevelAgreement reference: A service level agreement (SLA) is a type of agreement that represents a formal negotiated agreement between two parties designed to create a common understanding about products, services, priorities, responsibilities, and so forth. The SLA is a set of appropriate procedures and targets formally or informally agreed between parties in order to achieve and maintain specified Quality of Service.'
-      allOf:
-      - $ref: '#/components/schemas/EntityRef'
-    Error:
-      description: Used when an API throws an Error, typically with a HTTP error response-code (3xx, 4xx, 5xx)
-      allOf:
-      - $ref: '#/components/schemas/Entity'
-      - required:
-        - code
-        - reason
-        properties:
-          code:
-            type: string
-            description: Application relevant detail, defined in the API or a common list.
-          reason:
-            type: string
-            description: Explanation of the reason for the error which can be shown to a client user.
-          message:
-            type: string
-            description: More details and corrective actions related to the error which can be shown to a client user.
-          status:
-            type: string
-            description: HTTP Error code extension
-          referenceError:
-            type: string
-            format: uri
-            description: URI of documentation describing the error.
-    Characteristic:
-      discriminator:
-        propertyName: '@type'
+    TimePeriod:
       type: object
-      description: Describes a given characteristic of an object or entity through a name/value pair.
+      description: A period of time, either as a deadline (endDateTime only) a startDateTime only, or both
       properties:
-        id:
+        endDateTime:
           type: string
-          description: Unique identifier of the characteristic
-        name:
+          format: date-time
+          description: End of the time period, using IETC-RFC-3339 format
+        startDateTime:
           type: string
-          description: Name of the characteristic
-        valueType:
-          type: string
-          description: Data type of the value of the characteristic
-        characteristicRelationship:
-          type: array
-          items:
-            $ref: '#/components/schemas/CharacteristicRelationship'
-        '@schemaLocation':
-          type: string
-          format: uri
-          description: A URI to a JSON-Schema file that defines additional attributes and relationships
-        '@baseType':
-          type: string
-          description: When sub-classing, this defines the super-class
-        '@type':
-          type: string
-          description: When sub-classing, this defines the sub-class Extensible name
-    Task:
-      description: A step or task along in the process of implementation a Change Request.
+          format: date-time
+          description: Start of the time period, using IETC-RFC-3339 format
+    Record:
+      description: A record in a worklog.
       allOf:
       - $ref: '#/components/schemas/Entity'
       - properties:
@@ -801,15 +1038,67 @@ components:
             type: string
             format: uri
             description: Hyperlink reference
+          dateTime:
+            type: string
+            format: date-time
+            description: The date time that a record is generated.
           description:
             type: string
-            description: The description of the task.
+            description: The detail description in a record.
+          supportPerson:
+            type: string
+            description: The person who logged that record.
+    RelatedEntity:
+      description: A reference to an entity, where the type of the entity is not known in advance.
+      allOf:
+      - $ref: '#/components/schemas/Entity'
+      - required:
+        - id
+        - role
+        - '@referredType'
+        properties:
+          id:
+            type: string
+            description: unique identifier
+          href:
+            type: string
+            format: uri
+            description: Hyperlink reference
           name:
             type: string
-            description: The name of the task.
-          state:
+            description: Name of the related entity.
+          role:
             type: string
-            description: The state of the task.
+            description: The role of an entity.
+          '@referredType':
+            type: string
+            description: The actual type of the target instance when needed for disambiguation.
+    AttachmentRefOrValue:
+      description: An attachment by value or by reference. An attachment complements the description of an element, for example through a document, a video, a picture.
+      properties:
+        ref:
+          $ref: '#/components/schemas/AttachmentRef'
+          description: A reference to the Attachment.
+        value:
+          $ref: '#/components/schemas/Attachment'
+          description: The Attachment (as a value).
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class entity name
+    EntitySpecificationRef:
+      description: reference to an EntitySpecification object
+      allOf:
+      - $ref: '#/components/schemas/EntityRef'
+      - properties:
+          version:
+            type: string
+            description: EntitySpecification version
     ChangeRequest:
       description: "Change Request is a type of request which can be used for the management and control of Change Management process \n -within a service provider organisation or \n -between a customer and a service provider or \n -between a service provider and a partner and vice versa."
       allOf:
@@ -949,76 +1238,6 @@ components:
             type: array
             items:
               $ref: '#/components/schemas/WorkLog'
-    TroubleTicketRef:
-      description: TroubleTicket reference, for when a Trouble Ticket is used by other entities
-      allOf:
-      - $ref: '#/components/schemas/EntityRef'
-    Money:
-      type: object
-      description: A base / value business entity used to represent money
-      properties:
-        unit:
-          type: string
-          description: Currency (ISO4217 norm uses 3 letters to define the currency)
-        value:
-          type: number
-          format: float
-          description: A signed floating point number, the meaning of the sign is according to the context of the API that uses this Data type
-    ServiceProblemRef:
-      allOf:
-      - $ref: '#/components/schemas/EntityRef'
-    Record:
-      description: A record in a worklog.
-      allOf:
-      - $ref: '#/components/schemas/Entity'
-      - properties:
-          id:
-            type: string
-            description: unique identifier
-          href:
-            type: string
-            format: uri
-            description: Hyperlink reference
-          dateTime:
-            type: string
-            format: date-time
-            description: The date time that a record is generated.
-          description:
-            type: string
-            description: The detail description in a record.
-          supportPerson:
-            type: string
-            description: The person who logged that record.
-    Place:
-      description: Place reference. Place defines the places where the products are sold or delivered.
-      allOf:
-      - $ref: '#/components/schemas/Entity'
-      - properties:
-          id:
-            type: string
-            description: Unique identifier of the place
-          href:
-            type: string
-            description: Unique reference of the place
-          name:
-            type: string
-            description: A user-friendly name for the place, such as [Paris Store], [London Store], [Main Home]
-    ChangeRequestStatusType:
-      type: string
-      description: Possible values for the state of the change request
-      enum:
-      - acknowledged
-      - requestForAuthorization
-      - waitForApproval
-      - approved
-      - scheduled
-      - postImplementationReview
-      - fallbackExecution
-      - cancelled
-      - rejected
-      - inProgress
-      - failed
-      - completed
     CharacteristicRelationship:
       discriminator:
         propertyName: '@type'
@@ -1041,245 +1260,26 @@ components:
         '@type':
           type: string
           description: When sub-classing, this defines the sub-class Extensible name
-    ChangeRequest_Create:
-      description: "Change Request is a type of request which can be used for the management and control of Change Management process \n -within a service provider organisation or \n -between a customer and a service provider or \n -between a service provider and a partner and vice versa.\nSkipped properties: id,href,lastUpdateTime,statusChangeDate,statusChangeReason,status,actualEndTime,actualStartTime,completionDate,lastUpdateDate"
-      allOf:
-      - $ref: '#/components/schemas/Entity'
-      - required:
-        - plannedEndTime
-        - plannedStartTime
-        - priority
-        - requestType
-        - specification
-        - targetEntity
-        properties:
-          channel:
-            type: string
-            description: A channel represents the way the Change Request was created
-          description:
-            type: string
-            description: Description of the change request
-          impact:
-            type: string
-            description: Indicates the impact of this change
-          plannedEndTime:
-            type: string
-            format: date-time
-            description: Date and time when the change implementation is planned to be finished
-          plannedStartTime:
-            type: string
-            format: date-time
-            description: Date and time when the change implementation is planned to be started
-          priority:
-            type: string
-            description: Used by consumers to prioritize a change request in Change Management system
-          requestDate:
-            type: string
-            format: date-time
-            description: Date and time when the change request is raised
-          requestType:
-            type: string
-            description: Indicates the type of the change request
-          risk:
-            type: string
-            description: The risk to implement this change request
-          riskMitigationPlan:
-            type: string
-            description: The risk mitigation plan
-          riskValue:
-            type: string
-            description: The additional cost if the risk will happen
-          scheduledDate:
-            type: string
-            format: date-time
-            description: Date and time that the schedule is made
-          attachment:
-            description: The attachments of the communication message (when it is email type)
-            type: array
-            items:
-              $ref: '#/components/schemas/AttachmentRefOrValue'
-          budget:
-            $ref: '#/components/schemas/Money'
-          changeRelationship:
-            type: array
-            items:
-              $ref: '#/components/schemas/ChangeRequestRelationship'
-          changeRequestCharacteristic:
-            type: array
-            items:
-              $ref: '#/components/schemas/Characteristic'
-          externalReference:
-            type: array
-            items:
-              $ref: '#/components/schemas/ExternalReference'
-          impactEntity:
-            type: array
-            items:
-              $ref: '#/components/schemas/ImpactEntity'
-          location:
-            $ref: '#/components/schemas/RelatedPlaceRefOrValue'
-            description: A list of places (Place [*]). Used to define a place useful for the service (for example a geographical place whre the service is installed)
-          note:
-            type: array
-            items:
-              $ref: '#/components/schemas/Note'
-          problemTicket:
-            type: array
-            items:
-              $ref: '#/components/schemas/ServiceProblemRef'
-          relatedParty:
-            description: The parties involved in the change request
-            type: array
-            items:
-              $ref: '#/components/schemas/RelatedParty'
-          resolution:
-            $ref: '#/components/schemas/Resolution'
-          sla:
-            type: array
-            items:
-              $ref: '#/components/schemas/SLARef'
-          specification:
-            $ref: '#/components/schemas/EntitySpecificationRef'
-          targetEntity:
-            type: array
-            items:
-              $ref: '#/components/schemas/RelatedEntity'
-            minItems: 1
-          troubleTicket:
-            type: array
-            items:
-              $ref: '#/components/schemas/TroubleTicketRef'
-          workLog:
-            type: array
-            items:
-              $ref: '#/components/schemas/WorkLog'
-    PlaceRef:
-      description: Place reference. PlaceRef defines the placeRefs where the products are sold or delivered.
-      allOf:
-      - $ref: '#/components/schemas/EntityRef'
-    Note:
-      description: Extra information about a given entity
-      allOf:
-      - $ref: '#/components/schemas/Entity'
-      - properties:
-          id:
-            type: string
-            description: Identifier of the note within its containing entity
-          author:
-            type: string
-            description: Author of the note
-          date:
-            type: string
-            format: date-time
-            description: Date of the note
-          text:
-            type: string
-            description: Text of the note
-    RelatedParty:
-      description: Related Entity reference. A related party defines party or party role linked to a specific entity.
-      allOf:
-      - $ref: '#/components/schemas/Entity'
-      - required:
-        - id
-        - '@referredType'
-        properties:
-          id:
-            type: string
-            description: unique identifier
-          href:
-            type: string
-            format: uri
-            description: Hyperlink reference
-          name:
-            type: string
-            description: Name of the related entity.
-          role:
-            type: string
-            description: Role played by the related party
-          '@referredType':
-            type: string
-            description: The actual type of the target instance when needed for disambiguation.
-    ImpactEntity:
-      description: A reference to an imapcted entity
-      allOf:
-      - $ref: '#/components/schemas/Entity'
-      - required:
-        - id
-        - role
-        - '@referredType'
-        properties:
-          id:
-            type: string
-            description: unique identifier
-          href:
-            type: string
-            format: uri
-            description: Hyperlink reference
-          action:
-            type: string
-            description: The action on an entity.
-          name:
-            type: string
-            description: Name of the related entity.
-          role:
-            type: string
-            description: The role of an entity.
-          '@referredType':
-            type: string
-            description: The actual type of the target instance when needed for disambiguation.
-    ChangeRequestRef:
-      description: Reference to a Change Request
-      allOf:
-      - $ref: '#/components/schemas/EntityRef'
-    Attachment:
-      description: Complements the description of an element (for instance a product) through video, pictures...
-      allOf:
-      - $ref: '#/components/schemas/Entity'
-      - properties:
-          id:
-            type: string
-            description: Unique identifier for this particular attachment
-          href:
-            type: string
-            format: uri
-            description: URI for this Attachment
-          attachmentType:
-            type: string
-            description: Attachment type such as video, picture
-          content:
-            type: string
-            format: base64
-            description: The actual contents of the attachment object, if embedded, encoded as base64
-          description:
-            type: string
-            description: A narrative text describing the content of the attachment
-          mimeType:
-            type: string
-            description: Attachment mime type such as extension file for video, picture and document
-          name:
-            type: string
-            description: The name of the attachment
-          url:
-            type: string
-            format: uri
-            description: Uniform Resource Locator, is a web page address (a subset of URI)
-          size:
-            $ref: '#/components/schemas/Quantity'
-            description: The size of the attachment.
-          validFor:
-            $ref: '#/components/schemas/TimePeriod'
-            description: The period of time for which the attachment is valid
-    ExternalReference:
-      description: External reference of the individual or reference in other system
-      allOf:
-      - $ref: '#/components/schemas/Entity'
-      - properties:
-          externalReferenceType:
-            type: string
-            description: Type of the external reference
-          name:
-            type: string
-            description: External reference name
+    RelatedPlaceRefOrValue:
+      description: Related Entity reference. A related place defines a place described by reference or by value linked to a specific entity. The polymorphic attributes @type, @schemaLocation & @referredType are related to the place entity and not the RelatedPlaceRefOrValue class itself
+      properties:
+        role:
+          type: string
+        ref:
+          $ref: '#/components/schemas/PlaceRef'
+          description: A reference to the Place.
+        value:
+          $ref: '#/components/schemas/Place'
+          description: The Place (as a value).
+        '@baseType':
+          type: string
+          description: When sub-classing, this defines the super-class
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+        '@type':
+          type: string
+          description: When sub-classing, this defines the sub-class entity name
     EntityRef:
       description: Base entityRef schema for use in TMForum Open-APIs
       allOf:
