@@ -35,3 +35,32 @@
     detected: '2026-10-20'
   status: not-a-workflow
   arazzo: null
+- slug: bell-canada-first-forum-of-incident-response-and-security-teams
+  label: FIRST (Forum of Incident Response and Security Teams)
+  partner_name: FIRST (Forum of Incident Response and Security Teams)
+  category: Incident response / PSIRT (FIRST member team)
+  type: register
+  channel: standard-directory
+  evidence: https://www.first.org/members/teams/bell_ipcr
+  source: edge
+  relationship: standard-participant
+  contract_reference:
+    register: FIRST member teams (api.first.org/data/v1/teams, public JSON API)
+    standard: FIRST (Forum of Incident Response and Security Teams) membership
+    spec_file: null
+    role: first-member-team
+    registered_name: Bell Canada
+    matched_domain: bell.ca
+    matched_by: domain
+    teams:
+    - id: bell_ipcr
+      team: Bell IPCR
+      team_type: CSIRT
+      member_since: November 28, 2007
+      country: CA
+    signal_note: FIRST full membership of an incident-response / product-security team = participation; team_type
+      names CSIRT / PSIRT / SOC; never a count
+    detected_by: sweep-vulnerability-disclosure-cna.py
+    detected: '2026-10-22'
+  status: not-a-workflow
+  arazzo: null
