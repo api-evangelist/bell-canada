@@ -205,3 +205,9 @@ x-refined-from:
 - bell-canada-resource-inventory-api-openapi.json
 - bell-canada-service-order-api-openapi.json
 - bell-canada-trouble-ticket-api-openapi.json
+x-provenance:
+  method: harvested
+  publisher: Bell Canada
+  source: https://developer.bell.ca/uploads/trouble_ticket_api_v4_1_1_compound_swagger_950417978c.json
+  note: split by refine-openapis from the provider's own published document, verified by fetch (openapi/_original/*.fetch.json);
+    stamped by stamp-openapi-provenance.py (roadmap#793)

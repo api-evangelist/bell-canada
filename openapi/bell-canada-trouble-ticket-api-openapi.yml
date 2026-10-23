@@ -900,3 +900,9 @@ components:
       description: The channel to which the resource reference to. e.g. channel for selling product offerings, channel for opening a trouble ticket etc..
       allOf:
       - $ref: '#/components/schemas/EntityRef'
+x-provenance:
+  method: harvested
+  publisher: Bell Canada
+  source: https://developer.bell.ca/uploads/trouble_ticket_api_v4_1_1_compound_swagger_950417978c.json
+  note: split by refine-openapis from the provider's own published document, verified by fetch (openapi/_original/*.fetch.json);
+    stamped by stamp-openapi-provenance.py (roadmap#793)

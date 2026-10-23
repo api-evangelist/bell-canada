@@ -400,3 +400,9 @@ components:
           '@referredType':
             type: string
             description: The actual type of the target instance when needed for disambiguation.
+x-provenance:
+  method: harvested
+  publisher: Bell Canada
+  source: https://developer.bell.ca/uploads/service_order_swagger_v4_6_a3c597cdf5.json
+  note: split by refine-openapis from the provider's own published document, verified by fetch (openapi/_original/*.fetch.json);
+    stamped by stamp-openapi-provenance.py (roadmap#793)
