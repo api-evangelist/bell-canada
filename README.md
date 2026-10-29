@@ -1,4 +1,4 @@
-# Bell Canada (bell-canada)
+# Bell Canada
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -64,116 +64,139 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Bell Canada is Canada's largest communications company and the principal operating subsidiary of BCE Inc., providing wireless, wireline, internet, television and enterprise network services across Canada, and operating Bell Media as the country's largest broadcaster. As a facilities-based mobile network operator and broadband carrier it sits at the connectivity layer of the telecom value chain, and its public API posture reflects that.
+Bell Canada is Canada's largest communications company and the principal operating subsidiary of BCE Inc., providing wireless, wireline, internet, television and enterprise network services across Canada, and operating Bell Media as the country's largest broadcaster. As a facilities-based mobile network operator and broadband carrier it sits at the connectivity layer of the telecom value chain, and its public API posture reflects that: Bell runs a real developer portal at developer.bell.ca whose only published API suite is a set of four TM Forum Open API aligned B2B service management interfaces — Trouble Ticket (TMF621), Service Order (TMF641), Resource Inventory (TMF639) and Change Management (TMF655) — for enterprise and wholesale partners integrating their ITSM systems with Bell. The Swagger 2.0 definitions and PDF specifications are downloadable without a login, but access to the sandbox and to any live endpoint requires a business registration form and manual approval; no base URL, no credential scheme and no self-serve key issuance is published, and the documented request examples redact the credential as a literal SECURITY_CREDENTIALS placeholder. Bell publishes no first-party CAMARA network APIs and runs no Open Gateway portal of its own. Its network APIs reach developers indirectly, through EnStream LP — the identity and fraud-signal joint venture Bell Mobility owns with Rogers and TELUS — which announced a partnership with Aduna, the Ericsson-and-carrier joint venture, on 27 February 2025 to distribute Canadian Number Verification and SIM Swap signals through Aduna's CAMARA-aligned global channel. Bell is therefore an aggregator-mediated carrier: partner-gated on its own surface, reachable by developers only through a third party.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/bell-canada/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/bell-canada/refs/heads/main/apis.yml)
+**Areas:** Telecommunications · Canada · Mobile Network Operator · Broadband · 5G · IoT · TM Forum · BSS · OSS · Network APIs · CAMARA · Open Gateway
 
-## Tags
+## Bell Canada on APIs.io
 
-- Telecommunications
-- Canada
-- Mobile Network Operator
-- Broadband
-- 5G
-- IoT
-- TM Forum
-- BSS
-- OSS
-- Network APIs
-- CAMARA
-- Open Gateway
-- Identity Verification
-- SIM Swap
-- Enterprise
+Everything profiled for Bell Canada is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/bell-canada/](https://apis.io/providers/bell-canada/)** — or go straight to one of the APIs or properties below.
 
-## Timestamps
+### APIs (9)
 
-- **Created:** 2026-07-25
-- **Modified:** 2026-07-25
+- [Bell Canada Cancel Service Order API](https://apis.io/apis/bell-canada/bell-canada-cancelserviceorder-api/) — The cancelServiceOrder API from Bell Canada — 2 operation(s) for cancelserviceorder.
+- [Bell Canada Change Request API](https://apis.io/apis/bell-canada/bell-canada-changerequest-api/) — The changeRequest API from Bell Canada — 2 operation(s) for changerequest.
+- [Bell Canada events subscription API](https://apis.io/apis/bell-canada/bell-canada-events-subscription-api/) — The events subscription API from Bell Canada — 2 operation(s) for events subscription.
+- [Bell Canada Logical Resource API](https://apis.io/apis/bell-canada/bell-canada-logicalresource-api/) — The logicalResource API from Bell Canada — 2 operation(s) for logicalresource.
+- [Bell Canada notification listeners (client side) API](https://apis.io/apis/bell-canada/bell-canada-notification-listeners-client-side-api/) — The notification listeners (client side) API from Bell Canada — 31 operation(s) for notification listeners (client side).
+- [Bell Canada Physical Resource API](https://apis.io/apis/bell-canada/bell-canada-physicalresource-api/) — The physicalResource API from Bell Canada — 2 operation(s) for physicalresource.
+- [Bell Canada Resource API](https://apis.io/apis/bell-canada/bell-canada-resource-api/) — The Resource API from Bell Canada — 3 operation(s) for resource.
+- [Bell Canada Service Order API](https://apis.io/apis/bell-canada/bell-canada-service-order-api/) — The Service Order API from Bell Canada — 2 operation(s) for service order.
+- [Bell Canada Trouble Ticket API](https://apis.io/apis/bell-canada/bell-canada-trouble-ticket-api/) — The Trouble Ticket API from Bell Canada — 2 operation(s) for trouble ticket.
 
-## The API surface, honestly
+### Published properties
 
-Bell runs a real developer portal at [developer.bell.ca](https://developer.bell.ca) (HTTP 200, confirmed 2026-07-25). It is better than a marketing landing page and short of a self-serve developer platform:
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-- **Documentation is public.** Four API reference pages with operation tables, curl and Python examples, downloadable Swagger 2.0 JSON, and downloadable PDF specifications — all reachable anonymously, no login wall.
-- **Access is not.** There is no self-serve signup, no key issuance, no console, no published base URL (every spec declares the host as the literal placeholder `serverRoot`) and no published credential scheme (examples redact it as `SECURITY_CREDENTIALS`). Credentials come from submitting a business registration form that Bell reviews manually.
+#### AsyncAPI (1)
 
-The entire published surface is BSS/OSS B2B service management aligned to **TM Forum Open APIs**. There is no consumer API, no messaging or voice API, no documented IoT connectivity management API, and no 5G/MEC API despite the portal's 5G and edge computing marketing.
+Event-driven and webhook contracts.
 
-## APIs
+- [Bell Canada Webhooks](https://apis.io/asyncapis/bell-canada/bell-canada-webhooks/)
 
-### Bell Canada Trouble Ticket API
+#### MCP servers (1)
 
-TM Forum TMF621 v4.1.1 (Bell v2.5). Create, patch, retrieve and list trouble tickets against Bell services from a partner ITSM or fault management system.
+Model Context Protocol servers that expose the API to agents.
 
-- **Human URL:** [https://developer.bell.ca/troubleticket](https://developer.bell.ca/troubleticket)
+- [bell-canada](https://apis.io/servers/bell-canada/bell-canada/)
 
-#### Properties
+#### Agentic access (1)
 
-- [Documentation](https://developer.bell.ca/troubleticket)
-- [API Reference](https://developer.bell.ca/troubleticket)
-- [OpenAPI](openapi/bell-canada-trouble-ticket-api-openapi.json) — Swagger 2.0
-- [Specification (PDF)](https://developer.bell.ca/uploads/BELL_Canada_API_Specification_Trouble_Ticket_v2_5_af537009fa.pdf)
+Which operations an agent can call, which act, and which need a human in the loop.
 
-### Bell Canada Service Order API
+- [Bell Canada Agentic Access](https://apis.io/agentic-access/bell-canada/bell-canada-agentic-access/)
 
-TM Forum TMF641 v4.6 (Bell v1.4). Place, amend, cancel and track service requests with Bell over a B2B integration.
+#### Collections (4)
 
-- **Human URL:** [https://developer.bell.ca/serviceorder](https://developer.bell.ca/serviceorder)
+Postman and Open Collection request collections.
 
-#### Properties
+- [API ChangeManagement](https://apis.io/collections/bell-canada/open-bell-canada-change-management-api/)
+- [Resource Inventory Management](https://apis.io/collections/bell-canada/open-bell-canada-resource-inventory-api/)
+- [API ServiceOrdering](https://apis.io/collections/bell-canada/open-bell-canada-service-order-api/)
+- [Trouble Ticket](https://apis.io/collections/bell-canada/open-bell-canada-trouble-ticket-api/)
 
-- [Documentation](https://developer.bell.ca/serviceorder)
-- [API Reference](https://developer.bell.ca/serviceorder)
-- [OpenAPI](openapi/bell-canada-service-order-api-openapi.json) — Swagger 2.0
-- [Specification (PDF)](https://developer.bell.ca/uploads/BELL_Canada_API_Specification_Service_Order_v1_4_1_1bdd4073d5.pdf)
+#### Overlays (4)
 
-### Bell Canada Resource Inventory Management API
+OpenAPI overlays, including conversational phrasing for each operation.
 
-TM Forum TMF639 v4.1 (Bell v1.6). Query and maintain an inventory view of the logical and physical Bell resources supporting a partner's services.
+- [Bell Canada Change Management Api Overlay](https://apis.io/overlays/bell-canada/bell-canada-change-management-api-overlay/)
+- [Bell Canada Resource Inventory Api Overlay](https://apis.io/overlays/bell-canada/bell-canada-resource-inventory-api-overlay/)
+- [Bell Canada Service Order Api Overlay](https://apis.io/overlays/bell-canada/bell-canada-service-order-api-overlay/)
+- [Bell Canada Trouble Ticket Api Overlay](https://apis.io/overlays/bell-canada/bell-canada-trouble-ticket-api-overlay/)
 
-- **Human URL:** [https://developer.bell.ca/resourceinventory](https://developer.bell.ca/resourceinventory)
+#### Security (2)
 
-#### Properties
+Authentication, trust centre, and vulnerability disclosure.
 
-- [Documentation](https://developer.bell.ca/resourceinventory)
-- [API Reference](https://developer.bell.ca/resourceinventory)
-- [OpenAPI](openapi/bell-canada-resource-inventory-api-openapi.json) — Swagger 2.0
-- [Specification (PDF)](https://developer.bell.ca/uploads/BELL_Canada_API_Specification_Resource_Inventory_v1_6_1_855c08df43.pdf)
+- [Bell Canada Authentication](https://apis.io/security/bell-canada/bell-canada-authentication/)
+- [Bell Canada Domain Security](https://apis.io/security/bell-canada/bell-canada-domain-security/)
 
-### Bell Canada Change Management API
+## Where to find this API
 
-TM Forum TMF655 v4.2 (Bell v1.1). Raise, update, retrieve and list change requests against Bell services with guaranteed message delivery.
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
-- **Human URL:** [https://developer.bell.ca/changemanagement](https://developer.bell.ca/changemanagement)
+- [Website](https://www.bell.ca)
+- [Documentation](https://developer.bell.ca/overview)
+- [Getting started](https://developer.bell.ca/faq/apis)
+- [API reference](https://developer.bell.ca/servicemanagement)
+- [Sign up](https://developer.bell.ca/register)
+- [Support](https://developer.bell.ca/contact)
+- [Blog](https://developer.bell.ca/article)
+- [Security](https://support.bell.ca/Billing-and-Accounts/Security_and_privacy)
+- [Terms of service](https://aliant.bell.ca/Legal_and_terms)
+- [GitHub](https://github.com/bellcanada)
 
-#### Properties
+## API Evangelist rating
 
-- [Documentation](https://developer.bell.ca/changemanagement)
-- [API Reference](https://developer.bell.ca/changemanagement)
-- [OpenAPI](openapi/bell-canada-change-management-api-openapi.json) — Swagger 2.0
-- [Specification (PDF)](https://developer.bell.ca/uploads/BELL_Canada_API_Specification_Change_Management_v1_1_1_b54db5b465.pdf)
+**Kin Score 45.6** — developing · rubric 0.25.0 · scored 2026-10-23
 
-## Events
+| Facet | Score |
+|---|---|
+| Discoverability | 62.5 |
+| Contract quality | 52.6 |
+| Contract governance | 4.5 |
+| Operational transparency | 21.1 |
+| Developer ergonomics | 66.1 |
+| Access clarity | 34.2 |
 
-All four APIs implement the TM Forum hub/listener notification pattern — `POST /hub` registers a callback URL, `DELETE /hub/{id}` removes it, and a `POST /listener/{event}` contract exists per event type (create, attribute value change, state/status change, delete, plus resolved, milestone, jeopardy, approval-required, information-required and failure variants). No AsyncAPI document is published.
+**Agent readiness 34.6** — agent-ready
 
-## CAMARA and GSMA Open Gateway
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | documented (partial credit) |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | verified |
+| OpenAPI Examples | documented (partial credit) |
+| Rate Limit Signal | — |
+| Event Surface Described | derived (partial credit) |
+| Agent Skills | derived (partial credit) |
+| Well Known Catalog | yes |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | paginated |
+| Operation Distinctiveness | distinct |
 
-Bell publishes **no first-party CAMARA network APIs**. `opengateway.bell.ca`, `developers.opengateway.bell.ca`, `developers.bell.ca` and `docs.bell.ca` do not resolve; `www.bell.ca/opengateway` returns 404.
+**Regulatory alignment 25.8** — Telecommunications
 
-Bell's network capabilities reach developers through an aggregator instead. **EnStream LP** — the telco identity and fraud-signal joint venture owned by Bell Mobility, Rogers Communications and TELUS Communications — announced a partnership with **Aduna** (the Ericsson-and-carrier joint venture) on **27 February 2025** to bring Canadian **Number Verification** and **SIM Swap** network signals into Aduna's CAMARA-aligned global distribution platform. That is a real, named, dated commercial channel — not a press release with nothing behind it — but the callable surface, the documentation and the developer relationship belong to EnStream and Aduna, not to Bell.
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/bell-canada/](https://apis.io/providers/bell-canada/).
 
-GSMA's Open Gateway supporter pages returned HTTP 403 to anonymous fetches on the review date, so Bell's membership could not be confirmed from a primary source. Bell makes no Open Gateway claim of its own. The 2012 GSMA OneAPI Gateway launched with Bell Mobility, Rogers and TELUS is a different, much older programme and should not be read as Open Gateway participation.
+## How this profile is made
 
-**The sector finding, plainly: Bell owns the network; an aggregator owns the developer.**
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
 
-## Links
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Bell Canada: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
 
-- [Bell Canada](https://www.bell.ca)
-- [BCE Inc.](https://www.bce.ca)
-- [Bell Developer Portal](https://developer.bell.ca)
-- [API Overview](https://developer.bell.ca/overview)
-- [Service Management APIs](https://developer.bell.ca/servicemanagement)
-- [Register for Enterprise API access](https://developer.bell.ca/register)
-- [EnStream](https://enstream.com/)
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/bell-canada/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
